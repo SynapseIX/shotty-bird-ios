@@ -11,7 +11,7 @@ import Social
 
 class MainMenuScene: SKScene {
     
-    let audioManager = AudioManager(file: "menu_music", type: "mp3")
+    let audioManager = AudioManager(file: "menu_music", type: "wav")
     var muted = false
     
     let zPositionBg = CGFloat(-1)
@@ -31,6 +31,7 @@ class MainMenuScene: SKScene {
                 if playButton.containsPoint(location) {
                     if let gameScene = getGameScene() {
                         // TODO: validate if it need to show tutorial scene
+                        gameScene.muted = muted
                         playButton.runAction(GameAction.playExplosionSoundAction)
                         let transition = SKTransition.crossFadeWithDuration(1.0)
                         view?.presentScene(gameScene, transition: transition)

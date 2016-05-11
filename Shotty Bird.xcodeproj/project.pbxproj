@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		973CFB421CE287B300A22A91 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CFB411CE287B300A22A91 /* MainMenuScene.swift */; };
 		973CFB451CE2891B00A22A91 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CFB441CE2891B00A22A91 /* DeviceModel.swift */; };
-		973F6DA61CE2B99700FA4CFA /* menu_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 973F6DA51CE2B99700FA4CFA /* menu_music.mp3 */; };
 		973F6DAA1CE2BD4A00FA4CFA /* GameAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973F6DA91CE2BD4A00FA4CFA /* GameAction.swift */; };
 		978754921CDEC48F0033E261 /* Bird.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978754911CDEC48F0033E261 /* Bird.swift */; };
 		978754951CDED4D40033E261 /* PhysicsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978754941CDED4D40033E261 /* PhysicsCategory.swift */; };
@@ -28,12 +27,13 @@
 		97D181511CE2C76F00FC123A /* Kenney-Blocks.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97D1814F1CE2C76F00FC123A /* Kenney-Blocks.ttf */; };
 		97D181521CE2C76F00FC123A /* Kenney-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97D181501CE2C76F00FC123A /* Kenney-Bold.ttf */; };
 		97D181541CE2CF2F00FC123A /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D181531CE2CF2F00FC123A /* AudioManager.swift */; };
+		97D181561CE2DC2900FC123A /* gameplay_music.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97D181551CE2DC2900FC123A /* gameplay_music.wav */; };
+		97D181581CE2DD3E00FC123A /* menu_music.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97D181571CE2DD3E00FC123A /* menu_music.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		973CFB411CE287B300A22A91 /* MainMenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 		973CFB441CE2891B00A22A91 /* DeviceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
-		973F6DA51CE2B99700FA4CFA /* menu_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = menu_music.mp3; sourceTree = "<group>"; };
 		973F6DA91CE2BD4A00FA4CFA /* GameAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameAction.swift; sourceTree = "<group>"; };
 		978754911CDEC48F0033E261 /* Bird.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bird.swift; sourceTree = "<group>"; };
 		978754941CDED4D40033E261 /* PhysicsCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsCategory.swift; sourceTree = "<group>"; };
@@ -54,6 +54,8 @@
 		97D1814F1CE2C76F00FC123A /* Kenney-Blocks.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kenney-Blocks.ttf"; sourceTree = "<group>"; };
 		97D181501CE2C76F00FC123A /* Kenney-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kenney-Bold.ttf"; sourceTree = "<group>"; };
 		97D181531CE2CF2F00FC123A /* AudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
+		97D181551CE2DC2900FC123A /* gameplay_music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gameplay_music.wav; sourceTree = "<group>"; };
+		97D181571CE2DD3E00FC123A /* menu_music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = menu_music.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +112,8 @@
 		978754961CDEDC860033E261 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				973F6DA51CE2B99700FA4CFA /* menu_music.mp3 */,
+				97D181571CE2DD3E00FC123A /* menu_music.wav */,
+				97D181551CE2DC2900FC123A /* gameplay_music.wav */,
 				978754A21CDEE26C0033E261 /* bird.wav */,
 				978754A01CDEE1100033E261 /* explosion.wav */,
 				9787549E1CDEE1030033E261 /* shot.wav */,
@@ -235,7 +238,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97D181561CE2DC2900FC123A /* gameplay_music.wav in Resources */,
 				97887E0A1CDC21BA00021B4F /* GameScene.sks in Resources */,
+				97D181581CE2DD3E00FC123A /* menu_music.wav in Resources */,
 				97D181511CE2C76F00FC123A /* Kenney-Blocks.ttf in Resources */,
 				97887E161CDC21BA00021B4F /* LaunchScreen.storyboard in Resources */,
 				9787549F1CDEE1030033E261 /* shot.wav in Resources */,
@@ -243,7 +248,6 @@
 				978754A11CDEE1100033E261 /* explosion.wav in Resources */,
 				97D181521CE2C76F00FC123A /* Kenney-Bold.ttf in Resources */,
 				978754A31CDEE26C0033E261 /* bird.wav in Resources */,
-				973F6DA61CE2B99700FA4CFA /* menu_music.mp3 in Resources */,
 				97887E131CDC21BA00021B4F /* Assets.xcassets in Resources */,
 				97887E111CDC21BA00021B4F /* Main.storyboard in Resources */,
 			);

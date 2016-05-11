@@ -10,10 +10,15 @@ import SpriteKit
 
 class GameScene: SKScene {
     
+    let audioManager = AudioManager(file: "gameplay_music", type: "wav")
+    var muted = false
+    
     var lastUpdateTime: CFTimeInterval = 0.0
     var lastSpawnTime: CFTimeInterval = 0.0
     
     override func didMoveToView(view: SKView) {
+        audioManager.tryPlayMusic()
+        
         let background = SKSpriteNode(imageNamed: "background")
         
         if DeviceModel.iPad {
@@ -45,7 +50,7 @@ class GameScene: SKScene {
         
         lastSpawnTime += timeSinceLast
         
-        if lastSpawnTime > 1.5 {
+        if lastSpawnTime > 0.75 {
             lastSpawnTime = 0.0
             spawnBird()
         }
