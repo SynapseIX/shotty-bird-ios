@@ -10,7 +10,7 @@ import SpriteKit
 
 class GameScene: SKScene {
     
-    let audioManager = AudioManager(file: "gameplay_music", type: "wav")
+    let audioManager = AudioManager(file: "gameplay_music_1", type: "wav")
     var muted = false
     
     var lastUpdateTime: CFTimeInterval = 0.0

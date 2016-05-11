@@ -42,7 +42,7 @@ class MainMenuScene: SKScene {
             if let leaderboardButton = childNodeWithName("leaderboardButton") {
                 if leaderboardButton.containsPoint(location) {
                     // TODO: Handle leaderboard button tap
-                    leaderboardButton.runAction(GameAction.playExplosionSoundAction)
+                    leaderboardButton.runAction(GameAction.playBirdSoundAction)
                     print("Leaderboard button tapped")
                 }
             }
@@ -50,21 +50,21 @@ class MainMenuScene: SKScene {
             if let creditsButton = childNodeWithName("creditsButton") {
                 if creditsButton.containsPoint(location) {
                     // TODO: Handle leaderboard button tap
-                    creditsButton.runAction(GameAction.playExplosionSoundAction)
+                    creditsButton.runAction(GameAction.playBirdSoundAction)
                     print("Credits button tapped")
                 }
             }
             
             if let twitterButton = childNodeWithName("twitterButton") {
                 if twitterButton.containsPoint(location) {
-                    twitterButton.runAction(GameAction.playWingFlapSoundAction)
+                    twitterButton.runAction(GameAction.playBirdSoundAction)
                     shareOnTwitter()
                 }
             }
             
             if let facebookButton = childNodeWithName("facebookButton") {
                 if facebookButton.containsPoint(location) {
-                    facebookButton.runAction(GameAction.playWingFlapSoundAction)
+                    facebookButton.runAction(GameAction.playBirdSoundAction)
                     shareOnFacebook()
                 }
             }
