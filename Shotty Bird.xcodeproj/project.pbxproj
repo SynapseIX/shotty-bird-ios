@@ -25,6 +25,9 @@
 		97887E131CDC21BA00021B4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97887E121CDC21BA00021B4F /* Assets.xcassets */; };
 		97887E161CDC21BA00021B4F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97887E141CDC21BA00021B4F /* LaunchScreen.storyboard */; };
 		97D1814D1CE2C43D00FC123A /* GameError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D1814C1CE2C43D00FC123A /* GameError.swift */; };
+		97D181511CE2C76F00FC123A /* Kenney-Blocks.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97D1814F1CE2C76F00FC123A /* Kenney-Blocks.ttf */; };
+		97D181521CE2C76F00FC123A /* Kenney-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97D181501CE2C76F00FC123A /* Kenney-Bold.ttf */; };
+		97D181541CE2CF2F00FC123A /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D181531CE2CF2F00FC123A /* AudioManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +51,9 @@
 		97887E151CDC21BA00021B4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97887E171CDC21BA00021B4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97D1814C1CE2C43D00FC123A /* GameError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameError.swift; sourceTree = "<group>"; };
+		97D1814F1CE2C76F00FC123A /* Kenney-Blocks.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kenney-Blocks.ttf"; sourceTree = "<group>"; };
+		97D181501CE2C76F00FC123A /* Kenney-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kenney-Bold.ttf"; sourceTree = "<group>"; };
+		97D181531CE2CF2F00FC123A /* AudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +78,7 @@
 		973F6DA71CE2B9E200FA4CFA /* Audio Manager */ = {
 			isa = PBXGroup;
 			children = (
+				97D181531CE2CF2F00FC123A /* AudioManager.swift */,
 			);
 			path = "Audio Manager";
 			sourceTree = "<group>";
@@ -136,6 +143,7 @@
 				973F6DA71CE2B9E200FA4CFA /* Audio Manager */,
 				973CFB431CE2891B00A22A91 /* Utils */,
 				978754961CDEDC860033E261 /* Sounds */,
+				97D1814E1CE2C76F00FC123A /* Fonts */,
 				978754931CDED4BA0033E261 /* Physics */,
 				978754901CDEC47E0033E261 /* Nodes */,
 				97887E071CDC21BA00021B4F /* AppDelegate.swift */,
@@ -157,6 +165,15 @@
 				97D1814C1CE2C43D00FC123A /* GameError.swift */,
 			);
 			path = Error;
+			sourceTree = "<group>";
+		};
+		97D1814E1CE2C76F00FC123A /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				97D1814F1CE2C76F00FC123A /* Kenney-Blocks.ttf */,
+				97D181501CE2C76F00FC123A /* Kenney-Bold.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,10 +236,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				97887E0A1CDC21BA00021B4F /* GameScene.sks in Resources */,
+				97D181511CE2C76F00FC123A /* Kenney-Blocks.ttf in Resources */,
 				97887E161CDC21BA00021B4F /* LaunchScreen.storyboard in Resources */,
 				9787549F1CDEE1030033E261 /* shot.wav in Resources */,
 				9787549D1CDEDF310033E261 /* wing_flap.wav in Resources */,
 				978754A11CDEE1100033E261 /* explosion.wav in Resources */,
+				97D181521CE2C76F00FC123A /* Kenney-Bold.ttf in Resources */,
 				978754A31CDEE26C0033E261 /* bird.wav in Resources */,
 				973F6DA61CE2B99700FA4CFA /* menu_music.mp3 in Resources */,
 				97887E131CDC21BA00021B4F /* Assets.xcassets in Resources */,
@@ -245,6 +264,7 @@
 				97887E0E1CDC21BA00021B4F /* GameViewController.swift in Sources */,
 				978754921CDEC48F0033E261 /* Bird.swift in Sources */,
 				97887E081CDC21BA00021B4F /* AppDelegate.swift in Sources */,
+				97D181541CE2CF2F00FC123A /* AudioManager.swift in Sources */,
 				973F6DAA1CE2BD4A00FA4CFA /* GameAction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

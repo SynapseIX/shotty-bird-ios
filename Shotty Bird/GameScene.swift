@@ -51,6 +51,8 @@ class GameScene: SKScene {
         }
     }
     
+    // MARK: - Spawn methods
+    
     private func spawnBird() {
         let newBird = Bird()
         newBird.xScale = 0.2

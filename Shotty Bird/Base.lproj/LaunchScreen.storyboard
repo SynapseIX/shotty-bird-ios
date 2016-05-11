@@ -3,6 +3,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,7 +18,27 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="XBo-jg-ivJ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prof_games" translatesAutoresizingMaskIntoConstraints="NO" id="IjT-dv-VAr">
+                                <rect key="frame" x="225" y="211.5" width="150" height="177"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="IjT-dv-VAr" secondAttribute="height" multiplier="1023:1208" id="Jww-6U-IYA"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="XBo-jg-ivJ" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="0Gp-hR-NBt"/>
+                            <constraint firstItem="IjT-dv-VAr" firstAttribute="width" secondItem="XBo-jg-ivJ" secondAttribute="width" multiplier="0.25" id="CuI-RZ-rwR"/>
+                            <constraint firstItem="IjT-dv-VAr" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Gkh-y0-Kwc"/>
+                            <constraint firstItem="XBo-jg-ivJ" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" id="TXj-Kf-lzO"/>
+                            <constraint firstItem="XBo-jg-ivJ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Y3a-oq-pYR"/>
+                            <constraint firstItem="XBo-jg-ivJ" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="h9L-WR-oMQ"/>
+                            <constraint firstItem="IjT-dv-VAr" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="hu2-SD-iaw"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -24,4 +46,8 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="background" width="2208" height="1242"/>
+        <image name="prof_games" width="1023" height="1208"/>
+    </resources>
 </document>

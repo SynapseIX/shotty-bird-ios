@@ -11,10 +11,14 @@ import Social
 
 class MainMenuScene: SKScene {
     
+    let audioManager = AudioManager(file: "menu_music", type: "mp3")
+    var muted = false
+    
     let zPositionBg = CGFloat(-1)
     let zPositionMenuItems = CGFloat(Int.max)
     
     override func didMoveToView(view: SKView) {
+        audioManager.tryPlayMusic()
         setupUI()
     }
     
@@ -66,9 +70,10 @@ class MainMenuScene: SKScene {
             
             if let muteButton = childNodeWithName("muteButton") {
                 if muteButton.containsPoint(location) {
-                    // TODO: Handle leaderboard button tap
-                    muteButton.runAction(GameAction.playBirdSoundAction)
-                    print("Mute button tapped")
+                    audioManager.audioPlayer?.volume = muted ? 1.0 : 0.0
+                    muted = audioManager.audioPlayer?.volume == 0.0 ? true : false
+                    
+                    // TODO: change node texture accordingly
                 }
             }
         }
