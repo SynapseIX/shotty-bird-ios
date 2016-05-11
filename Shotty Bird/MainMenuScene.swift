@@ -11,7 +11,7 @@ import Social
 
 class MainMenuScene: SKScene {
     
-    let audioManager = AudioManager(file: "menu_music", type: "wav")
+    let audioManager = AudioManager(file: "menu_music", type: "wav", loop: true)
     var muted = false
     
     let zPositionBg = CGFloat(-1)
@@ -31,6 +31,7 @@ class MainMenuScene: SKScene {
                 if playButton.containsPoint(location) {
                     if let gameScene = getGameScene() {
                         // TODO: validate if it need to show tutorial scene
+                        audioManager.stopMusic()
                         gameScene.muted = muted
                         playButton.runAction(GameAction.playExplosionSoundAction)
                         let transition = SKTransition.crossFadeWithDuration(1.0)
@@ -90,6 +91,9 @@ class MainMenuScene: SKScene {
         if DeviceModel.iPad {
             background.xScale = 0.7
             background.yScale = 0.7
+        } else if DeviceModel.iPhone4 {
+            background.xScale = 0.65
+            background.yScale = 0.65
         } else {
             background.xScale = 0.55
             background.yScale = 0.55
@@ -202,6 +206,8 @@ class MainMenuScene: SKScene {
     
     private func getGameScene() -> GameScene? {
         if let scene = GameScene(fileNamed:"GameScene") {
+            scene.scaleMode = .AspectFill
+            
             view?.showsFPS = true
             view?.showsNodeCount = true
             view?.showsPhysics = true

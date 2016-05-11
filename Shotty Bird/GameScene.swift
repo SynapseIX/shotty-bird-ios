@@ -10,11 +10,15 @@ import SpriteKit
 
 class GameScene: SKScene {
     
-    let audioManager = AudioManager(file: "gameplay_music_1", type: "wav")
+    let audioManager = AudioManager(file: "gameplay_music_1", type: "wav", loop: true)
     var muted = false
+    
+    let zPositionBg = CGFloat(-1)
     
     var lastUpdateTime: CFTimeInterval = 0.0
     var lastSpawnTime: CFTimeInterval = 0.0
+    
+    var lives = 3
     
     override func didMoveToView(view: SKView) {
         audioManager.tryPlayMusic()
@@ -25,15 +29,15 @@ class GameScene: SKScene {
             background.xScale = 0.7
             background.yScale = 0.7
         } else if DeviceModel.iPhone4 {
-            background.xScale = 0.55
-            background.yScale = 0.55
-        } else {
             background.xScale = 0.65
             background.yScale = 0.65
+        } else {
+            background.xScale = 0.55
+            background.yScale = 0.55
         }
         
         background.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame))
-        background.zPosition = -1
+        background.zPosition = zPositionBg
         addChild(background)
         
         physicsWorld.contactDelegate = self
@@ -85,7 +89,31 @@ class GameScene: SKScene {
         let actualDuration = Double(arc4random()) / Double(UInt32.max) * abs(minDuration - maxDuration) + min(minDuration, maxDuration)
         
         let moveAction = SKAction.moveTo(CGPoint(x: -newBird.size.width / 2, y: newBird.position.y), duration: actualDuration)
-        newBird.runAction(SKAction.sequence([GameAction.playWingFlapSoundAction, GameAction.rotationAction, moveAction, GameAction.playBirdSoundAction, GameAction.finishedMovedAction]))
+        
+        newBird.runAction(SKAction.sequence([GameAction.playWingFlapSoundAction, GameAction.rotationAction, moveAction, GameAction.playBirdSoundAction, GameAction.finishedMovedAction])) {
+            if newBird.position == CGPoint(x: -newBird.size.width / 2, y: newBird.position.y) {
+                self.lives -= 1
+                
+                if self.lives == 2 {
+                    
+                } else if self.lives == 1 {
+                
+                } else if self.lives == 0 {
+                    self.audioManager.stopMusic()
+                    let transition = SKTransition.doorsCloseHorizontalWithDuration(0.5)
+                    self.view?.presentScene(self.getGameOverScene(), transition: transition)
+                }
+            }
+        }
+    }
+    
+    private func getGameOverScene() -> GameOverScene {
+        // This is the "default" scene frame size provided by SpriteKit: print(scene.size)
+        let scene = GameOverScene(size: CGSize(width: 1024.0, height: 768.0))
+        scene.muted = muted
+        scene.scaleMode = .AspectFill
+        
+        return scene
     }
     
 }

@@ -16,17 +16,23 @@ class AudioManager: NSObject {
     var musicPlaying = false
     var musicInterrupted = false
     
-    init(file:String?, type:String?) {
+    init(file:String?, type:String?, loop: Bool) {
         super.init()
         
         configureAudioSession()
-        configureAudioPlayer(file, type: type)
+        configureAudioPlayer(file, type: type, loop: loop)
     }
     
     func tryPlayMusic() {
         audioPlayer?.prepareToPlay()
         audioPlayer?.play()
         musicPlaying = true
+    }
+    
+    func stopMusic() {
+        if musicPlaying {
+            audioPlayer?.stop()
+        }
     }
     
     // MARK: - Audio session and player setup
@@ -53,7 +59,7 @@ class AudioManager: NSObject {
         }
     }
     
-    private func configureAudioPlayer(file: String?, type: String?) {
+    private func configureAudioPlayer(file: String?, type: String?, loop: Bool) {
         let backgroundMusicPath = NSBundle.mainBundle().pathForResource(file, ofType: type)
         let backgroundMusicURL = NSURL(fileURLWithPath: backgroundMusicPath!)
         
@@ -62,7 +68,7 @@ class AudioManager: NSObject {
             
             if let audioPlayer = audioPlayer {
                 audioPlayer.delegate = self
-                audioPlayer.numberOfLoops = -1
+                audioPlayer.numberOfLoops = loop ? -1 : 0
             }
         } catch let error as NSError {
             NSLog("Error when trying to setup the audio player: \(error.userInfo)")
