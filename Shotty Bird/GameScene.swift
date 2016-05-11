@@ -20,11 +20,17 @@ class GameScene: SKScene {
     
     override func didMoveToView(view: SKView) {
         let background = SKSpriteNode(imageNamed: "background")
+        
+        if DeviceModel.iPad {
+            background.xScale = 1.0
+            background.yScale = 1.0
+        } else {
+            background.xScale = 0.55
+            background.yScale = 0.55
+        }
+        
         background.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame))
         background.zPosition = -1
-        background.xScale = 0.65
-        background.yScale = 0.65
-        
         addChild(background)
         
         physicsWorld.contactDelegate = self
@@ -41,7 +47,7 @@ class GameScene: SKScene {
         
         lastSpawnTime += timeSinceLast
         
-        if lastSpawnTime > 0.5 {
+        if lastSpawnTime > 1.5 {
             lastSpawnTime = 0.0
             spawnBird()
         }
@@ -63,8 +69,8 @@ class GameScene: SKScene {
         addChild(newBird)
         
         // Setup bird node Physics
-        //newBird.physicsBody = SKPhysicsBody(texture: newBird.texture!, size: newBird.texture!.size())
-        newBird.physicsBody = SKPhysicsBody(rectangleOfSize: newBird.size)
+        newBird.physicsBody = SKPhysicsBody(texture: newBird.texture!, size: newBird.texture!.size())
+        newBird.physicsBody?.dynamic = false
         newBird.physicsBody?.restitution = 1.0
         newBird.physicsBody?.collisionBitMask = PhysicsCategory.Bird
         

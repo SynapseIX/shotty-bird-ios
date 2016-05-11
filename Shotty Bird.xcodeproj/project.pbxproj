@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		973CFB421CE287B300A22A91 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CFB411CE287B300A22A91 /* MainMenuScene.swift */; };
+		973CFB451CE2891B00A22A91 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CFB441CE2891B00A22A91 /* DeviceModel.swift */; };
+		973F6DA61CE2B99700FA4CFA /* menu_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 973F6DA51CE2B99700FA4CFA /* menu_music.mp3 */; };
 		978754921CDEC48F0033E261 /* Bird.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978754911CDEC48F0033E261 /* Bird.swift */; };
 		978754951CDED4D40033E261 /* PhysicsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978754941CDED4D40033E261 /* PhysicsCategory.swift */; };
 		9787549D1CDEDF310033E261 /* wing_flap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9787549C1CDEDF310033E261 /* wing_flap.wav */; };
@@ -23,6 +26,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		973CFB411CE287B300A22A91 /* MainMenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
+		973CFB441CE2891B00A22A91 /* DeviceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
+		973F6DA51CE2B99700FA4CFA /* menu_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = menu_music.mp3; sourceTree = "<group>"; };
 		978754911CDEC48F0033E261 /* Bird.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bird.swift; sourceTree = "<group>"; };
 		978754941CDED4D40033E261 /* PhysicsCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsCategory.swift; sourceTree = "<group>"; };
 		9787549C1CDEDF310033E261 /* wing_flap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = wing_flap.wav; sourceTree = "<group>"; };
@@ -51,6 +57,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		973CFB431CE2891B00A22A91 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				973CFB441CE2891B00A22A91 /* DeviceModel.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		973F6DA71CE2B9E200FA4CFA /* Audio Manager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Audio Manager";
+			sourceTree = "<group>";
+		};
 		978754901CDEC47E0033E261 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
@@ -70,6 +91,7 @@
 		978754961CDEDC860033E261 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				973F6DA51CE2B99700FA4CFA /* menu_music.mp3 */,
 				978754A21CDEE26C0033E261 /* bird.wav */,
 				978754A01CDEE1100033E261 /* explosion.wav */,
 				9787549E1CDEE1030033E261 /* shot.wav */,
@@ -97,12 +119,15 @@
 		97887E061CDC21BA00021B4F /* Shotty Bird */ = {
 			isa = PBXGroup;
 			children = (
+				973F6DA71CE2B9E200FA4CFA /* Audio Manager */,
+				973CFB431CE2891B00A22A91 /* Utils */,
 				978754961CDEDC860033E261 /* Sounds */,
 				978754931CDED4BA0033E261 /* Physics */,
 				978754901CDEC47E0033E261 /* Nodes */,
 				97887E071CDC21BA00021B4F /* AppDelegate.swift */,
 				97887E091CDC21BA00021B4F /* GameScene.sks */,
 				97887E0B1CDC21BA00021B4F /* GameScene.swift */,
+				973CFB411CE287B300A22A91 /* MainMenuScene.swift */,
 				97887E0D1CDC21BA00021B4F /* GameViewController.swift */,
 				97887E0F1CDC21BA00021B4F /* Main.storyboard */,
 				97887E121CDC21BA00021B4F /* Assets.xcassets */,
@@ -177,6 +202,7 @@
 				9787549D1CDEDF310033E261 /* wing_flap.wav in Resources */,
 				978754A11CDEE1100033E261 /* explosion.wav in Resources */,
 				978754A31CDEE26C0033E261 /* bird.wav in Resources */,
+				973F6DA61CE2B99700FA4CFA /* menu_music.mp3 in Resources */,
 				97887E131CDC21BA00021B4F /* Assets.xcassets in Resources */,
 				97887E111CDC21BA00021B4F /* Main.storyboard in Resources */,
 			);
@@ -189,7 +215,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				973CFB421CE287B300A22A91 /* MainMenuScene.swift in Sources */,
 				978754951CDED4D40033E261 /* PhysicsCategory.swift in Sources */,
+				973CFB451CE2891B00A22A91 /* DeviceModel.swift in Sources */,
 				97887E0C1CDC21BA00021B4F /* GameScene.swift in Sources */,
 				97887E0E1CDC21BA00021B4F /* GameViewController.swift in Sources */,
 				978754921CDEC48F0033E261 /* Bird.swift in Sources */,
