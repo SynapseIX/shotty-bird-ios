@@ -21,6 +21,7 @@ class GameScene: SKScene {
     var lives = 3
     
     override func didMoveToView(view: SKView) {
+        audioManager.audioPlayer?.volume = !muted ? 1.0 : 0.0
         audioManager.tryPlayMusic()
         
         let background = SKSpriteNode(imageNamed: "background")
@@ -90,7 +91,9 @@ class GameScene: SKScene {
         
         let moveAction = SKAction.moveTo(CGPoint(x: -newBird.size.width / 2, y: newBird.position.y), duration: actualDuration)
         
-        newBird.runAction(SKAction.sequence([GameAction.playWingFlapSoundAction, GameAction.rotationAction, moveAction, GameAction.playBirdSoundAction, GameAction.finishedMovedAction])) {
+        let sequence = muted ? SKAction.sequence([GameAction.rotationAction, moveAction, GameAction.finishedMovedAction]) : SKAction.sequence([GameAction.playWingFlapSoundAction, GameAction.rotationAction, moveAction, GameAction.playBirdSoundAction, GameAction.finishedMovedAction])
+        
+        newBird.runAction(sequence) {
             if newBird.position == CGPoint(x: -newBird.size.width / 2, y: newBird.position.y) {
                 self.lives -= 1
                 

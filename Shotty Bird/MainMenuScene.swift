@@ -18,6 +18,7 @@ class MainMenuScene: SKScene {
     let zPositionMenuItems = CGFloat(Int.max)
     
     override func didMoveToView(view: SKView) {
+        audioManager.audioPlayer?.volume = !muted ? 1.0 : 0.0
         audioManager.tryPlayMusic()
         setupUI()
     }
@@ -33,7 +34,11 @@ class MainMenuScene: SKScene {
                         // TODO: validate if it need to show tutorial scene
                         audioManager.stopMusic()
                         gameScene.muted = muted
-                        playButton.runAction(GameAction.playExplosionSoundAction)
+                        
+                        if !muted {
+                            playButton.runAction(GameAction.playExplosionSoundAction)
+                        }
+                    
                         let transition = SKTransition.crossFadeWithDuration(1.0)
                         view?.presentScene(gameScene, transition: transition)
                     }
@@ -43,7 +48,9 @@ class MainMenuScene: SKScene {
             if let leaderboardButton = childNodeWithName("leaderboardButton") {
                 if leaderboardButton.containsPoint(location) {
                     // TODO: Handle leaderboard button tap
-                    leaderboardButton.runAction(GameAction.playBirdSoundAction)
+                    if !muted {
+                        leaderboardButton.runAction(GameAction.playBirdSoundAction)
+                    }
                     print("Leaderboard button tapped")
                 }
             }
@@ -51,14 +58,20 @@ class MainMenuScene: SKScene {
             if let creditsButton = childNodeWithName("creditsButton") {
                 if creditsButton.containsPoint(location) {
                     // TODO: Handle leaderboard button tap
-                    creditsButton.runAction(GameAction.playBirdSoundAction)
+                    if !muted {
+                        creditsButton.runAction(GameAction.playBirdSoundAction)
+                    }
+                    
                     print("Credits button tapped")
                 }
             }
             
             if let twitterButton = childNodeWithName("twitterButton") {
                 if twitterButton.containsPoint(location) {
-                    twitterButton.runAction(GameAction.playBirdSoundAction)
+                    if !muted {
+                        twitterButton.runAction(GameAction.playBirdSoundAction)
+                    }
+                    
                     shareOnTwitter()
                 }
             }

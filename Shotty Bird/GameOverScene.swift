@@ -17,6 +17,9 @@ class GameOverScene: SKScene {
     let zPositionMenuItems = CGFloat(Int.max)
 
     override func didMoveToView(view: SKView) {
+        audioManager.audioPlayer?.volume = !muted ? 1.0 : 0.0
+        audioManager.tryPlayMusic()
+        
         let background = SKSpriteNode(imageNamed: "background")
         
         if DeviceModel.iPad {
@@ -41,8 +44,6 @@ class GameOverScene: SKScene {
         gameOverLabel.zPosition = zPositionMenuItems
         gameOverLabel.position = CGPoint(x:CGRectGetMidX(frame), y:CGRectGetMidY(frame))
         addChild(gameOverLabel)
-        
-        audioManager.tryPlayMusic()
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -55,6 +56,7 @@ class GameOverScene: SKScene {
     private func getMainMenuScene() -> MainMenuScene {
         // This is the "default" scene frame size provided by SpriteKit: print(scene.size)
         let scene = MainMenuScene(size: CGSize(width: 1024.0, height: 768.0))
+        scene.muted = muted
         scene.scaleMode = .AspectFill
         
         return scene
