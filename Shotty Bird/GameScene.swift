@@ -13,20 +13,18 @@ class GameScene: SKScene {
     var lastUpdateTime: CFTimeInterval = 0.0
     var lastSpawnTime: CFTimeInterval = 0.0
     
-    let rotationAction = SKAction.rotateByAngle(CGFloat(M_PI), duration: 0)
-    let playBirdSoundAction = SKAction.playSoundFileNamed("bird.wav", waitForCompletion: false)
-    let playWingFlapSoundAction = SKAction.playSoundFileNamed("wing_flap.wav", waitForCompletion: false)
-    let finishedMovedAction = SKAction.removeFromParent()
-    
     override func didMoveToView(view: SKView) {
         let background = SKSpriteNode(imageNamed: "background")
         
         if DeviceModel.iPad {
-            background.xScale = 1.0
-            background.yScale = 1.0
-        } else {
+            background.xScale = 0.7
+            background.yScale = 0.7
+        } else if DeviceModel.iPhone4 {
             background.xScale = 0.55
             background.yScale = 0.55
+        } else {
+            background.xScale = 0.65
+            background.yScale = 0.65
         }
         
         background.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame))
@@ -80,7 +78,7 @@ class GameScene: SKScene {
         let actualDuration = Double(arc4random()) / Double(UInt32.max) * abs(minDuration - maxDuration) + min(minDuration, maxDuration)
         
         let moveAction = SKAction.moveTo(CGPoint(x: -newBird.size.width / 2, y: newBird.position.y), duration: actualDuration)
-        newBird.runAction(SKAction.sequence([playWingFlapSoundAction, rotationAction, moveAction, playBirdSoundAction, finishedMovedAction]))
+        newBird.runAction(SKAction.sequence([GameAction.playWingFlapSoundAction, GameAction.rotationAction, moveAction, GameAction.playBirdSoundAction, GameAction.finishedMovedAction]))
     }
     
 }

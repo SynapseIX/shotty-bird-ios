@@ -18,6 +18,64 @@ class MainMenuScene: SKScene {
         setupUI()
     }
     
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        // TODO: handle button touches
+        for touch in touches {
+            let location = touch.locationInNode(self)
+            
+            if let playButton = childNodeWithName("playButton") {
+                if playButton.containsPoint(location) {
+                    if let gameScene = getGameScene() {
+                        // TODO: validate if it need to show tutorial scene
+                        playButton.runAction(GameAction.playExplosionSoundAction)
+                        let transition = SKTransition.crossFadeWithDuration(1.0)
+                        view?.presentScene(gameScene, transition: transition)
+                    }
+                }
+            }
+            
+            if let leaderboardButton = childNodeWithName("leaderboardButton") {
+                if leaderboardButton.containsPoint(location) {
+                    // TODO: Handle leaderboard button tap
+                    leaderboardButton.runAction(GameAction.playExplosionSoundAction)
+                    print("Leaderboard button tapped")
+                }
+            }
+            
+            if let creditsButton = childNodeWithName("creditsButton") {
+                if creditsButton.containsPoint(location) {
+                    // TODO: Handle leaderboard button tap
+                    creditsButton.runAction(GameAction.playExplosionSoundAction)
+                    print("Credits button tapped")
+                }
+            }
+            
+            if let twitterButton = childNodeWithName("twitterButton") {
+                if twitterButton.containsPoint(location) {
+                    twitterButton.runAction(GameAction.playWingFlapSoundAction)
+                    shareOnTwitter()
+                }
+            }
+            
+            if let facebookButton = childNodeWithName("facebookButton") {
+                if facebookButton.containsPoint(location) {
+                    facebookButton.runAction(GameAction.playWingFlapSoundAction)
+                    shareOnFacebook()
+                }
+            }
+            
+            if let muteButton = childNodeWithName("muteButton") {
+                if muteButton.containsPoint(location) {
+                    // TODO: Handle leaderboard button tap
+                    muteButton.runAction(GameAction.playBirdSoundAction)
+                    print("Mute button tapped")
+                }
+            }
+        }
+    }
+    
+    // MARK: - UI methods
+    
     private func setupUI() {
         // TODO: implement parallax scrolling background
         // Add background
@@ -100,7 +158,7 @@ class MainMenuScene: SKScene {
         } else {
             twitterButton.position = CGPoint(x: CGRectGetMinX(frame) + twitterButton.size.width / 2 + 20, y: CGRectGetMinY(frame) + twitterButton.size.height * 2)
         }
-
+        
         twitterButton.name = "twitterButton"
         twitterButton.zPosition = zPositionMenuItems
         addChild(twitterButton)
@@ -136,58 +194,6 @@ class MainMenuScene: SKScene {
         addChild(muteButton)
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        // TODO: handle button touches
-        for touch in touches {
-            let location = touch.locationInNode(self)
-            
-            if let playButton = childNodeWithName("playButton") {
-                if playButton.containsPoint(location) {
-                    if let gameScene = getGameScene() {
-                        // TODO: validate if it need to show tutorial scene
-                        let transition = SKTransition.crossFadeWithDuration(1.0)
-                        view?.presentScene(gameScene, transition: transition)
-                    }
-                }
-            }
-            
-            if let leaderboardButton = childNodeWithName("leaderboardButton") {
-                if leaderboardButton.containsPoint(location) {
-                    // TODO: Handle leaderboard button tap
-                    print("Leaderboard button tapped")
-                }
-            }
-            
-            if let creditsButton = childNodeWithName("creditsButton") {
-                if creditsButton.containsPoint(location) {
-                    // TODO: Handle leaderboard button tap
-                    print("Credits button tapped")
-                }
-            }
-            
-            if let twitterButton = childNodeWithName("twitterButton") {
-                if twitterButton.containsPoint(location) {
-                    // TODO: Handle leaderboard button tap
-                    print("Twitter button tapped")
-                }
-            }
-            
-            if let facebookButton = childNodeWithName("facebookButton") {
-                if facebookButton.containsPoint(location) {
-                    // TODO: Handle leaderboard button tap
-                    print("Facebook button tapped")
-                }
-            }
-            
-            if let muteButton = childNodeWithName("muteButton") {
-                if muteButton.containsPoint(location) {
-                    // TODO: Handle leaderboard button tap
-                    print("Mute button tapped")
-                }
-            }
-        }
-    }
-    
     private func getGameScene() -> GameScene? {
         if let scene = GameScene(fileNamed:"GameScene") {
             view?.showsFPS = true
@@ -198,6 +204,44 @@ class MainMenuScene: SKScene {
         }
         
         return nil
+    }
+    
+    // MARK: - Social methods
+    
+    private func shareOnTwitter() {
+        let gameViewController = view?.window?.rootViewController as! GameViewController
+        
+        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter) {
+            let twitterController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+            
+            twitterController.completionHandler = { (result: SLComposeViewControllerResult) -> Void in
+                twitterController.dismissViewControllerAnimated(true, completion: nil)
+            }
+            
+            twitterController.setInitialText("Improving my shooting skills with #ShottyBird, by @itsProf. Available on the App Store. https://appsto.re/us/shottybird.i")
+            
+            gameViewController.presentViewController(twitterController, animated: true, completion: nil)
+        } else {
+            GameError.handleAsAlert("Sign in to Twitter", message: "You are not signed in with Twitter. On the Home screen, launch Settings, tap Twitter, and sign in to your account.", presentingViewController: gameViewController, completion: nil)
+        }
+    }
+    
+    private func shareOnFacebook() {
+        let gameViewController = view?.window?.rootViewController as! GameViewController
+        
+        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
+            let twitterController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+            
+            twitterController.completionHandler = { (result: SLComposeViewControllerResult) -> Void in
+                twitterController.dismissViewControllerAnimated(true, completion: nil)
+            }
+            
+            twitterController.setInitialText("Improving my shooting skills with Shotty Bird. Available on the App Store. https://appsto.re/us/shottybird.i")
+            
+            gameViewController.presentViewController(twitterController, animated: true, completion: nil)
+        } else {
+            GameError.handleAsAlert("Sign in to Facebook", message: "You are not signed in with Facebook. On the Home screen, launch Settings, tap Facebook, and sign in to your account.", presentingViewController: gameViewController, completion: nil)
+        }
     }
     
 }

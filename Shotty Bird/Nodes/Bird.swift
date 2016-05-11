@@ -24,7 +24,7 @@ class Bird: SKSpriteNode {
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        runAction(SKAction.playSoundFileNamed("explosion.wav", waitForCompletion: false))
+        runAction(GameAction.playExplosionSoundAction)
         
         userInteractionEnabled = false
         physicsBody?.dynamic = false
