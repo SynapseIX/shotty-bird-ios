@@ -14,6 +14,7 @@ class GameScene: SKScene {
     var muted = false
     
     let zPositionBg = CGFloat(-1)
+    let zPositionMenuItems = CGFloat(Int.max)
     
     var lastUpdateTime: CFTimeInterval = 0.0
     var lastSpawnTime: CFTimeInterval = 0.0
@@ -43,6 +44,81 @@ class GameScene: SKScene {
         
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = CGVector(dx: 0.0, dy: 0.0)
+        
+        // Add first life node
+        let firstLife = SKSpriteNode(imageNamed: "life")
+        
+        if DeviceModel.iPhone4 {
+            firstLife.position = CGPoint(x: CGRectGetMinX(frame) + firstLife.size.width / 2 + 20, y: CGRectGetMaxY(frame) - firstLife.size.height - 20)
+        } else if DeviceModel.iPad {
+            firstLife.position = CGPoint(x: CGRectGetMinX(frame) + firstLife.size.width / 2 + 20, y: CGRectGetMaxY(frame) - firstLife.size.height / 2 - 20)
+        } else {
+            firstLife.position = CGPoint(x: CGRectGetMinX(frame) + firstLife.size.width / 2 + 20, y: CGRectGetMaxY(frame) - firstLife.size.height * 2)
+        }
+        
+        firstLife.name = "life1"
+        firstLife.zPosition = zPositionMenuItems
+        addChild(firstLife)
+        
+        // Add second life node
+        let secondLife = SKSpriteNode(imageNamed: "life")
+        
+        if DeviceModel.iPhone4 {
+            secondLife.position = CGPoint(x: CGRectGetMinX(frame) + secondLife.size.width * 2 - 10, y: CGRectGetMaxY(frame) - secondLife.size.height - 20)
+        } else if DeviceModel.iPad {
+            secondLife.position = CGPoint(x: CGRectGetMinX(frame) + secondLife.size.width * 2 - 10, y: CGRectGetMaxY(frame) - secondLife.size.height / 2 - 20)
+        } else {
+            secondLife.position = CGPoint(x: CGRectGetMinX(frame) + secondLife.size.width * 2 - 10, y: CGRectGetMaxY(frame) - secondLife.size.height * 2)
+        }
+        
+        secondLife.name = "life2"
+        secondLife.zPosition = zPositionMenuItems
+        addChild(secondLife)
+        
+        // Add third life node
+        let thirdLife = SKSpriteNode(imageNamed: "life")
+        
+        if DeviceModel.iPhone4 {
+            thirdLife.position = CGPoint(x: CGRectGetMinX(frame) + thirdLife.size.width * 3 - 5, y: CGRectGetMaxY(frame) - thirdLife.size.height - 20)
+        } else if DeviceModel.iPad {
+            thirdLife.position = CGPoint(x: CGRectGetMinX(frame) + thirdLife.size.width * 3 - 5, y: CGRectGetMaxY(frame) - thirdLife.size.height / 2 - 20)
+        } else {
+            thirdLife.position = CGPoint(x: CGRectGetMinX(frame) + thirdLife.size.width * 3 - 5, y: CGRectGetMaxY(frame) - thirdLife.size.height * 2)
+        }
+        
+        thirdLife.name = "life3"
+        thirdLife.zPosition = zPositionMenuItems
+        addChild(thirdLife)
+        
+        // Add mute button
+        let muteButton = SKSpriteNode(imageNamed: "mute_button")
+        
+        if DeviceModel.iPhone4 {
+            muteButton.position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height + 20)
+        } else if DeviceModel.iPad {
+            muteButton.position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height - 20)
+        } else {
+            muteButton.position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height * 2)
+        }
+        
+        muteButton.name = "muteButton"
+        muteButton.zPosition = zPositionMenuItems
+        addChild(muteButton)
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        for touch in touches {
+            let location = touch.locationInNode(self)
+            
+            if let muteButton = childNodeWithName("muteButton") {
+                if muteButton.containsPoint(location) {
+                    audioManager.audioPlayer?.volume = muted ? 1.0 : 0.0
+                    muted = audioManager.audioPlayer?.volume == 0.0 ? true : false
+                    
+                    // TODO: change node texture accordingly
+                }
+            }
+        }
     }
    
     override func update(currentTime: CFTimeInterval) {
