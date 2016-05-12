@@ -55,7 +55,7 @@ class GameScene: SKScene {
         
         lastSpawnTime += timeSinceLast
         
-        if lastSpawnTime > 0.75 {
+        if lastSpawnTime > 1.5 {
             lastSpawnTime = 0.0
             spawnBird()
         }
@@ -85,7 +85,7 @@ class GameScene: SKScene {
         newBird.physicsBody?.collisionBitMask = PhysicsCategory.Bird
         
         // Setup actions
-        let minDuration = 1.5
+        let minDuration = 2.0
         let maxDuration = 4.0
         let actualDuration = Double(arc4random()) / Double(UInt32.max) * abs(minDuration - maxDuration) + min(minDuration, maxDuration)
         
