@@ -93,6 +93,7 @@ class GameScene: SKScene {
         
         let sequence = muted ? SKAction.sequence([GameAction.rotationAction, moveAction, GameAction.finishedMovedAction]) : SKAction.sequence([GameAction.playWingFlapSoundAction, GameAction.rotationAction, moveAction, GameAction.playBirdSoundAction, GameAction.finishedMovedAction])
         
+        // Runs action sequence and executes completion closure to determine if a bird escaped
         newBird.runAction(sequence) {
             if newBird.position == CGPoint(x: -newBird.size.width / 2, y: newBird.position.y) {
                 self.lives -= 1
