@@ -13,7 +13,7 @@ class GameScene: SKScene {
     var bgLayers = [String]()
     var parallaxBackground: ParallaxBackground?
     
-    let audioManager = AudioManager(file: "gameplay_music_1", type: "wav", loop: true)
+    var audioManager = AudioManager(file: "gameplay_music_1", type: "wav", loop: true)
     var muted = false
     
     let zPositionBg = CGFloat(-1)
@@ -143,9 +143,26 @@ class GameScene: SKScene {
         
         lastSpawnTime += timeSinceLast
         
-        if lastSpawnTime > 1.0 {
-            lastSpawnTime = 0.0
-            spawnBird()
+        if score < 15 {
+            if lastSpawnTime > 1.5 {
+                lastSpawnTime = 0.0
+                spawnBird()
+            }
+        } else if score >= 15 && score < 30 {
+            if lastSpawnTime > 1.0 {
+                lastSpawnTime = 0.0
+                spawnBird()
+            }
+        } else if score >= 30 && score < 40 {
+            if lastSpawnTime > 0.75 {
+                lastSpawnTime = 0.0
+                spawnBird()
+            }
+        } else if score >= 40 {
+            if lastSpawnTime > 0.5 {
+                lastSpawnTime = 0.0
+                spawnBird()
+            }
         }
     }
     
@@ -174,8 +191,8 @@ class GameScene: SKScene {
         newBird.physicsBody?.collisionBitMask = PhysicsCategory.Bird
         
         // Setup actions
-        let minDuration = 2.0
-        let maxDuration = 4.0
+        let minDuration = 2.00
+        let maxDuration = 3.75
         let actualDuration = Double(arc4random()) / Double(UInt32.max) * abs(minDuration - maxDuration) + min(minDuration, maxDuration)
         
         let moveAction = SKAction.moveTo(CGPoint(x: -newBird.size.width / 2, y: newBird.position.y), duration: actualDuration)
@@ -221,6 +238,18 @@ extension GameScene: GameScoreDelegate {
     
     func updateScore() {
         score += 1
+        
+        if score == 10 {
+            audioManager = AudioManager(file: "gameplay_music_2", type: "wav", loop: true)
+            audioManager.tryPlayMusic()
+            audioManager.audioPlayer?.rate = 1.5
+        }
+        
+        if score == 25 {
+            audioManager = AudioManager(file: "gameplay_music_3", type: "wav", loop: true)
+            audioManager.tryPlayMusic()
+            audioManager.audioPlayer?.rate = 2.0
+        }
         
         if let node = childNodeWithName("score") as? SKLabelNode {
             if score == 10 || score == 100 || score == 1000 {
