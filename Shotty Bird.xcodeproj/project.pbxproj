@@ -23,14 +23,12 @@
 		97887E111CDC21BA00021B4F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97887E0F1CDC21BA00021B4F /* Main.storyboard */; };
 		97887E131CDC21BA00021B4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97887E121CDC21BA00021B4F /* Assets.xcassets */; };
 		97887E161CDC21BA00021B4F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97887E141CDC21BA00021B4F /* LaunchScreen.storyboard */; };
+		97C1493B1CE5B3AE0054CD4A /* gameplay_music.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97C1493A1CE5B3AE0054CD4A /* gameplay_music.wav */; };
 		97D1814D1CE2C43D00FC123A /* GameError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D1814C1CE2C43D00FC123A /* GameError.swift */; };
 		97D181511CE2C76F00FC123A /* Kenney-Blocks.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97D1814F1CE2C76F00FC123A /* Kenney-Blocks.ttf */; };
 		97D181521CE2C76F00FC123A /* Kenney-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97D181501CE2C76F00FC123A /* Kenney-Bold.ttf */; };
 		97D181541CE2CF2F00FC123A /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D181531CE2CF2F00FC123A /* AudioManager.swift */; };
 		97D1815E1CE2E4C700FC123A /* menu_music.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97D1815D1CE2E4C700FC123A /* menu_music.wav */; };
-		97D181601CE2E4E900FC123A /* gameplay_music_1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97D1815F1CE2E4E900FC123A /* gameplay_music_1.wav */; };
-		97D181621CE3A89200FC123A /* gameplay_music_2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97D181611CE3A89200FC123A /* gameplay_music_2.wav */; };
-		97D181641CE3A96700FC123A /* gameplay_music_3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97D181631CE3A96700FC123A /* gameplay_music_3.wav */; };
 		97D181661CE3AD5800FC123A /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D181651CE3AD5800FC123A /* GameOverScene.swift */; };
 		97D1818A1CE3B66700FC123A /* game_over_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 97D181891CE3B66700FC123A /* game_over_music.mp3 */; };
 		97FDC96A1CE52A880023BB0A /* GameScoreDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FDC9691CE52A880023BB0A /* GameScoreDelegate.swift */; };
@@ -57,14 +55,12 @@
 		97887E121CDC21BA00021B4F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97887E151CDC21BA00021B4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97887E171CDC21BA00021B4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		97C1493A1CE5B3AE0054CD4A /* gameplay_music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gameplay_music.wav; sourceTree = "<group>"; };
 		97D1814C1CE2C43D00FC123A /* GameError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameError.swift; sourceTree = "<group>"; };
 		97D1814F1CE2C76F00FC123A /* Kenney-Blocks.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kenney-Blocks.ttf"; sourceTree = "<group>"; };
 		97D181501CE2C76F00FC123A /* Kenney-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kenney-Bold.ttf"; sourceTree = "<group>"; };
 		97D181531CE2CF2F00FC123A /* AudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		97D1815D1CE2E4C700FC123A /* menu_music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = menu_music.wav; sourceTree = "<group>"; };
-		97D1815F1CE2E4E900FC123A /* gameplay_music_1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gameplay_music_1.wav; sourceTree = "<group>"; };
-		97D181611CE3A89200FC123A /* gameplay_music_2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gameplay_music_2.wav; sourceTree = "<group>"; };
-		97D181631CE3A96700FC123A /* gameplay_music_3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gameplay_music_3.wav; sourceTree = "<group>"; };
 		97D181651CE3AD5800FC123A /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		97D181891CE3B66700FC123A /* game_over_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = game_over_music.mp3; sourceTree = "<group>"; };
 		97FDC9691CE52A880023BB0A /* GameScoreDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScoreDelegate.swift; sourceTree = "<group>"; };
@@ -130,9 +126,7 @@
 			children = (
 				978754A21CDEE26C0033E261 /* bird.wav */,
 				978754A01CDEE1100033E261 /* explosion.wav */,
-				97D1815F1CE2E4E900FC123A /* gameplay_music_1.wav */,
-				97D181611CE3A89200FC123A /* gameplay_music_2.wav */,
-				97D181631CE3A96700FC123A /* gameplay_music_3.wav */,
+				97C1493A1CE5B3AE0054CD4A /* gameplay_music.wav */,
 				97D181891CE3B66700FC123A /* game_over_music.mp3 */,
 				97D1815D1CE2E4C700FC123A /* menu_music.wav */,
 				9787549E1CDEE1030033E261 /* shot.wav */,
@@ -267,19 +261,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				97D181621CE3A89200FC123A /* gameplay_music_2.wav in Resources */,
 				97887E0A1CDC21BA00021B4F /* GameScene.sks in Resources */,
 				97D181511CE2C76F00FC123A /* Kenney-Blocks.ttf in Resources */,
 				97D1815E1CE2E4C700FC123A /* menu_music.wav in Resources */,
-				97D181641CE3A96700FC123A /* gameplay_music_3.wav in Resources */,
 				97D1818A1CE3B66700FC123A /* game_over_music.mp3 in Resources */,
 				97887E161CDC21BA00021B4F /* LaunchScreen.storyboard in Resources */,
-				97D181601CE2E4E900FC123A /* gameplay_music_1.wav in Resources */,
 				9787549F1CDEE1030033E261 /* shot.wav in Resources */,
 				9787549D1CDEDF310033E261 /* wing_flap.wav in Resources */,
 				978754A11CDEE1100033E261 /* explosion.wav in Resources */,
 				97D181521CE2C76F00FC123A /* Kenney-Bold.ttf in Resources */,
 				978754A31CDEE26C0033E261 /* bird.wav in Resources */,
+				97C1493B1CE5B3AE0054CD4A /* gameplay_music.wav in Resources */,
 				97887E131CDC21BA00021B4F /* Assets.xcassets in Resources */,
 				97887E111CDC21BA00021B4F /* Main.storyboard in Resources */,
 			);

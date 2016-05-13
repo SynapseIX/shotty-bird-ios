@@ -13,7 +13,7 @@ class GameScene: SKScene {
     var bgLayers = [String]()
     var parallaxBackground: ParallaxBackground?
     
-    var audioManager = AudioManager(file: "gameplay_music_1", type: "wav", loop: true)
+    var audioManager = AudioManager(file: "gameplay_music", type: "wav", loop: true)
     var muted = false
     
     let zPositionBg = CGFloat(-1)
@@ -27,6 +27,7 @@ class GameScene: SKScene {
     
     override func didMoveToView(view: SKView) {
         audioManager.audioPlayer?.volume = !muted ? 1.0 : 0.0
+        audioManager.audioPlayer?.enableRate = true
         audioManager.tryPlayMusic()
         
         // Add background
@@ -143,17 +144,17 @@ class GameScene: SKScene {
         
         lastSpawnTime += timeSinceLast
         
-        if score < 15 {
+        if score < 10 {
             if lastSpawnTime > 1.5 {
                 lastSpawnTime = 0.0
                 spawnBird()
             }
-        } else if score >= 15 && score < 30 {
+        } else if score >= 10 && score < 25 {
             if lastSpawnTime > 1.0 {
                 lastSpawnTime = 0.0
                 spawnBird()
             }
-        } else if score >= 30 && score < 40 {
+        } else if score >= 25 && score < 40 {
             if lastSpawnTime > 0.75 {
                 lastSpawnTime = 0.0
                 spawnBird()
@@ -240,15 +241,43 @@ extension GameScene: GameScoreDelegate {
         score += 1
         
         if score == 10 {
-            audioManager = AudioManager(file: "gameplay_music_2", type: "wav", loop: true)
-            audioManager.tryPlayMusic()
-            audioManager.audioPlayer?.rate = 1.5
+            audioManager.audioPlayer?.rate = 1.05
         }
         
         if score == 25 {
-            audioManager = AudioManager(file: "gameplay_music_3", type: "wav", loop: true)
-            audioManager.tryPlayMusic()
-            audioManager.audioPlayer?.rate = 2.0
+            audioManager.audioPlayer?.rate = 1.10
+        }
+        
+        if score == 40 {
+            audioManager.audioPlayer?.rate = 1.15
+        }
+        
+        if score == 50 {
+            audioManager.audioPlayer?.rate = 1.20
+        }
+        
+        if score == 60 {
+            audioManager.audioPlayer?.rate = 1.25
+        }
+        
+        if score == 70 {
+            audioManager.audioPlayer?.rate = 1.30
+        }
+        
+        if score == 80 {
+            audioManager.audioPlayer?.rate = 1.35
+        }
+        
+        if score == 85 {
+            audioManager.audioPlayer?.rate = 1.40
+        }
+        
+        if score == 90 {
+            audioManager.audioPlayer?.rate = 1.45
+        }
+        
+        if score == 100 {
+            audioManager.audioPlayer?.rate = 1.45
         }
         
         if let node = childNodeWithName("score") as? SKLabelNode {
