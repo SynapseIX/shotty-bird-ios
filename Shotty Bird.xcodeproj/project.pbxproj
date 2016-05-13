@@ -35,6 +35,7 @@
 		97D1818A1CE3B66700FC123A /* game_over_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 97D181891CE3B66700FC123A /* game_over_music.mp3 */; };
 		97FDC96A1CE52A880023BB0A /* GameScoreDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FDC9691CE52A880023BB0A /* GameScoreDelegate.swift */; };
 		97FDC9DA1CE556FE0023BB0A /* ParallaxBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FDC9D91CE556FE0023BB0A /* ParallaxBackground.swift */; };
+		97FDC9DC1CE569410023BB0A /* GameUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FDC9DB1CE569410023BB0A /* GameUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		97D181891CE3B66700FC123A /* game_over_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = game_over_music.mp3; sourceTree = "<group>"; };
 		97FDC9691CE52A880023BB0A /* GameScoreDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScoreDelegate.swift; sourceTree = "<group>"; };
 		97FDC9D91CE556FE0023BB0A /* ParallaxBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxBackground.swift; sourceTree = "<group>"; };
+		97FDC9DB1CE569410023BB0A /* GameUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				973CFB441CE2891B00A22A91 /* DeviceModel.swift */,
+				97FDC9DB1CE569410023BB0A /* GameUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				97FDC96A1CE52A880023BB0A /* GameScoreDelegate.swift in Sources */,
+				97FDC9DC1CE569410023BB0A /* GameUtils.swift in Sources */,
 				973CFB421CE287B300A22A91 /* MainMenuScene.swift in Sources */,
 				978754951CDED4D40033E261 /* PhysicsCategory.swift in Sources */,
 				97D181661CE3AD5800FC123A /* GameOverScene.swift in Sources */,

@@ -10,6 +10,7 @@ import SpriteKit
 
 class GameOverScene: SKScene {
     
+    var bgLayers = [String]()
     var parallaxBackground: ParallaxBackground?
     
     let audioManager = AudioManager(file: "game_over_music", type: "mp3", loop: false)
@@ -23,9 +24,8 @@ class GameOverScene: SKScene {
         audioManager.tryPlayMusic()
         
         // Add background
-        let backgrounds = ["bg1_layer1", "bg1_layer2", "bg1_layer3", "bg1_layer4", "bg1_layer5"];
         parallaxBackground = ParallaxBackground(texture: nil, color: UIColor.clearColor(), size: size)
-        parallaxBackground?.setUpBackgrounds(backgrounds, size: size, fastestSpeed: 1.0, speedDecrease: 0.05)
+        parallaxBackground?.setUpBackgrounds(bgLayers, size: size, fastestSpeed: 1.0, speedDecrease: 0.05)
         addChild(parallaxBackground!)
         
         // Replace this with image

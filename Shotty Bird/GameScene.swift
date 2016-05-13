@@ -10,6 +10,7 @@ import SpriteKit
 
 class GameScene: SKScene {
     
+    var bgLayers = [String]()
     var parallaxBackground: ParallaxBackground?
     
     let audioManager = AudioManager(file: "gameplay_music_1", type: "wav", loop: true)
@@ -29,9 +30,9 @@ class GameScene: SKScene {
         audioManager.tryPlayMusic()
         
         // Add background
-        let backgrounds = ["bg1_layer1", "bg1_layer2", "bg1_layer3", "bg1_layer4", "bg1_layer5"];
         parallaxBackground = ParallaxBackground(texture: nil, color: UIColor.clearColor(), size: size)
-        parallaxBackground?.setUpBackgrounds(backgrounds, size: size, fastestSpeed: 8.0, speedDecrease: 1)
+        parallaxBackground?.setUpBackgrounds(bgLayers, size: size, fastestSpeed: 8.0, speedDecrease: 1.5)
+        
         addChild(parallaxBackground!)
         
         physicsWorld.contactDelegate = self
@@ -100,7 +101,7 @@ class GameScene: SKScene {
         addChild(scoreLabel)
         
         // Add mute button
-        let muteButton = muted ? SKSpriteNode(imageNamed: "unmute_button") : SKSpriteNode(imageNamed: "mute_button")
+        let muteButton = muted ? SKSpriteNode(imageNamed: "mute_button") : SKSpriteNode(imageNamed: "unmute_button")
         
         if DeviceModel.iPhone4 {
             muteButton.position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height + 20)
@@ -124,7 +125,7 @@ class GameScene: SKScene {
                     audioManager.audioPlayer?.volume = muted ? 1.0 : 0.0
                     muted = audioManager.audioPlayer?.volume == 0.0 ? true : false
                     
-                    muteButton.texture = muted ? SKTexture(imageNamed: "unmute_button") : SKTexture(imageNamed: "mute_button")
+                    muteButton.texture = muted ? SKTexture(imageNamed: "mute_button") : SKTexture(imageNamed: "unmute_button")
                 }
             }
         }
@@ -208,6 +209,7 @@ class GameScene: SKScene {
         // This is the "default" scene frame size provided by SpriteKit: print(scene.size)
         let scene = GameOverScene(size: CGSize(width: 1024.0, height: 768.0))
         scene.muted = muted
+        scene.bgLayers = bgLayers
         scene.scaleMode = .AspectFill
         
         return scene

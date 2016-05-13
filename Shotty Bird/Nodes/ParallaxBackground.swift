@@ -10,6 +10,7 @@ import SpriteKit
 
 class ParallaxBackground: SKSpriteNode {
     
+    var layers = [String]()
     var backgrounds = [SKSpriteNode]()
     var clonedBackgrounds = [SKSpriteNode]()
     var speeds = [CGFloat]()
@@ -22,9 +23,11 @@ class ParallaxBackground: SKSpriteNode {
         fatalError("Coder not implemented...")
     }
     
-    func setUpBackgrounds(backgrounds:[String], size: CGSize, fastestSpeed: CGFloat, speedDecrease: CGFloat){
-        self.zPosition = -1
-        self.position = CGPointMake(size.width / 2, size.height / 2)
+    func setUpBackgrounds(backgrounds:[String], size: CGSize, fastestSpeed: CGFloat, speedDecrease: CGFloat) {
+        layers = backgrounds
+        
+        zPosition = -1
+        position = CGPointMake(size.width / 2, size.height / 2)
         
         let zPos = 1.0 / Double(backgrounds.count)
         var bgNumber = 0.0
@@ -71,8 +74,8 @@ class ParallaxBackground: SKSpriteNode {
     
     func update(){
         for (index, currentBackground) in backgrounds.enumerate(){
-            let speed = self.speeds[index]
-            let clonedBackground = self.clonedBackgrounds[index]
+            let speed = speeds[index]
+            let clonedBackground = clonedBackgrounds[index]
             
             var newBackgroundX = currentBackground.position.x
             var newClonedX = clonedBackground.position.x

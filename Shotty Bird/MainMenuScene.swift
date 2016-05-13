@@ -27,6 +27,7 @@ class MainMenuScene: SKScene {
     
     override func update(currentTime: NSTimeInterval) {
         parallaxBackground!.update()
+        GameUtils.randomBackground()
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -40,6 +41,7 @@ class MainMenuScene: SKScene {
                         // TODO: validate if it need to show tutorial scene
                         audioManager.stopMusic()
                         gameScene.muted = muted
+                        gameScene.bgLayers = parallaxBackground!.layers
                         
                         if !muted {
                             playButton.runAction(GameAction.playExplosionSoundAction)
@@ -94,7 +96,7 @@ class MainMenuScene: SKScene {
                     audioManager.audioPlayer?.volume = muted ? 1.0 : 0.0
                     muted = audioManager.audioPlayer?.volume == 0.0 ? true : false
                     
-                    muteButton.texture = muted ? SKTexture(imageNamed: "unmute_button") : SKTexture(imageNamed: "mute_button")
+                    muteButton.texture = muted ? SKTexture(imageNamed: "mute_button") : SKTexture(imageNamed: "unmute_button")
                 }
             }
         }
@@ -104,9 +106,8 @@ class MainMenuScene: SKScene {
     
     private func setupUI() {
         // Add background
-        let backgrounds = ["bg1_layer1", "bg1_layer2", "bg1_layer3", "bg1_layer4", "bg1_layer5"];
         parallaxBackground = ParallaxBackground(texture: nil, color: UIColor.clearColor(), size: size)
-        parallaxBackground?.setUpBackgrounds(backgrounds, size: size, fastestSpeed: 1.0, speedDecrease: 0.05)
+        parallaxBackground?.setUpBackgrounds(GameUtils.randomBackground(), size: size, fastestSpeed: 1.0, speedDecrease: 0.05)
         addChild(parallaxBackground!)
         
         // Add and scale game logo
@@ -195,7 +196,7 @@ class MainMenuScene: SKScene {
         addChild(facebookButton)
         
         // Add mute button
-        let muteButton = SKSpriteNode(imageNamed: "mute_button")
+        let muteButton = SKSpriteNode(imageNamed: "unmute_button")
         
         if DeviceModel.iPhone4 {
             muteButton.position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height + 20)
