@@ -20,6 +20,7 @@ class GameScene: SKScene {
     var lastSpawnTime: CFTimeInterval = 0.0
     
     var lives = 3
+    var score = 0
     
     override func didMoveToView(view: SKView) {
         audioManager.audioPlayer?.volume = !muted ? 1.0 : 0.0
@@ -90,6 +91,23 @@ class GameScene: SKScene {
         thirdLife.zPosition = zPositionMenuItems
         addChild(thirdLife)
         
+        // Add score node
+        let scoreLabel = SKLabelNode(fontNamed:"Kenney-Bold")
+        scoreLabel.text = "0"
+        scoreLabel.fontSize = 35
+        scoreLabel.zPosition = zPositionMenuItems
+        scoreLabel.name = "score"
+        
+        if DeviceModel.iPad {
+            scoreLabel.position = CGPoint(x: CGRectGetMaxX(frame) - 35, y: CGRectGetMaxY(frame) - 65)
+        } else if DeviceModel.iPhone4 {
+            scoreLabel.position = CGPoint(x: CGRectGetMaxX(frame) - 35, y: CGRectGetMaxY(frame) - 115)
+        } else {
+            scoreLabel.position = CGPoint(x: CGRectGetMaxX(frame) - 35, y: CGRectGetMaxY(frame) - 160)
+        }
+        
+        addChild(scoreLabel)
+        
         // Add mute button
         let muteButton = SKSpriteNode(imageNamed: "mute_button")
         
@@ -140,7 +158,7 @@ class GameScene: SKScene {
     // MARK: - Spawn methods
     
     private func spawnBird() {
-        let newBird = Bird()
+        let newBird = Bird(delegate: self)
         newBird.xScale = 0.2
         newBird.yScale = 0.2
         newBird.zPosition = 1
@@ -175,10 +193,15 @@ class GameScene: SKScene {
                 self.lives -= 1
                 
                 if self.lives == 2 {
-                    
+                    let node = self.childNodeWithName("life1") as! SKSpriteNode
+                    node.texture = SKTexture(imageNamed: "death")
                 } else if self.lives == 1 {
-                
+                    let node = self.childNodeWithName("life2") as! SKSpriteNode
+                    node.texture = SKTexture(imageNamed: "death")
                 } else if self.lives == 0 {
+                    let node = self.childNodeWithName("life3") as! SKSpriteNode
+                    node.texture = SKTexture(imageNamed: "death")
+                    
                     self.audioManager.stopMusic()
                     let transition = SKTransition.doorsCloseHorizontalWithDuration(0.5)
                     self.view?.presentScene(self.getGameOverScene(), transition: transition)
@@ -194,6 +217,22 @@ class GameScene: SKScene {
         scene.scaleMode = .AspectFill
         
         return scene
+    }
+    
+}
+
+extension GameScene: GameScoreDelegate {
+    
+    func updateScore() {
+        score += 1
+        
+        if let node = childNodeWithName("score") as? SKLabelNode {
+            if score == 10 || score == 100 || score == 1000 {
+                node.position = CGPoint(x: node.position.x - 10, y: node.position.y)
+            }
+            
+            node.text = "\(score)"
+        }
     }
     
 }

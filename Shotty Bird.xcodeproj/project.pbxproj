@@ -33,6 +33,7 @@
 		97D181641CE3A96700FC123A /* gameplay_music_3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97D181631CE3A96700FC123A /* gameplay_music_3.wav */; };
 		97D181661CE3AD5800FC123A /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D181651CE3AD5800FC123A /* GameOverScene.swift */; };
 		97D1818A1CE3B66700FC123A /* game_over_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 97D181891CE3B66700FC123A /* game_over_music.mp3 */; };
+		97FDC96A1CE52A880023BB0A /* GameScoreDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FDC9691CE52A880023BB0A /* GameScoreDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		97D181631CE3A96700FC123A /* gameplay_music_3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gameplay_music_3.wav; sourceTree = "<group>"; };
 		97D181651CE3AD5800FC123A /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		97D181891CE3B66700FC123A /* game_over_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = game_over_music.mp3; sourceTree = "<group>"; };
+		97FDC9691CE52A880023BB0A /* GameScoreDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScoreDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 				97D1814E1CE2C76F00FC123A /* Fonts */,
 				978754931CDED4BA0033E261 /* Physics */,
 				978754901CDEC47E0033E261 /* Nodes */,
+				97FDC9681CE52A6D0023BB0A /* Protocols */,
 				97887E071CDC21BA00021B4F /* AppDelegate.swift */,
 				97887E091CDC21BA00021B4F /* GameScene.sks */,
 				97887E0B1CDC21BA00021B4F /* GameScene.swift */,
@@ -189,6 +192,14 @@
 				97D181501CE2C76F00FC123A /* Kenney-Bold.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		97FDC9681CE52A6D0023BB0A /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				97FDC9691CE52A880023BB0A /* GameScoreDelegate.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -275,6 +286,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97FDC96A1CE52A880023BB0A /* GameScoreDelegate.swift in Sources */,
 				973CFB421CE287B300A22A91 /* MainMenuScene.swift in Sources */,
 				978754951CDED4D40033E261 /* PhysicsCategory.swift in Sources */,
 				97D181661CE3AD5800FC123A /* GameOverScene.swift in Sources */,
