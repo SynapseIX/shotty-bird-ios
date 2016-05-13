@@ -232,7 +232,7 @@ class GameScene: SKScene {
         // Setup bird node Physics
         //newBird.physicsBody = SKPhysicsBody(rectangleOfSize: newBird.size)
         newBird.physicsBody = SKPhysicsBody(texture: newBird.texture!, size: newBird.texture!.size())
-        newBird.physicsBody?.dynamic = true
+        newBird.physicsBody?.dynamic = false
         newBird.physicsBody?.restitution = 1.0
         newBird.physicsBody?.collisionBitMask = PhysicsCategory.Bird
         
