@@ -55,8 +55,6 @@ class GameScene: SKScene {
     }
    
     override func update(currentTime: CFTimeInterval) {
-        parallaxBackground?.update()
-        
         var timeSinceLast = currentTime - lastUpdateTime
         lastUpdateTime = currentTime
         
@@ -87,6 +85,8 @@ class GameScene: SKScene {
                 spawnBird()
             }
         }
+        
+        parallaxBackground?.update()
     }
     
     // MARK: - UI methods
@@ -230,9 +230,9 @@ class GameScene: SKScene {
         addChild(newBird)
         
         // Setup bird node Physics
-        newBird.physicsBody = SKPhysicsBody(rectangleOfSize: newBird.size)
-        //newBird.physicsBody = SKPhysicsBody(texture: newBird.texture!, size: newBird.texture!.size())
-        newBird.physicsBody?.dynamic = false
+        //newBird.physicsBody = SKPhysicsBody(rectangleOfSize: newBird.size)
+        newBird.physicsBody = SKPhysicsBody(texture: newBird.texture!, size: newBird.texture!.size())
+        newBird.physicsBody?.dynamic = true
         newBird.physicsBody?.restitution = 1.0
         newBird.physicsBody?.collisionBitMask = PhysicsCategory.Bird
         
@@ -276,6 +276,7 @@ extension GameScene: GameScoreDelegate {
     func updateScore() {
         score += 1
         
+        // Increment music playback rate based on player score
         switch score {
         case 10:
             audioManager.audioPlayer?.rate = 1.05
@@ -299,6 +300,7 @@ extension GameScene: GameScoreDelegate {
             break
         }
         
+        // Update score label with new score
         if let node = childNodeWithName("score") as? ASAttributedLabelNode {
             if let font =  UIFont(name: "Kenney-Bold", size: 35) {
                 let paragraphStyle = NSMutableParagraphStyle()
