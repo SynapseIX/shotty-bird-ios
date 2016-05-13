@@ -28,7 +28,6 @@ class MainMenuScene: SKScene {
     
     override func update(currentTime: NSTimeInterval) {
         parallaxBackground!.update()
-        GameUtils.randomBackground()
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
