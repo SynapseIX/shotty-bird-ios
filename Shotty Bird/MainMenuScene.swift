@@ -107,7 +107,7 @@ class MainMenuScene: SKScene {
     private func setupUI() {
         // Add background
         parallaxBackground = ParallaxBackground(texture: nil, color: UIColor.clearColor(), size: size)
-        parallaxBackground?.setUpBackgrounds(GameUtils.randomBackground(), size: size, fastestSpeed: 1.0, speedDecrease: 0.05)
+        parallaxBackground?.setUpBackgrounds(GameUtils.randomBackground(), size: size, fastestSpeed: 2.0, speedDecrease: 0.25)
         addChild(parallaxBackground!)
         
         // Add and scale game logo

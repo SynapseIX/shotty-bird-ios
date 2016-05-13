@@ -31,7 +31,7 @@ class GameScene: SKScene {
         
         // Add background
         parallaxBackground = ParallaxBackground(texture: nil, color: UIColor.clearColor(), size: size)
-        parallaxBackground?.setUpBackgrounds(bgLayers, size: size, fastestSpeed: 8.0, speedDecrease: 1.5)
+        parallaxBackground?.setUpBackgrounds(bgLayers, size: size, fastestSpeed: 10.0, speedDecrease: 3.0)
         
         addChild(parallaxBackground!)
         

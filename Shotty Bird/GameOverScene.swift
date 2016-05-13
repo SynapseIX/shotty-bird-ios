@@ -25,7 +25,7 @@ class GameOverScene: SKScene {
         
         // Add background
         parallaxBackground = ParallaxBackground(texture: nil, color: UIColor.clearColor(), size: size)
-        parallaxBackground?.setUpBackgrounds(bgLayers, size: size, fastestSpeed: 1.0, speedDecrease: 0.05)
+        parallaxBackground?.setUpBackgrounds(bgLayers, size: size, fastestSpeed: 2.0, speedDecrease: 0.25)
         addChild(parallaxBackground!)
         
         // Replace this with image
