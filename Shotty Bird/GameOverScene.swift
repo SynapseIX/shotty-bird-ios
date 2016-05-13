@@ -28,7 +28,7 @@ class GameOverScene: SKScene {
         parallaxBackground?.setUpBackgrounds(bgLayers, size: size, fastestSpeed: 2.0, speedDecrease: 0.25)
         addChild(parallaxBackground!)
         
-        // Replace this with image
+        // TODO: Replace this with image and complete scene
         let label = ASAttributedLabelNode(size: size)
         
         if let font =  UIFont(name: "Kenney-Bold", size: 90) {

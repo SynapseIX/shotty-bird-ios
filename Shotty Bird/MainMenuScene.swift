@@ -19,9 +19,10 @@ class MainMenuScene: SKScene {
     let zPositionBg = CGFloat(-1)
     let zPositionMenuItems = CGFloat(Int.max)
     
+    // MARK: - Scene methods
+    
     override func didMoveToView(view: SKView) {
-        audioManager.audioPlayer?.volume = !muted ? 1.0 : 0.0
-        audioManager.tryPlayMusic()
+        setupAudioManager()
         setupUI()
     }
     
@@ -31,7 +32,6 @@ class MainMenuScene: SKScene {
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        // TODO: handle button touches
         for touch in touches {
             let location = touch.locationInNode(self)
             
@@ -223,6 +223,13 @@ class MainMenuScene: SKScene {
         }
         
         return nil
+    }
+    
+    // MARK: - Audio methods
+    
+    private func setupAudioManager() {
+        audioManager.audioPlayer?.volume = !muted ? 1.0 : 0.0
+        audioManager.tryPlayMusic()
     }
     
     // MARK: - Social methods

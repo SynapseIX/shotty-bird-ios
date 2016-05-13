@@ -25,105 +25,18 @@ class GameScene: SKScene {
     var lives = 3
     var score = 0
     
+    // MARK: - Scene methods
+    
     override func didMoveToView(view: SKView) {
-        // Setup audio manager
-        audioManager.audioPlayer?.volume = !muted ? 1.0 : 0.0
-        audioManager.audioPlayer?.enableRate = true
-        audioManager.tryPlayMusic()
+        // Setup game
+        setupAudioManager()
+        setupGameWorld()
         
-        // Add background
-        parallaxBackground = ParallaxBackground(texture: nil, color: UIColor.clearColor(), size: size)
-        parallaxBackground?.setUpBackgrounds(bgLayers, size: size, fastestSpeed: 10.0, speedDecrease: 3.0)
-        
-        addChild(parallaxBackground!)
-        
-        physicsWorld.contactDelegate = self
-        physicsWorld.gravity = CGVector(dx: 0.0, dy: 0.0)
-        
-        // Add first life node
-        let firstLife = SKSpriteNode(imageNamed: "life")
-        
-        if DeviceModel.iPhone4 {
-            firstLife.position = CGPoint(x: CGRectGetMinX(frame) + firstLife.size.width / 2 + 20, y: CGRectGetMaxY(frame) - firstLife.size.height - 20)
-        } else if DeviceModel.iPad || DeviceModel.iPadPro {
-            firstLife.position = CGPoint(x: CGRectGetMinX(frame) + firstLife.size.width / 2 + 20, y: CGRectGetMaxY(frame) - firstLife.size.height / 2 - 20)
-        } else {
-            firstLife.position = CGPoint(x: CGRectGetMinX(frame) + firstLife.size.width / 2 + 20, y: CGRectGetMaxY(frame) - firstLife.size.height * 2)
-        }
-        
-        firstLife.name = "life1"
-        firstLife.zPosition = zPositionMenuItems
-        addChild(firstLife)
-        
-        // Add second life node
-        let secondLife = SKSpriteNode(imageNamed: "life")
-        
-        if DeviceModel.iPhone4 {
-            secondLife.position = CGPoint(x: CGRectGetMinX(frame) + secondLife.size.width * 2 - 10, y: CGRectGetMaxY(frame) - secondLife.size.height - 20)
-        } else if DeviceModel.iPad || DeviceModel.iPadPro {
-            secondLife.position = CGPoint(x: CGRectGetMinX(frame) + secondLife.size.width * 2 - 10, y: CGRectGetMaxY(frame) - secondLife.size.height / 2 - 20)
-        } else {
-            secondLife.position = CGPoint(x: CGRectGetMinX(frame) + secondLife.size.width * 2 - 10, y: CGRectGetMaxY(frame) - secondLife.size.height * 2)
-        }
-        
-        secondLife.name = "life2"
-        secondLife.zPosition = zPositionMenuItems
-        addChild(secondLife)
-        
-        // Add third life node
-        let thirdLife = SKSpriteNode(imageNamed: "life")
-        
-        if DeviceModel.iPhone4 {
-            thirdLife.position = CGPoint(x: CGRectGetMinX(frame) + thirdLife.size.width * 3 - 5, y: CGRectGetMaxY(frame) - thirdLife.size.height - 20)
-        } else if DeviceModel.iPad || DeviceModel.iPadPro {
-            thirdLife.position = CGPoint(x: CGRectGetMinX(frame) + thirdLife.size.width * 3 - 5, y: CGRectGetMaxY(frame) - thirdLife.size.height / 2 - 20)
-        } else {
-            thirdLife.position = CGPoint(x: CGRectGetMinX(frame) + thirdLife.size.width * 3 - 5, y: CGRectGetMaxY(frame) - thirdLife.size.height * 2)
-        }
-        
-        thirdLife.name = "life3"
-        thirdLife.zPosition = zPositionMenuItems
-        addChild(thirdLife)
-        
-        // Add score node
-        let scoreLabel = ASAttributedLabelNode(size: CGSize(width: 165.0, height: 65.0))
-        
-        if let font =  UIFont(name: "Kenney-Bold", size: 35) {
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.alignment = .Right
-            
-            let attributes = [NSFontAttributeName : font, NSForegroundColorAttributeName: UIColor.whiteColor(),
-                              NSStrokeColorAttributeName: UIColor.blackColor(), NSStrokeWidthAttributeName: -10, NSParagraphStyleAttributeName: paragraphStyle]
-            
-            scoreLabel.attributedString = NSAttributedString(string: "0", attributes: attributes)
-            scoreLabel.zPosition = zPositionMenuItems
-            scoreLabel.name = "score"
-        }
-        
-        if DeviceModel.iPad || DeviceModel.iPadPro {
-            scoreLabel.position = CGPoint(x: CGRectGetMaxX(frame) - scoreLabel.size.width / 2 - 10, y: CGRectGetMaxY(frame) - scoreLabel.size.height / 2 - 10)
-        } else if DeviceModel.iPhone4 {
-            scoreLabel.position = CGPoint(x: CGRectGetMaxX(frame) - scoreLabel.size.width / 2 - 10, y: CGRectGetMaxY(frame) - scoreLabel.size.height - 20)
-        } else {
-            scoreLabel.position = CGPoint(x: CGRectGetMaxX(frame) - scoreLabel.size.width / 2 - 10, y: CGRectGetMaxY(frame) - scoreLabel.size.height * 2 - 10)
-        }
-        
-        addChild(scoreLabel)
-        
-        // Add mute button
-        let muteButton = muted ? SKSpriteNode(imageNamed: "mute_button") : SKSpriteNode(imageNamed: "unmute_button")
-        
-        if DeviceModel.iPhone4 {
-            muteButton.position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height + 20)
-        } else if DeviceModel.iPad || DeviceModel.iPadPro {
-            muteButton.position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height - 20)
-        } else {
-            muteButton.position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height * 2)
-        }
-        
-        muteButton.name = "muteButton"
-        muteButton.zPosition = zPositionMenuItems
-        addChild(muteButton)
+        // Setup game UI nodes
+        addParallaxBackground()
+        addLifeNodes()
+        addScoreNode()
+        addMuteButton()
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -174,6 +87,129 @@ class GameScene: SKScene {
                 spawnBird()
             }
         }
+    }
+    
+    // MARK: - UI methods
+    
+    private func addParallaxBackground() {
+        parallaxBackground = ParallaxBackground(texture: nil, color: UIColor.clearColor(), size: size)
+        parallaxBackground?.setUpBackgrounds(bgLayers, size: size, fastestSpeed: 10.0, speedDecrease: 3.0)
+        
+        addChild(parallaxBackground!)
+    }
+    
+    private func addLifeNodes() {
+        // Add first life node
+        let firstLife = SKSpriteNode(imageNamed: "life")
+        
+        if DeviceModel.iPhone4 {
+            firstLife.position = CGPoint(x: CGRectGetMinX(frame) + firstLife.size.width / 2 + 20, y: CGRectGetMaxY(frame) - firstLife.size.height - 20)
+        } else if DeviceModel.iPad || DeviceModel.iPadPro {
+            firstLife.position = CGPoint(x: CGRectGetMinX(frame) + firstLife.size.width / 2 + 20, y: CGRectGetMaxY(frame) - firstLife.size.height / 2 - 20)
+        } else {
+            firstLife.position = CGPoint(x: CGRectGetMinX(frame) + firstLife.size.width / 2 + 20, y: CGRectGetMaxY(frame) - firstLife.size.height * 2)
+        }
+        
+        firstLife.name = "life1"
+        firstLife.zPosition = zPositionMenuItems
+        addChild(firstLife)
+        
+        // Add second life node
+        let secondLife = SKSpriteNode(imageNamed: "life")
+        
+        if DeviceModel.iPhone4 {
+            secondLife.position = CGPoint(x: CGRectGetMinX(frame) + secondLife.size.width * 2 - 10, y: CGRectGetMaxY(frame) - secondLife.size.height - 20)
+        } else if DeviceModel.iPad || DeviceModel.iPadPro {
+            secondLife.position = CGPoint(x: CGRectGetMinX(frame) + secondLife.size.width * 2 - 10, y: CGRectGetMaxY(frame) - secondLife.size.height / 2 - 20)
+        } else {
+            secondLife.position = CGPoint(x: CGRectGetMinX(frame) + secondLife.size.width * 2 - 10, y: CGRectGetMaxY(frame) - secondLife.size.height * 2)
+        }
+        
+        secondLife.name = "life2"
+        secondLife.zPosition = zPositionMenuItems
+        addChild(secondLife)
+        
+        // Add third life node
+        let thirdLife = SKSpriteNode(imageNamed: "life")
+        
+        if DeviceModel.iPhone4 {
+            thirdLife.position = CGPoint(x: CGRectGetMinX(frame) + thirdLife.size.width * 3 - 5, y: CGRectGetMaxY(frame) - thirdLife.size.height - 20)
+        } else if DeviceModel.iPad || DeviceModel.iPadPro {
+            thirdLife.position = CGPoint(x: CGRectGetMinX(frame) + thirdLife.size.width * 3 - 5, y: CGRectGetMaxY(frame) - thirdLife.size.height / 2 - 20)
+        } else {
+            thirdLife.position = CGPoint(x: CGRectGetMinX(frame) + thirdLife.size.width * 3 - 5, y: CGRectGetMaxY(frame) - thirdLife.size.height * 2)
+        }
+        
+        thirdLife.name = "life3"
+        thirdLife.zPosition = zPositionMenuItems
+        addChild(thirdLife)
+    }
+    
+    private func addScoreNode() {
+        let scoreLabel = ASAttributedLabelNode(size: CGSize(width: 165.0, height: 65.0))
+        
+        if let font =  UIFont(name: "Kenney-Bold", size: 35) {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .Right
+            
+            let attributes = [NSFontAttributeName : font, NSForegroundColorAttributeName: UIColor.whiteColor(),
+                              NSStrokeColorAttributeName: UIColor.blackColor(), NSStrokeWidthAttributeName: -10, NSParagraphStyleAttributeName: paragraphStyle]
+            
+            scoreLabel.attributedString = NSAttributedString(string: "0", attributes: attributes)
+            scoreLabel.zPosition = zPositionMenuItems
+            scoreLabel.name = "score"
+        }
+        
+        if DeviceModel.iPad || DeviceModel.iPadPro {
+            scoreLabel.position = CGPoint(x: CGRectGetMaxX(frame) - scoreLabel.size.width / 2 - 10, y: CGRectGetMaxY(frame) - scoreLabel.size.height / 2 - 10)
+        } else if DeviceModel.iPhone4 {
+            scoreLabel.position = CGPoint(x: CGRectGetMaxX(frame) - scoreLabel.size.width / 2 - 10, y: CGRectGetMaxY(frame) - scoreLabel.size.height - 20)
+        } else {
+            scoreLabel.position = CGPoint(x: CGRectGetMaxX(frame) - scoreLabel.size.width / 2 - 10, y: CGRectGetMaxY(frame) - scoreLabel.size.height * 2 - 10)
+        }
+        
+        addChild(scoreLabel)
+    }
+    
+    private func addMuteButton() {
+        let muteButton = muted ? SKSpriteNode(imageNamed: "mute_button") : SKSpriteNode(imageNamed: "unmute_button")
+        
+        if DeviceModel.iPhone4 {
+            muteButton.position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height + 20)
+        } else if DeviceModel.iPad || DeviceModel.iPadPro {
+            muteButton.position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height - 20)
+        } else {
+            muteButton.position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height * 2)
+        }
+        
+        muteButton.name = "muteButton"
+        muteButton.zPosition = zPositionMenuItems
+        addChild(muteButton)
+    }
+    
+    private func getGameOverScene() -> GameOverScene {
+        // This is the "default" scene frame size provided by SpriteKit: print(scene.size)
+        let scene = GameOverScene(size: CGSize(width: 1024.0, height: 768.0))
+        scene.muted = muted
+        scene.bgLayers = bgLayers
+        scene.scaleMode = .AspectFill
+        
+        return scene
+    }
+    
+    // MARK: - Audio methods
+    
+    private func setupAudioManager() {
+        audioManager.audioPlayer?.volume = !muted ? 1.0 : 0.0
+        audioManager.audioPlayer?.enableRate = true
+        audioManager.tryPlayMusic()
+    }
+    
+    // MARK: - Game world methods
+    
+    private func setupGameWorld() {
+        physicsWorld.contactDelegate = self
+        physicsWorld.gravity = CGVector(dx: 0.0, dy: 0.0)
     }
     
     // MARK: - Spawn methods
@@ -231,18 +267,9 @@ class GameScene: SKScene {
             }
         }
     }
-    
-    private func getGameOverScene() -> GameOverScene {
-        // This is the "default" scene frame size provided by SpriteKit: print(scene.size)
-        let scene = GameOverScene(size: CGSize(width: 1024.0, height: 768.0))
-        scene.muted = muted
-        scene.bgLayers = bgLayers
-        scene.scaleMode = .AspectFill
-        
-        return scene
-    }
-    
 }
+
+// MARK: - Game score delegate
 
 extension GameScene: GameScoreDelegate {
     
@@ -286,6 +313,8 @@ extension GameScene: GameScoreDelegate {
     }
     
 }
+
+// MARK: - Physics contact delegate
 
 extension GameScene: SKPhysicsContactDelegate {
     
