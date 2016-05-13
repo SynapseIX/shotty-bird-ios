@@ -26,6 +26,7 @@ class GameScene: SKScene {
     var score = 0
     
     override func didMoveToView(view: SKView) {
+        // Setup audio manager
         audioManager.audioPlayer?.volume = !muted ? 1.0 : 0.0
         audioManager.audioPlayer?.enableRate = true
         audioManager.tryPlayMusic()
