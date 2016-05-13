@@ -56,7 +56,7 @@ class ParallaxBackground: SKSpriteNode {
             currentSpeed = CGFloat(currentSpeed - speedDecrease)
             
             if currentSpeed < 0.0 {
-                currentSpeed = 0.5
+                currentSpeed = 0.1
             }
             
             self.addChild(node)
@@ -80,14 +80,14 @@ class ParallaxBackground: SKSpriteNode {
             var newBackgroundX = currentBackground.position.x
             var newClonedX = clonedBackground.position.x
             
-            newBackgroundX -= speed
-            newClonedX -= speed
+            newBackgroundX += speed
+            newClonedX += speed
             
-            if (newBackgroundX <= -currentBackground.size.width){
-                newBackgroundX = newClonedX + clonedBackground.size.width - 0.05
+            if (newBackgroundX >= currentBackground.size.width){
+                newBackgroundX = newClonedX - clonedBackground.size.width + 0.05
             }
-            if newClonedX <= -clonedBackground.size.width {
-                newClonedX = newBackgroundX + currentBackground.size.width - 0.05
+            if newClonedX >= clonedBackground.size.width {
+                newClonedX = newBackgroundX - currentBackground.size.width + 0.05
             }
             
             currentBackground.position = CGPoint(x: newBackgroundX, y: currentBackground.position.y)
