@@ -213,11 +213,6 @@ class MainMenuScene: SKScene {
     private func getGameScene() -> GameScene? {
         if let scene = GameScene(fileNamed:"GameScene") {
             scene.scaleMode = .AspectFill
-            
-            view?.showsFPS = true
-            view?.showsNodeCount = true
-            view?.showsPhysics = true
-            
             return scene
         }
         
