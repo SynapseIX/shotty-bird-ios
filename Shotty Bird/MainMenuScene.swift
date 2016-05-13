@@ -26,6 +26,12 @@ class MainMenuScene: SKScene {
         setupUI()
     }
     
+    override func willMoveFromView(view: SKView) {
+        for node in children {
+            node.removeFromParent()
+        }
+    }
+    
     override func update(currentTime: NSTimeInterval) {
         parallaxBackground!.update()
     }

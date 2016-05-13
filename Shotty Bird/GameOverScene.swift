@@ -45,6 +45,12 @@ class GameOverScene: SKScene {
         }
     }
     
+    override func willMoveFromView(view: SKView) {
+        for node in children {
+            node.removeFromParent()
+        }
+    }
+    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         // TODO: setup this correctly
         audioManager.stopMusic()

@@ -39,6 +39,12 @@ class GameScene: SKScene {
         addMuteButton()
     }
     
+    override func willMoveFromView(view: SKView) {
+        for node in children {
+            node.removeFromParent()
+        }
+    }
+    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         for touch in touches {
             let location = touch.locationInNode(self)
