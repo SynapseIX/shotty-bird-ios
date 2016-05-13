@@ -10,6 +10,8 @@ import SpriteKit
 
 class GameScene: SKScene {
     
+    var parallaxBackground: ParallaxBackground?
+    
     let audioManager = AudioManager(file: "gameplay_music_1", type: "wav", loop: true)
     var muted = false
     
@@ -26,22 +28,11 @@ class GameScene: SKScene {
         audioManager.audioPlayer?.volume = !muted ? 1.0 : 0.0
         audioManager.tryPlayMusic()
         
-        let background = SKSpriteNode(imageNamed: "background")
-        
-        if DeviceModel.iPad {
-            background.xScale = 0.7
-            background.yScale = 0.7
-        } else if DeviceModel.iPhone4 {
-            background.xScale = 0.65
-            background.yScale = 0.65
-        } else {
-            background.xScale = 0.55
-            background.yScale = 0.55
-        }
-        
-        background.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame))
-        background.zPosition = zPositionBg
-        addChild(background)
+        // Add background
+        let backgrounds = ["bg1_layer1", "bg1_layer2", "bg1_layer3", "bg1_layer4", "bg1_layer5"];
+        parallaxBackground = ParallaxBackground(texture: nil, color: UIColor.clearColor(), size: size)
+        parallaxBackground?.setUpBackgrounds(backgrounds, size: size, fastestSpeed: 8.0, speedDecrease: 1)
+        addChild(parallaxBackground!)
         
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = CGVector(dx: 0.0, dy: 0.0)
@@ -109,7 +100,7 @@ class GameScene: SKScene {
         addChild(scoreLabel)
         
         // Add mute button
-        let muteButton = SKSpriteNode(imageNamed: "mute_button")
+        let muteButton = muted ? SKSpriteNode(imageNamed: "unmute_button") : SKSpriteNode(imageNamed: "mute_button")
         
         if DeviceModel.iPhone4 {
             muteButton.position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height + 20)
@@ -128,18 +119,20 @@ class GameScene: SKScene {
         for touch in touches {
             let location = touch.locationInNode(self)
             
-            if let muteButton = childNodeWithName("muteButton") {
+            if let muteButton = childNodeWithName("muteButton") as? SKSpriteNode {
                 if muteButton.containsPoint(location) {
                     audioManager.audioPlayer?.volume = muted ? 1.0 : 0.0
                     muted = audioManager.audioPlayer?.volume == 0.0 ? true : false
                     
-                    // TODO: change node texture accordingly
+                    muteButton.texture = muted ? SKTexture(imageNamed: "unmute_button") : SKTexture(imageNamed: "mute_button")
                 }
             }
         }
     }
    
     override func update(currentTime: CFTimeInterval) {
+        parallaxBackground?.update()
+        
         var timeSinceLast = currentTime - lastUpdateTime
         lastUpdateTime = currentTime
         
@@ -149,7 +142,7 @@ class GameScene: SKScene {
         
         lastSpawnTime += timeSinceLast
         
-        if lastSpawnTime > 1.5 {
+        if lastSpawnTime > 1.0 {
             lastSpawnTime = 0.0
             spawnBird()
         }
@@ -173,7 +166,8 @@ class GameScene: SKScene {
         addChild(newBird)
         
         // Setup bird node Physics
-        newBird.physicsBody = SKPhysicsBody(texture: newBird.texture!, size: newBird.texture!.size())
+        newBird.physicsBody = SKPhysicsBody(rectangleOfSize: newBird.size)
+        //newBird.physicsBody = SKPhysicsBody(texture: newBird.texture!, size: newBird.texture!.size())
         newBird.physicsBody?.dynamic = false
         newBird.physicsBody?.restitution = 1.0
         newBird.physicsBody?.collisionBitMask = PhysicsCategory.Bird

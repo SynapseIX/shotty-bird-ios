@@ -11,6 +11,8 @@ import Social
 
 class MainMenuScene: SKScene {
     
+    var parallaxBackground: ParallaxBackground?
+    
     let audioManager = AudioManager(file: "menu_music", type: "wav", loop: true)
     var muted = false
     
@@ -21,6 +23,10 @@ class MainMenuScene: SKScene {
         audioManager.audioPlayer?.volume = !muted ? 1.0 : 0.0
         audioManager.tryPlayMusic()
         setupUI()
+    }
+    
+    override func update(currentTime: NSTimeInterval) {
+        parallaxBackground!.update()
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -83,12 +89,12 @@ class MainMenuScene: SKScene {
                 }
             }
             
-            if let muteButton = childNodeWithName("muteButton") {
+            if let muteButton = childNodeWithName("muteButton") as? SKSpriteNode {
                 if muteButton.containsPoint(location) {
                     audioManager.audioPlayer?.volume = muted ? 1.0 : 0.0
                     muted = audioManager.audioPlayer?.volume == 0.0 ? true : false
                     
-                    // TODO: change node texture accordingly
+                    muteButton.texture = muted ? SKTexture(imageNamed: "unmute_button") : SKTexture(imageNamed: "mute_button")
                 }
             }
         }
@@ -97,24 +103,11 @@ class MainMenuScene: SKScene {
     // MARK: - UI methods
     
     private func setupUI() {
-        // TODO: implement parallax scrolling background
         // Add background
-        let background = SKSpriteNode(imageNamed: "background")
-        
-        if DeviceModel.iPad {
-            background.xScale = 0.7
-            background.yScale = 0.7
-        } else if DeviceModel.iPhone4 {
-            background.xScale = 0.65
-            background.yScale = 0.65
-        } else {
-            background.xScale = 0.55
-            background.yScale = 0.55
-        }
-        
-        background.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame))
-        background.zPosition = zPositionBg
-        addChild(background)
+        let backgrounds = ["bg1_layer1", "bg1_layer2", "bg1_layer3", "bg1_layer4", "bg1_layer5"];
+        parallaxBackground = ParallaxBackground(texture: nil, color: UIColor.clearColor(), size: size)
+        parallaxBackground?.setUpBackgrounds(backgrounds, size: size, fastestSpeed: 1.0, speedDecrease: 0.05)
+        addChild(parallaxBackground!)
         
         // Add and scale game logo
         let logo = SKSpriteNode(imageNamed: "logo_large")

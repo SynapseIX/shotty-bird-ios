@@ -10,6 +10,8 @@ import SpriteKit
 
 class GameOverScene: SKScene {
     
+    var parallaxBackground: ParallaxBackground?
+    
     let audioManager = AudioManager(file: "game_over_music", type: "mp3", loop: false)
     var muted = false
     
@@ -20,22 +22,11 @@ class GameOverScene: SKScene {
         audioManager.audioPlayer?.volume = !muted ? 1.0 : 0.0
         audioManager.tryPlayMusic()
         
-        let background = SKSpriteNode(imageNamed: "background")
-        
-        if DeviceModel.iPad {
-            background.xScale = 0.7
-            background.yScale = 0.7
-        } else if DeviceModel.iPhone4 {
-            background.xScale = 0.65
-            background.yScale = 0.65
-        } else {
-            background.xScale = 0.55
-            background.yScale = 0.55
-        }
-        
-        background.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame))
-        background.zPosition = zPositionBg
-        addChild(background)
+        // Add background
+        let backgrounds = ["bg1_layer1", "bg1_layer2", "bg1_layer3", "bg1_layer4", "bg1_layer5"];
+        parallaxBackground = ParallaxBackground(texture: nil, color: UIColor.clearColor(), size: size)
+        parallaxBackground?.setUpBackgrounds(backgrounds, size: size, fastestSpeed: 1.0, speedDecrease: 0.05)
+        addChild(parallaxBackground!)
         
         // Replace this with image
         let gameOverLabel = SKLabelNode(fontNamed:"Kenney-Bold")
@@ -51,6 +42,10 @@ class GameOverScene: SKScene {
         audioManager.stopMusic()
         let transition = SKTransition.doorsOpenHorizontalWithDuration(0.5)
         view?.presentScene(getMainMenuScene(), transition: transition)
+    }
+    
+    override func update(currentTime: NSTimeInterval) {
+        parallaxBackground?.update()
     }
     
     private func getMainMenuScene() -> MainMenuScene {

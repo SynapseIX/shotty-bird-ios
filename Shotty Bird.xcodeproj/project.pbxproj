@@ -34,6 +34,7 @@
 		97D181661CE3AD5800FC123A /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D181651CE3AD5800FC123A /* GameOverScene.swift */; };
 		97D1818A1CE3B66700FC123A /* game_over_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 97D181891CE3B66700FC123A /* game_over_music.mp3 */; };
 		97FDC96A1CE52A880023BB0A /* GameScoreDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FDC9691CE52A880023BB0A /* GameScoreDelegate.swift */; };
+		97FDC9DA1CE556FE0023BB0A /* ParallaxBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FDC9D91CE556FE0023BB0A /* ParallaxBackground.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		97D181651CE3AD5800FC123A /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		97D181891CE3B66700FC123A /* game_over_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = game_over_music.mp3; sourceTree = "<group>"; };
 		97FDC9691CE52A880023BB0A /* GameScoreDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScoreDelegate.swift; sourceTree = "<group>"; };
+		97FDC9D91CE556FE0023BB0A /* ParallaxBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxBackground.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 		978754901CDEC47E0033E261 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
+				97FDC9D91CE556FE0023BB0A /* ParallaxBackground.swift */,
 				978754911CDEC48F0033E261 /* Bird.swift */,
 			);
 			path = Nodes;
@@ -296,6 +299,7 @@
 				97887E0E1CDC21BA00021B4F /* GameViewController.swift in Sources */,
 				978754921CDEC48F0033E261 /* Bird.swift in Sources */,
 				97887E081CDC21BA00021B4F /* AppDelegate.swift in Sources */,
+				97FDC9DA1CE556FE0023BB0A /* ParallaxBackground.swift in Sources */,
 				97D181541CE2CF2F00FC123A /* AudioManager.swift in Sources */,
 				973F6DAA1CE2BD4A00FA4CFA /* GameAction.swift in Sources */,
 			);
