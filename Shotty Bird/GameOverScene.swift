@@ -29,12 +29,20 @@ class GameOverScene: SKScene {
         addChild(parallaxBackground!)
         
         // Replace this with image
-        let gameOverLabel = SKLabelNode(fontNamed:"Kenney-Bold")
-        gameOverLabel.text = "Game Over"
-        gameOverLabel.fontSize = 90
-        gameOverLabel.zPosition = zPositionMenuItems
-        gameOverLabel.position = CGPoint(x:CGRectGetMidX(frame), y:CGRectGetMidY(frame))
-        addChild(gameOverLabel)
+        let label = ASAttributedLabelNode(size: size)
+        
+        if let font =  UIFont(name: "Kenney-Bold", size: 90) {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .Center
+            
+            let attributes = [NSFontAttributeName : font, NSForegroundColorAttributeName: UIColor.whiteColor(),
+                              NSStrokeColorAttributeName: UIColor.blackColor(), NSStrokeWidthAttributeName: -10, NSParagraphStyleAttributeName: paragraphStyle]
+            
+            label.attributedString = NSAttributedString(string: "Game Over", attributes: attributes)
+            label.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame))
+            label.zPosition = zPositionMenuItems
+            addChild(label)
+        }
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
