@@ -45,7 +45,7 @@ class GameScene: SKScene {
         
         if DeviceModel.iPhone4 {
             firstLife.position = CGPoint(x: CGRectGetMinX(frame) + firstLife.size.width / 2 + 20, y: CGRectGetMaxY(frame) - firstLife.size.height - 20)
-        } else if DeviceModel.iPad {
+        } else if DeviceModel.iPad || DeviceModel.iPadPro {
             firstLife.position = CGPoint(x: CGRectGetMinX(frame) + firstLife.size.width / 2 + 20, y: CGRectGetMaxY(frame) - firstLife.size.height / 2 - 20)
         } else {
             firstLife.position = CGPoint(x: CGRectGetMinX(frame) + firstLife.size.width / 2 + 20, y: CGRectGetMaxY(frame) - firstLife.size.height * 2)
@@ -60,7 +60,7 @@ class GameScene: SKScene {
         
         if DeviceModel.iPhone4 {
             secondLife.position = CGPoint(x: CGRectGetMinX(frame) + secondLife.size.width * 2 - 10, y: CGRectGetMaxY(frame) - secondLife.size.height - 20)
-        } else if DeviceModel.iPad {
+        } else if DeviceModel.iPad || DeviceModel.iPadPro {
             secondLife.position = CGPoint(x: CGRectGetMinX(frame) + secondLife.size.width * 2 - 10, y: CGRectGetMaxY(frame) - secondLife.size.height / 2 - 20)
         } else {
             secondLife.position = CGPoint(x: CGRectGetMinX(frame) + secondLife.size.width * 2 - 10, y: CGRectGetMaxY(frame) - secondLife.size.height * 2)
@@ -75,7 +75,7 @@ class GameScene: SKScene {
         
         if DeviceModel.iPhone4 {
             thirdLife.position = CGPoint(x: CGRectGetMinX(frame) + thirdLife.size.width * 3 - 5, y: CGRectGetMaxY(frame) - thirdLife.size.height - 20)
-        } else if DeviceModel.iPad {
+        } else if DeviceModel.iPad || DeviceModel.iPadPro {
             thirdLife.position = CGPoint(x: CGRectGetMinX(frame) + thirdLife.size.width * 3 - 5, y: CGRectGetMaxY(frame) - thirdLife.size.height / 2 - 20)
         } else {
             thirdLife.position = CGPoint(x: CGRectGetMinX(frame) + thirdLife.size.width * 3 - 5, y: CGRectGetMaxY(frame) - thirdLife.size.height * 2)
@@ -86,18 +86,26 @@ class GameScene: SKScene {
         addChild(thirdLife)
         
         // Add score node
-        let scoreLabel = SKLabelNode(fontNamed:"Kenney-Bold")
-        scoreLabel.text = "0"
-        scoreLabel.fontSize = 35
-        scoreLabel.zPosition = zPositionMenuItems
-        scoreLabel.name = "score"
+        let scoreLabel = ASAttributedLabelNode(size: CGSize(width: 165.0, height: 65.0))
         
-        if DeviceModel.iPad {
-            scoreLabel.position = CGPoint(x: CGRectGetMaxX(frame) - 35, y: CGRectGetMaxY(frame) - 65)
+        if let font =  UIFont(name: "Kenney-Bold", size: 35) {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .Right
+            
+            let attributes = [NSFontAttributeName : font, NSForegroundColorAttributeName: UIColor.whiteColor(),
+                              NSStrokeColorAttributeName: UIColor.blackColor(), NSStrokeWidthAttributeName: -10, NSParagraphStyleAttributeName: paragraphStyle]
+            
+            scoreLabel.attributedString = NSAttributedString(string: "0", attributes: attributes)
+            scoreLabel.zPosition = zPositionMenuItems
+            scoreLabel.name = "score"
+        }
+        
+        if DeviceModel.iPad || DeviceModel.iPadPro {
+            scoreLabel.position = CGPoint(x: CGRectGetMaxX(frame) - scoreLabel.size.width / 2 - 10, y: CGRectGetMaxY(frame) - scoreLabel.size.height / 2 - 10)
         } else if DeviceModel.iPhone4 {
-            scoreLabel.position = CGPoint(x: CGRectGetMaxX(frame) - 35, y: CGRectGetMaxY(frame) - 115)
+            scoreLabel.position = CGPoint(x: CGRectGetMaxX(frame) - scoreLabel.size.width / 2 - 10, y: CGRectGetMaxY(frame) - scoreLabel.size.height - 20)
         } else {
-            scoreLabel.position = CGPoint(x: CGRectGetMaxX(frame) - 35, y: CGRectGetMaxY(frame) - 160)
+            scoreLabel.position = CGPoint(x: CGRectGetMaxX(frame) - scoreLabel.size.width / 2 - 10, y: CGRectGetMaxY(frame) - scoreLabel.size.height * 2 - 10)
         }
         
         addChild(scoreLabel)
@@ -107,7 +115,7 @@ class GameScene: SKScene {
         
         if DeviceModel.iPhone4 {
             muteButton.position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height + 20)
-        } else if DeviceModel.iPad {
+        } else if DeviceModel.iPad || DeviceModel.iPadPro {
             muteButton.position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height - 20)
         } else {
             muteButton.position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height * 2)
@@ -241,52 +249,39 @@ extension GameScene: GameScoreDelegate {
     func updateScore() {
         score += 1
         
-        if score == 10 {
+        switch score {
+        case 10:
             audioManager.audioPlayer?.rate = 1.05
-        }
-        
-        if score == 25 {
+        case 25:
             audioManager.audioPlayer?.rate = 1.10
-        }
-        
-        if score == 40 {
+        case 40:
             audioManager.audioPlayer?.rate = 1.15
-        }
-        
-        if score == 50 {
+        case 50:
             audioManager.audioPlayer?.rate = 1.20
-        }
-        
-        if score == 60 {
+        case 60:
             audioManager.audioPlayer?.rate = 1.25
-        }
-        
-        if score == 70 {
+        case 70:
             audioManager.audioPlayer?.rate = 1.30
-        }
-        
-        if score == 80 {
+        case 80:
             audioManager.audioPlayer?.rate = 1.35
-        }
-        
-        if score == 85 {
+        case 90:
             audioManager.audioPlayer?.rate = 1.40
-        }
-        
-        if score == 90 {
+        case 100:
             audioManager.audioPlayer?.rate = 1.45
+        default:
+            break
         }
         
-        if score == 100 {
-            audioManager.audioPlayer?.rate = 1.45
-        }
-        
-        if let node = childNodeWithName("score") as? SKLabelNode {
-            if score == 10 || score == 100 || score == 1000 {
-                node.position = CGPoint(x: node.position.x - 10, y: node.position.y)
+        if let node = childNodeWithName("score") as? ASAttributedLabelNode {
+            if let font =  UIFont(name: "Kenney-Bold", size: 35) {
+                let paragraphStyle = NSMutableParagraphStyle()
+                paragraphStyle.alignment = .Right
+                
+                let attributes = [NSFontAttributeName : font, NSForegroundColorAttributeName: UIColor.whiteColor(),
+                                  NSStrokeColorAttributeName: UIColor.blackColor(), NSStrokeWidthAttributeName: -10, NSParagraphStyleAttributeName: paragraphStyle]
+                
+                node.attributedString = NSAttributedString(string: "\(score)", attributes: attributes)
             }
-            
-            node.text = "\(score)"
         }
     }
     

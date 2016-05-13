@@ -113,7 +113,7 @@ class MainMenuScene: SKScene {
         // Add and scale game logo
         let logo = SKSpriteNode(imageNamed: "logo_large")
         
-        if DeviceModel.iPad {
+        if DeviceModel.iPad || DeviceModel.iPadPro {
             logo.xScale = 0.75
             logo.yScale = 0.75
         } else {
@@ -121,7 +121,7 @@ class MainMenuScene: SKScene {
             logo.yScale = 0.65
         }
         
-        let logoY = DeviceModel.iPad ? CGRectGetMaxY(frame) - CGFloat(logo.size.height) / 2 - 30 : CGRectGetMaxY(frame) - CGFloat(logo.size.height) - 30
+        let logoY = DeviceModel.iPad || DeviceModel.iPadPro ? CGRectGetMaxY(frame) - CGFloat(logo.size.height) / 2 - 30 : CGRectGetMaxY(frame) - CGFloat(logo.size.height) - 30
         logo.position = CGPoint(x: CGRectGetMidX(frame), y: logoY)
         logo.zPosition = zPositionMenuItems
         addChild(logo)
@@ -170,7 +170,7 @@ class MainMenuScene: SKScene {
         
         if DeviceModel.iPhone4 {
             twitterButton.position = CGPoint(x: CGRectGetMinX(frame) + twitterButton.size.width / 2 + 20, y: CGRectGetMinY(frame) + twitterButton.size.height + 20)
-        } else if DeviceModel.iPad {
+        } else if DeviceModel.iPad || DeviceModel.iPadPro {
             twitterButton.position = CGPoint(x: CGRectGetMinX(frame) + twitterButton.size.width / 2 + 20, y: CGRectGetMinY(frame) + twitterButton.size.height - 20)
         } else {
             twitterButton.position = CGPoint(x: CGRectGetMinX(frame) + twitterButton.size.width / 2 + 20, y: CGRectGetMinY(frame) + twitterButton.size.height * 2)
@@ -185,7 +185,7 @@ class MainMenuScene: SKScene {
         
         if DeviceModel.iPhone4 {
             facebookButton.position = CGPoint(x: CGRectGetMinX(frame) + twitterButton.size.width * 2 + 5, y: CGRectGetMinY(frame) + twitterButton.size.height + 20)
-        } else if DeviceModel.iPad {
+        } else if DeviceModel.iPad || DeviceModel.iPadPro {
             facebookButton.position = CGPoint(x: CGRectGetMinX(frame) + twitterButton.size.width * 2 + 5, y: CGRectGetMinY(frame) + twitterButton.size.height - 20)
         } else {
             facebookButton.position = CGPoint(x: CGRectGetMinX(frame) + twitterButton.size.width * 2 + 5, y: CGRectGetMinY(frame) + twitterButton.size.height * 2)
@@ -200,7 +200,7 @@ class MainMenuScene: SKScene {
         
         if DeviceModel.iPhone4 {
             muteButton.position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height + 20)
-        } else if DeviceModel.iPad {
+        } else if DeviceModel.iPad || DeviceModel.iPadPro {
             muteButton.position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height - 20)
         } else {
             muteButton.position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height * 2)
