@@ -25,8 +25,13 @@ class GameUtils {
     
     class func randomBird() -> [String] {
         let bird_big_fat_green = ["bird_big_fat_green_1", "bird_big_fat_green_2"]
+        let bird_big_fat_yellow = ["bird_big_fat_yellow_1", "bird_big_fat_yellow_2"]
+        let bird_normal_blue = ["bird_normal_blue_1", "bird_normal_blue_2"]
+        let bird_normal_orange = ["bird_normal_orange_1", "bird_normal_orange_2"]
+        let bird_skinny_green = ["bird_skinny_green_1", "bird_skinny_green_2"]
+        let bird_skinny_red = ["bird_skinny_red_1", "bird_skinny_red_2"]
         
-        let birds = [bird_big_fat_green]
+        let birds = [bird_big_fat_green, bird_big_fat_yellow, bird_normal_blue, bird_normal_orange, bird_skinny_green, bird_skinny_red]
         return birds[Int(arc4random_uniform(UInt32(birds.count)))]
     }
 

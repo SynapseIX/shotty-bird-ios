@@ -10,6 +10,7 @@
 		973CFB421CE287B300A22A91 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CFB411CE287B300A22A91 /* MainMenuScene.swift */; };
 		973CFB451CE2891B00A22A91 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CFB441CE2891B00A22A91 /* DeviceModel.swift */; };
 		973F6DAA1CE2BD4A00FA4CFA /* GameAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973F6DA91CE2BD4A00FA4CFA /* GameAction.swift */; };
+		9780E4A11CE79F3E00FC1E13 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9780E4A01CE79F3E00FC1E13 /* GameKit.framework */; };
 		978754921CDEC48F0033E261 /* Bird.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978754911CDEC48F0033E261 /* Bird.swift */; };
 		978754951CDED4D40033E261 /* PhysicsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978754941CDED4D40033E261 /* PhysicsCategory.swift */; };
 		9787549D1CDEDF310033E261 /* wing_flap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9787549C1CDEDF310033E261 /* wing_flap.wav */; };
@@ -41,6 +42,7 @@
 		973CFB411CE287B300A22A91 /* MainMenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 		973CFB441CE2891B00A22A91 /* DeviceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
 		973F6DA91CE2BD4A00FA4CFA /* GameAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameAction.swift; sourceTree = "<group>"; };
+		9780E4A01CE79F3E00FC1E13 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		978754911CDEC48F0033E261 /* Bird.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bird.swift; sourceTree = "<group>"; };
 		978754941CDED4D40033E261 /* PhysicsCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsCategory.swift; sourceTree = "<group>"; };
 		9787549C1CDEDF310033E261 /* wing_flap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = wing_flap.wav; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9780E4A11CE79F3E00FC1E13 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,8 +132,8 @@
 			children = (
 				978754A21CDEE26C0033E261 /* bird.wav */,
 				978754A01CDEE1100033E261 /* explosion.wav */,
-				97C1493A1CE5B3AE0054CD4A /* gameplay_music.wav */,
 				97D181891CE3B66700FC123A /* game_over_music.mp3 */,
+				97C1493A1CE5B3AE0054CD4A /* gameplay_music.wav */,
 				97D1815D1CE2E4C700FC123A /* menu_music.wav */,
 				9787549E1CDEE1030033E261 /* shot.wav */,
 				9787549C1CDEDF310033E261 /* wing_flap.wav */,
@@ -141,6 +144,7 @@
 		97887DFB1CDC21BA00021B4F = {
 			isa = PBXGroup;
 			children = (
+				9780E4A01CE79F3E00FC1E13 /* GameKit.framework */,
 				97887E061CDC21BA00021B4F /* Shotty Bird */,
 				97887E051CDC21BA00021B4F /* Products */,
 			);
@@ -238,6 +242,11 @@
 					97887E031CDC21BA00021B4F = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = RTCYSWYBFH;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -428,7 +437,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Shotty Bird/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "co.profapps.Shotty-Bird";
