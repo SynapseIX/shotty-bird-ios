@@ -244,7 +244,7 @@ class MainMenuScene: SKScene {
                 twitterController.dismissViewControllerAnimated(true, completion: nil)
             }
             
-            twitterController.setInitialText("Improving my shooting skills with #ShottyBird, by @itsProf. Available on the App Store. https://appsto.re/us/shottybird.i")
+            twitterController.setInitialText("Improving my shooting skills with #ShottyBird. Available on the App Store. https://appsto.re/us/shottybird.i")
             
             gameViewController.presentViewController(twitterController, animated: true, completion: nil)
         } else {

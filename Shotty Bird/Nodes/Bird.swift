@@ -30,7 +30,7 @@ class Bird: SKSpriteNode {
         runAction(GameAction.playExplosionSoundAction)
         
         userInteractionEnabled = false
-        physicsBody?.dynamic = false
+        physicsBody = nil
         
         let texture = SKTexture(imageNamed: "explosion")
         self.texture = texture

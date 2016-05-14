@@ -70,27 +70,77 @@ class GameScene: SKScene {
         
         lastSpawnTime += timeSinceLast
         
-        if score < 10 {
+        switch score {
+        case 0...10:
+            if lastSpawnTime > 2.0 {
+                lastSpawnTime = 0.0
+                spawnBird()
+            }
+        case 11...20:
+            if lastSpawnTime > 1.75 {
+                lastSpawnTime = 0.0
+                spawnBird()
+            }
+        case 21...25:
             if lastSpawnTime > 1.5 {
                 lastSpawnTime = 0.0
                 spawnBird()
             }
-        } else if score >= 10 && score < 25 {
+        case 26...35:
+            if lastSpawnTime > 1.25 {
+                lastSpawnTime = 0.0
+                spawnBird()
+            }
+        case 36...40:
             if lastSpawnTime > 1.0 {
                 lastSpawnTime = 0.0
                 spawnBird()
             }
-        } else if score >= 25 && score < 40 {
+        case 41...45:
+            if lastSpawnTime > 0.875 {
+                lastSpawnTime = 0.0
+                spawnBird()
+            }
+        case 41...45:
             if lastSpawnTime > 0.75 {
                 lastSpawnTime = 0.0
                 spawnBird()
             }
-        } else if score >= 40 {
-            if lastSpawnTime > 0.5 {
+        default:
+            if lastSpawnTime > 0.625 {
                 lastSpawnTime = 0.0
                 spawnBird()
             }
         }
+        
+//        if score < 10 {
+//            
+//        } else if score >= 10 && score < 20 {
+//            if lastSpawnTime > 1.75 {
+//                lastSpawnTime = 0.0
+//                spawnBird()
+//            }
+//        } else if score >= 20 && score < 25 {
+//            if lastSpawnTime > 1.5 {
+//                lastSpawnTime = 0.0
+//                spawnBird()
+//            }
+//        } else if score >= 25 && score < 35 {
+//            if lastSpawnTime > 1.25 {
+//                lastSpawnTime = 0.0
+//                spawnBird()
+//            }
+//        } else if score >= 35 && score < 40 {
+//            if lastSpawnTime > 1.0 {
+//                lastSpawnTime = 0.0
+//                spawnBird()
+//            }
+//        } else if score >= 35 && score < 40 {
+//            if lastSpawnTime > 1.0 {
+//                lastSpawnTime = 0.0
+//                spawnBird()
+//            }
+//        }
         
         parallaxBackground?.update()
     }
@@ -99,7 +149,7 @@ class GameScene: SKScene {
     
     private func addParallaxBackground() {
         parallaxBackground = ParallaxBackground(texture: nil, color: UIColor.clearColor(), size: size)
-        parallaxBackground?.setUpBackgrounds(bgLayers, size: size, fastestSpeed: 15.0, speedDecrease: 4.5)
+        parallaxBackground?.setUpBackgrounds(bgLayers, size: size, fastestSpeed: 13.0, speedDecrease: 4.0)
         
         addChild(parallaxBackground!)
     }
@@ -243,8 +293,8 @@ class GameScene: SKScene {
         newBird.physicsBody?.collisionBitMask = PhysicsCategory.Bird
         
         // Setup actions
-        let minDuration = 2.00
-        let maxDuration = 3.75
+        let minDuration = 1.75
+        let maxDuration = 4.00
         let actualDuration = Double(arc4random()) / Double(UInt32.max) * abs(minDuration - maxDuration) + min(minDuration, maxDuration)
         
         let moveAction = SKAction.moveTo(CGPoint(x: -newBird.size.width / 2, y: newBird.position.y), duration: actualDuration)
@@ -287,21 +337,21 @@ extension GameScene: GameScoreDelegate {
         case 10:
             audioManager.audioPlayer?.rate = 1.05
         case 25:
-            audioManager.audioPlayer?.rate = 1.10
-        case 40:
             audioManager.audioPlayer?.rate = 1.15
-        case 50:
-            audioManager.audioPlayer?.rate = 1.20
-        case 60:
+        case 40:
             audioManager.audioPlayer?.rate = 1.25
-        case 70:
-            audioManager.audioPlayer?.rate = 1.30
-        case 80:
+        case 50:
             audioManager.audioPlayer?.rate = 1.35
-        case 90:
-            audioManager.audioPlayer?.rate = 1.40
-        case 100:
+        case 60:
             audioManager.audioPlayer?.rate = 1.45
+        case 70:
+            audioManager.audioPlayer?.rate = 1.55
+        case 80:
+            audioManager.audioPlayer?.rate = 1.65
+        case 90:
+            audioManager.audioPlayer?.rate = 1.75
+        case 100:
+            audioManager.audioPlayer?.rate = 1.80
         default:
             break
         }
