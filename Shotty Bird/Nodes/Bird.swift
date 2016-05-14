@@ -39,19 +39,22 @@ class Bird: SKSpriteNode {
         runAction(SKAction.sequence([GameAction.playExplosionSoundAction, SKAction.removeFromParent()]))
         
         // Add explosion node with the last bird's parameters
-        // TODO: replace with animated explosion
-        let explosion = SKSpriteNode(imageNamed: "explosion")
+        let explosion = SKSpriteNode(imageNamed: "explosion_1")
         explosion.xScale = xScaleTmp
         explosion.yScale = yScaleTmp
         explosion.position = positionTmp
         explosion.zPosition = zPostionTmp
+        
+        let explosionAction = SKAction.animateWithTextures([SKTexture(imageNamed: "explosion_1"), SKTexture(imageNamed: "explosion_2"), SKTexture(imageNamed: "explosion_3"), SKTexture(imageNamed: "explosion_4"), SKTexture(imageNamed: "explosion_5"), SKTexture(imageNamed: "explosion_6"), SKTexture(imageNamed: "explosion_7"), SKTexture(imageNamed: "explosion_8"), SKTexture(imageNamed: "explosion_9"), SKTexture(imageNamed: "explosion_10"), SKTexture(imageNamed: "explosion_11"), SKTexture(imageNamed: "explosion_12")], timePerFrame: 0.03)
+        explosion.runAction(explosionAction)
+        
         (delegate as! GameScene).addChild(explosion)
         
         // TODO: increase game score and move this logic to the contact delegate when missile is done
         delegate?.updateScore()
         
         // Remove the explosion node after 0.3 seconds
-        let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC)))
+        let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.03 * 13 * Double(NSEC_PER_SEC)))
         dispatch_after(dispatchTime, dispatch_get_main_queue()) {
             explosion.runAction(SKAction.removeFromParent())
         }
