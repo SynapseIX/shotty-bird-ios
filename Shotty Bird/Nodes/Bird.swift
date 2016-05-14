@@ -23,7 +23,7 @@ class Bird: SKSpriteNode {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        fatalError("Coder not implemented...")
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
