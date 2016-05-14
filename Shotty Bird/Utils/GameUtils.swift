@@ -22,5 +22,12 @@ class GameUtils {
         let bgs = [bg1, bg2, bg3, bg4, bg5, bg6, bg7]
         return bgs[Int(arc4random_uniform(UInt32(bgs.count)))]
     }
+    
+    class func randomBird() -> [String] {
+        let bird_big_fat_green = ["bird_big_fat_green_1", "bird_big_fat_green_2"]
+        
+        let birds = [bird_big_fat_green]
+        return birds[Int(arc4random_uniform(UInt32(birds.count)))]
+    }
 
 }

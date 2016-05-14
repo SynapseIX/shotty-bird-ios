@@ -275,10 +275,9 @@ class GameScene: SKScene {
         newBird.xScale = 0.2
         newBird.yScale = 0.2
         newBird.zPosition = 1
-        newBird.yScale = -newBird.yScale;
         
-        let minY = newBird.size.height * 3
-        let maxY = frame.height - minY
+        let minY = newBird.size.height + 20
+        let maxY = frame.height - minY - 20
         let rangeY = maxY - minY
         let birdY = (CGFloat(arc4random()) % rangeY) + minY
         
@@ -286,8 +285,7 @@ class GameScene: SKScene {
         addChild(newBird)
         
         // Setup bird node Physics
-        //newBird.physicsBody = SKPhysicsBody(rectangleOfSize: newBird.size)
-        newBird.physicsBody = SKPhysicsBody(texture: newBird.texture!, size: newBird.texture!.size())
+        newBird.physicsBody = SKPhysicsBody(rectangleOfSize: newBird.size)
         newBird.physicsBody?.dynamic = false
         newBird.physicsBody?.restitution = 1.0
         newBird.physicsBody?.collisionBitMask = PhysicsCategory.Bird
@@ -295,11 +293,15 @@ class GameScene: SKScene {
         // Setup actions
         let minDuration = 1.75
         let maxDuration = 4.00
-        let actualDuration = Double(arc4random()) / Double(UInt32.max) * abs(minDuration - maxDuration) + min(minDuration, maxDuration)
+        let rangeDuration = maxDuration - minDuration
+        let actualDuration = (Double(arc4random()) % rangeDuration) + minDuration
         
+        let flapAction = SKAction.animateWithTextures([SKTexture(imageNamed: newBird.sprites[0]), SKTexture(imageNamed: newBird.sprites[1])], timePerFrame: 0.1)
+        let flyAction = SKAction.repeatAction(flapAction, count: Int(actualDuration / 0.2))
         let moveAction = SKAction.moveTo(CGPoint(x: -newBird.size.width / 2, y: newBird.position.y), duration: actualDuration)
+        let flyAndMoveAction = SKAction.group([flyAction, moveAction])
         
-        let sequence = muted ? SKAction.sequence([GameAction.rotationAction, moveAction, GameAction.finishedMovedAction]) : SKAction.sequence([GameAction.playWingFlapSoundAction, GameAction.rotationAction, moveAction, GameAction.playBirdSoundAction, GameAction.finishedMovedAction])
+        let sequence = muted ? SKAction.sequence([flyAndMoveAction, GameAction.finishedMovedAction]) : SKAction.sequence([GameAction.playWingFlapSoundAction, flyAndMoveAction, GameAction.playBirdSoundAction, GameAction.finishedMovedAction])
         
         // Runs action sequence and executes completion closure to determine if a bird escaped
         newBird.runAction(sequence) {

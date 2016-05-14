@@ -11,11 +11,12 @@ import SpriteKit
 class Bird: SKSpriteNode {
     
     var delegate: GameScoreDelegate?
+    var sprites: [String]
     
     init(delegate: GameScoreDelegate) {
-        let birds = ["bird_fat_green", "bird_normal_blue", "bird_normal_orange", "bird_skinny_green", "bird_skinny_red", "bird_yellow_fat"]
+        sprites = GameUtils.randomBird()
         
-        let texture = SKTexture(imageNamed: birds[Int(arc4random_uniform(UInt32(birds.count)))])
+        let texture = SKTexture(imageNamed: sprites[0])
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
         
         self.delegate = delegate
@@ -27,21 +28,23 @@ class Bird: SKSpriteNode {
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let tmpSize = size
+        let tmpPosition = position
+        
         runAction(GameAction.playExplosionSoundAction)
+        runAction(SKAction.removeFromParent())
         
-        userInteractionEnabled = false
-        physicsBody = nil
-        
-        let texture = SKTexture(imageNamed: "explosion")
-        self.texture = texture
-        size = texture.size()
+        let explosion = SKSpriteNode(imageNamed: "explosion")
+        explosion.size = tmpSize
+        explosion.position = tmpPosition
+        (delegate as! GameScene).addChild(explosion)
         
         // TODO: increase game score and move this logic to the contact delegate when missile is done
         delegate?.updateScore()
         
         let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC)))
         dispatch_after(dispatchTime, dispatch_get_main_queue()) {
-            self.runAction(SKAction.removeFromParent())
+            explosion.runAction(SKAction.removeFromParent())
         }
     }
 
