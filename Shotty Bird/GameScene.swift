@@ -113,35 +113,6 @@ class GameScene: SKScene {
             }
         }
         
-//        if score < 10 {
-//            
-//        } else if score >= 10 && score < 20 {
-//            if lastSpawnTime > 1.75 {
-//                lastSpawnTime = 0.0
-//                spawnBird()
-//            }
-//        } else if score >= 20 && score < 25 {
-//            if lastSpawnTime > 1.5 {
-//                lastSpawnTime = 0.0
-//                spawnBird()
-//            }
-//        } else if score >= 25 && score < 35 {
-//            if lastSpawnTime > 1.25 {
-//                lastSpawnTime = 0.0
-//                spawnBird()
-//            }
-//        } else if score >= 35 && score < 40 {
-//            if lastSpawnTime > 1.0 {
-//                lastSpawnTime = 0.0
-//                spawnBird()
-//            }
-//        } else if score >= 35 && score < 40 {
-//            if lastSpawnTime > 1.0 {
-//                lastSpawnTime = 0.0
-//                spawnBird()
-//            }
-//        }
-        
         parallaxBackground?.update()
     }
     

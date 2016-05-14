@@ -27,21 +27,30 @@ class Bird: SKSpriteNode {
         fatalError("Coder not implemented...")
     }
     
+    // TODO: this must be done when testing a collision between missile and bird
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        let tmpSize = size
-        let tmpPosition = position
+        // Store last x and y scales, postion and zPosition values from bird
+        let xScaleTmp = xScale
+        let yScaleTmp = yScale
+        let positionTmp = position
+        let zPostionTmp = zPosition
         
-        runAction(GameAction.playExplosionSoundAction)
-        runAction(SKAction.removeFromParent())
+        // Remove bird node
+        runAction(SKAction.sequence([GameAction.playExplosionSoundAction, SKAction.removeFromParent()]))
         
+        // Add explosion node with the last bird's parameters
+        // TODO: replace with animated explosion
         let explosion = SKSpriteNode(imageNamed: "explosion")
-        explosion.size = tmpSize
-        explosion.position = tmpPosition
+        explosion.xScale = xScaleTmp
+        explosion.yScale = yScaleTmp
+        explosion.position = positionTmp
+        explosion.zPosition = zPostionTmp
         (delegate as! GameScene).addChild(explosion)
         
         // TODO: increase game score and move this logic to the contact delegate when missile is done
         delegate?.updateScore()
         
+        // Remove the explosion node after 0.3 seconds
         let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC)))
         dispatch_after(dispatchTime, dispatch_get_main_queue()) {
             explosion.runAction(SKAction.removeFromParent())
