@@ -13,14 +13,14 @@ class Bird: SKSpriteNode {
     var delegate: GameScoreDelegate?
     var sprites: [String]
     
-    init(delegate: GameScoreDelegate) {
-        sprites = GameUtils.randomBird()
+    init(sprites: [String], delegate: GameScoreDelegate) {
+        self.sprites = sprites
+        self.delegate = delegate
         
         let texture = SKTexture(imageNamed: sprites[0])
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
         
-        self.delegate = delegate
-        userInteractionEnabled = true
+        self.userInteractionEnabled = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,7 +36,8 @@ class Bird: SKSpriteNode {
         let zPostionTmp = zPosition
         
         // Remove bird node
-        runAction(SKAction.sequence([GameAction.playExplosionSoundAction, SKAction.removeFromParent()]))
+        let playExplosionSoundAction = SKAction.playSoundFileNamed("explosion.wav", waitForCompletion: false)
+        runAction(SKAction.sequence([playExplosionSoundAction, SKAction.removeFromParent()]))
         
         // Add explosion node with the last bird's parameters
         let explosion = SKSpriteNode(imageNamed: "explosion_1")

@@ -10,7 +10,7 @@ import SpriteKit
 
 class ParallaxBackground: SKSpriteNode {
     
-    var layers = [String]()
+    var bgLayers = [String]()
     var backgrounds = [SKSpriteNode]()
     var clonedBackgrounds = [SKSpriteNode]()
     var speeds = [CGFloat]()
@@ -24,7 +24,7 @@ class ParallaxBackground: SKSpriteNode {
     }
     
     func setUpBackgrounds(backgrounds:[String], size: CGSize, fastestSpeed: CGFloat, speedDecrease: CGFloat) {
-        layers = backgrounds
+        bgLayers = backgrounds
         
         zPosition = -1
         position = CGPointMake(size.width / 2, size.height / 2)

@@ -25,6 +25,18 @@ class GameScene: SKScene {
     var lives = 3
     var score = 0
     
+    let playBirdSoundAction = SKAction.playSoundFileNamed("bird.wav", waitForCompletion: false)
+    let playWingFlapSoundAction = SKAction.playSoundFileNamed("wing_flap.wav", waitForCompletion: false)
+    let playExplosionSoundAction = SKAction.playSoundFileNamed("explosion.wav", waitForCompletion: false)
+    let finishedMovedAction = SKAction.removeFromParent()
+    
+    let bird_big_fat_green = ["bird_big_fat_green_1", "bird_big_fat_green_2"]
+    let bird_big_fat_yellow = ["bird_big_fat_yellow_1", "bird_big_fat_yellow_2"]
+    let bird_normal_blue = ["bird_normal_blue_1", "bird_normal_blue_2"]
+    let bird_normal_orange = ["bird_normal_orange_1", "bird_normal_orange_2"]
+    let bird_skinny_green = ["bird_skinny_green_1", "bird_skinny_green_2"]
+    let bird_skinny_red = ["bird_skinny_red_1", "bird_skinny_red_2"]
+    
     // MARK: - Scene methods
     
     override func didMoveToView(view: SKView) {
@@ -121,7 +133,6 @@ class GameScene: SKScene {
     private func addParallaxBackground() {
         parallaxBackground = ParallaxBackground(texture: nil, color: UIColor.clearColor(), size: size)
         parallaxBackground?.setUpBackgrounds(bgLayers, size: size, fastestSpeed: 13.0, speedDecrease: 4.0)
-        
         addChild(parallaxBackground!)
     }
     
@@ -242,13 +253,16 @@ class GameScene: SKScene {
     // MARK: - Spawn methods
     
     private func spawnBird() {
-        let newBird = Bird(delegate: self)
+        let birds = [bird_big_fat_green, bird_big_fat_yellow, bird_normal_blue, bird_normal_orange, bird_skinny_green, bird_skinny_red]
+        let sprites = birds[Int(arc4random_uniform(UInt32(birds.count)))]
+        
+        let newBird = Bird(sprites: sprites, delegate: self)
         newBird.xScale = 0.2
         newBird.yScale = 0.2
         newBird.zPosition = 1
         
-        let minY = newBird.size.height + 20
-        let maxY = frame.height - minY - 20
+        let minY = DeviceModel.iPad || DeviceModel.iPadPro || DeviceModel.iPhone4 ? newBird.size.height + 20 : newBird.size.height + 60
+        let maxY = DeviceModel.iPad || DeviceModel.iPadPro || DeviceModel.iPhone4 ? frame.height - minY - 20 : frame.height - minY - 60
         let rangeY = maxY - minY
         let birdY = (CGFloat(arc4random()) % rangeY) + minY
         
@@ -272,7 +286,7 @@ class GameScene: SKScene {
         let moveAction = SKAction.moveTo(CGPoint(x: -newBird.size.width / 2, y: newBird.position.y), duration: actualDuration)
         let flyAndMoveAction = SKAction.group([flyAction, moveAction])
         
-        let sequence = muted ? SKAction.sequence([flyAndMoveAction, GameAction.finishedMovedAction]) : SKAction.sequence([GameAction.playWingFlapSoundAction, flyAndMoveAction, GameAction.playBirdSoundAction, GameAction.finishedMovedAction])
+        let sequence = muted ? SKAction.sequence([flyAndMoveAction, finishedMovedAction]) : SKAction.sequence([playWingFlapSoundAction, flyAndMoveAction, playBirdSoundAction, finishedMovedAction])
         
         // Runs action sequence and executes completion closure to determine if a bird escaped
         newBird.runAction(sequence) {

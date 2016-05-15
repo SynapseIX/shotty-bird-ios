@@ -19,6 +19,9 @@ class MainMenuScene: SKScene {
     let zPositionBg = CGFloat(-1)
     let zPositionMenuItems = CGFloat(Int.max)
     
+    let playBirdSoundAction = SKAction.playSoundFileNamed("bird.wav", waitForCompletion: false)
+    let playExplosionSoundAction = SKAction.playSoundFileNamed("explosion.wav", waitForCompletion: false)
+    
     // MARK: - Scene methods
     
     override func didMoveToView(view: SKView) {
@@ -33,7 +36,7 @@ class MainMenuScene: SKScene {
     }
     
     override func update(currentTime: NSTimeInterval) {
-        parallaxBackground!.update()
+        parallaxBackground?.update()
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -46,10 +49,10 @@ class MainMenuScene: SKScene {
                         // TODO: validate if it need to show tutorial scene
                         audioManager.stopMusic()
                         gameScene.muted = muted
-                        gameScene.bgLayers = parallaxBackground!.layers
+                        gameScene.bgLayers = parallaxBackground!.bgLayers
                         
                         if !muted {
-                            playButton.runAction(GameAction.playExplosionSoundAction)
+                            playButton.runAction(playExplosionSoundAction)
                         }
                     
                         let transition = SKTransition.crossFadeWithDuration(1.0)
@@ -62,7 +65,7 @@ class MainMenuScene: SKScene {
                 if leaderboardButton.containsPoint(location) {
                     // TODO: Handle leaderboard button tap
                     if !muted {
-                        leaderboardButton.runAction(GameAction.playBirdSoundAction)
+                        leaderboardButton.runAction(playBirdSoundAction)
                     }
                     print("Leaderboard button tapped")
                 }
@@ -72,7 +75,7 @@ class MainMenuScene: SKScene {
                 if creditsButton.containsPoint(location) {
                     // TODO: Handle leaderboard button tap
                     if !muted {
-                        creditsButton.runAction(GameAction.playBirdSoundAction)
+                        creditsButton.runAction(playBirdSoundAction)
                     }
                     
                     print("Credits button tapped")
@@ -82,7 +85,7 @@ class MainMenuScene: SKScene {
             if let twitterButton = childNodeWithName("twitterButton") {
                 if twitterButton.containsPoint(location) {
                     if !muted {
-                        twitterButton.runAction(GameAction.playBirdSoundAction)
+                        twitterButton.runAction(playBirdSoundAction)
                     }
                     
                     shareOnTwitter()
@@ -91,7 +94,7 @@ class MainMenuScene: SKScene {
             
             if let facebookButton = childNodeWithName("facebookButton") {
                 if facebookButton.containsPoint(location) {
-                    facebookButton.runAction(GameAction.playBirdSoundAction)
+                    facebookButton.runAction(playBirdSoundAction)
                     shareOnFacebook()
                 }
             }
@@ -111,8 +114,19 @@ class MainMenuScene: SKScene {
     
     private func setupUI() {
         // Add background
+        let bg1 = ["bg1_layer1", "bg1_layer2", "bg1_layer3", "bg1_layer4", "bg1_layer5"]
+        let bg2 = ["bg2_layer1", "bg2_layer2", "bg2_layer3", "bg2_layer4"]
+        let bg3 = ["bg3_layer1", "bg3_layer2", "bg3_layer3", "bg3_layer4", "bg3_layer5"]
+        let bg4 = ["bg4_layer1", "bg4_layer2", "bg4_layer3", "bg4_layer4", "bg4_layer5"]
+        let bg5 = ["bg5_layer1", "bg5_layer2", "bg5_layer3", "bg5_layer4", "bg5_layer5"]
+        let bg6 = ["bg6_layer1", "bg6_layer2", "bg6_layer3", "bg6_layer4", "bg6_layer5"]
+        let bg7 = ["bg7_layer1", "bg7_layer2", "bg7_layer3", "bg7_layer4"]
+        
+        let allBgs = [bg1, bg2, bg3, bg4, bg5, bg6, bg7]
+        let bgs = allBgs[Int(arc4random_uniform(UInt32(allBgs.count)))]
+        
         parallaxBackground = ParallaxBackground(texture: nil, color: UIColor.clearColor(), size: size)
-        parallaxBackground?.setUpBackgrounds(GameUtils.randomBackground(), size: size, fastestSpeed: 2.0, speedDecrease: 0.25)
+        parallaxBackground?.setUpBackgrounds(bgs, size: size, fastestSpeed: 2.0, speedDecrease: 0.25)
         addChild(parallaxBackground!)
         
         // Add and scale game logo
