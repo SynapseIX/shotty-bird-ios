@@ -128,7 +128,7 @@ class GameScene: SKScene {
         parallaxBackground?.update()
     }
     
-    // MARK: - UI methods
+    // MARK: - User interface methods
     
     private func addParallaxBackground() {
         parallaxBackground = ParallaxBackground(texture: nil, color: UIColor.clearColor(), size: size)

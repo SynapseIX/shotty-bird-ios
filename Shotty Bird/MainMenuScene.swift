@@ -16,7 +16,6 @@ class MainMenuScene: SKScene {
     let audioManager = AudioManager(file: "menu_music", type: "wav", loop: true)
     var muted = false
     
-    let zPositionBg = CGFloat(-1)
     let zPositionMenuItems = CGFloat(Int.max)
     
     let playBirdSoundAction = SKAction.playSoundFileNamed("bird.wav", waitForCompletion: false)
@@ -45,19 +44,28 @@ class MainMenuScene: SKScene {
             
             if let playButton = childNodeWithName("playButton") {
                 if playButton.containsPoint(location) {
-                    if let gameScene = getGameScene() {
-                        // TODO: validate if it need to show tutorial scene
-                        audioManager.stopMusic()
-                        gameScene.muted = muted
-                        gameScene.bgLayers = parallaxBackground!.bgLayers
-                        
-                        if !muted {
-                            playButton.runAction(playExplosionSoundAction)
-                        }
+                    // TODO: validate if it needed to show the tutorial scene
+                    // This is the "default" scene frame size provided by SpriteKit: print(scene.size)
+                    let tutorialScene = TutorialScene(size: CGSize(width: 1024.0, height: 768.0))
+                    tutorialScene.scaleMode = .AspectFill
+                    tutorialScene.muted = muted
+                    tutorialScene.bgLayers = parallaxBackground!.bgLayers
                     
-                        let transition = SKTransition.crossFadeWithDuration(1.0)
-                        view?.presentScene(gameScene, transition: transition)
-                    }
+                    let transition = SKTransition.crossFadeWithDuration(1.0)
+                    view?.presentScene(tutorialScene, transition: transition)
+                    
+//                    if let gameScene = getGameScene() {
+//                        audioManager.stopMusic()
+//                        gameScene.muted = muted
+//                        gameScene.bgLayers = parallaxBackground!.bgLayers
+//                        
+//                        if !muted {
+//                            playButton.runAction(playExplosionSoundAction)
+//                        }
+//                    
+//                        let transition = SKTransition.crossFadeWithDuration(1.0)
+//                        view?.presentScene(gameScene, transition: transition)
+//                    }
                 }
             }
             
@@ -110,7 +118,7 @@ class MainMenuScene: SKScene {
         }
     }
     
-    // MARK: - UI methods
+    // MARK: - User interface methods
     
     private func setupUI() {
         // Add background
