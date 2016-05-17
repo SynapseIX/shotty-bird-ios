@@ -38,7 +38,8 @@ class GameOverScene: SKScene {
         panel.yScale = 0.6
         panel.zPosition = zPositionMenuItems
         panel.zPosition = zPositionMenuItems - 0.01
-        panel.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame) + (panel.size.height / 2) - 60)
+        panel.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame))
+        
         addChild(panel)
         
         // Add score label
