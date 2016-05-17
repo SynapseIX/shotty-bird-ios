@@ -96,6 +96,21 @@ class GameOverScene: SKScene {
         leaderboardButton.name = "leaderboardButton"
         leaderboardButton.zPosition = zPositionMenuItems
         addChild(leaderboardButton)
+        
+        // Add AdMob view
+        // TODO: replace with actual AdMob view
+        let adNode = SKSpriteNode(imageNamed: "admob_sample")
+        adNode.zPosition = zPositionMenuItems
+        
+        if DeviceModel.iPad || DeviceModel.iPadPro {
+            adNode.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMinY(frame) + adNode.size.height / 2)
+        } else if DeviceModel.iPhone4 {
+            adNode.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMinY(frame) + adNode.size.height + 8)
+        } else {
+            adNode.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMinY(frame) + adNode.size.height * 2 - 7)
+        }
+        
+        addChild(adNode)
     }
     
     override func update(currentTime: NSTimeInterval) {
