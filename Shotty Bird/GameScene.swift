@@ -18,6 +18,7 @@ class GameScene: SKScene {
     
     let zPositionBg = CGFloat(-1)
     let zPositionMenuItems = CGFloat(Int.max)
+    let zPositionMissile = CGFloat(4) // TODO: this should be 5 and travel to 4, 3, 2 and remove from parent at 0
     
     var lastUpdateTime: CFTimeInterval = 0.0
     var lastSpawnTime: CFTimeInterval = 0.0
@@ -68,8 +69,11 @@ class GameScene: SKScene {
                     muted = audioManager.audioPlayer?.volume == 0.0 ? true : false
                     
                     muteButton.texture = muted ? SKTexture(imageNamed: "mute_button") : SKTexture(imageNamed: "unmute_button")
+                    return
                 }
             }
+            
+            shootMissile(location)
         }
     }
    
@@ -250,6 +254,28 @@ class GameScene: SKScene {
     private func setupGameWorld() {
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = CGVector(dx: 0.0, dy: 0.0)
+    }
+    
+    // MARK: - Shooting methods
+    
+    private func shootMissile(location: CGPoint) {
+        // TODO: implement z-axis movement, scale the texture and detect the colision
+        let textures = [SKTexture(imageNamed: "missile_1"), SKTexture(imageNamed: "missile_2"), SKTexture(imageNamed: "missile_3")]
+        
+        let missile = SKSpriteNode(texture: textures.first)
+        missile.position = location
+        missile.zPosition = zPositionMissile
+        
+        // Setup missile's Physics
+        missile.physicsBody = SKPhysicsBody(rectangleOfSize: missile.size)
+        missile.physicsBody?.restitution = 0.0
+        missile.physicsBody?.collisionBitMask = PhysicsCategory.Missile
+        
+        let missileAnimation = SKAction.animateWithTextures(textures, timePerFrame: 0.05)
+        let repeatMissileAnimationAction = SKAction.repeatActionForever(missileAnimation)
+        
+        missile.runAction(SKAction.group([playShotSoundAction, repeatMissileAnimationAction]))
+        addChild(missile)
     }
     
     // MARK: - Spawn methods
