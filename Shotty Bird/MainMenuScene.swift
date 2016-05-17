@@ -19,6 +19,7 @@ class MainMenuScene: SKScene {
     let zPositionMenuItems = CGFloat(Int.max)
     
     let playBirdSoundAction = SKAction.playSoundFileNamed("bird.wav", waitForCompletion: false)
+    let playShotSoundAction = SKAction.playSoundFileNamed("shot", waitForCompletion: false)
     let playExplosionSoundAction = SKAction.playSoundFileNamed("explosion.wav", waitForCompletion: false)
     
     // MARK: - Scene methods
@@ -227,7 +228,7 @@ class MainMenuScene: SKScene {
         addChild(facebookButton)
         
         // Add mute button
-        let muteButton = SKSpriteNode(imageNamed: "unmute_button")
+        let muteButton = !muted ? SKSpriteNode(imageNamed: "unmute_button") : SKSpriteNode(imageNamed: "mute_button") 
         
         if DeviceModel.iPhone4 {
             muteButton.position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height + 20)

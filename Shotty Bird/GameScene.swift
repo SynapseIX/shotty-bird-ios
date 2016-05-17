@@ -27,6 +27,7 @@ class GameScene: SKScene {
     
     let playBirdSoundAction = SKAction.playSoundFileNamed("bird.wav", waitForCompletion: false)
     let playWingFlapSoundAction = SKAction.playSoundFileNamed("wing_flap.wav", waitForCompletion: false)
+    let playShotSoundAction = SKAction.playSoundFileNamed("shot", waitForCompletion: false)
     let playExplosionSoundAction = SKAction.playSoundFileNamed("explosion.wav", waitForCompletion: false)
     let finishedMovedAction = SKAction.removeFromParent()
     
@@ -230,6 +231,7 @@ class GameScene: SKScene {
         let scene = GameOverScene(size: CGSize(width: 1024.0, height: 768.0))
         scene.muted = muted
         scene.bgLayers = bgLayers
+        scene.score = score
         scene.scaleMode = .AspectFill
         
         return scene
@@ -282,8 +284,8 @@ class GameScene: SKScene {
             break
         }
         
-        let minY = DeviceModel.iPad || DeviceModel.iPadPro || DeviceModel.iPhone4 ? newBird.size.height + 20 : newBird.size.height + 60
-        let maxY = DeviceModel.iPad || DeviceModel.iPadPro || DeviceModel.iPhone4 ? frame.height - minY - 20 : frame.height - minY - 60
+        let minY = DeviceModel.iPad || DeviceModel.iPadPro || DeviceModel.iPhone4 ? newBird.size.height + 20 : newBird.size.height + 70
+        let maxY = DeviceModel.iPad || DeviceModel.iPadPro || DeviceModel.iPhone4 ? frame.height - minY - 20 : frame.height - minY - 50
         let rangeY = maxY - minY
         let birdY = (CGFloat(arc4random()) % rangeY) + minY
         
@@ -324,6 +326,7 @@ class GameScene: SKScene {
                     let node = self.childNodeWithName("life3") as! SKSpriteNode
                     node.texture = SKTexture(imageNamed: "death")
                     
+                    // Present game over scene
                     self.audioManager.stopMusic()
                     let transition = SKTransition.doorsCloseHorizontalWithDuration(0.5)
                     self.view?.presentScene(self.getGameOverScene(), transition: transition)
