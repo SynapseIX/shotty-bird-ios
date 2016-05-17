@@ -63,6 +63,10 @@ class TutorialScene: SKScene {
             gameScene.muted = muted
             gameScene.bgLayers = parallaxBackground!.bgLayers
             
+            let defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setBool(true, forKey: "tutorialCompleted")
+            defaults.synchronize()
+            
             let transition = SKTransition.crossFadeWithDuration(1.0)
             view?.presentScene(gameScene, transition: transition)
         }
