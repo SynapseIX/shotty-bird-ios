@@ -257,9 +257,30 @@ class GameScene: SKScene {
         let sprites = birds[Int(arc4random_uniform(UInt32(birds.count)))]
         
         let newBird = Bird(sprites: sprites, delegate: self)
-        newBird.xScale = 0.2
-        newBird.yScale = 0.2
-        newBird.zPosition = 1
+        
+        // Calculate bird's depth position and scaling
+        let zPosBird = CGFloat(arc4random_uniform(5))
+        newBird.zPosition = zPosBird
+        
+        switch zPosBird {
+        case 4:
+            newBird.xScale = 0.2
+            newBird.yScale = 0.2
+        case 3:
+            newBird.xScale = 0.167
+            newBird.yScale = 0.167
+        case 2:
+            newBird.xScale = 0.133
+            newBird.yScale = 0.133
+        case 1:
+            newBird.xScale = 0.133
+            newBird.yScale = 0.133
+        case 0:
+            newBird.xScale = 0.10
+            newBird.yScale = 0.10
+        default:
+            break
+        }
         
         let minY = DeviceModel.iPad || DeviceModel.iPadPro || DeviceModel.iPhone4 ? newBird.size.height + 20 : newBird.size.height + 60
         let maxY = DeviceModel.iPad || DeviceModel.iPadPro || DeviceModel.iPhone4 ? frame.height - minY - 20 : frame.height - minY - 60
