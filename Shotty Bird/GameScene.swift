@@ -21,6 +21,7 @@ class GameScene: SKScene {
     
     var lastUpdateTime: CFTimeInterval = 0.0
     var lastSpawnTime: CFTimeInterval = 0.0
+    var lastShotFiredTime: CFTimeInterval = 0.0
     
     var lives = 3
     var score = 0
@@ -72,7 +73,18 @@ class GameScene: SKScene {
                 }
             }
             
-            shootMissile(location)
+            // Limit taps to shoot missiles based on current bird spawn times and last touch time
+            if lastShotFiredTime == 0.0 {
+                shootMissile(location)
+                lastShotFiredTime = CACurrentMediaTime()
+            } else {
+                let deltaTime = CACurrentMediaTime() - lastShotFiredTime
+                
+                if deltaTime >= lastSpawnTime * 0.5 {
+                    shootMissile(location)
+                    lastShotFiredTime = CACurrentMediaTime()
+                }
+            }
         }
     }
    
@@ -349,9 +361,9 @@ class GameScene: SKScene {
                     node.texture = SKTexture(imageNamed: "death")
                     
                     // Present game over scene
-                    self.audioManager.stopMusic()
-                    let transition = SKTransition.doorsCloseHorizontalWithDuration(0.5)
-                    self.view?.presentScene(self.getGameOverScene(), transition: transition)
+//                    self.audioManager.stopMusic()
+//                    let transition = SKTransition.doorsCloseHorizontalWithDuration(0.5)
+//                    self.view?.presentScene(self.getGameOverScene(), transition: transition)
                 }
             }
         }
