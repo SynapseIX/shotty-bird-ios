@@ -10,6 +10,7 @@
 		9723700A1CEB186C00A648A8 /* TutorialScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972370091CEB186C00A648A8 /* TutorialScene.swift */; };
 		973CFB421CE287B300A22A91 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CFB411CE287B300A22A91 /* MainMenuScene.swift */; };
 		973CFB451CE2891B00A22A91 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CFB441CE2891B00A22A91 /* DeviceModel.swift */; };
+		974C177F1CEBCBDE00B2F7A3 /* Missile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974C177E1CEBCBDE00B2F7A3 /* Missile.swift */; };
 		975B0F051CE8086800D84DD7 /* ASAttributedLabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975B0F021CE8086800D84DD7 /* ASAttributedLabelNode.swift */; };
 		975B0F061CE8086800D84DD7 /* Bird.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975B0F031CE8086800D84DD7 /* Bird.swift */; };
 		975B0F071CE8086800D84DD7 /* ParallaxBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975B0F041CE8086800D84DD7 /* ParallaxBackground.swift */; };
@@ -41,6 +42,7 @@
 		972370091CEB186C00A648A8 /* TutorialScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialScene.swift; sourceTree = "<group>"; };
 		973CFB411CE287B300A22A91 /* MainMenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 		973CFB441CE2891B00A22A91 /* DeviceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
+		974C177E1CEBCBDE00B2F7A3 /* Missile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Missile.swift; sourceTree = "<group>"; };
 		975B0F021CE8086800D84DD7 /* ASAttributedLabelNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAttributedLabelNode.swift; sourceTree = "<group>"; };
 		975B0F031CE8086800D84DD7 /* Bird.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bird.swift; sourceTree = "<group>"; };
 		975B0F041CE8086800D84DD7 /* ParallaxBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxBackground.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			children = (
 				975B0F021CE8086800D84DD7 /* ASAttributedLabelNode.swift */,
 				975B0F031CE8086800D84DD7 /* Bird.swift */,
+				974C177E1CEBCBDE00B2F7A3 /* Missile.swift */,
 				975B0F041CE8086800D84DD7 /* ParallaxBackground.swift */,
 			);
 			path = Nodes;
@@ -289,6 +292,7 @@
 				973CFB421CE287B300A22A91 /* MainMenuScene.swift in Sources */,
 				978754951CDED4D40033E261 /* PhysicsCategory.swift in Sources */,
 				97D181661CE3AD5800FC123A /* GameOverScene.swift in Sources */,
+				974C177F1CEBCBDE00B2F7A3 /* Missile.swift in Sources */,
 				97D1814D1CE2C43D00FC123A /* GameError.swift in Sources */,
 				973CFB451CE2891B00A22A91 /* DeviceModel.swift in Sources */,
 				97887E0C1CDC21BA00021B4F /* GameScene.swift in Sources */,

@@ -18,7 +18,6 @@ class GameScene: SKScene {
     
     let zPositionBg = CGFloat(-1)
     let zPositionMenuItems = CGFloat(Int.max)
-    let zPositionMissile = CGFloat(4) // TODO: this should be 5 and travel to 4, 3, 2 and remove from parent at 0
     
     var lastUpdateTime: CFTimeInterval = 0.0
     var lastSpawnTime: CFTimeInterval = 0.0
@@ -94,37 +93,37 @@ class GameScene: SKScene {
                 spawnBird()
             }
         case 11...20:
-            if lastSpawnTime > 1.75 {
+            if lastSpawnTime > 1.8 {
                 lastSpawnTime = 0.0
                 spawnBird()
             }
         case 21...25:
-            if lastSpawnTime > 1.5 {
+            if lastSpawnTime > 1.6 {
                 lastSpawnTime = 0.0
                 spawnBird()
             }
         case 26...35:
-            if lastSpawnTime > 1.25 {
+            if lastSpawnTime > 1.4 {
                 lastSpawnTime = 0.0
                 spawnBird()
             }
         case 36...40:
+            if lastSpawnTime > 1.2 {
+                lastSpawnTime = 0.0
+                spawnBird()
+            }
+        case 41...45:
             if lastSpawnTime > 1.0 {
                 lastSpawnTime = 0.0
                 spawnBird()
             }
         case 41...45:
-            if lastSpawnTime > 0.875 {
-                lastSpawnTime = 0.0
-                spawnBird()
-            }
-        case 41...45:
-            if lastSpawnTime > 0.75 {
+            if lastSpawnTime > 0.8 {
                 lastSpawnTime = 0.0
                 spawnBird()
             }
         default:
-            if lastSpawnTime > 0.625 {
+            if lastSpawnTime > 0.6  {
                 lastSpawnTime = 0.0
                 spawnBird()
             }
@@ -259,22 +258,19 @@ class GameScene: SKScene {
     // MARK: - Shooting methods
     
     private func shootMissile(location: CGPoint) {
-        // TODO: implement z-axis movement, scale the texture and detect the colision
-        let textures = [SKTexture(imageNamed: "missile_1"), SKTexture(imageNamed: "missile_2"), SKTexture(imageNamed: "missile_3")]
-        
-        let missile = SKSpriteNode(texture: textures.first)
+        let missile = Missile(delegate: self)
         missile.position = location
-        missile.zPosition = zPositionMissile
         
         // Setup missile's Physics
         missile.physicsBody = SKPhysicsBody(rectangleOfSize: missile.size)
+        missile.physicsBody?.dynamic = false
         missile.physicsBody?.restitution = 0.0
         missile.physicsBody?.collisionBitMask = PhysicsCategory.Missile
         
-        let missileAnimation = SKAction.animateWithTextures(textures, timePerFrame: 0.05)
-        let repeatMissileAnimationAction = SKAction.repeatActionForever(missileAnimation)
-        
-        missile.runAction(SKAction.group([playShotSoundAction, repeatMissileAnimationAction]))
+        if !muted {
+            missile.runAction(playShotSoundAction)
+        }
+
         addChild(missile)
     }
     
@@ -325,8 +321,8 @@ class GameScene: SKScene {
         newBird.physicsBody?.collisionBitMask = PhysicsCategory.Bird
         
         // Setup actions
-        let minDuration = 1.75
-        let maxDuration = 4.00
+        let minDuration = 3.00
+        let maxDuration = 6.00
         let rangeDuration = maxDuration - minDuration
         let actualDuration = (Double(arc4random()) % rangeDuration) + minDuration
         
@@ -373,9 +369,9 @@ extension GameScene: GameScoreDelegate {
         switch score {
         case 10:
             audioManager.audioPlayer?.rate = 1.05
-        case 25:
+        case 20:
             audioManager.audioPlayer?.rate = 1.15
-        case 40:
+        case 30:
             audioManager.audioPlayer?.rate = 1.25
         case 50:
             audioManager.audioPlayer?.rate = 1.35
