@@ -361,9 +361,9 @@ class GameScene: SKScene {
                     node.texture = SKTexture(imageNamed: "death")
                     
                     // Present game over scene
-//                    self.audioManager.stopMusic()
-//                    let transition = SKTransition.doorsCloseHorizontalWithDuration(0.5)
-//                    self.view?.presentScene(self.getGameOverScene(), transition: transition)
+                    self.audioManager.stopMusic()
+                    let transition = SKTransition.doorsCloseHorizontalWithDuration(0.5)
+                    self.view?.presentScene(self.getGameOverScene(), transition: transition)
                 }
             }
         }
