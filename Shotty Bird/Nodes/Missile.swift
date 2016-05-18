@@ -117,15 +117,17 @@ class Missile: SKSpriteNode {
                     
                     gameScene.addChild(explosion)
                     
-                    // TODO: increase game score and stop the ennumeration
+                    // Increase game score
                     gameScene.updateScore()
-                    stop.memory = true
                     
                     // Remove the explosion node after 0.3 seconds
                     let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.03 * 13 * Double(NSEC_PER_SEC)))
                     dispatch_after(dispatchTime, dispatch_get_main_queue()) {
                         explosion.runAction(SKAction.removeFromParent())
                     }
+                    
+                    // Stop the ennumeration
+                    stop.memory = true
                 }
             })
         }
