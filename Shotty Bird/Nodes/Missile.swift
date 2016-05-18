@@ -57,7 +57,17 @@ class Missile: SKSpriteNode {
                             self.validateCollision()
                             
                             self.runAction(repeatMissileTextureAnimation) {
-                                self.runAction(SKAction.removeFromParent())
+                                self.xScale = 0.10
+                                self.yScale = 0.10
+                                self.zPosition = -0.999
+                                
+                                self.runAction(repeatMissileTextureAnimation) {
+                                    self.xScale = 0.05
+                                    self.yScale = 0.05
+                                    self.zPosition = -0.998
+                                    
+                                    self.runAction(SKAction.removeFromParent())
+                                }
                             }
                         }
                     }
