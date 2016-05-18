@@ -60,8 +60,17 @@ class GameOverScene: SKScene {
         addChild(scoreLabel)
         
         // Add best score label
-        // TODO: fetch best score from Game Center
-        let bestScoreLabel = SKLabelNode(text: "Your best is 100")
+        // TODO: fetch best score from Game Center if needed
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let bestScore = defaults.integerForKey("bestScore")
+        
+        if score > bestScore {
+            defaults.setInteger(score, forKey: "bestScore")
+            defaults.synchronize()
+            // TODO: update high score in game center
+        }
+        
+        let bestScoreLabel = SKLabelNode(text: "Your best is \(defaults.integerForKey("bestScore"))")
         bestScoreLabel.fontName = "Kenney-Bold"
         bestScoreLabel.fontSize = 17.0
         bestScoreLabel.fontColor = SKColor(red: 205.0 / 255.0, green: 164.0 / 255.0, blue: 0.0, alpha: 1.0)
