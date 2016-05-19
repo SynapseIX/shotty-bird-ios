@@ -62,19 +62,10 @@ class GameCenterHelper: NSObject {
         }
     }
     
-    func fetchScores(completion: (scores: [GKScore]) -> Void) {
+    func fetchPlayerScore() -> GKScore? {
         let leaderboard = GKLeaderboard()
         leaderboard.identifier = leaderboardIdentifier
-        leaderboard.loadScoresWithCompletionHandler { (scores, error) in
-            if let error = error {
-                NSLog("Error: \(error.localizedDescription)", error)
-                return
-            }
-            
-            if let scores = scores {
-                completion(scores: scores)
-            }
-        }
+        return leaderboard.localPlayerScore
     }
     
 }

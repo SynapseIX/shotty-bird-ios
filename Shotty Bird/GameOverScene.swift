@@ -13,6 +13,7 @@ class GameOverScene: SKScene {
     var score = 0
     var bgLayers = [String]()
     var parallaxBackground: ParallaxBackground?
+    var newBest = false
     
     let audioManager = AudioManager(file: "game_over_music", type: "mp3", loop: false)
     var muted = false
@@ -67,17 +68,13 @@ class GameOverScene: SKScene {
         let gameViewController = view.window?.rootViewController as! GameViewController
         let gameCenterHelper = gameViewController.gameCenterHelper
         
-        gameCenterHelper.fetchScores { (scores) in
-            for score in scores {
-                if Int(score.value) > bestScore {
-                    defaults.setInteger(Int(score.value), forKey: "bestScore")
-                }
-            }
-            
+        if let score = gameCenterHelper.fetchPlayerScore() {
+            defaults.setInteger(Int(score.value), forKey: "bestScore")
             defaults.synchronize()
         }
         
         if score > bestScore {
+            newBest = true
             defaults.setInteger(score, forKey: "bestScore")
             defaults.synchronize()
             
@@ -85,7 +82,8 @@ class GameOverScene: SKScene {
             gameCenterHelper.submitScore(score)
         }
         
-        let bestScoreLabel = SKLabelNode(text: "Your best is \(defaults.integerForKey("bestScore"))")
+        let bestScoreText = newBest ? "NEW RECORD \(defaults.integerForKey("bestScore"))!!!" : "Your best is \(defaults.integerForKey("bestScore"))"
+        let bestScoreLabel = SKLabelNode(text: bestScoreText)
         bestScoreLabel.fontName = "Kenney-Bold"
         bestScoreLabel.fontSize = 17.0
         bestScoreLabel.fontColor = SKColor(red: 205.0 / 255.0, green: 164.0 / 255.0, blue: 0.0, alpha: 1.0)
