@@ -76,17 +76,26 @@ class MainMenuScene: SKScene {
             
             if let leaderboardButton = childNodeWithName("leaderboardButton") {
                 if leaderboardButton.containsPoint(location) {
-                    // TODO: Handle leaderboard button tap
                     if !muted {
                         leaderboardButton.runAction(playBirdSoundAction)
                     }
-                    print("Leaderboard button tapped")
+                    
+                    let gameViewController = view?.window?.rootViewController as! GameViewController
+                    let gameCenterHelper = gameViewController.gameCenterHelper
+                    
+                    if gameCenterHelper.gameCenterEnabled {
+                        gameCenterHelper.presentLeaderboard(gameViewController)
+                    } else {
+                        gameCenterHelper.authenticateLocalPlayer(gameViewController) {
+                            gameCenterHelper.presentLeaderboard(gameViewController)
+                        }
+                    }
                 }
             }
             
             if let creditsButton = childNodeWithName("creditsButton") {
                 if creditsButton.containsPoint(location) {
-                    // TODO: Handle leaderboard button tap
+                    // TODO: Handle credits button tap
                     if !muted {
                         creditsButton.runAction(playBirdSoundAction)
                     }

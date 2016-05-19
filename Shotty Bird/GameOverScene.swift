@@ -60,14 +60,29 @@ class GameOverScene: SKScene {
         addChild(scoreLabel)
         
         // Add best score label
-        // TODO: fetch best score from Game Center if needed
         let defaults = NSUserDefaults.standardUserDefaults()
         let bestScore = defaults.integerForKey("bestScore")
+        
+        // Fetch and store locally the highest score from leaderboard if necessary
+        let gameViewController = view.window?.rootViewController as! GameViewController
+        let gameCenterHelper = gameViewController.gameCenterHelper
+        
+        gameCenterHelper.fetchScores { (scores) in
+            for score in scores {
+                if Int(score.value) > bestScore {
+                    defaults.setInteger(Int(score.value), forKey: "bestScore")
+                }
+            }
+            
+            defaults.synchronize()
+        }
         
         if score > bestScore {
             defaults.setInteger(score, forKey: "bestScore")
             defaults.synchronize()
-            // TODO: update high score in game center
+            
+            // Submit high score to Game Center
+            gameCenterHelper.submitScore(score)
         }
         
         let bestScoreLabel = SKLabelNode(text: "Your best is \(defaults.integerForKey("bestScore"))")
@@ -162,12 +177,20 @@ class GameOverScene: SKScene {
             
             if let leaderboardButton = childNodeWithName("leaderboardButton") {
                 if leaderboardButton.containsPoint(location) {
-                    // TODO: Handle leaderboard button tap
                     if !muted {
                         leaderboardButton.runAction(playBirdSoundAction)
                     }
                     
-                    print("Leaderboard button tapped")
+                    let gameViewController = view?.window?.rootViewController as! GameViewController
+                    let gameCenterHelper = gameViewController.gameCenterHelper
+                    
+                    if gameCenterHelper.gameCenterEnabled {
+                        gameCenterHelper.presentLeaderboard(gameViewController)
+                    } else {
+                        gameCenterHelper.authenticateLocalPlayer(gameViewController) {
+                            gameCenterHelper.presentLeaderboard(gameViewController)
+                        }
+                    }
                 }
             }
         }

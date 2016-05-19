@@ -10,6 +10,8 @@ import UIKit
 import SpriteKit
 
 class GameViewController: UIViewController {
+    
+    let gameCenterHelper = GameCenterHelper()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +33,9 @@ class GameViewController: UIViewController {
         scene.scaleMode = .AspectFill
         
         skView.presentScene(scene)
+        
+        // Authenticate with Game Center
+        gameCenterHelper.authenticateLocalPlayer(self, completion: nil)
     }
 
     override func shouldAutorotate() -> Bool {
