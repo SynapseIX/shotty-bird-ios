@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9701A7231CECC834005909E5 /* CreditsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9701A7221CECC834005909E5 /* CreditsScene.swift */; };
 		9723700A1CEB186C00A648A8 /* TutorialScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972370091CEB186C00A648A8 /* TutorialScene.swift */; };
 		973CFB421CE287B300A22A91 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CFB411CE287B300A22A91 /* MainMenuScene.swift */; };
 		973CFB451CE2891B00A22A91 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CFB441CE2891B00A22A91 /* DeviceModel.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9701A7221CECC834005909E5 /* CreditsScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditsScene.swift; sourceTree = "<group>"; };
 		972370091CEB186C00A648A8 /* TutorialScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialScene.swift; sourceTree = "<group>"; };
 		973CFB411CE287B300A22A91 /* MainMenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 		973CFB441CE2891B00A22A91 /* DeviceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				97887E091CDC21BA00021B4F /* GameScene.sks */,
 				97887E0B1CDC21BA00021B4F /* GameScene.swift */,
 				97D181651CE3AD5800FC123A /* GameOverScene.swift */,
+				9701A7221CECC834005909E5 /* CreditsScene.swift */,
 				97887E0D1CDC21BA00021B4F /* GameViewController.swift */,
 				97887E0F1CDC21BA00021B4F /* Main.storyboard */,
 				97887E121CDC21BA00021B4F /* Assets.xcassets */,
@@ -297,6 +300,7 @@
 				973CFB451CE2891B00A22A91 /* DeviceModel.swift in Sources */,
 				97887E0C1CDC21BA00021B4F /* GameScene.swift in Sources */,
 				975B0F061CE8086800D84DD7 /* Bird.swift in Sources */,
+				9701A7231CECC834005909E5 /* CreditsScene.swift in Sources */,
 				975B0F051CE8086800D84DD7 /* ASAttributedLabelNode.swift in Sources */,
 				97887E0E1CDC21BA00021B4F /* GameViewController.swift in Sources */,
 				9723700A1CEB186C00A648A8 /* TutorialScene.swift in Sources */,
