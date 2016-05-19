@@ -45,32 +45,14 @@ class MainMenuScene: SKScene {
             
             if let playButton = childNodeWithName("playButton") {
                 if playButton.containsPoint(location) {
-                    let defaults = NSUserDefaults.standardUserDefaults()
-                    let tutorialCompleted = defaults.boolForKey("tutorialCompleted")
+                    // This is the "default" scene frame size provided by SpriteKit: print(scene.size)
+                    let tutorialScene = TutorialScene(size: CGSize(width: 1024.0, height: 768.0))
+                    tutorialScene.scaleMode = .AspectFill
+                    tutorialScene.muted = muted
+                    tutorialScene.bgLayers = parallaxBackground!.bgLayers
                     
-                    if tutorialCompleted {
-                        if let gameScene = getGameScene() {
-                            audioManager.stopMusic()
-                            gameScene.muted = muted
-                            gameScene.bgLayers = parallaxBackground!.bgLayers
-                            
-                            if !muted {
-                                playButton.runAction(playExplosionSoundAction)
-                            }
-                            
-                            let transition = SKTransition.crossFadeWithDuration(1.0)
-                            view?.presentScene(gameScene, transition: transition)
-                        }
-                    } else {
-                        // This is the "default" scene frame size provided by SpriteKit: print(scene.size)
-                        let tutorialScene = TutorialScene(size: CGSize(width: 1024.0, height: 768.0))
-                        tutorialScene.scaleMode = .AspectFill
-                        tutorialScene.muted = muted
-                        tutorialScene.bgLayers = parallaxBackground!.bgLayers
-                        
-                        let transition = SKTransition.crossFadeWithDuration(1.0)
-                        view?.presentScene(tutorialScene, transition: transition)
-                    }
+                    let transition = SKTransition.crossFadeWithDuration(1.0)
+                    view?.presentScene(tutorialScene, transition: transition)
                 }
             }
             

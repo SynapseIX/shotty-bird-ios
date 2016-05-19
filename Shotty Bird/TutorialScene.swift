@@ -19,39 +19,28 @@ class TutorialScene: SKScene {
     // MARK: - Scene methods
     
     override func didMoveToView(view: SKView) {
+        // Add parallax background
         addParallaxBackground()
         
-        // Add tap to shoot node
-        let tapToShoot = SKSpriteNode(imageNamed: "tap_to_shoot")
-        tapToShoot.zPosition = zPositionMenuItems
+        // Setup tutorial textures
+        let textures = [SKTexture(imageNamed: "tutorial_1"), SKTexture(imageNamed: "tutorial_2"), SKTexture(imageNamed: "tutorial_3"), SKTexture(imageNamed: "tutorial_4"), SKTexture(imageNamed: "tutorial_5")]
         
+        // Setup animation actions
+        let spriteAnimationAction = SKAction.animateWithTextures(textures, timePerFrame: 0.4)
+        let repeatAnimationAction = SKAction.repeatActionForever(spriteAnimationAction)
+        
+        // Setup and add tutorial node
+        let tutorial = SKSpriteNode(texture: textures.first)
+        
+        // Scale based on device model
         if DeviceModel.iPhone5 || DeviceModel.iPhone6 || DeviceModel.iPhone6Plus {
-            tapToShoot.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMaxY(frame) - tapToShoot.size.height - 20)
-        } else {
-            tapToShoot.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMaxY(frame) - tapToShoot.size.height)
+            tutorial.xScale = 0.75
+            tutorial.yScale = 0.75
         }
         
-        addChild(tapToShoot)
-        
-        // Add static explosion node
-        let explosion = SKSpriteNode(imageNamed: "explosion_tutorial")
-        explosion.xScale = 0.3
-        explosion.yScale = 0.3
-        explosion.zPosition = zPositionMenuItems
-        explosion.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame))
-        addChild(explosion)
-        
-        // Add time your shots node
-        let timeYourShots = SKSpriteNode(imageNamed: "time_your_shots")
-        timeYourShots.zPosition = zPositionMenuItems
-        
-        if DeviceModel.iPhone5 || DeviceModel.iPhone6 || DeviceModel.iPhone6Plus {
-            timeYourShots.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMinY(frame) + timeYourShots.size.height + 20)
-        } else {
-            timeYourShots.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMinY(frame) + timeYourShots.size.height)
-        }
-        
-        addChild(timeYourShots)
+        tutorial.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame))
+        tutorial.runAction(repeatAnimationAction)
+        addChild(tutorial)
     }
     
     override func update(currentTime: NSTimeInterval) {
@@ -62,10 +51,6 @@ class TutorialScene: SKScene {
         if let gameScene = getGameScene() {
             gameScene.muted = muted
             gameScene.bgLayers = parallaxBackground!.bgLayers
-            
-            let defaults = NSUserDefaults.standardUserDefaults()
-            defaults.setBool(true, forKey: "tutorialCompleted")
-            defaults.synchronize()
             
             let transition = SKTransition.crossFadeWithDuration(1.0)
             view?.presentScene(gameScene, transition: transition)
