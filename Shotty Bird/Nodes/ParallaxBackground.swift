@@ -38,7 +38,7 @@ class ParallaxBackground: SKSpriteNode {
         var tmpClonedBackgrounds = [SKSpriteNode]()
         var tmpSpeeds = [CGFloat]()
         
-        for currentBackground in backgrounds{
+        for currentBackground in backgrounds {
             let node = SKSpriteNode(imageNamed: currentBackground)
             node.zPosition = self.zPosition - CGFloat(zPos + (zPos * bgNumber))
             node.position = CGPoint(x: 0.0, y: 0.0)
@@ -65,7 +65,7 @@ class ParallaxBackground: SKSpriteNode {
             bgNumber += 1
         }
        
-        if Int(bgNumber) == backgrounds.count{
+        if Int(bgNumber) == backgrounds.count {
             self.backgrounds = tmpBackgrounds
             self.clonedBackgrounds = tmpClonedBackgrounds
             self.speeds = tmpSpeeds
@@ -73,7 +73,7 @@ class ParallaxBackground: SKSpriteNode {
     }
     
     func update(){
-        for (index, currentBackground) in backgrounds.enumerate(){
+        for (index, currentBackground) in backgrounds.enumerate() {
             let speed = speeds[index]
             let clonedBackground = clonedBackgrounds[index]
             
@@ -83,7 +83,7 @@ class ParallaxBackground: SKSpriteNode {
             newBackgroundX += speed
             newClonedX += speed
             
-            if (newBackgroundX >= currentBackground.size.width){
+            if (newBackgroundX >= currentBackground.size.width) {
                 newBackgroundX = newClonedX - clonedBackground.size.width + 0.05
             }
             
