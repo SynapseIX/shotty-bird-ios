@@ -86,6 +86,7 @@ class ParallaxBackground: SKSpriteNode {
             if (newBackgroundX >= currentBackground.size.width){
                 newBackgroundX = newClonedX - clonedBackground.size.width + 0.05
             }
+            
             if newClonedX >= clonedBackground.size.width {
                 newClonedX = newBackgroundX - currentBackground.size.width + 0.05
             }
