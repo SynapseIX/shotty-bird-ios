@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import Social
 
 class GameOverScene: SKScene {
     
@@ -212,6 +213,44 @@ class GameOverScene: SKScene {
         }
         
         return nil
+    }
+    
+    // MARK: - Social methods
+    
+    private func shareOnTwitter() {
+        let gameViewController = view?.window?.rootViewController as! GameViewController
+        
+        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter) {
+            let twitterController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+            
+            twitterController.completionHandler = { (result: SLComposeViewControllerResult) -> Void in
+                twitterController.dismissViewControllerAnimated(true, completion: nil)
+            }
+            
+            twitterController.setInitialText("Improving my shooting skills with #ShottyBird. Available on the App Store. https://appsto.re/us/shottybird.i")
+            
+            gameViewController.presentViewController(twitterController, animated: true, completion: nil)
+        } else {
+            GameError.handleAsAlert("Sign in to Twitter", message: "You are not signed in with Twitter. On the Home screen, launch Settings, tap Twitter, and sign in to your account.", presentingViewController: gameViewController, completion: nil)
+        }
+    }
+    
+    private func shareOnFacebook() {
+        let gameViewController = view?.window?.rootViewController as! GameViewController
+        
+        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
+            let twitterController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+            
+            twitterController.completionHandler = { (result: SLComposeViewControllerResult) -> Void in
+                twitterController.dismissViewControllerAnimated(true, completion: nil)
+            }
+            
+            twitterController.setInitialText("Improving my shooting skills with Shotty Bird. Available on the App Store. https://appsto.re/us/shottybird.i")
+            
+            gameViewController.presentViewController(twitterController, animated: true, completion: nil)
+        } else {
+            GameError.handleAsAlert("Sign in to Facebook", message: "You are not signed in with Facebook. On the Home screen, launch Settings, tap Facebook, and sign in to your account.", presentingViewController: gameViewController, completion: nil)
+        }
     }
     
 }

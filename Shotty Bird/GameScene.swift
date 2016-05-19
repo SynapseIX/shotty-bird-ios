@@ -134,8 +134,33 @@ class GameScene: SKScene {
                 lastSpawnTime = 0.0
                 spawnBird()
             }
+        case 51...55:
+            if lastSpawnTime > 1.25 {
+                lastSpawnTime = 0.0
+                spawnBird()
+            }
+        case 60...65:
+            if lastSpawnTime > 1.20 {
+                lastSpawnTime = 0.0
+                spawnBird()
+            }
+        case 66...75:
+            if lastSpawnTime > 1.15 {
+                lastSpawnTime = 0.0
+                spawnBird()
+            }
+        case 76...80:
+            if lastSpawnTime > 1.10 {
+                lastSpawnTime = 0.0
+                spawnBird()
+            }
+        case 81...90:
+            if lastSpawnTime > 1.05 {
+                lastSpawnTime = 0.0
+                spawnBird()
+            }
         default:
-            if lastSpawnTime > 1.25  {
+            if lastSpawnTime > 1.0  {
                 lastSpawnTime = 0.0
                 spawnBird()
             }

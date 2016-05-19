@@ -7,7 +7,6 @@
 //
 
 import SpriteKit
-import Social
 
 class MainMenuScene: SKScene {
     
@@ -92,14 +91,19 @@ class MainMenuScene: SKScene {
                         twitterButton.runAction(playBirdSoundAction)
                     }
                     
-                    shareOnTwitter()
+                    if let twitterURL = NSURL(string: "http://twitter.com/") {
+                        UIApplication.sharedApplication().openURL(twitterURL)
+                    }
                 }
             }
             
             if let facebookButton = childNodeWithName("facebookButton") {
                 if facebookButton.containsPoint(location) {
                     facebookButton.runAction(playBirdSoundAction)
-                    shareOnFacebook()
+                    
+                    if let twitterURL = NSURL(string: "") {
+                        UIApplication.sharedApplication().openURL(twitterURL)
+                    }
                 }
             }
             
@@ -248,44 +252,6 @@ class MainMenuScene: SKScene {
     private func setupAudioManager() {
         audioManager.audioPlayer?.volume = !muted ? 1.0 : 0.0
         audioManager.tryPlayMusic()
-    }
-    
-    // MARK: - Social methods
-    
-    private func shareOnTwitter() {
-        let gameViewController = view?.window?.rootViewController as! GameViewController
-        
-        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter) {
-            let twitterController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
-            
-            twitterController.completionHandler = { (result: SLComposeViewControllerResult) -> Void in
-                twitterController.dismissViewControllerAnimated(true, completion: nil)
-            }
-            
-            twitterController.setInitialText("Improving my shooting skills with #ShottyBird. Available on the App Store. https://appsto.re/us/shottybird.i")
-            
-            gameViewController.presentViewController(twitterController, animated: true, completion: nil)
-        } else {
-            GameError.handleAsAlert("Sign in to Twitter", message: "You are not signed in with Twitter. On the Home screen, launch Settings, tap Twitter, and sign in to your account.", presentingViewController: gameViewController, completion: nil)
-        }
-    }
-    
-    private func shareOnFacebook() {
-        let gameViewController = view?.window?.rootViewController as! GameViewController
-        
-        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
-            let twitterController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
-            
-            twitterController.completionHandler = { (result: SLComposeViewControllerResult) -> Void in
-                twitterController.dismissViewControllerAnimated(true, completion: nil)
-            }
-            
-            twitterController.setInitialText("Improving my shooting skills with Shotty Bird. Available on the App Store. https://appsto.re/us/shottybird.i")
-            
-            gameViewController.presentViewController(twitterController, animated: true, completion: nil)
-        } else {
-            GameError.handleAsAlert("Sign in to Facebook", message: "You are not signed in with Facebook. On the Home screen, launch Settings, tap Facebook, and sign in to your account.", presentingViewController: gameViewController, completion: nil)
-        }
     }
     
 }
