@@ -126,7 +126,7 @@ class Missile: SKSpriteNode {
                         explosion.runAction(SKAction.removeFromParent())
                     }
                     
-                    // Stop the ennumeration
+                    // Stop the enumeration
                     stop.memory = true
                 }
             })
