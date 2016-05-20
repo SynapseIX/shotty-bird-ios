@@ -76,12 +76,17 @@ class MainMenuScene: SKScene {
             
             if let creditsButton = childNodeWithName("creditsButton") {
                 if creditsButton.containsPoint(location) {
-                    // TODO: Handle credits button tap
                     if !muted {
                         creditsButton.runAction(playBirdSoundAction)
                     }
                     
-                    print("Credits button tapped")
+                    // This is the "default" scene frame size provided by SpriteKit: print(scene.size)
+                    let creditsScene = CreditsScene(size: CGSize(width: 1024.0, height: 768.0))
+                    creditsScene.scaleMode = .AspectFill
+                    creditsScene.bgLayers = parallaxBackground!.bgLayers
+                    
+                    let transition = SKTransition.crossFadeWithDuration(1.0)
+                    view?.presentScene(creditsScene, transition: transition)
                 }
             }
             
@@ -91,7 +96,7 @@ class MainMenuScene: SKScene {
                         twitterButton.runAction(playBirdSoundAction)
                     }
                     
-                    if let twitterURL = NSURL(string: "http://twitter.com/") {
+                    if let twitterURL = NSURL(string: "http://twitter.com/shottybird") {
                         UIApplication.sharedApplication().openURL(twitterURL)
                     }
                 }
@@ -101,8 +106,8 @@ class MainMenuScene: SKScene {
                 if facebookButton.containsPoint(location) {
                     facebookButton.runAction(playBirdSoundAction)
                     
-                    if let twitterURL = NSURL(string: "") {
-                        UIApplication.sharedApplication().openURL(twitterURL)
+                    if let facebookURL = NSURL(string: "http://facebook.com/shottybird") {
+                        UIApplication.sharedApplication().openURL(facebookURL)
                     }
                 }
             }
@@ -251,7 +256,10 @@ class MainMenuScene: SKScene {
     
     private func setupAudioManager() {
         audioManager.audioPlayer?.volume = !muted ? 1.0 : 0.0
-        audioManager.tryPlayMusic()
+        
+        if !audioManager.audioPlayer!.playing {
+            audioManager.tryPlayMusic()
+        }
     }
     
 }
