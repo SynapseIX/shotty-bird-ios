@@ -121,20 +121,8 @@ class GameOverScene: SKScene {
         leaderboardButton.zPosition = zPositionMenuItems
         addChild(leaderboardButton)
         
-        // Add AdMob view
-        // TODO: replace with actual AdMob view
-        let adNode = SKSpriteNode(imageNamed: "admob_sample")
-        adNode.zPosition = zPositionMenuItems
-        
-        if DeviceModel.iPad || DeviceModel.iPadPro {
-            adNode.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMinY(frame) + adNode.size.height / 2)
-        } else if DeviceModel.iPhone4 {
-            adNode.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMinY(frame) + adNode.size.height + 8)
-        } else {
-            adNode.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMinY(frame) + adNode.size.height * 2 - 7)
-        }
-        
-        addChild(adNode)
+        // Show AdMob banner
+        gameViewController.bannerView.hidden = false
     }
     
     override func update(currentTime: NSTimeInterval) {
@@ -142,11 +130,16 @@ class GameOverScene: SKScene {
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let gameViewController = view?.window?.rootViewController as! GameViewController
+        
         for touch in touches {
             let location = touch.locationInNode(self)
             
             if let backButton = childNodeWithName("backButton") {
                 if backButton.containsPoint(location) {
+                    // Hide AdMob banner
+                    gameViewController.bannerView.hidden = true
+                    
                     if !muted {
                         backButton.runAction(playBirdSoundAction)
                     }
@@ -159,6 +152,9 @@ class GameOverScene: SKScene {
             
             if let playButton = childNodeWithName("playButton") {
                 if playButton.containsPoint(location) {
+                    // Hide AdMob banner
+                    gameViewController.bannerView.hidden = true
+                    
                     if let gameScene = getGameScene() {
                         gameScene.muted = muted
                         gameScene.bgLayers = bgLayers

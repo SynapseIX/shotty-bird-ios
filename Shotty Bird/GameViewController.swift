@@ -8,9 +8,11 @@
 
 import UIKit
 import SpriteKit
+import GoogleMobileAds
 
 class GameViewController: UIViewController {
     
+    var bannerView = GADBannerView(adSize: kGADAdSizeSmartBannerLandscape)
     let gameCenterHelper = GameCenterHelper()
 
     override func viewDidLoad() {
@@ -36,6 +38,9 @@ class GameViewController: UIViewController {
         
         // Authenticate with Game Center
         gameCenterHelper.authenticateLocalPlayer(self, completion: nil)
+        
+        // Setup AdMob
+        setupAdMob()
     }
 
     override func shouldAutorotate() -> Bool {
@@ -52,5 +57,27 @@ class GameViewController: UIViewController {
 
     override func prefersStatusBarHidden() -> Bool {
         return true
+    }
+    
+    // MARK: - AdMob methods
+    
+    private func setupAdMob() {
+        print("Google Mobile Ads SDK version: \(GADRequest.sdkVersion())")
+        let adSize = DeviceModel.iPad || DeviceModel.iPadPro ? kGADAdSizeLargeBanner: kGADAdSizeBanner
+        
+        bannerView = GADBannerView(adSize: adSize)
+        let size = bannerView.frame.size
+        
+        bannerView.frame = CGRect(x: CGRectGetMidX(view.frame) - size.width / 2, y: CGRectGetMaxY(view.frame) - size.height, width: size.width, height: size.height)
+        bannerView.adUnitID = "ca-app-pub-5774553422556987/1715679355"
+        bannerView.rootViewController = self
+        
+        let request = GADRequest()
+        request.testDevices = [kGADSimulatorID, "f97ebef80402c771d179c92d8c815c02"]; // TODO: Remove this when submitting to App Store
+        
+        bannerView.loadRequest(request)
+        view.addSubview(bannerView)
+        
+        bannerView.hidden = true
     }
 }
