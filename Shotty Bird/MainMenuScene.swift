@@ -146,11 +146,9 @@ class MainMenuScene: SKScene {
         let logo = SKSpriteNode(imageNamed: "logo_large")
         
         if DeviceModel.iPad || DeviceModel.iPadPro {
-            logo.xScale = 0.75
-            logo.yScale = 0.75
+            logo.setScale(0.75)
         } else {
-            logo.xScale = 0.65
-            logo.yScale = 0.65
+            logo.setScale(0.65)
         }
         
         let logoY = DeviceModel.iPad || DeviceModel.iPadPro ? CGRectGetMaxY(frame) - CGFloat(logo.size.height) / 2 - 30 : CGRectGetMaxY(frame) - CGFloat(logo.size.height) - 30
@@ -162,8 +160,7 @@ class MainMenuScene: SKScene {
         let playButton = SKSpriteNode(imageNamed: "play_button")
         
         if DeviceModel.iPhone5 || DeviceModel.iPhone6 || DeviceModel.iPhone6Plus {
-            playButton.xScale = 0.75
-            playButton.yScale = 0.75
+            playButton.setScale(0.75)
         }
         
         playButton.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame))
@@ -175,8 +172,7 @@ class MainMenuScene: SKScene {
         let leaderboardButton = SKSpriteNode(imageNamed: "leaderboard_button")
         
         if DeviceModel.iPhone5 || DeviceModel.iPhone6 || DeviceModel.iPhone6Plus {
-            leaderboardButton.xScale = 0.75
-            leaderboardButton.yScale = 0.75
+            leaderboardButton.setScale(0.75)
         }
         
         leaderboardButton.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame) - leaderboardButton.size.height - 10)
@@ -188,8 +184,7 @@ class MainMenuScene: SKScene {
         let creditsButton = SKSpriteNode(imageNamed: "credits_button")
         
         if DeviceModel.iPhone5 || DeviceModel.iPhone6 || DeviceModel.iPhone6Plus {
-            creditsButton.xScale = 0.75
-            creditsButton.yScale = 0.75
+            creditsButton.setScale(0.75)
         }
         
         creditsButton.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame) - (leaderboardButton.size.height * 2) - 20)

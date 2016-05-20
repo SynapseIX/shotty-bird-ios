@@ -94,8 +94,7 @@ class GameOverScene: SKScene {
         
         // Add game over node
         let gameOver = SKSpriteNode(imageNamed: "game_over")
-        gameOver.xScale = 0.8
-        gameOver.yScale = 0.8
+        gameOver.setScale(0.8)
         gameOver.zPosition = zPositionMenuItems
         gameOver.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMaxY(panel.frame) + gameOver.size.height - 30)
         addChild(gameOver)

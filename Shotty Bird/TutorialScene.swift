@@ -34,8 +34,7 @@ class TutorialScene: SKScene {
         
         // Scale based on device model
         if DeviceModel.iPhone5 || DeviceModel.iPhone6 || DeviceModel.iPhone6Plus {
-            tutorial.xScale = 0.8
-            tutorial.yScale = 0.8
+            tutorial.setScale(0.8)
         }
         
         tutorial.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame))

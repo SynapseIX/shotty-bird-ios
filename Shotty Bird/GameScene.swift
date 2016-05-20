@@ -50,6 +50,7 @@ class GameScene: SKScene {
         addParallaxBackground()
         addLifeNodes()
         addScoreNode()
+        addPauseButton()
         addMuteButton()
     }
     
@@ -63,7 +64,38 @@ class GameScene: SKScene {
         for touch in touches {
             let location = touch.locationInNode(self)
             
+            if let pauseButton = childNodeWithName("pauseButton") as? SKSpriteNode {
+                if pauseButton.containsPoint(location) {
+                    if !view!.paused {
+                        let pauseButton = childNodeWithName("pauseButton") as! SKSpriteNode
+                        pauseButton.texture = SKTexture(imageNamed: "play_button_icon")
+                        audioManager.audioPlayer?.pause()
+                        
+                        // Delay pause by 0.05 seconds
+                        let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.05 * Double(NSEC_PER_SEC)))
+                        dispatch_after(dispatchTime, dispatch_get_main_queue()) {
+                            self.view?.paused = true
+                        }
+                    } else {
+                        let pauseButton = self.childNodeWithName("pauseButton") as! SKSpriteNode
+                        pauseButton.texture = SKTexture(imageNamed: "pause_button")
+                        audioManager.audioPlayer?.play()
+                        
+                        // Delay unpause by 0.05 seconds
+                        let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.05 * Double(NSEC_PER_SEC)))
+                        dispatch_after(dispatchTime, dispatch_get_main_queue()) {
+                            self.view?.paused = false
+                        }
+                    }
+                    return
+                }
+            }
+            
             if let muteButton = childNodeWithName("muteButton") as? SKSpriteNode {
+                if view!.paused  {
+                    return
+                }
+                
                 if muteButton.containsPoint(location) {
                     audioManager.audioPlayer?.volume = muted ? 1.0 : 0.0
                     muted = audioManager.audioPlayer?.volume == 0.0 ? true : false
@@ -71,6 +103,11 @@ class GameScene: SKScene {
                     muteButton.texture = muted ? SKTexture(imageNamed: "mute_button") : SKTexture(imageNamed: "unmute_button")
                     return
                 }
+            }
+            
+            // If paused, don't allow shooting
+            if view!.paused {
+                return
             }
             
             // Limit taps to shoot missiles based on current bird spawn times and last touch time
@@ -97,6 +134,8 @@ class GameScene: SKScene {
         }
         
         lastSpawnTime += timeSinceLast
+        
+        parallaxBackground?.update()
         
         switch score {
         case 0...10:
@@ -165,8 +204,6 @@ class GameScene: SKScene {
                 spawnBird()
             }
         }
-        
-        parallaxBackground?.update()
     }
     
     // MARK: - User interface methods
@@ -250,6 +287,23 @@ class GameScene: SKScene {
         addChild(scoreLabel)
     }
     
+    private func addPauseButton() {
+        let pauseButton = SKSpriteNode(imageNamed: "pause_button")
+        pauseButton.position = CGPoint(x: CGRectGetMinX(frame) + pauseButton.size.width - 20, y: CGRectGetMinY(frame) + pauseButton.size.height * 2)
+        
+        if DeviceModel.iPhone4 {
+            pauseButton.position = CGPoint(x: CGRectGetMinX(frame) + pauseButton.size.width - 20, y: CGRectGetMinY(frame) + pauseButton.size.height + 20)
+        } else if DeviceModel.iPad || DeviceModel.iPadPro {
+            pauseButton.position = CGPoint(x: CGRectGetMinX(frame) + pauseButton.size.width - 20, y: CGRectGetMinY(frame) + pauseButton.size.height - 20)
+        } else {
+            pauseButton.position = CGPoint(x: CGRectGetMinX(frame) + pauseButton.size.width - 20, y: CGRectGetMinY(frame) + pauseButton.size.height * 2)
+        }
+        
+        pauseButton.name = "pauseButton"
+        pauseButton.zPosition = zPositionMenuItems
+        addChild(pauseButton)
+    }
+    
     private func addMuteButton() {
         let muteButton = muted ? SKSpriteNode(imageNamed: "mute_button") : SKSpriteNode(imageNamed: "unmute_button")
         
@@ -325,20 +379,15 @@ class GameScene: SKScene {
         
         switch zPosBird {
         case 4:
-            newBird.xScale = 0.2
-            newBird.yScale = 0.2
+            newBird.setScale(0.233)
         case 3:
-            newBird.xScale = 0.167
-            newBird.yScale = 0.167
+            newBird.setScale(0.2)
         case 2:
-            newBird.xScale = 0.133
-            newBird.yScale = 0.133
+            newBird.setScale(0.167)
         case 1:
-            newBird.xScale = 0.133
-            newBird.yScale = 0.133
+            newBird.setScale(0.134)
         case 0:
-            newBird.xScale = 0.10
-            newBird.yScale = 0.10
+            newBird.setScale(0.101)
         default:
             break
         }
