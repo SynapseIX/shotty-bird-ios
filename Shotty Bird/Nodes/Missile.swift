@@ -27,43 +27,36 @@ class Missile: SKSpriteNode {
         let repeatMissileTextureAnimation = SKAction.repeatAction(missileTextureAnimation, count: 1)
         
         runAction(repeatMissileTextureAnimation) {
-            self.xScale = 0.85
-            self.yScale = 0.85
+            self.setScale(0.85)
             self.zPosition = 4
             self.validateCollision()
             
             self.runAction(repeatMissileTextureAnimation) {
-                self.xScale = 0.70
-                self.yScale = 0.70
+                self.setScale(0.7)
                 self.zPosition = 3
                 self.validateCollision()
                 
                 self.runAction(repeatMissileTextureAnimation) {
-                    self.xScale = 0.55
-                    self.yScale = 0.55
+                    self.setScale(0.55)
                     self.zPosition = 2
                     self.validateCollision()
                     
                     self.runAction(repeatMissileTextureAnimation) {
-                        self.xScale = 0.40
-                        self.yScale = 0.40
+                        self.setScale(0.4)
                         self.zPosition = 1
                         self.validateCollision()
                         
                         self.runAction(repeatMissileTextureAnimation) {
-                            self.xScale = 0.25
-                            self.yScale = 0.25
+                            self.setScale(0.25)
                             self.zPosition = 0
                             self.validateCollision()
                             
                             self.runAction(repeatMissileTextureAnimation) {
-                                self.xScale = 0.10
-                                self.yScale = 0.10
+                                self.setScale(0.1)
                                 self.zPosition = -0.999
                                 
                                 self.runAction(repeatMissileTextureAnimation) {
-                                    self.xScale = 0.05
-                                    self.yScale = 0.05
+                                    self.setScale(0.05)
                                     self.zPosition = -0.998
                                     
                                     self.runAction(SKAction.removeFromParent())
