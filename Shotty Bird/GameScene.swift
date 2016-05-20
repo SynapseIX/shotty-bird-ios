@@ -359,15 +359,15 @@ class GameScene: SKScene {
         
         switch zPosBird {
         case 4:
-            newBird.setScale(0.233)
-        case 3:
             newBird.setScale(0.2)
+        case 3:
+            newBird.setScale(0.175)
         case 2:
-            newBird.setScale(0.167)
+            newBird.setScale(0.15)
         case 1:
-            newBird.setScale(0.134)
+            newBird.setScale(0.135)
         case 0:
-            newBird.setScale(0.101)
+            newBird.setScale(0.1)
         default:
             break
         }
@@ -424,6 +424,7 @@ class GameScene: SKScene {
     }
     
     // MARK: - Pause methods
+    
     func togglePause() {
         if !view!.paused {
             let pauseButton = childNodeWithName("pauseButton") as! SKSpriteNode
