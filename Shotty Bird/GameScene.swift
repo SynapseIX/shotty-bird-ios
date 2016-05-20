@@ -66,27 +66,7 @@ class GameScene: SKScene {
             
             if let pauseButton = childNodeWithName("pauseButton") as? SKSpriteNode {
                 if pauseButton.containsPoint(location) {
-                    if !view!.paused {
-                        let pauseButton = childNodeWithName("pauseButton") as! SKSpriteNode
-                        pauseButton.texture = SKTexture(imageNamed: "play_button_icon")
-                        audioManager.audioPlayer?.pause()
-                        
-                        // Delay pause by 0.05 seconds
-                        let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.05 * Double(NSEC_PER_SEC)))
-                        dispatch_after(dispatchTime, dispatch_get_main_queue()) {
-                            self.view?.paused = true
-                        }
-                    } else {
-                        let pauseButton = self.childNodeWithName("pauseButton") as! SKSpriteNode
-                        pauseButton.texture = SKTexture(imageNamed: "pause_button")
-                        audioManager.audioPlayer?.play()
-                        
-                        // Delay unpause by 0.05 seconds
-                        let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.05 * Double(NSEC_PER_SEC)))
-                        dispatch_after(dispatchTime, dispatch_get_main_queue()) {
-                            self.view?.paused = false
-                        }
-                    }
+                    togglePause()
                     return
                 }
             }
@@ -439,6 +419,31 @@ class GameScene: SKScene {
                     let transition = SKTransition.doorsCloseHorizontalWithDuration(0.5)
                     self.view?.presentScene(self.getGameOverScene(), transition: transition)
                 }
+            }
+        }
+    }
+    
+    // MARK: - Pause methods
+    func togglePause() {
+        if !view!.paused {
+            let pauseButton = childNodeWithName("pauseButton") as! SKSpriteNode
+            pauseButton.texture = SKTexture(imageNamed: "play_button_icon")
+            audioManager.audioPlayer?.pause()
+            
+            // Delay pause by 0.05 seconds
+            let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.05 * Double(NSEC_PER_SEC)))
+            dispatch_after(dispatchTime, dispatch_get_main_queue()) {
+                self.view?.paused = true
+            }
+        } else {
+            let pauseButton = self.childNodeWithName("pauseButton") as! SKSpriteNode
+            pauseButton.texture = SKTexture(imageNamed: "pause_button")
+            audioManager.audioPlayer?.play()
+            
+            // Delay unpause by 0.05 seconds
+            let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.05 * Double(NSEC_PER_SEC)))
+            dispatch_after(dispatchTime, dispatch_get_main_queue()) {
+                self.view?.paused = false
             }
         }
     }
