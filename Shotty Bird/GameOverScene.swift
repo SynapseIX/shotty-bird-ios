@@ -223,7 +223,7 @@ class GameOverScene: SKScene {
                 twitterController.dismissViewControllerAnimated(true, completion: nil)
             }
             
-            twitterController.setInitialText("Improving my shooting skills with #ShottyBird. Available on the App Store. https://appsto.re/us/shottybird.i")
+            twitterController.setInitialText("Obliterated \(score) birds in @shottybird. Available on the App Store. https://itunes.apple.com/us/app/shotty-bird/id1114259560?ls=1&mt=8")
             
             gameViewController.presentViewController(twitterController, animated: true, completion: nil)
         } else {
@@ -241,7 +241,7 @@ class GameOverScene: SKScene {
                 twitterController.dismissViewControllerAnimated(true, completion: nil)
             }
             
-            twitterController.setInitialText("Improving my shooting skills with Shotty Bird. Available on the App Store. https://appsto.re/us/shottybird.i")
+            twitterController.setInitialText("Improving my shooting skills with Shotty Bird. Available on the App Store. https://itunes.apple.com/us/app/shotty-bird/id1114259560?ls=1&mt=8")
             
             gameViewController.presentViewController(twitterController, animated: true, completion: nil)
         } else {
