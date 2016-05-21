@@ -84,6 +84,7 @@ class MainMenuScene: SKScene {
                     let creditsScene = CreditsScene(size: CGSize(width: 1024.0, height: 768.0))
                     creditsScene.scaleMode = .AspectFill
                     creditsScene.bgLayers = parallaxBackground!.bgLayers
+                    creditsScene.muted = muted
                     
                     let transition = SKTransition.pushWithDirection(.Up, duration: 1.0)
                     view?.presentScene(creditsScene, transition: transition)

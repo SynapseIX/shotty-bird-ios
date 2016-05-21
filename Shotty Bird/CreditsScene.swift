@@ -14,6 +14,10 @@ class CreditsScene: SKScene {
     var parallaxBackground: ParallaxBackground?
     
     let zPositionMenuItems = CGFloat(Int.max)
+    var muted = false
+    
+    let playBirdSoundAction = SKAction.playSoundFileNamed("bird.wav", waitForCompletion: false)
+    let playShotSoundAction = SKAction.playSoundFileNamed("shot", waitForCompletion: false)
     
     override func didMoveToView(view: SKView) {
         // Add parallax background
@@ -51,14 +55,25 @@ class CreditsScene: SKScene {
             let location = touch.locationInNode(self)
             
             if let backButton = childNodeWithName("backButton") {
+                if !muted {
+                    backButton.runAction(playBirdSoundAction)
+                }
+                
                 if backButton.containsPoint(location) {
+                    let mainMenuScene = getMainMenuScene()
+                    mainMenuScene.muted = muted
+                    
                     let transition = SKTransition.pushWithDirection(.Down, duration: 1.0)
-                    view?.presentScene(getMainMenuScene(), transition: transition)
+                    view?.presentScene(mainMenuScene, transition: transition)
                 }
             }
             
             if let itsProf = childNodeWithName("itsprof") {
                 if itsProf.containsPoint(location) {
+                    if !muted {
+                        itsProf.runAction(playShotSoundAction)
+                    }
+                    
                     if let twitterURL = NSURL(string: "http://twitter.com/itsProf") {
                         UIApplication.sharedApplication().openURL(twitterURL)
                     }
