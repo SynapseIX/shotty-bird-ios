@@ -190,7 +190,7 @@ class GameScene: SKScene {
     
     private func addParallaxBackground() {
         parallaxBackground = ParallaxBackground(texture: nil, color: UIColor.clearColor(), size: size)
-        parallaxBackground?.setUpBackgrounds(bgLayers, size: size, fastestSpeed: 13.0, speedDecrease: 4.0)
+        parallaxBackground?.setUpBackgrounds(bgLayers, size: size, fastestSpeed: 14.0, speedDecrease: 4.2)
         addChild(parallaxBackground!)
     }
     

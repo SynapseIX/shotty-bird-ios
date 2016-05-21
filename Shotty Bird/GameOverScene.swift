@@ -31,7 +31,7 @@ class GameOverScene: SKScene {
         
         // Add background
         parallaxBackground = ParallaxBackground(texture: nil, color: UIColor.clearColor(), size: size)
-        parallaxBackground?.setUpBackgrounds(bgLayers, size: size, fastestSpeed: 2.0, speedDecrease: 0.25)
+        parallaxBackground?.setUpBackgrounds(bgLayers, size: size, fastestSpeed: 2.0, speedDecrease: 0.33)
         addChild(parallaxBackground!)
         
         // Add score panel

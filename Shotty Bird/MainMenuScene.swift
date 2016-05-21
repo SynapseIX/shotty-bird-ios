@@ -139,7 +139,7 @@ class MainMenuScene: SKScene {
         let bgs = allBgs[Int(arc4random_uniform(UInt32(allBgs.count)))]
         
         parallaxBackground = ParallaxBackground(texture: nil, color: UIColor.clearColor(), size: size)
-        parallaxBackground?.setUpBackgrounds(bgs, size: size, fastestSpeed: 2.0, speedDecrease: 0.25)
+        parallaxBackground?.setUpBackgrounds(bgs, size: size, fastestSpeed: 2.0, speedDecrease: 0.33)
         addChild(parallaxBackground!)
         
         // Add and scale game logo
