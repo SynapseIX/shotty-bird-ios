@@ -26,7 +26,7 @@ class TutorialScene: SKScene {
         let textures = [SKTexture(imageNamed: "tutorial_1"), SKTexture(imageNamed: "tutorial_2"), SKTexture(imageNamed: "tutorial_3"), SKTexture(imageNamed: "tutorial_4"), SKTexture(imageNamed: "tutorial_5")]
         
         // Setup animation actions
-        let spriteAnimationAction = SKAction.animateWithTextures(textures, timePerFrame: 0.4)
+        let spriteAnimationAction = SKAction.animateWithTextures(textures, timePerFrame: 0.45)
         let repeatAnimationAction = SKAction.repeatActionForever(spriteAnimationAction)
         
         // Setup and add tutorial node

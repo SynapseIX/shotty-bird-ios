@@ -52,7 +52,7 @@ class CreditsScene: SKScene {
             
             if let backButton = childNodeWithName("backButton") {
                 if backButton.containsPoint(location) {
-                    let transition = SKTransition.doorsOpenHorizontalWithDuration(0.5)
+                    let transition = SKTransition.pushWithDirection(.Down, duration: 1.0)
                     view?.presentScene(getMainMenuScene(), transition: transition)
                 }
             }

@@ -85,7 +85,7 @@ class MainMenuScene: SKScene {
                     creditsScene.scaleMode = .AspectFill
                     creditsScene.bgLayers = parallaxBackground!.bgLayers
                     
-                    let transition = SKTransition.crossFadeWithDuration(1.0)
+                    let transition = SKTransition.pushWithDirection(.Up, duration: 1.0)
                     view?.presentScene(creditsScene, transition: transition)
                 }
             }

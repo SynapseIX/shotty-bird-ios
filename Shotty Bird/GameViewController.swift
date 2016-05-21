@@ -72,10 +72,7 @@ class GameViewController: UIViewController {
         bannerView.adUnitID = "ca-app-pub-5774553422556987/1715679355"
         bannerView.rootViewController = self
         
-        let request = GADRequest()
-        request.testDevices = [kGADSimulatorID, "f97ebef80402c771d179c92d8c815c02"]; // TODO: Remove this when submitting to App Store
-        
-        bannerView.loadRequest(request)
+        bannerView.loadRequest(GADRequest())
         view.addSubview(bannerView)
         
         bannerView.hidden = true

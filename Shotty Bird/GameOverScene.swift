@@ -83,7 +83,7 @@ class GameOverScene: SKScene {
             gameCenterHelper.submitScore(score)
         }
         
-        let bestScoreText = newBest ? "NEW RECORD \(defaults.integerForKey("bestScore"))!!!" : "Your best is \(defaults.integerForKey("bestScore"))"
+        let bestScoreText = newBest ? "NEW RECORD" : "Your best is \(defaults.integerForKey("bestScore"))"
         let bestScoreLabel = SKLabelNode(text: bestScoreText)
         bestScoreLabel.fontName = "Kenney-Bold"
         bestScoreLabel.fontSize = 17.0
