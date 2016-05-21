@@ -65,13 +65,18 @@ class GameOverScene: SKScene {
         let defaults = NSUserDefaults.standardUserDefaults()
         let bestScore = defaults.integerForKey("bestScore")
         
-        // Fetch and store locally the highest score from leaderboard if necessary
+        // Synchronize high scores with Game Center
         let gameViewController = view.window?.rootViewController as! GameViewController
         let gameCenterHelper = gameViewController.gameCenterHelper
         
         if let score = gameCenterHelper.fetchPlayerScore() {
-            defaults.setInteger(Int(score.value), forKey: "bestScore")
-            defaults.synchronize()
+            if Int(score.value) > bestScore {
+                defaults.setInteger(Int(score.value), forKey: "bestScore")
+                defaults.synchronize()
+            } else {
+                // Submit high score to Game Center
+                gameCenterHelper.submitScore(bestScore)
+            }
         }
         
         if score > bestScore {
