@@ -24,7 +24,7 @@ class GameScene: SKScene {
     var lastShotFiredTime: CFTimeInterval = 0.0
     
     var lives = 3
-    var score = 0
+    var score = 110
     
     let playBirdSoundAction = SKAction.playSoundFileNamed("bird.wav", waitForCompletion: false)
     let playWingFlapSoundAction = SKAction.playSoundFileNamed("wing_flap.wav", waitForCompletion: false)
@@ -178,8 +178,28 @@ class GameScene: SKScene {
                 lastSpawnTime = 0.0
                 spawnBird()
             }
+        case 91...100:
+            if lastSpawnTime > 1.0 {
+                lastSpawnTime = 0.0
+                spawnBird()
+            }
+        case 101...110:
+            if lastSpawnTime > 0.9 {
+                lastSpawnTime = 0.0
+                spawnBird()
+            }
+        case 111...120:
+            if lastSpawnTime > 0.8 {
+                lastSpawnTime = 0.0
+                spawnBird()
+            }
+        case 121...130:
+            if lastSpawnTime > 0.75 {
+                lastSpawnTime = 0.0
+                spawnBird()
+            }
         default:
-            if lastSpawnTime > 1.0  {
+            if lastSpawnTime > 0.7 {
                 lastSpawnTime = 0.0
                 spawnBird()
             }
@@ -477,6 +497,10 @@ extension GameScene: GameScoreDelegate {
             audioManager.audioPlayer?.rate = 1.75
         case 100:
             audioManager.audioPlayer?.rate = 1.80
+        case 110:
+            audioManager.audioPlayer?.rate = 1.90
+        case 120:
+            audioManager.audioPlayer?.rate = 2.00
         default:
             break
         }

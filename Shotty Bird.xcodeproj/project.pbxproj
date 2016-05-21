@@ -14,10 +14,10 @@
 		973CFB421CE287B300A22A91 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CFB411CE287B300A22A91 /* MainMenuScene.swift */; };
 		973CFB451CE2891B00A22A91 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CFB441CE2891B00A22A91 /* DeviceModel.swift */; };
 		974C177F1CEBCBDE00B2F7A3 /* Missile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974C177E1CEBCBDE00B2F7A3 /* Missile.swift */; };
+		975284E91CF05ECD0020FBE2 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 975284E81CF05ECD0020FBE2 /* GameKit.framework */; };
 		975B0F051CE8086800D84DD7 /* ASAttributedLabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975B0F021CE8086800D84DD7 /* ASAttributedLabelNode.swift */; };
 		975B0F061CE8086800D84DD7 /* Bird.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975B0F031CE8086800D84DD7 /* Bird.swift */; };
 		975B0F071CE8086800D84DD7 /* ParallaxBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975B0F041CE8086800D84DD7 /* ParallaxBackground.swift */; };
-		9780E4A11CE79F3E00FC1E13 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9780E4A01CE79F3E00FC1E13 /* GameKit.framework */; };
 		978754951CDED4D40033E261 /* PhysicsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978754941CDED4D40033E261 /* PhysicsCategory.swift */; };
 		9787549D1CDEDF310033E261 /* wing_flap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9787549C1CDEDF310033E261 /* wing_flap.wav */; };
 		9787549F1CDEE1030033E261 /* shot.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9787549E1CDEE1030033E261 /* shot.wav */; };
@@ -51,10 +51,10 @@
 		973CFB411CE287B300A22A91 /* MainMenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 		973CFB441CE2891B00A22A91 /* DeviceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
 		974C177E1CEBCBDE00B2F7A3 /* Missile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Missile.swift; sourceTree = "<group>"; };
+		975284E81CF05ECD0020FBE2 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		975B0F021CE8086800D84DD7 /* ASAttributedLabelNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAttributedLabelNode.swift; sourceTree = "<group>"; };
 		975B0F031CE8086800D84DD7 /* Bird.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bird.swift; sourceTree = "<group>"; };
 		975B0F041CE8086800D84DD7 /* ParallaxBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxBackground.swift; sourceTree = "<group>"; };
-		9780E4A01CE79F3E00FC1E13 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		978754941CDED4D40033E261 /* PhysicsCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsCategory.swift; sourceTree = "<group>"; };
 		9787549C1CDEDF310033E261 /* wing_flap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = wing_flap.wav; sourceTree = "<group>"; };
 		9787549E1CDEE1030033E261 /* shot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shot.wav; sourceTree = "<group>"; };
@@ -85,8 +85,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9780E4A11CE79F3E00FC1E13 /* GameKit.framework in Frameworks */,
 				4B881D9466A7AE869CA39F3F /* Pods_Shotty_Bird.framework in Frameworks */,
+				975284E91CF05ECD0020FBE2 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +96,7 @@
 		6CC201224FF5442A0D8F6843 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				975284E81CF05ECD0020FBE2 /* GameKit.framework */,
 				42547805782A329421EC7044 /* Pods_Shotty_Bird.framework */,
 			);
 			name = Frameworks;
@@ -154,7 +155,6 @@
 		97887DFB1CDC21BA00021B4F = {
 			isa = PBXGroup;
 			children = (
-				9780E4A01CE79F3E00FC1E13 /* GameKit.framework */,
 				97887E061CDC21BA00021B4F /* Shotty Bird */,
 				97887E051CDC21BA00021B4F /* Products */,
 				9D2E1884D38176DA2144A50A /* Pods */,
