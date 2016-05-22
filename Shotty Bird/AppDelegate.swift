@@ -19,17 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    func applicationWillResignActive(application: UIApplication) {
-        let gameViewController = window?.rootViewController as! GameViewController
-        let skView = gameViewController.view as! SKView
-        
-        if let currentScene = skView.scene {
-            if currentScene is GameScene && !skView.paused {
-                (currentScene as! GameScene).togglePause()
-            }
-        }
-    }
-
 
 }
 

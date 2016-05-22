@@ -50,7 +50,6 @@ class GameScene: SKScene {
         addParallaxBackground()
         addLifeNodes()
         addScoreNode()
-        addPauseButton()
         addMuteButton()
     }
     

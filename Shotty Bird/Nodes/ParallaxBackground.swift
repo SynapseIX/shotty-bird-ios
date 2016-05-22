@@ -56,7 +56,7 @@ class ParallaxBackground: SKSpriteNode {
             currentSpeed = CGFloat(currentSpeed - speedDecrease)
             
             if currentSpeed < 0.0 {
-                currentSpeed = 0.1
+                currentSpeed = 0.5
             }
             
             self.addChild(node)

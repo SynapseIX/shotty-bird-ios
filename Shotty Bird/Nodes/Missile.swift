@@ -23,8 +23,8 @@ class Missile: SKSpriteNode {
         
         let textures = [SKTexture(imageNamed: sprites[0]), SKTexture(imageNamed: sprites[1]), SKTexture(imageNamed: sprites[2])]
         
-        let missileTextureAnimation = SKAction.animateWithTextures(textures, timePerFrame: 0.05)
-        let repeatMissileTextureAnimation = SKAction.repeatAction(missileTextureAnimation, count: 1)
+        let missileTextureAnimation = SKAction.animateWithTextures(textures, timePerFrame: 0.025)
+        let repeatMissileTextureAnimation = SKAction.repeatAction(missileTextureAnimation, count: 2)
         
         runAction(repeatMissileTextureAnimation) {
             self.setScale(0.85)
