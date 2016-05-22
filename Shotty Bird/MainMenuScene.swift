@@ -86,7 +86,7 @@ class MainMenuScene: SKScene {
                     creditsScene.bgLayers = parallaxBackground!.bgLayers
                     creditsScene.muted = muted
                     
-                    let transition = SKTransition.pushWithDirection(.Up, duration: 1.0)
+                    let transition = SKTransition.pushWithDirection(.Up, duration: 0.5)
                     view?.presentScene(creditsScene, transition: transition)
                 }
             }

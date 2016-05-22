@@ -63,7 +63,7 @@ class CreditsScene: SKScene {
                     let mainMenuScene = getMainMenuScene()
                     mainMenuScene.muted = muted
                     
-                    let transition = SKTransition.pushWithDirection(.Down, duration: 1.0)
+                    let transition = SKTransition.pushWithDirection(.Down, duration: 0.5)
                     view?.presentScene(mainMenuScene, transition: transition)
                 }
             }
