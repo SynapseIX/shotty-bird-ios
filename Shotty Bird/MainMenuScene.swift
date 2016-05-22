@@ -97,8 +97,18 @@ class MainMenuScene: SKScene {
                         twitterButton.runAction(playBirdSoundAction)
                     }
                     
-                    if let twitterURL = NSURL(string: "http://twitter.com/shottybird") {
-                        UIApplication.sharedApplication().openURL(twitterURL)
+                    if let tweetbotURL = NSURL(string: "tweetbot://shottybird/user_profile/shottybird") {
+                        if UIApplication.sharedApplication().canOpenURL(tweetbotURL) {
+                            UIApplication.sharedApplication().openURL(tweetbotURL)
+                        } else if let twitterURL = NSURL(string: "twitter://user?screen_name=shottybird") {
+                            if UIApplication.sharedApplication().canOpenURL(twitterURL) {
+                                UIApplication.sharedApplication().openURL(twitterURL)
+                            } else {
+                                if let twitterWebURL = NSURL(string: "http://twitter.com/shottybird") {
+                                    UIApplication.sharedApplication().openURL(twitterWebURL)
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -107,8 +117,14 @@ class MainMenuScene: SKScene {
                 if facebookButton.containsPoint(location) {
                     facebookButton.runAction(playBirdSoundAction)
                     
-                    if let facebookURL = NSURL(string: "http://facebook.com/shottybird") {
-                        UIApplication.sharedApplication().openURL(facebookURL)
+                    if let fbAppURL = NSURL(string: "fb://profile/1629764307346494") {
+                        if UIApplication.sharedApplication().canOpenURL(fbAppURL) {
+                            UIApplication.sharedApplication().openURL(fbAppURL)
+                        } else {
+                            if let facebookURL = NSURL(string: "http://facebook.com/shottybird") {
+                                UIApplication.sharedApplication().openURL(facebookURL)
+                            }
+                        }
                     }
                 }
             }

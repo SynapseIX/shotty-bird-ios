@@ -63,7 +63,7 @@ class CreditsScene: SKScene {
                     let mainMenuScene = getMainMenuScene()
                     mainMenuScene.muted = muted
                     
-                    let transition = SKTransition.pushWithDirection(.Down, duration: 0.5)
+                    let transition = SKTransition.crossFadeWithDuration(0.5)
                     view?.presentScene(mainMenuScene, transition: transition)
                 }
             }
@@ -74,8 +74,18 @@ class CreditsScene: SKScene {
                         itsProf.runAction(playShotSoundAction)
                     }
                     
-                    if let twitterURL = NSURL(string: "http://twitter.com/itsProf") {
-                        UIApplication.sharedApplication().openURL(twitterURL)
+                    if let tweetbotURL = NSURL(string: "tweetbot://shottybird/user_profile/itsProf") {
+                        if UIApplication.sharedApplication().canOpenURL(tweetbotURL) {
+                            UIApplication.sharedApplication().openURL(tweetbotURL)
+                        } else if let twitterURL = NSURL(string: "twitter://user?screen_name=itsProf") {
+                            if UIApplication.sharedApplication().canOpenURL(twitterURL) {
+                                UIApplication.sharedApplication().openURL(twitterURL)
+                            } else {
+                                if let twitterWebURL = NSURL(string: "http://twitter.com/itsProf") {
+                                    UIApplication.sharedApplication().openURL(twitterWebURL)
+                                }
+                            }
+                        }
                     }
                 }
             }
