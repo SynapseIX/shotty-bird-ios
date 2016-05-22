@@ -55,11 +55,11 @@ class CreditsScene: SKScene {
             let location = touch.locationInNode(self)
             
             if let backButton = childNodeWithName("backButton") {
-                if !muted {
-                    backButton.runAction(playBirdSoundAction)
-                }
-                
                 if backButton.containsPoint(location) {
+                    if !muted {
+                        backButton.runAction(playBirdSoundAction)
+                    }
+                    
                     let mainMenuScene = getMainMenuScene()
                     mainMenuScene.muted = muted
                     

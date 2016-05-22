@@ -24,10 +24,15 @@ class GameOverScene: SKScene {
     
     let playBirdSoundAction = SKAction.playSoundFileNamed("bird.wav", waitForCompletion: false)
     let playExplosionSoundAction = SKAction.playSoundFileNamed("explosion.wav", waitForCompletion: false)
+    let playScreenshotSoundAction = SKAction.playSoundFileNamed("screenshot.wav", waitForCompletion: true)
 
     override func didMoveToView(view: SKView) {
         audioManager.audioPlayer?.volume = !muted ? 1.0 : 0.0
         audioManager.tryPlayMusic()
+        
+        // Show AdMob banner
+        let gameViewController = view.window?.rootViewController as! GameViewController
+        gameViewController.bannerView.hidden = false
         
         // Add background
         parallaxBackground = ParallaxBackground(texture: nil, color: UIColor.clearColor(), size: size)
@@ -66,7 +71,6 @@ class GameOverScene: SKScene {
         let bestScore = defaults.integerForKey("bestScore")
         
         // Synchronize high scores with Game Center
-        let gameViewController = view.window?.rootViewController as! GameViewController
         let gameCenterHelper = gameViewController.gameCenterHelper
         
         if let score = gameCenterHelper.fetchPlayerScore() {
@@ -99,34 +103,46 @@ class GameOverScene: SKScene {
         
         // Add game over node
         let gameOver = SKSpriteNode(imageNamed: "game_over")
+        gameOver.name = "gameOver"
         gameOver.setScale(0.8)
         gameOver.zPosition = zPositionMenuItems
         gameOver.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMaxY(panel.frame) + gameOver.size.height - 30)
         addChild(gameOver)
         
+        // Add leaderboard button
+        let leaderboardButton = SKSpriteNode(imageNamed: "leaderboard_button_icon")
+        leaderboardButton.position = CGPoint(x: CGRectGetMidX(panel.frame), y: CGRectGetMinY(panel.frame) - leaderboardButton.size.height / 2 - 10)
+        leaderboardButton.name = "leaderboardButton"
+        leaderboardButton.zPosition = zPositionMenuItems
+        addChild(leaderboardButton)
+        
         // Add replay button
         let playButton = SKSpriteNode(imageNamed: "replay_button")
-        playButton.position = CGPoint(x: CGRectGetMidX(panel.frame), y: CGRectGetMinY(panel.frame) - playButton.size.height / 2 - 10)
+        playButton.position = CGPoint(x: leaderboardButton.position.x - playButton.size.width - 20, y: leaderboardButton.position.y)
         playButton.name = "playButton"
         playButton.zPosition = zPositionMenuItems
         addChild(playButton)
         
         // Add back button
         let backButton = SKSpriteNode(imageNamed: "back_button")
-        backButton.position = CGPoint(x: playButton.position.x - backButton.size.width - 20, y: playButton.position.y)
+        backButton.position = CGPoint(x: playButton.position.x - backButton.size.width - 20, y: leaderboardButton.position.y)
         backButton.name = "backButton"
         backButton.zPosition = zPositionMenuItems
         addChild(backButton)
         
-        // Add leaderboard button
-        let leaderboardButton = SKSpriteNode(imageNamed: "leaderboard_button_icon")
-        leaderboardButton.position = CGPoint(x: playButton.position.x + leaderboardButton.size.width + 20, y: playButton.position.y)
-        leaderboardButton.name = "leaderboardButton"
-        leaderboardButton.zPosition = zPositionMenuItems
-        addChild(leaderboardButton)
+        // Add twitter button
+        let twitterButton = SKSpriteNode(imageNamed: "twitter_button")
+        twitterButton.position = CGPoint(x: leaderboardButton.position.x + twitterButton.size.width + 20, y: leaderboardButton.position.y)
+        twitterButton.name = "twitterButton"
+        twitterButton.zPosition = zPositionMenuItems
+        addChild(twitterButton)
         
-        // Show AdMob banner
-        gameViewController.bannerView.hidden = false
+        // Add facebook button
+        let facebookButton = SKSpriteNode(imageNamed: "facebook_button")
+        facebookButton.position = CGPoint(x: twitterButton.position.x + twitterButton.size.width + 20, y: leaderboardButton.position.y)
+        facebookButton.name = "facebookButton"
+        facebookButton.zPosition = zPositionMenuItems
+        addChild(facebookButton)
     }
     
     override func update(currentTime: NSTimeInterval) {
@@ -192,6 +208,26 @@ class GameOverScene: SKScene {
                     }
                 }
             }
+            
+            if let twitterButton = childNodeWithName("twitterButton") {
+                if twitterButton.containsPoint(location) {
+                    if !muted {
+                        twitterButton.runAction(playScreenshotSoundAction)
+                    }
+                    
+                    shareOnTwitter()
+                }
+            }
+            
+            if let facebookButton = childNodeWithName("facebookButton") {
+                if facebookButton.containsPoint(location) {
+                    if !muted {
+                        facebookButton.runAction(playScreenshotSoundAction)
+                    }
+                    
+                    shareOnFacebook()
+                }
+            }
         }
     }
     
@@ -222,12 +258,12 @@ class GameOverScene: SKScene {
         
         if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter) {
             let twitterController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
-            
-            twitterController.completionHandler = { (result: SLComposeViewControllerResult) -> Void in
+            twitterController.addImage(takeScreenshot())
+            twitterController.addURL(NSURL(string: "https://itunes.apple.com/us/app/shotty-bird/id1114259560?ls=1&mt=8"))
+            twitterController.setInitialText("Becoming the best bird slayer at @shottybird. Available on the App Store.")
+            twitterController.completionHandler = { (result) in
                 twitterController.dismissViewControllerAnimated(true, completion: nil)
             }
-            
-            twitterController.setInitialText("Obliterated \(score) birds in @shottybird. Available on the App Store. https://itunes.apple.com/us/app/shotty-bird/id1114259560?ls=1&mt=8")
             
             gameViewController.presentViewController(twitterController, animated: true, completion: nil)
         } else {
@@ -239,18 +275,29 @@ class GameOverScene: SKScene {
         let gameViewController = view?.window?.rootViewController as! GameViewController
         
         if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
-            let twitterController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
-            
-            twitterController.completionHandler = { (result: SLComposeViewControllerResult) -> Void in
-                twitterController.dismissViewControllerAnimated(true, completion: nil)
+            let facebookController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+            facebookController.addImage(takeScreenshot())
+            facebookController.completionHandler = { (result) in
+                facebookController.dismissViewControllerAnimated(true, completion: nil)
             }
             
-            twitterController.setInitialText("Improving my shooting skills with Shotty Bird. Available on the App Store. https://itunes.apple.com/us/app/shotty-bird/id1114259560?ls=1&mt=8")
-            
-            gameViewController.presentViewController(twitterController, animated: true, completion: nil)
+            gameViewController.presentViewController(facebookController, animated: true, completion: nil)
         } else {
             GameError.handleAsAlert("Sign in to Facebook", message: "You are not signed in with Facebook. On the Home screen, launch Settings, tap Facebook, and sign in to your account.", presentingViewController: gameViewController, completion: nil)
         }
+    }
+    
+    private func takeScreenshot() -> UIImage {
+        let gameViewController = view?.window?.rootViewController as! GameViewController
+        gameViewController.bannerView.hidden = true
+        
+        UIGraphicsBeginImageContextWithOptions(frame.size, true, UIScreen.mainScreen().scale)
+        view?.drawViewHierarchyInRect(frame, afterScreenUpdates: true)
+        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        gameViewController.bannerView.hidden = false
+        return screenshot
     }
     
 }

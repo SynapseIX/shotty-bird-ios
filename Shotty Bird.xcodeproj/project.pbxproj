@@ -38,6 +38,7 @@
 		97D1815E1CE2E4C700FC123A /* menu_music.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97D1815D1CE2E4C700FC123A /* menu_music.wav */; };
 		97D181661CE3AD5800FC123A /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D181651CE3AD5800FC123A /* GameOverScene.swift */; };
 		97D1818A1CE3B66700FC123A /* game_over_music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 97D181891CE3B66700FC123A /* game_over_music.mp3 */; };
+		97E081571CF23EE40003FE1A /* screenshot.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97E081561CF23EE40003FE1A /* screenshot.wav */; };
 		97FDC96A1CE52A880023BB0A /* GameScoreDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FDC9691CE52A880023BB0A /* GameScoreDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +78,7 @@
 		97D1815D1CE2E4C700FC123A /* menu_music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = menu_music.wav; sourceTree = "<group>"; };
 		97D181651CE3AD5800FC123A /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		97D181891CE3B66700FC123A /* game_over_music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = game_over_music.mp3; sourceTree = "<group>"; };
+		97E081561CF23EE40003FE1A /* screenshot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = screenshot.wav; sourceTree = "<group>"; };
 		97FDC9691CE52A880023BB0A /* GameScoreDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScoreDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -146,6 +148,7 @@
 				97D181891CE3B66700FC123A /* game_over_music.mp3 */,
 				97C1493A1CE5B3AE0054CD4A /* gameplay_music.wav */,
 				97D1815D1CE2E4C700FC123A /* menu_music.wav */,
+				97E081561CF23EE40003FE1A /* screenshot.wav */,
 				9787549E1CDEE1030033E261 /* shot.wav */,
 				9787549C1CDEDF310033E261 /* wing_flap.wav */,
 			);
@@ -298,6 +301,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97E081571CF23EE40003FE1A /* screenshot.wav in Resources */,
 				97887E0A1CDC21BA00021B4F /* GameScene.sks in Resources */,
 				97D181511CE2C76F00FC123A /* Kenney-Blocks.ttf in Resources */,
 				97D1815E1CE2E4C700FC123A /* menu_music.wav in Resources */,
