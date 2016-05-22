@@ -19,7 +19,13 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>17</string>
+	<string>18</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>tweetbot</string>
+		<string>twitter</string>
+		<string>fb</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -54,12 +60,6 @@
 	<array>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>tweetbot</string>
-		<string>twitter</string>
-		<string>fb</string>
 	</array>
 </dict>
 </plist>
