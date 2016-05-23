@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    
     func applicationDidBecomeActive(application: UIApplication) {
         if let gameViewController = window?.rootViewController as? GameViewController {
             let skView = gameViewController.view as! SKView
