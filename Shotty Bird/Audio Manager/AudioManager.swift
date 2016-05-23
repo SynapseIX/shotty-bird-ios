@@ -24,9 +24,13 @@ class AudioManager: NSObject {
     }
     
     func tryPlayMusic() {
-        audioPlayer?.prepareToPlay()
-        audioPlayer?.play()
-        musicPlaying = true
+        if let audioSession = audioSession {
+            if !audioSession.otherAudioPlaying {
+                audioPlayer?.prepareToPlay()
+                audioPlayer?.play()
+                musicPlaying = true
+            }
+        }
     }
     
     func stopMusic() {
@@ -43,7 +47,7 @@ class AudioManager: NSObject {
         if let audioSession = audioSession {
             if audioSession.otherAudioPlaying {
                 do {
-                    try audioSession.setCategory(AVAudioSessionCategorySoloAmbient)
+                    try audioSession.setCategory(AVAudioSessionCategoryAmbient)
                     musicPlaying = false
                 } catch let error as NSError {
                     NSLog("Error setting category: \(error.userInfo)")
