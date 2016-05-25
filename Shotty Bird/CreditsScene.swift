@@ -17,7 +17,7 @@ class CreditsScene: SKScene {
     var muted = false
     
     let playBirdSoundAction = SKAction.playSoundFileNamed("bird.wav", waitForCompletion: false)
-    let playShotSoundAction = SKAction.playSoundFileNamed("shot", waitForCompletion: false)
+    let playShotSoundAction = SKAction.playSoundFileNamed("shot", waitForCompletion: true)
     
     override func didMoveToView(view: SKView) {
         // Add parallax background

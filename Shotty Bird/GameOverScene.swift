@@ -326,6 +326,9 @@ class GameOverScene: SKScene {
             let x200 = GKAchievement(identifier: "co.profapps.Shotty_Bird.achievement.x200")
             x200.showsCompletionBanner = true
             
+            let x250 = GKAchievement(identifier: "co.profapps.Shotty_Bird.achievement.x250")
+            x250.showsCompletionBanner = true
+            
             let x300 = GKAchievement(identifier: "co.profapps.Shotty_Bird.achievement.x300")
             x300.showsCompletionBanner = true
             
@@ -333,9 +336,10 @@ class GameOverScene: SKScene {
             x100.percentComplete = Double(score * 100 / 100)
             x150.percentComplete = Double(score * 100 / 150)
             x200.percentComplete = Double(score * 100 / 200)
+            x250.percentComplete = Double(score * 100 / 250)
             x300.percentComplete = Double(score * 100 / 300)
             
-            GKAchievement.reportAchievements([x50, x100, x150, x200, x300], withCompletionHandler: nil)
+            GKAchievement.reportAchievements([x50, x100, x150, x200, x250, x300], withCompletionHandler: nil)
         }
     }
     
