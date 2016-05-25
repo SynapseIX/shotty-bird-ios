@@ -411,6 +411,9 @@ class GameScene: SKScene {
         let rangeDuration = maxDuration - minDuration
         let actualDuration = (Double(arc4random()) % rangeDuration) + minDuration
         
+        // Store bird speed
+        newBird.flightSpeed = actualDuration
+        
         let flapAction = SKAction.animateWithTextures([SKTexture(imageNamed: newBird.sprites[0]), SKTexture(imageNamed: newBird.sprites[1])], timePerFrame: 0.1)
         let flyAction = SKAction.repeatAction(flapAction, count: Int(actualDuration / 0.2))
         let moveAction = SKAction.moveTo(CGPoint(x: -newBird.size.width / 2, y: newBird.position.y), duration: actualDuration)

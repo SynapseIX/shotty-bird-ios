@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import GameKit
 import Social
 
 class GameOverScene: SKScene {
@@ -143,6 +144,9 @@ class GameOverScene: SKScene {
         facebookButton.name = "facebookButton"
         facebookButton.zPosition = zPositionMenuItems
         addChild(facebookButton)
+        
+        // Report achievements
+        reportAchievements()
     }
     
     override func update(currentTime: NSTimeInterval) {
@@ -298,6 +302,41 @@ class GameOverScene: SKScene {
         
         gameViewController.bannerView.hidden = false
         return screenshot
+    }
+    
+    // MARK: - Achievement methods
+    
+    private func reportAchievements() {
+        if score == 0 {
+            let achievement = GKAchievement(identifier: "co.profapps.Shotty_Bird.achievement.x0")
+            achievement.percentComplete = 100.0
+            achievement.showsCompletionBanner = true
+            GKAchievement.reportAchievements([achievement], withCompletionHandler: nil)
+        } else {
+            // Report achievement progress
+            let x50 = GKAchievement(identifier: "co.profapps.Shotty_Bird.achievement.x50")
+            x50.showsCompletionBanner = true
+            
+            let x100 = GKAchievement(identifier: "co.profapps.Shotty_Bird.achievement.x100")
+            x100.showsCompletionBanner = true
+            
+            let x150 = GKAchievement(identifier: "co.profapps.Shotty_Bird.achievement.x150")
+            x150.showsCompletionBanner = true
+            
+            let x200 = GKAchievement(identifier: "co.profapps.Shotty_Bird.achievement.x200")
+            x200.showsCompletionBanner = true
+            
+            let x300 = GKAchievement(identifier: "co.profapps.Shotty_Bird.achievement.x300")
+            x300.showsCompletionBanner = true
+            
+            x50.percentComplete = Double(score * 100 / 50)
+            x100.percentComplete = Double(score * 100 / 100)
+            x150.percentComplete = Double(score * 100 / 150)
+            x200.percentComplete = Double(score * 100 / 200)
+            x300.percentComplete = Double(score * 100 / 300)
+            
+            GKAchievement.reportAchievements([x50, x100, x150, x200, x300], withCompletionHandler: nil)
+        }
     }
     
 }

@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import GameKit
 
 class Missile: SKSpriteNode {
     
@@ -117,6 +118,15 @@ class Missile: SKSpriteNode {
                     let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.03 * 13 * Double(NSEC_PER_SEC)))
                     dispatch_after(dispatchTime, dispatch_get_main_queue()) {
                         explosion.runAction(SKAction.removeFromParent())
+                    }
+                    
+                    // Check if the "Sniper" achievement need to be unlocked
+                    if bird.zPosition == 0 && (bird as! Bird).flightSpeed == 3 {
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                            let achievement = GKAchievement(identifier: "co.profapps.Shotty_Bird.achievement.sniper")
+                            achievement.percentComplete = 100.0
+                            GKAchievement.reportAchievements([achievement], withCompletionHandler: nil)
+                        }
                     }
                     
                     // Stop the enumeration

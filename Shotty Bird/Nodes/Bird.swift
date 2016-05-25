@@ -12,6 +12,7 @@ class Bird: SKSpriteNode {
     
     var delegate: GameScoreDelegate?
     var sprites: [String]
+    var flightSpeed = 0.0
     
     init(sprites: [String], delegate: GameScoreDelegate) {
         self.sprites = sprites
