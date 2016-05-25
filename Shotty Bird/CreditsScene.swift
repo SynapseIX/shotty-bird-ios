@@ -17,7 +17,6 @@ class CreditsScene: SKScene {
     var muted = false
     
     let playBirdSoundAction = SKAction.playSoundFileNamed("bird.wav", waitForCompletion: false)
-    let playShotSoundAction = SKAction.playSoundFileNamed("shot", waitForCompletion: true)
     
     override func didMoveToView(view: SKView) {
         // Add parallax background
@@ -70,10 +69,6 @@ class CreditsScene: SKScene {
             
             if let itsProf = childNodeWithName("itsprof") {
                 if itsProf.containsPoint(location) {
-                    if !muted {
-                        itsProf.runAction(playShotSoundAction)
-                    }
-                    
                     if let tweetbotURL = NSURL(string: "tweetbot://shottybird/user_profile/itsProf") {
                         if UIApplication.sharedApplication().canOpenURL(tweetbotURL) {
                             UIApplication.sharedApplication().openURL(tweetbotURL)
