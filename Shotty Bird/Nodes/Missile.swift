@@ -100,25 +100,19 @@ class Missile: SKSpriteNode {
                     }
                     
                     // Add explosion node with the last bird's parameters
-                    let explosion = SKSpriteNode(imageNamed: "explosion_1")
-                    explosion.xScale = xScaleTmp
-                    explosion.yScale = yScaleTmp
+                    let explosion = SKSpriteNode(imageNamed: "explosion_7")
+                    explosion.xScale = xScaleTmp * 2
+                    explosion.yScale = yScaleTmp * 2
                     explosion.position = positionTmp
                     explosion.zPosition = zPostionTmp
                     
                     let explosionAction = SKAction.animateWithTextures([SKTexture(imageNamed: "explosion_1"), SKTexture(imageNamed: "explosion_2"), SKTexture(imageNamed: "explosion_3"), SKTexture(imageNamed: "explosion_4"), SKTexture(imageNamed: "explosion_5"), SKTexture(imageNamed: "explosion_6"), SKTexture(imageNamed: "explosion_7"), SKTexture(imageNamed: "explosion_8"), SKTexture(imageNamed: "explosion_9"), SKTexture(imageNamed: "explosion_10"), SKTexture(imageNamed: "explosion_11"), SKTexture(imageNamed: "explosion_12")], timePerFrame: 0.03)
-                    explosion.runAction(explosionAction)
                     
+                    explosion.runAction(SKAction.sequence([explosionAction, SKAction.removeFromParent()]))
                     gameScene.addChild(explosion)
                     
                     // Increase game score
                     gameScene.updateScore()
-                    
-                    // Remove the explosion node after 0.3 seconds
-                    let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.03 * 13 * Double(NSEC_PER_SEC)))
-                    dispatch_after(dispatchTime, dispatch_get_main_queue()) {
-                        explosion.runAction(SKAction.removeFromParent())
-                    }
                     
                     // Check if the "Sniper" achievement need to be unlocked
                     if bird.zPosition == 0 && (bird as! Bird).flightSpeed == 3 {
