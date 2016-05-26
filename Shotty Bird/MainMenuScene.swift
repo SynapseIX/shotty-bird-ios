@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import GameKit
 
 class MainMenuScene: SKScene {
     
@@ -26,6 +27,11 @@ class MainMenuScene: SKScene {
     override func didMoveToView(view: SKView) {
         setupAudioManager()
         setupUI()
+        
+        // Reset achievements
+//        GKAchievement.resetAchievementsWithCompletionHandler { (error) in
+//            print("Achievements reset...")
+//        }
     }
     
     override func willMoveFromView(view: SKView) {
@@ -243,19 +249,25 @@ class MainMenuScene: SKScene {
     }
     
     private func addParallaxBackground() {
-//        let bg1 = ["bg1_layer1", "bg1_layer2", "bg1_layer3", "bg1_layer4", "bg1_layer5"]
-//        let bg2 = ["bg2_layer1", "bg2_layer2", "bg2_layer3", "bg2_layer4"]
-//        let bg3 = ["bg3_layer1", "bg3_layer2", "bg3_layer3", "bg3_layer4", "bg3_layer5"]
-//        let bg4 = ["bg4_layer1", "bg4_layer2", "bg4_layer3", "bg4_layer4", "bg4_layer5"]
-//        let bg5 = ["bg5_layer1", "bg5_layer2", "bg5_layer3", "bg5_layer4", "bg5_layer5"]
-//        let bg6 = ["bg6_layer1", "bg6_layer2", "bg6_layer3", "bg6_layer4", "bg6_layer5"]
-//        let bg7 = ["bg7_layer1", "bg7_layer2", "bg7_layer3", "bg7_layer4"]
+        let bg1 = ["bg1_layer1", "bg1_layer2", "bg1_layer3", "bg1_layer4", "bg1_layer5"]
+        let bg2 = ["bg2_layer1", "bg2_layer2", "bg2_layer3", "bg2_layer4"]
+        let bg3 = ["bg3_layer1", "bg3_layer2", "bg3_layer3", "bg3_layer4", "bg3_layer5"]
+        let bg4 = ["bg4_layer1", "bg4_layer2", "bg4_layer3", "bg4_layer4", "bg4_layer5"]
+        let bg5 = ["bg5_layer1", "bg5_layer2", "bg5_layer3", "bg5_layer4", "bg5_layer5"]
+        let bg6 = ["bg6_layer1", "bg6_layer2", "bg6_layer3", "bg6_layer4", "bg6_layer5"]
+        let bg7 = ["bg7_layer1", "bg7_layer2", "bg7_layer3", "bg7_layer4"]
         let bg8 = ["bg8_layer1", "bg8_layer2", "bg8_layer3", "bg8_layer4", "bg8_layer5"]
-//        let bg9 = ["bg9_layer1", "bg9_layer2", "bg9_layer3", "bg9_layer4", "bg9_layer5", "bg9_layer6", "bg9_layer7", "bg9_layer8"]
-//        let bg10 = ["bg10_layer1", "bg10_layer2", "bg10_layer3", "bg10_layer4", "bg10_layer5"]
-//        let bg11 = ["bg11_layer1", "bg11_layer2", "bg11_layer3", "bg11_layer4"]
+        let bg9 = ["bg9_layer1", "bg9_layer2", "bg9_layer3", "bg9_layer4", "bg9_layer5", "bg9_layer6", "bg9_layer7", "bg9_layer8"]
+        let bg10 = ["bg10_layer1", "bg10_layer2", "bg10_layer3", "bg10_layer4", "bg10_layer5"]
+        let bg11 = ["bg11_layer1", "bg11_layer2", "bg11_layer3", "bg11_layer4", "bg11_layer5"]
         
-        let allBgs = [bg8] // [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11]
+        var allBgs = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11]
+        
+        if GKAchievement(identifier: "co.profapps.Shotty_Bird.achievement.x10000").completed {
+            let bg12 = ["bg12_layer1", "bg12_layer2", "bg12_layer3", "bg12_layer4", "bg12_layer5"]
+            allBgs.append(bg12)
+        }
+        
         let bgs = allBgs[Int(arc4random_uniform(UInt32(allBgs.count)))]
         
         parallaxBackground = ParallaxBackground(texture: nil, color: UIColor.clearColor(), size: size)

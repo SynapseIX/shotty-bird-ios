@@ -41,12 +41,25 @@ class ParallaxBackground: SKSpriteNode {
         for currentBackground in backgrounds {
             let node = SKSpriteNode(imageNamed: currentBackground)
             node.zPosition = self.zPosition - CGFloat(zPos + (zPos * bgNumber))
-            node.position = CGPoint(x: 0.0, y: 0.0)
+            
+            var yPos = CGFloat(0.0)
+            
+            if (DeviceModel.iPhone5 || DeviceModel.iPhone6 || DeviceModel.iPhone6Plus) {
+                if backgrounds[0].containsString("bg1") || backgrounds[0].containsString("bg3") || backgrounds[0].containsString("bg6") {
+                    yPos = 95.0
+                }
+                
+                if backgrounds[0].containsString("bg7") {
+                    yPos = -95.0
+                }
+            }
+            
+            node.position = CGPoint(x: 0.0, y: yPos)
             node.size = size
             
             let clonedNode = SKSpriteNode(imageNamed: currentBackground)
             clonedNode.zPosition = zPosition - CGFloat(zPos + (zPos * bgNumber))
-            clonedNode.position = CGPoint(x: -node.size.width, y: 0.0)
+            clonedNode.position = CGPoint(x: -node.size.width, y: yPos)
             clonedNode.size = size
             
             tmpBackgrounds.append(node)
@@ -84,11 +97,11 @@ class ParallaxBackground: SKSpriteNode {
             newClonedX += speed
             
             if (newBackgroundX >= currentBackground.size.width) {
-                newBackgroundX = newClonedX - clonedBackground.size.width + 0.05
+                newBackgroundX = newClonedX - (clonedBackground.size.width - 0.05)
             }
             
             if newClonedX >= clonedBackground.size.width {
-                newClonedX = newBackgroundX - currentBackground.size.width + 0.05
+                newClonedX = newBackgroundX - (currentBackground.size.width - 0.05)
             }
             
             currentBackground.position = CGPoint(x: newBackgroundX, y: currentBackground.position.y)
