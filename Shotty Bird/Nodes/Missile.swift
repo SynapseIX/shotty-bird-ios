@@ -101,8 +101,8 @@ class Missile: SKSpriteNode {
                     
                     // Add explosion node with the last bird's parameters
                     let explosion = SKSpriteNode(imageNamed: "explosion_7")
-                    explosion.xScale = xScaleTmp * 2
-                    explosion.yScale = yScaleTmp * 2
+                    explosion.xScale = xScaleTmp
+                    explosion.yScale = yScaleTmp
                     explosion.position = positionTmp
                     explosion.zPosition = zPostionTmp
                     

@@ -378,15 +378,15 @@ class GameScene: SKScene {
         
         switch zPosBird {
         case 4:
-            newBird.setScale(0.2)
+            newBird.setScale(1.0)
         case 3:
-            newBird.setScale(0.175)
+            newBird.setScale(0.875)
         case 2:
-            newBird.setScale(0.15)
+            newBird.setScale(0.75)
         case 1:
-            newBird.setScale(0.135)
+            newBird.setScale(0.625)
         case 0:
-            newBird.setScale(0.1)
+            newBird.setScale(0.50)
         default:
             break
         }
