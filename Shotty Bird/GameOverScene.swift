@@ -341,7 +341,7 @@ class GameOverScene: SKScene {
             x200.percentComplete = Double(score * 100 / 200)
             x250.percentComplete = Double(score * 100 / 250)
             x300.percentComplete = Double(score * 100 / 300)
-            x10000.percentComplete = x10000.percentComplete + Double(((10000.0 / x10000.percentComplete) + Double(score)) * 100 / 10000)
+            x10000.percentComplete += Double(score * 100 / 10000)
             
             GKAchievement.reportAchievements([x50, x100, x150, x200, x250, x300, x10000], withCompletionHandler: nil)
         }

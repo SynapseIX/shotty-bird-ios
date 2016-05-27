@@ -22,6 +22,8 @@ class MainMenuScene: SKScene {
     let playShotSoundAction = SKAction.playSoundFileNamed("shot", waitForCompletion: false)
     let playExplosionSoundAction = SKAction.playSoundFileNamed("explosion.wav", waitForCompletion: false)
     
+    let waitingForGameCenterNode = SKSpriteNode(imageNamed: "waiting")
+    
     // MARK: - Scene methods
     
     override func didMoveToView(view: SKView) {
@@ -67,7 +69,15 @@ class MainMenuScene: SKScene {
                     let gameCenterHelper = gameViewController.gameCenterHelper
                     
                     if !gameCenterHelper.gameCenterEnabled {
-                        return
+                        let fadeAction = SKAction.sequence([SKAction.fadeInWithDuration(0.4), SKAction.fadeOutWithDuration(0.4)])
+                        let repeatFadeAction = SKAction.repeatAction(fadeAction, count: 5)
+                        let waitingAction = SKAction.sequence([repeatFadeAction, SKAction.removeFromParent()])
+                        waitingForGameCenterNode.runAction(waitingAction)
+                        addChild(waitingForGameCenterNode)
+                        
+                        gameCenterHelper.authenticateLocalPlayer(gameViewController) {
+                            gameCenterHelper.presentLeaderboard(gameViewController)
+                        }
                     } else {
                         if !muted {
                             leaderboardButton.runAction(playBirdSoundAction)
@@ -243,6 +253,9 @@ class MainMenuScene: SKScene {
         muteButton.name = "muteButton"
         muteButton.zPosition = zPositionMenuItems
         addChild(muteButton)
+        
+        // Position waiting node
+        waitingForGameCenterNode.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(muteButton.frame))
     }
     
     private func addParallaxBackground() {
@@ -258,13 +271,7 @@ class MainMenuScene: SKScene {
         let bg10 = ["bg10_layer1", "bg10_layer2", "bg10_layer3", "bg10_layer4", "bg10_layer5"]
         let bg11 = ["bg11_layer1", "bg11_layer2", "bg11_layer3", "bg11_layer4", "bg11_layer5"]
         
-        var allBgs = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11]
-        
-        if GKAchievement(identifier: "co.profapps.Shotty_Bird.achievement.x10000").completed {
-            let bg12 = ["bg12_layer1", "bg12_layer2", "bg12_layer3", "bg12_layer4", "bg12_layer5"]
-            allBgs.append(bg12)
-        }
-        
+        let allBgs = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11]
         let bgs = allBgs[Int(arc4random_uniform(UInt32(allBgs.count)))]
         
         parallaxBackground = ParallaxBackground(texture: nil, color: UIColor.clearColor(), size: size)
