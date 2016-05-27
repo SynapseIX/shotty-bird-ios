@@ -23,6 +23,8 @@ class GameOverScene: SKScene {
     let zPositionBg = CGFloat(-1)
     let zPositionMenuItems = CGFloat(Int.max)
     
+    var waitingForGameCenterNode = SKSpriteNode(imageNamed: "waiting")
+    
     let playBirdSoundAction = SKAction.playSoundFileNamed("bird.wav", waitForCompletion: false)
     let playExplosionSoundAction = SKAction.playSoundFileNamed("explosion.wav", waitForCompletion: false)
     let playScreenshotSoundAction = SKAction.playSoundFileNamed("screenshot.wav", waitForCompletion: true)
@@ -206,7 +208,30 @@ class GameOverScene: SKScene {
                     if gameCenterHelper.gameCenterEnabled {
                         gameCenterHelper.presentLeaderboard(gameViewController)
                     } else {
+                        // Add waiting for game center node
+                        waitingForGameCenterNode.removeFromParent()
+                        waitingForGameCenterNode = SKSpriteNode(imageNamed: "waiting")
+                        
+                        if DeviceModel.iPad || DeviceModel.iPadPro {
+                            waitingForGameCenterNode.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMaxY(frame) - waitingForGameCenterNode.size.height)
+                        } else if DeviceModel.iPhone4 {
+                            waitingForGameCenterNode.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMaxY(frame) - waitingForGameCenterNode.size.height * 2)
+                        } else {
+                            waitingForGameCenterNode.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMaxY(frame) - waitingForGameCenterNode.size.height * 2.5)
+                        }
+                        
+                        waitingForGameCenterNode.zPosition = zPositionMenuItems
+                        
+                        let fadeAction = SKAction.sequence([SKAction.fadeInWithDuration(0.4), SKAction.fadeOutWithDuration(0.4)])
+                        let repeatFadeAction = SKAction.repeatActionForever(fadeAction)
+                        let waitingAction = SKAction.sequence([repeatFadeAction, SKAction.removeFromParent()])
+                        
+                        waitingForGameCenterNode.runAction(waitingAction)
+                        addChild(waitingForGameCenterNode)
+                        
+                        // Authenticate player
                         gameCenterHelper.authenticateLocalPlayer(gameViewController) {
+                            self.waitingForGameCenterNode.removeFromParent()
                             gameCenterHelper.presentLeaderboard(gameViewController)
                         }
                     }
