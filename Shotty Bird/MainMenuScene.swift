@@ -22,8 +22,6 @@ class MainMenuScene: SKScene {
     let playShotSoundAction = SKAction.playSoundFileNamed("shot", waitForCompletion: false)
     let playExplosionSoundAction = SKAction.playSoundFileNamed("explosion.wav", waitForCompletion: false)
     
-    var waitingForGameCenterNode = SKSpriteNode(imageNamed: "waiting")
-    
     // MARK: - Scene methods
     
     override func didMoveToView(view: SKView) {
@@ -65,40 +63,21 @@ class MainMenuScene: SKScene {
             
             if let leaderboardButton = childNodeWithName("leaderboardButton") {
                 if leaderboardButton.containsPoint(location) {
-                    let gameViewController = view?.window?.rootViewController as! GameViewController
-                    let gameCenterHelper = gameViewController.gameCenterHelper
+                    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                    let gameCenterHelper = appDelegate.gameCenterHelper
                     
-                    if !gameCenterHelper.gameCenterEnabled {
-                        // Add waiting for game center node
-                        waitingForGameCenterNode.removeFromParent()
-                        waitingForGameCenterNode = SKSpriteNode(imageNamed: "waiting")
-                        
-                        if DeviceModel.iPad || DeviceModel.iPadPro {
-                            waitingForGameCenterNode.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMinY(frame) + waitingForGameCenterNode.size.height)
-                        } else if DeviceModel.iPhone4 {
-                            waitingForGameCenterNode.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMinY(frame) + waitingForGameCenterNode.size.height * 2)
-                        } else {
-                            waitingForGameCenterNode.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMinY(frame) + waitingForGameCenterNode.size.height * 3)
-                        }
-                        
-                        waitingForGameCenterNode.zPosition = zPositionMenuItems
-                        
-                        let fadeAction = SKAction.sequence([SKAction.fadeInWithDuration(0.4), SKAction.fadeOutWithDuration(0.4)])
-                        let repeatFadeAction = SKAction.repeatActionForever(fadeAction)
-                        let waitingAction = SKAction.sequence([repeatFadeAction, SKAction.removeFromParent()])
-                        
-                        waitingForGameCenterNode.runAction(waitingAction)
-                        addChild(waitingForGameCenterNode)
-                        
-                        // Authenticate player
-                        gameCenterHelper.authenticateLocalPlayer(gameViewController) {
-                            self.waitingForGameCenterNode.removeFromParent()
-                            gameCenterHelper.presentLeaderboard(gameViewController)
-                        }
-                    } else {
+                    if gameCenterHelper.gameCenterEnabled {
                         if !muted {
                             leaderboardButton.runAction(playBirdSoundAction)
-                            gameCenterHelper.presentLeaderboard(gameViewController)
+                        }
+                        
+                        gameCenterHelper.presentLeaderboard()
+                    } else {
+                        // Authenticate player and present leaderboard when completed
+                        gameCenterHelper.authenticateLocalPlayer(appDelegate.window?.rootViewController) { (sucess) in
+                            if sucess {
+                                gameCenterHelper.presentLeaderboard()
+                            }
                         }
                     }
                 }

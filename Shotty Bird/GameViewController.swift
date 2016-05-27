@@ -13,7 +13,6 @@ import GoogleMobileAds
 class GameViewController: UIViewController {
     
     var bannerView = GADBannerView(adSize: kGADAdSizeSmartBannerLandscape)
-    let gameCenterHelper = GameCenterHelper()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,9 +34,6 @@ class GameViewController: UIViewController {
         scene.scaleMode = .AspectFill
         
         skView.presentScene(scene)
-        
-        // Authenticate with Game Center
-        gameCenterHelper.authenticateLocalPlayer(self, completion: nil)
         
         // Setup AdMob
         setupAdMob()

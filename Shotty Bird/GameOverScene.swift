@@ -12,7 +12,7 @@ import Social
 
 class GameOverScene: SKScene {
     
-    var score = 0
+    var score = Int64(0)
     var bgLayers = [String]()
     var parallaxBackground: ParallaxBackground?
     var newBest = false
@@ -70,38 +70,42 @@ class GameOverScene: SKScene {
         addChild(scoreLabel)
         
         // Add best score label
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let bestScore = defaults.integerForKey("bestScore")
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let gameCenterHelper = appDelegate.gameCenterHelper
         
-        // Synchronize high scores with Game Center
-        let gameCenterHelper = gameViewController.gameCenterHelper
-        
-        if let score = gameCenterHelper.fetchPlayerScore() {
-            if Int(score.value) > bestScore {
-                defaults.setInteger(Int(score.value), forKey: "bestScore")
-                defaults.synchronize()
-            } else {
-                // Submit high score to Game Center
-                gameCenterHelper.submitScore(bestScore)
-            }
-        }
-        
-        if score > bestScore {
-            newBest = true
-            defaults.setInteger(score, forKey: "bestScore")
-            defaults.synchronize()
-            
-            // Submit high score to Game Center
-            gameCenterHelper.submitScore(score)
-        }
-        
-        let bestScoreText = newBest ? "NEW RECORD" : "Your best is \(defaults.integerForKey("bestScore"))"
-        let bestScoreLabel = SKLabelNode(text: bestScoreText)
+        let bestScoreLabel = SKLabelNode()
         bestScoreLabel.fontName = "Kenney-Bold"
         bestScoreLabel.fontSize = 17.0
         bestScoreLabel.fontColor = SKColor(red: 205.0 / 255.0, green: 164.0 / 255.0, blue: 0.0, alpha: 1.0)
         bestScoreLabel.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMinY(panel.frame) + 20)
         bestScoreLabel.zPosition = zPositionMenuItems
+        
+        if let bestScore = gameCenterHelper.leaderboard.localPlayerScore {
+            if score > bestScore.value {
+                bestScoreLabel.text = "NEW RECORD"
+                
+                gameCenterHelper.submitScore(score) { (success) in
+                    if success {
+                        gameCenterHelper.loadPlayerHighestScore(nil)
+                    }
+                }
+            } else {
+                bestScoreLabel.text = "Your best is \(bestScore.value)"
+            }
+        } else {
+            if score > 0 {
+                bestScoreLabel.text = "NEW RECORD"
+                
+                gameCenterHelper.submitScore(score) { (success) in
+                    if success {
+                        gameCenterHelper.loadPlayerHighestScore(nil)
+                    }
+                }
+            } else {
+                bestScoreLabel.text = "Time your shots and try again"
+            }
+        }
+        
         addChild(bestScoreLabel)
         
         // Add game over node
@@ -202,37 +206,17 @@ class GameOverScene: SKScene {
                         leaderboardButton.runAction(playBirdSoundAction)
                     }
                     
-                    let gameViewController = view?.window?.rootViewController as! GameViewController
-                    let gameCenterHelper = gameViewController.gameCenterHelper
+                    let appDeletage = UIApplication.sharedApplication().delegate as! AppDelegate
+                    let gameCenterHelper = appDeletage.gameCenterHelper
                     
                     if gameCenterHelper.gameCenterEnabled {
-                        gameCenterHelper.presentLeaderboard(gameViewController)
+                        gameCenterHelper.presentLeaderboard()
                     } else {
-                        // Add waiting for game center node
-                        waitingForGameCenterNode.removeFromParent()
-                        waitingForGameCenterNode = SKSpriteNode(imageNamed: "waiting")
-                        
-                        if DeviceModel.iPad || DeviceModel.iPadPro {
-                            waitingForGameCenterNode.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMaxY(frame) - waitingForGameCenterNode.size.height)
-                        } else if DeviceModel.iPhone4 {
-                            waitingForGameCenterNode.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMaxY(frame) - waitingForGameCenterNode.size.height * 2)
-                        } else {
-                            waitingForGameCenterNode.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMaxY(frame) - waitingForGameCenterNode.size.height * 2.5)
-                        }
-                        
-                        waitingForGameCenterNode.zPosition = zPositionMenuItems
-                        
-                        let fadeAction = SKAction.sequence([SKAction.fadeInWithDuration(0.4), SKAction.fadeOutWithDuration(0.4)])
-                        let repeatFadeAction = SKAction.repeatActionForever(fadeAction)
-                        let waitingAction = SKAction.sequence([repeatFadeAction, SKAction.removeFromParent()])
-                        
-                        waitingForGameCenterNode.runAction(waitingAction)
-                        addChild(waitingForGameCenterNode)
-                        
-                        // Authenticate player
-                        gameCenterHelper.authenticateLocalPlayer(gameViewController) {
-                            self.waitingForGameCenterNode.removeFromParent()
-                            gameCenterHelper.presentLeaderboard(gameViewController)
+                        // Authenticate player and present leaderboard when completed
+                        gameCenterHelper.authenticateLocalPlayer(appDeletage.window?.rootViewController) { (success) in
+                            if success {
+                                gameCenterHelper.presentLeaderboard()
+                            }
                         }
                     }
                 }
@@ -332,43 +316,27 @@ class GameOverScene: SKScene {
     // MARK: - Achievement methods
     
     private func reportAchievements() {
-        if score == 0 {
-            let achievement = GKAchievement(identifier: "co.profapps.Shotty_Bird.achievement.x0")
-            achievement.percentComplete = 100.0
-            achievement.showsCompletionBanner = true
-            GKAchievement.reportAchievements([achievement], withCompletionHandler: nil)
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let gameCenterHelper = appDelegate.gameCenterHelper
+        
+        if score == 0 && !gameCenterHelper.shot0.unlocked {
+            gameCenterHelper.reportAchievement("co.profapps.Shotty_Bird.achievement.x0", percentComplete: 100.0, showsCompletionBanner: true)
         } else {
-            // Report achievement progress
-            let x50 = GKAchievement(identifier: "co.profapps.Shotty_Bird.achievement.x50")
-            x50.showsCompletionBanner = true
-            
-            let x100 = GKAchievement(identifier: "co.profapps.Shotty_Bird.achievement.x100")
-            x100.showsCompletionBanner = true
-            
-            let x150 = GKAchievement(identifier: "co.profapps.Shotty_Bird.achievement.x150")
-            x150.showsCompletionBanner = true
-            
-            let x200 = GKAchievement(identifier: "co.profapps.Shotty_Bird.achievement.x200")
-            x200.showsCompletionBanner = true
-            
-            let x250 = GKAchievement(identifier: "co.profapps.Shotty_Bird.achievement.x250")
-            x250.showsCompletionBanner = true
-            
-            let x300 = GKAchievement(identifier: "co.profapps.Shotty_Bird.achievement.x300")
-            x300.showsCompletionBanner = true
-            
-            let x10000 = GKAchievement(identifier: "co.profapps.Shotty_Bird.achievement.x10000")
-            x10000.showsCompletionBanner = true
-            
-            x50.percentComplete = Double(score * 100 / 50)
-            x100.percentComplete = Double(score * 100 / 100)
-            x150.percentComplete = Double(score * 100 / 150)
-            x200.percentComplete = Double(score * 100 / 200)
-            x250.percentComplete = Double(score * 100 / 250)
-            x300.percentComplete = Double(score * 100 / 300)
-            x10000.percentComplete += Double(score * 100 / 10000)
-            
-            GKAchievement.reportAchievements([x50, x100, x150, x200, x250, x300, x10000], withCompletionHandler: nil)
+            if !gameCenterHelper.shot50.unlocked {
+                gameCenterHelper.reportAchievement("co.profapps.Shotty_Bird.achievement.x50", percentComplete: Double(score * 100 / 50), showsCompletionBanner: true)
+            } else if !gameCenterHelper.shot100.unlocked {
+                gameCenterHelper.reportAchievement("co.profapps.Shotty_Bird.achievement.x100", percentComplete: Double(score * 100 / 100), showsCompletionBanner: true)
+            } else if !gameCenterHelper.shot150.unlocked {
+                gameCenterHelper.reportAchievement("co.profapps.Shotty_Bird.achievement.x150", percentComplete: Double(score * 100 / 150), showsCompletionBanner: true)
+            } else if !gameCenterHelper.shot200.unlocked {
+                gameCenterHelper.reportAchievement("co.profapps.Shotty_Bird.achievement.x200", percentComplete: Double(score * 100 / 200), showsCompletionBanner: true)
+            } else if !gameCenterHelper.shot250.unlocked {
+                gameCenterHelper.reportAchievement("co.profapps.Shotty_Bird.achievement.x250", percentComplete: Double(score * 100 / 250), showsCompletionBanner: true)
+            } else if !gameCenterHelper.shot300.unlocked {
+                gameCenterHelper.reportAchievement("co.profapps.Shotty_Bird.achievement.x300", percentComplete: Double(score * 100 / 300), showsCompletionBanner: true)
+            } else if !gameCenterHelper.shot10k.unlocked {
+                gameCenterHelper.reportAchievement("co.profapps.Shotty_Bird.achievement.x10000", percentComplete: gameCenterHelper.shot10k.percentComplete + Double(score * 100 / 10000), showsCompletionBanner: true)
+            }
         }
     }
     

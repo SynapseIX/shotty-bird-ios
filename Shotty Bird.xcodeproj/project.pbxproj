@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4B881D9466A7AE869CA39F3F /* Pods_Shotty_Bird.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42547805782A329421EC7044 /* Pods_Shotty_Bird.framework */; };
 		9701A7231CECC834005909E5 /* CreditsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9701A7221CECC834005909E5 /* CreditsScene.swift */; };
-		970F58FA1CEDAC6400A31035 /* GameCenterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970F58F91CEDAC6400A31035 /* GameCenterHelper.swift */; };
 		9723700A1CEB186C00A648A8 /* TutorialScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972370091CEB186C00A648A8 /* TutorialScene.swift */; };
 		973CFB421CE287B300A22A91 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CFB411CE287B300A22A91 /* MainMenuScene.swift */; };
 		973CFB451CE2891B00A22A91 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973CFB441CE2891B00A22A91 /* DeviceModel.swift */; };
@@ -30,6 +29,8 @@
 		97887E111CDC21BA00021B4F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97887E0F1CDC21BA00021B4F /* Main.storyboard */; };
 		97887E131CDC21BA00021B4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97887E121CDC21BA00021B4F /* Assets.xcassets */; };
 		97887E161CDC21BA00021B4F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97887E141CDC21BA00021B4F /* LaunchScreen.storyboard */; };
+		97BD81261CF8E04D0012ED10 /* GameCenterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD81251CF8E04D0012ED10 /* GameCenterHelper.swift */; };
+		97BD81281CF8E05E0012ED10 /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BD81271CF8E05E0012ED10 /* Achievement.swift */; };
 		97C1493B1CE5B3AE0054CD4A /* gameplay_music.wav in Resources */ = {isa = PBXBuildFile; fileRef = 97C1493A1CE5B3AE0054CD4A /* gameplay_music.wav */; };
 		97D1814D1CE2C43D00FC123A /* GameError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D1814C1CE2C43D00FC123A /* GameError.swift */; };
 		97D181511CE2C76F00FC123A /* Kenney-Blocks.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97D1814F1CE2C76F00FC123A /* Kenney-Blocks.ttf */; };
@@ -47,7 +48,6 @@
 		42547805782A329421EC7044 /* Pods_Shotty_Bird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shotty_Bird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		571C5529ABBA2E9F39A8826C /* Pods-Shotty Bird.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shotty Bird.release.xcconfig"; path = "Pods/Target Support Files/Pods-Shotty Bird/Pods-Shotty Bird.release.xcconfig"; sourceTree = "<group>"; };
 		9701A7221CECC834005909E5 /* CreditsScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditsScene.swift; sourceTree = "<group>"; };
-		970F58F91CEDAC6400A31035 /* GameCenterHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCenterHelper.swift; sourceTree = "<group>"; };
 		972370091CEB186C00A648A8 /* TutorialScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialScene.swift; sourceTree = "<group>"; };
 		973CFB411CE287B300A22A91 /* MainMenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 		973CFB441CE2891B00A22A91 /* DeviceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
@@ -70,6 +70,8 @@
 		97887E121CDC21BA00021B4F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97887E151CDC21BA00021B4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97887E171CDC21BA00021B4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		97BD81251CF8E04D0012ED10 /* GameCenterHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCenterHelper.swift; sourceTree = "<group>"; };
+		97BD81271CF8E05E0012ED10 /* Achievement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
 		97C1493A1CE5B3AE0054CD4A /* gameplay_music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gameplay_music.wav; sourceTree = "<group>"; };
 		97D1814C1CE2C43D00FC123A /* GameError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameError.swift; sourceTree = "<group>"; };
 		97D1814F1CE2C76F00FC123A /* Kenney-Blocks.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kenney-Blocks.ttf"; sourceTree = "<group>"; };
@@ -107,8 +109,8 @@
 		973CFB431CE2891B00A22A91 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				97BD81241CF8E04D0012ED10 /* Game Center */,
 				973CFB441CE2891B00A22A91 /* DeviceModel.swift */,
-				970F58F91CEDAC6400A31035 /* GameCenterHelper.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -198,6 +200,15 @@
 				97887E171CDC21BA00021B4F /* Info.plist */,
 			);
 			path = "Shotty Bird";
+			sourceTree = "<group>";
+		};
+		97BD81241CF8E04D0012ED10 /* Game Center */ = {
+			isa = PBXGroup;
+			children = (
+				97BD81251CF8E04D0012ED10 /* GameCenterHelper.swift */,
+				97BD81271CF8E05E0012ED10 /* Achievement.swift */,
+			);
+			path = "Game Center";
 			sourceTree = "<group>";
 		};
 		97D1814B1CE2C43D00FC123A /* Error */ = {
@@ -382,7 +393,7 @@
 				973CFB451CE2891B00A22A91 /* DeviceModel.swift in Sources */,
 				97887E0C1CDC21BA00021B4F /* GameScene.swift in Sources */,
 				975B0F061CE8086800D84DD7 /* Bird.swift in Sources */,
-				970F58FA1CEDAC6400A31035 /* GameCenterHelper.swift in Sources */,
+				97BD81261CF8E04D0012ED10 /* GameCenterHelper.swift in Sources */,
 				9701A7231CECC834005909E5 /* CreditsScene.swift in Sources */,
 				975B0F051CE8086800D84DD7 /* ASAttributedLabelNode.swift in Sources */,
 				97887E0E1CDC21BA00021B4F /* GameViewController.swift in Sources */,
@@ -390,6 +401,7 @@
 				97887E081CDC21BA00021B4F /* AppDelegate.swift in Sources */,
 				97D181541CE2CF2F00FC123A /* AudioManager.swift in Sources */,
 				975B0F071CE8086800D84DD7 /* ParallaxBackground.swift in Sources */,
+				97BD81281CF8E05E0012ED10 /* Achievement.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,18 +8,38 @@
 
 import UIKit
 import SpriteKit
+import GameKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    let gameCenterHelper = GameCenterHelper()
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        gameCenterHelper.authenticateLocalPlayer(window?.rootViewController) { (success) in
+            if success {
+                print("Game Center authentication completed as \(GKLocalPlayer.localPlayer().displayName)")
+            } else {
+                print("Game Center authentication failed...")
+            }
+        }
+        
         return true
     }
     
     func applicationDidBecomeActive(application: UIApplication) {
+        // Re-authenticate if needed
+        gameCenterHelper.authenticateLocalPlayer(window?.rootViewController) { (success) in
+            if success {
+                print("Game Center authentication completed as \(GKLocalPlayer.localPlayer().displayName)")
+            } else {
+                print("Game Center authentication failed...")
+            }
+        }
+        
+        // Handle audio interruptions
         if let gameViewController = window?.rootViewController as? GameViewController {
             let skView = gameViewController.view as! SKView
             

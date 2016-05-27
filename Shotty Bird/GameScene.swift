@@ -24,7 +24,7 @@ class GameScene: SKScene {
     var lastShotFiredTime: CFTimeInterval = 0.0
     
     var lives = 3
-    var score = 0
+    var score = Int64(298)
     
     let playBirdSoundAction = SKAction.playSoundFileNamed("bird.wav", waitForCompletion: false)
     let playWingFlapSoundAction = SKAction.playSoundFileNamed("wing_flap.wav", waitForCompletion: false)

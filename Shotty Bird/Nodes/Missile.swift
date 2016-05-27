@@ -114,12 +114,15 @@ class Missile: SKSpriteNode {
                     // Increase game score
                     gameScene.updateScore()
                     
-                    // Check if the "Sniper" achievement need to be unlocked
+                    // Check if the "Sniper" achievement need to be unlocked and report if necessary
                     if bird.zPosition == 0 && (bird as! Bird).flightSpeed == 3 {
-                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-                            let achievement = GKAchievement(identifier: "co.profapps.Shotty_Bird.achievement.sniper")
-                            achievement.percentComplete = 100.0
-                            GKAchievement.reportAchievements([achievement], withCompletionHandler: nil)
+                        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                        let gameCenterHelper = appDelegate.gameCenterHelper
+                        
+                        if !gameCenterHelper.sniper.unlocked {
+                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                                gameCenterHelper.reportAchievement("co.profapps.Shotty_Bird.achievement.sniper", percentComplete: 100.0, showsCompletionBanner: true)
+                            }
                         }
                     }
                     
