@@ -63,17 +63,14 @@ class MainMenuScene: SKScene {
             
             if let leaderboardButton = childNodeWithName("leaderboardButton") {
                 if leaderboardButton.containsPoint(location) {
-                    if !muted {
-                        leaderboardButton.runAction(playBirdSoundAction)
-                    }
-                    
                     let gameViewController = view?.window?.rootViewController as! GameViewController
                     let gameCenterHelper = gameViewController.gameCenterHelper
                     
-                    if gameCenterHelper.gameCenterEnabled {
-                        gameCenterHelper.presentLeaderboard(gameViewController)
+                    if !gameCenterHelper.gameCenterEnabled {
+                        return
                     } else {
-                        gameCenterHelper.authenticateLocalPlayer(gameViewController) {
+                        if !muted {
+                            leaderboardButton.runAction(playBirdSoundAction)
                             gameCenterHelper.presentLeaderboard(gameViewController)
                         }
                     }
