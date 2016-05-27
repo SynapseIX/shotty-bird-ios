@@ -22,12 +22,21 @@ class CreditsScene: SKScene {
         // Add parallax background
         addParallaxBackground()
         
-        // Add credits node
+        // Add Jorge's node
         let itsProf = SKSpriteNode(imageNamed: "itsprof")
         itsProf.name = "itsprof"
-        itsProf.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame))
+        itsProf.setScale(0.75)
+        itsProf.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame) + itsProf.size.height / 2 + 20)
         itsProf.zPosition = zPositionMenuItems
         addChild(itsProf)
+        
+        // Add JP's node
+        let jpalbuja = SKSpriteNode(imageNamed: "jpalbuja")
+        jpalbuja.name = "jpalbuja"
+        jpalbuja.setScale(0.75)
+        jpalbuja.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame) - jpalbuja.size.height / 2 - 20)
+        jpalbuja.zPosition = zPositionMenuItems
+        addChild(jpalbuja)
         
         // Add back button
         let backButton = SKSpriteNode(imageNamed: "back_button")
@@ -77,6 +86,24 @@ class CreditsScene: SKScene {
                                 UIApplication.sharedApplication().openURL(twitterURL)
                             } else {
                                 if let twitterWebURL = NSURL(string: "http://twitter.com/itsProf") {
+                                    UIApplication.sharedApplication().openURL(twitterWebURL)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            if let jpalbuja = childNodeWithName("jpalbuja") {
+                if jpalbuja.containsPoint(location) {
+                    if let tweetbotURL = NSURL(string: "tweetbot://shottybird/user_profile/jpalbuja") {
+                        if UIApplication.sharedApplication().canOpenURL(tweetbotURL) {
+                            UIApplication.sharedApplication().openURL(tweetbotURL)
+                        } else if let twitterURL = NSURL(string: "twitter://user?screen_name=jpalbuja") {
+                            if UIApplication.sharedApplication().canOpenURL(twitterURL) {
+                                UIApplication.sharedApplication().openURL(twitterURL)
+                            } else {
+                                if let twitterWebURL = NSURL(string: "http://twitter.com/jpalbuja") {
                                     UIApplication.sharedApplication().openURL(twitterWebURL)
                                 }
                             }
