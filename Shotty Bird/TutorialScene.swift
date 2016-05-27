@@ -48,6 +48,10 @@ class TutorialScene: SKScene {
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if let gameScene = getGameScene() {
+            if !muted {
+                runAction(SKAction.playSoundFileNamed("explosion", waitForCompletion: true))
+            }
+            
             gameScene.muted = muted
             gameScene.bgLayers = parallaxBackground!.bgLayers
             
