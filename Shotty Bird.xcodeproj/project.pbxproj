@@ -205,8 +205,8 @@
 		97BD81241CF8E04D0012ED10 /* Game Center */ = {
 			isa = PBXGroup;
 			children = (
-				97BD81251CF8E04D0012ED10 /* GameCenterHelper.swift */,
 				97BD81271CF8E05E0012ED10 /* Achievement.swift */,
+				97BD81251CF8E04D0012ED10 /* GameCenterHelper.swift */,
 			);
 			path = "Game Center";
 			sourceTree = "<group>";
@@ -519,6 +519,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Shotty Bird/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "co.profapps.Shotty-Bird";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -532,6 +533,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Shotty Bird/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "co.profapps.Shotty-Bird";
 				PRODUCT_NAME = "$(TARGET_NAME)";
