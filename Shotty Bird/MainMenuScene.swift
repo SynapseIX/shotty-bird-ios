@@ -260,7 +260,7 @@ class MainMenuScene: SKScene {
         let bg6 = ["bg6_layer1", "bg6_layer2", "bg6_layer3", "bg6_layer4", "bg6_layer5"]
         let bg7 = ["bg7_layer1", "bg7_layer2", "bg7_layer3", "bg7_layer4"]
         let bg8 = ["bg8_layer1", "bg8_layer2", "bg8_layer3", "bg8_layer4", "bg8_layer5"]
-        let bg9 = ["bg9_layer1", "bg9_layer2", "bg9_layer3", "bg9_layer4", "bg9_layer5", "bg9_layer6", "bg9_layer7", "bg9_layer8"]
+        let bg9 = ["bg9_layer1", "bg9_layer2", "bg9_layer3", "bg9_layer4", "bg9_layer5", "bg9_layer6"]
         let bg10 = ["bg10_layer1", "bg10_layer2", "bg10_layer3", "bg10_layer4", "bg10_layer5"]
         let bg11 = ["bg11_layer1", "bg11_layer2", "bg11_layer3", "bg11_layer4", "bg11_layer5"]
         
