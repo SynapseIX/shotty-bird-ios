@@ -324,18 +324,26 @@ class GameOverScene: SKScene {
         } else {
             if !gameCenterHelper.shot50.unlocked {
                 gameCenterHelper.reportAchievement("co.profapps.Shotty_Bird.achievement.x50", percentComplete: Double(score * 100 / 50), showsCompletionBanner: true)
-            } else if !gameCenterHelper.shot100.unlocked {
+            }
+            
+            if !gameCenterHelper.shot100.unlocked {
                 gameCenterHelper.reportAchievement("co.profapps.Shotty_Bird.achievement.x100", percentComplete: Double(score * 100 / 100), showsCompletionBanner: true)
-            } else if !gameCenterHelper.shot150.unlocked {
+            }
+            
+            if !gameCenterHelper.shot150.unlocked {
                 gameCenterHelper.reportAchievement("co.profapps.Shotty_Bird.achievement.x150", percentComplete: Double(score * 100 / 150), showsCompletionBanner: true)
-            } else if !gameCenterHelper.shot200.unlocked {
+            }
+            
+            if !gameCenterHelper.shot200.unlocked {
                 gameCenterHelper.reportAchievement("co.profapps.Shotty_Bird.achievement.x200", percentComplete: Double(score * 100 / 200), showsCompletionBanner: true)
-            } else if !gameCenterHelper.shot250.unlocked {
+            }
+            
+            if !gameCenterHelper.shot250.unlocked {
                 gameCenterHelper.reportAchievement("co.profapps.Shotty_Bird.achievement.x250", percentComplete: Double(score * 100 / 250), showsCompletionBanner: true)
-            } else if !gameCenterHelper.shot300.unlocked {
+            }
+            
+            if !gameCenterHelper.shot300.unlocked {
                 gameCenterHelper.reportAchievement("co.profapps.Shotty_Bird.achievement.x300", percentComplete: Double(score * 100 / 300), showsCompletionBanner: true)
-            } else if !gameCenterHelper.shot10k.unlocked {
-                gameCenterHelper.reportAchievement("co.profapps.Shotty_Bird.achievement.x10000", percentComplete: gameCenterHelper.shot10k.percentComplete + Double(score * 100 / 10000), showsCompletionBanner: true)
             }
         }
     }
