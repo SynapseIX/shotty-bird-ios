@@ -345,6 +345,10 @@ class GameOverScene: SKScene {
             if !gameCenterHelper.shot300.unlocked {
                 gameCenterHelper.reportAchievement("co.profapps.Shotty_Bird.achievement.x300", percentComplete: Double(score * 100 / 300), showsCompletionBanner: true)
             }
+            
+            if score >= 500 && !gameCenterHelper.shot500.unlocked {
+                gameCenterHelper.reportAchievement("co.profapps.Shotty_Bird.achievement.x500", percentComplete: 100.0, showsCompletionBanner: true)
+            }
         }
     }
     

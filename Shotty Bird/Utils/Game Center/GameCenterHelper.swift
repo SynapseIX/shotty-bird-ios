@@ -23,6 +23,7 @@ class GameCenterHelper: NSObject {
     var shot200 = Achievement(identifier: "co.profapps.Shotty_Bird.achievement.x200", percentComplete: 0.0, unlocked: false)
     var shot250 = Achievement(identifier: "co.profapps.Shotty_Bird.achievement.x250", percentComplete: 0.0, unlocked: false)
     var shot300 = Achievement(identifier: "co.profapps.Shotty_Bird.achievement.x300", percentComplete: 0.0, unlocked: false)
+    var shot500 = Achievement(identifier: "co.profapps.Shotty_Bird.achievement.x500", percentComplete: 0.0, unlocked: false)
     var sniper = Achievement(identifier: "co.profapps.Shotty_Bird.achievement.sniper", percentComplete: 0.0, unlocked: false)
     
     func authenticateLocalPlayer(presentingViewController: UIViewController?, completion: ((success: Bool) -> Void)?) {
@@ -82,6 +83,10 @@ class GameCenterHelper: NSObject {
                                         self.shot250.percentComplete = achievement.percentComplete
                                         self.shot250.unlocked = achievement.completed
                                     case "co.profapps.Shotty_Bird.achievement.x300":
+                                        self.shot300.identifier = identifier
+                                        self.shot300.percentComplete = achievement.percentComplete
+                                        self.shot300.unlocked = achievement.completed
+                                    case "co.profapps.Shotty_Bird.achievement.x500":
                                         self.shot300.identifier = identifier
                                         self.shot300.percentComplete = achievement.percentComplete
                                         self.shot300.unlocked = achievement.completed
@@ -188,6 +193,10 @@ class GameCenterHelper: NSObject {
                     self.shot250.percentComplete = achievement.percentComplete
                     self.shot250.unlocked = achievement.completed
                 case "co.profapps.Shotty_Bird.achievement.x300":
+                    self.shot300.identifier = identifier
+                    self.shot300.percentComplete = achievement.percentComplete
+                    self.shot300.unlocked = achievement.completed
+                case "co.profapps.Shotty_Bird.achievement.x500":
                     self.shot300.identifier = identifier
                     self.shot300.percentComplete = achievement.percentComplete
                     self.shot300.unlocked = achievement.completed
