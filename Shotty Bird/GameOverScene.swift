@@ -270,10 +270,12 @@ class GameOverScene: SKScene {
         let gameViewController = view?.window?.rootViewController as! GameViewController
         
         if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter) {
+            let birdsText = score == 1 ? "1 bird" : "\(score) birds"
+            
             let twitterController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
             twitterController.addImage(takeScreenshot())
-            twitterController.addURL(NSURL(string: "https://itunes.apple.com/us/app/shotty-bird/id1114259560?ls=1&mt=8"))
-            twitterController.setInitialText("Becoming the best bird slayer at @shottybird. Available on the App Store.")
+            twitterController.addURL(NSURL(string: "https://itunes.apple.com/app/id1114259560?ls=1&mt=8"))
+            twitterController.setInitialText("I just shot down \(birdsText) in @shottybird. Download now for FREE. #happyhunting")
             twitterController.completionHandler = { (result) in
                 twitterController.dismissViewControllerAnimated(true, completion: nil)
             }
