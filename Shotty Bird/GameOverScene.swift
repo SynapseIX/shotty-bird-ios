@@ -8,7 +8,7 @@
 
 import SpriteKit
 import GameKit
-import Social
+import UIKit
 
 class GameOverScene: SKScene {
     
@@ -118,7 +118,7 @@ class GameOverScene: SKScene {
         
         // Add leaderboard button
         let leaderboardButton = SKSpriteNode(imageNamed: "leaderboard_button_icon")
-        leaderboardButton.position = CGPoint(x: CGRectGetMidX(panel.frame), y: CGRectGetMinY(panel.frame) - leaderboardButton.size.height / 2 - 10)
+        leaderboardButton.position = CGPoint(x: CGRectGetMidX(panel.frame) + leaderboardButton.size.width / 2 + 5, y: CGRectGetMinY(panel.frame) - leaderboardButton.size.height / 2 - 10)
         leaderboardButton.name = "leaderboardButton"
         leaderboardButton.zPosition = zPositionMenuItems
         addChild(leaderboardButton)
@@ -138,18 +138,11 @@ class GameOverScene: SKScene {
         addChild(backButton)
         
         // Add twitter button
-        let twitterButton = SKSpriteNode(imageNamed: "twitter_button")
-        twitterButton.position = CGPoint(x: leaderboardButton.position.x + twitterButton.size.width + 20, y: leaderboardButton.position.y)
-        twitterButton.name = "twitterButton"
-        twitterButton.zPosition = zPositionMenuItems
-        addChild(twitterButton)
-        
-        // Add facebook button
-        let facebookButton = SKSpriteNode(imageNamed: "facebook_button")
-        facebookButton.position = CGPoint(x: twitterButton.position.x + twitterButton.size.width + 20, y: leaderboardButton.position.y)
-        facebookButton.name = "facebookButton"
-        facebookButton.zPosition = zPositionMenuItems
-        addChild(facebookButton)
+        let shareButton = SKSpriteNode(imageNamed: "share_button")
+        shareButton.position = CGPoint(x: leaderboardButton.position.x + shareButton.size.width + 20, y: leaderboardButton.position.y)
+        shareButton.name = "shareButton"
+        shareButton.zPosition = zPositionMenuItems
+        addChild(shareButton)
         
         // Report achievements
         reportAchievements()
@@ -222,23 +215,13 @@ class GameOverScene: SKScene {
                 }
             }
             
-            if let twitterButton = childNodeWithName("twitterButton") {
-                if twitterButton.containsPoint(location) {
+            if let shareButton = childNodeWithName("shareButton") {
+                if shareButton.containsPoint(location) {
                     if !muted {
-                        twitterButton.runAction(playScreenshotSoundAction)
+                        shareButton.runAction(playScreenshotSoundAction)
                     }
                     
-                    shareOnTwitter()
-                }
-            }
-            
-            if let facebookButton = childNodeWithName("facebookButton") {
-                if facebookButton.containsPoint(location) {
-                    if !muted {
-                        facebookButton.runAction(playScreenshotSoundAction)
-                    }
-                    
-                    shareOnFacebook()
+                    shareScore()
                 }
             }
         }
@@ -266,40 +249,17 @@ class GameOverScene: SKScene {
     
     // MARK: - Social methods
     
-    private func shareOnTwitter() {
+    private func shareScore() {
         let gameViewController = view?.window?.rootViewController as! GameViewController
+        let birdsText = score == 1 ? "1 bird" : "\(score) birds"
         
-        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter) {
-            let birdsText = score == 1 ? "1 bird" : "\(score) birds"
-            
-            let twitterController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
-            twitterController.addImage(takeScreenshot())
-            twitterController.addURL(NSURL(string: "https://itunes.apple.com/app/id1114259560?ls=1&mt=8"))
-            twitterController.setInitialText("I just shot down \(birdsText) in @shottybird. Download now for FREE. #happyhunting")
-            twitterController.completionHandler = { (result) in
-                twitterController.dismissViewControllerAnimated(true, completion: nil)
-            }
-            
-            gameViewController.presentViewController(twitterController, animated: true, completion: nil)
-        } else {
-            GameError.handleAsAlert("Sign in to Twitter", message: "You are not signed in with Twitter. On the Home screen, launch Settings, tap Twitter, and sign in to your account.", presentingViewController: gameViewController, completion: nil)
-        }
-    }
-    
-    private func shareOnFacebook() {
-        let gameViewController = view?.window?.rootViewController as! GameViewController
+        let activityItems: [AnyObject] = ["I just shot down \(birdsText) in @shottybird. Download now for FREE. #happyhunting", takeScreenshot(), NSURL(string: "https://itunes.apple.com/app/id1114259560?ls=1&mt=8")!];
+        let excludedActivityTypes = [UIActivityTypePrint, UIActivityTypeCopyToPasteboard, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypeAirDrop, UIActivityTypeAddToReadingList, UIActivityTypeAirDrop, UIActivityTypePrint, UIActivityTypeOpenInIBooks, UIActivityTypePostToVimeo]
         
-        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
-            let facebookController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
-            facebookController.addImage(takeScreenshot())
-            facebookController.completionHandler = { (result) in
-                facebookController.dismissViewControllerAnimated(true, completion: nil)
-            }
-            
-            gameViewController.presentViewController(facebookController, animated: true, completion: nil)
-        } else {
-            GameError.handleAsAlert("Sign in to Facebook", message: "You are not signed in with Facebook. On the Home screen, launch Settings, tap Facebook, and sign in to your account.", presentingViewController: gameViewController, completion: nil)
-        }
+        let shareController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+        shareController.excludedActivityTypes = excludedActivityTypes
+        
+        gameViewController.presentViewController(shareController, animated: true, completion: nil)
     }
     
     private func takeScreenshot() -> UIImage {
