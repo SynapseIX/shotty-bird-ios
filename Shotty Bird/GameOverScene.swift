@@ -253,7 +253,8 @@ class GameOverScene: SKScene {
         let gameViewController = view?.window?.rootViewController as! GameViewController
         let birdsText = score == 1 ? "1 bird" : "\(score) birds"
         
-        let activityItems: [AnyObject] = ["I just shot down \(birdsText) in @shottybird. Download now for FREE. #happyhunting", takeScreenshot(), NSURL(string: "https://itunes.apple.com/app/id1114259560?ls=1&mt=8")!];
+        let activityItems: [AnyObject] = ["I just shot down \(birdsText) in @shottybird. Download now for FREE. #happyhunting https://itunes.apple.com/app/id1114259560?ls=1&mt=8", takeScreenshot()]
+        
         let excludedActivityTypes = [UIActivityTypePrint, UIActivityTypeCopyToPasteboard, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypeAirDrop, UIActivityTypeAddToReadingList, UIActivityTypeAirDrop, UIActivityTypePrint, UIActivityTypeOpenInIBooks, UIActivityTypePostToVimeo]
         
         let shareController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
