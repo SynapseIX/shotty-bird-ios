@@ -12,6 +12,9 @@ import GameKit
 class Missile: SKSpriteNode {
     
     private var sprites = ["missile_1", "missile_2", "missile_3"]
+    private let scaleAction = SKAction.scaleBy(0.8, duration: 0.1)
+    private let scaleToZeroAndRemoveAction = SKAction.sequence([SKAction.scaleBy(0.0, duration: 0.1), SKAction.removeFromParent()])
+    
     var delegate: GameScoreDelegate?
     
     init(delegate: GameScoreDelegate) {
@@ -19,48 +22,46 @@ class Missile: SKSpriteNode {
         let texture = SKTexture(imageNamed: sprites[0])
         
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
+        self.setScale(1.0)
         self.name = "missile"
         self.zPosition = 5
         
         let textures = [SKTexture(imageNamed: sprites[0]), SKTexture(imageNamed: sprites[1]), SKTexture(imageNamed: sprites[2])]
         
-        let missileTextureAnimation = SKAction.animateWithTextures(textures, timePerFrame: 0.05)
-        let repeatMissileTextureAnimation = SKAction.repeatAction(missileTextureAnimation, count: 1)
+        let missileTextureAnimation = SKAction.animateWithTextures(textures, timePerFrame: 0.01)
+        let repeatMissileTextureAnimation = SKAction.repeatAction(missileTextureAnimation, count: 2)
+        let travelAction = SKAction.group([repeatMissileTextureAnimation, scaleAction])
         
-        runAction(repeatMissileTextureAnimation) {
-            self.setScale(0.85)
+        runAction(travelAction) {
             self.zPosition = 4
             self.validateCollision()
             
-            self.runAction(repeatMissileTextureAnimation) {
-                self.setScale(0.7)
+            self.runAction(travelAction) {
                 self.zPosition = 3
                 self.validateCollision()
                 
-                self.runAction(repeatMissileTextureAnimation) {
-                    self.setScale(0.55)
+                self.runAction(travelAction) {
                     self.zPosition = 2
                     self.validateCollision()
                     
-                    self.runAction(repeatMissileTextureAnimation) {
-                        self.setScale(0.4)
+                    self.runAction(travelAction) {
                         self.zPosition = 1
                         self.validateCollision()
                         
-                        self.runAction(repeatMissileTextureAnimation) {
-                            self.setScale(0.25)
+                        self.runAction(travelAction) {
                             self.zPosition = 0
                             self.validateCollision()
                             
-                            self.runAction(repeatMissileTextureAnimation) {
-                                self.setScale(0.1)
+                            self.runAction(travelAction) {
                                 self.zPosition = -0.999
                                 
-                                self.runAction(repeatMissileTextureAnimation) {
-                                    self.setScale(0.05)
+                                self.runAction(travelAction) {
                                     self.zPosition = -0.998
                                     
-                                    self.runAction(SKAction.removeFromParent())
+                                    self.runAction(travelAction) {
+                                        self.zPosition = -0.997
+                                        self.runAction(self.scaleToZeroAndRemoveAction)
+                                    }
                                 }
                             }
                         }
