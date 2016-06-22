@@ -58,17 +58,20 @@ class GameViewController: UIViewController {
     // MARK: - AdMob methods
     
     private func setupAdMob() {
-        print("Google Mobile Ads SDK version: \(GADRequest.sdkVersion())")
-        let adSize = DeviceModel.iPad || DeviceModel.iPadPro ? kGADAdSizeLargeBanner: kGADAdSizeBanner
-        
-        bannerView = GADBannerView(adSize: adSize)
+        bannerView = GADBannerView(adSize: kGADAdSizeSmartBannerLandscape)
         let size = bannerView.frame.size
         
         bannerView.frame = CGRect(x: CGRectGetMidX(view.frame) - size.width / 2, y: CGRectGetMaxY(view.frame) - size.height, width: size.width, height: size.height)
         bannerView.adUnitID = "ca-app-pub-5774553422556987/1715679355"
         bannerView.rootViewController = self
         
-        bannerView.loadRequest(GADRequest())
+        let request = GADRequest()
+        
+        if DeviceModel.isSimulator {
+            request.testDevices = ["GAD_SIMULATOR_ID"]
+        }
+        
+        bannerView.loadRequest(request)
         view.addSubview(bannerView)
         
         bannerView.hidden = true

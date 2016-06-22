@@ -411,8 +411,8 @@ class GameScene: SKScene {
         newBird.physicsBody?.collisionBitMask = PhysicsCategory.Bird
         
         // Setup bird speed
-        let minDuration = 3.00
-        let maxDuration = 6.00
+        let minDuration = 2.00
+        let maxDuration = 5.00
         let rangeDuration = maxDuration - minDuration
         let actualDuration = (Double(arc4random()) % rangeDuration) + minDuration
         

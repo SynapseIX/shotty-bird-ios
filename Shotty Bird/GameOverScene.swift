@@ -28,6 +28,8 @@ class GameOverScene: SKScene {
     let playBirdSoundAction = SKAction.playSoundFileNamed("bird.wav", waitForCompletion: false)
     let playExplosionSoundAction = SKAction.playSoundFileNamed("explosion.wav", waitForCompletion: false)
     let playScreenshotSoundAction = SKAction.playSoundFileNamed("screenshot.wav", waitForCompletion: true)
+    
+    var shareFrame = CGRectZero
 
     override func didMoveToView(view: SKView) {
         audioManager.audioPlayer?.volume = !muted ? 1.0 : 0.0
@@ -137,12 +139,17 @@ class GameOverScene: SKScene {
         backButton.zPosition = zPositionMenuItems
         addChild(backButton)
         
-        // Add twitter button
+        // Add share button
         let shareButton = SKSpriteNode(imageNamed: "share_button")
         shareButton.position = CGPoint(x: leaderboardButton.position.x + shareButton.size.width + 20, y: leaderboardButton.position.y)
         shareButton.name = "shareButton"
         shareButton.zPosition = zPositionMenuItems
         addChild(shareButton)
+        
+        // For iPad only
+        var convertedOrigin = convertPointToView(shareButton.frame.origin)
+        convertedOrigin.y = convertedOrigin.y - shareButton.frame.size.height / 2
+        shareFrame = CGRect(origin: convertedOrigin, size: shareButton.frame.size)
         
         // Report achievements
         reportAchievements()
@@ -253,12 +260,18 @@ class GameOverScene: SKScene {
         let gameViewController = view?.window?.rootViewController as! GameViewController
         let birdsText = score == 1 ? "1 bird" : "\(score) birds"
         
-        let activityItems: [AnyObject] = ["I just shot down \(birdsText) in @shottybird. Download now for FREE. #happyhunting https://itunes.apple.com/app/id1114259560?ls=1&mt=8", takeScreenshot()]
+        let activityItems: [AnyObject] = ["I just shot down \(birdsText) in @shottybird. Download now for FREE. #happyhunting http://shottybird.com/get", takeScreenshot()]
         
         let excludedActivityTypes = [UIActivityTypePrint, UIActivityTypeCopyToPasteboard, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypeAirDrop, UIActivityTypeAddToReadingList, UIActivityTypeAirDrop, UIActivityTypePrint, UIActivityTypeOpenInIBooks, UIActivityTypePostToVimeo]
         
         let shareController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
         shareController.excludedActivityTypes = excludedActivityTypes
+        
+        if DeviceModel.iPad || DeviceModel.iPadPro {
+            shareController.popoverPresentationController?.sourceView = view
+            shareController.popoverPresentationController?.sourceRect = shareFrame
+            shareController.popoverPresentationController?.permittedArrowDirections = [.Down]
+        }
         
         gameViewController.presentViewController(shareController, animated: true, completion: nil)
     }

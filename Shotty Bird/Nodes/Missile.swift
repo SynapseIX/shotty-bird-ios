@@ -116,7 +116,7 @@ class Missile: SKSpriteNode {
                     gameScene.updateScore()
                     
                     // Check if the "Sniper" achievement need to be unlocked and report if necessary
-                    if bird.zPosition == 0 && (bird as! Bird).flightSpeed == 3 {
+                    if bird.zPosition == 0 && (bird as! Bird).flightSpeed == 2.0 {
                         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                         let gameCenterHelper = appDelegate.gameCenterHelper
                         

@@ -15,6 +15,16 @@ struct DeviceModel {
     static let iPhone6Plus = UIDevice.currentDevice().userInterfaceIdiom == .Phone && ScreenSize.maxLength == 736.0
     static let iPad = UIDevice.currentDevice().userInterfaceIdiom == .Pad && ScreenSize.maxLength == 1024.0
     static let iPadPro = UIDevice.currentDevice().userInterfaceIdiom == .Pad && ScreenSize.maxLength == 1366.0
+    
+    static let isSimulator: Bool = {
+        var isSim = false
+        
+        #if arch(i386) || arch(x86_64)
+            isSim = true
+        #endif
+        
+        return isSim
+    }()
 }
 
 private struct ScreenSize {
