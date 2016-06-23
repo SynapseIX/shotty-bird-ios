@@ -262,7 +262,7 @@ class GameOverScene: SKScene {
         
         let activityItems: [AnyObject] = ["I just shot down \(birdsText) in @shottybird. Download now for FREE. #happyhunting http://shottybird.com/get", takeScreenshot()]
         
-        let excludedActivityTypes = [UIActivityTypePrint, UIActivityTypeCopyToPasteboard, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypeAirDrop, UIActivityTypeAddToReadingList, UIActivityTypeAirDrop, UIActivityTypePrint, UIActivityTypeOpenInIBooks, UIActivityTypePostToVimeo]
+        let excludedActivityTypes = [UIActivityTypePrint, UIActivityTypeCopyToPasteboard, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypeAddToReadingList, UIActivityTypeAirDrop, UIActivityTypeOpenInIBooks, UIActivityTypePostToVimeo]
         
         let shareController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
         shareController.excludedActivityTypes = excludedActivityTypes
