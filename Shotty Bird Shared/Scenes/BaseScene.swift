@@ -46,7 +46,7 @@ class BaseScene: SKScene {
     /// Time since last frame was rendered.
     var deltaTime: TimeInterval = 0
     
-    init(backgroundSpeed: BackgroundSpeed = .slow) {
+    init(backgroundSpeed: BackgroundSpeed) {
         self.backgroundSpeed = backgroundSpeed
         super.init(size: CGSize(width: 1024, height: 768))
     }
