@@ -49,7 +49,7 @@ class GameScene: BaseScene {
         
         lastSpawnTime += timeSinceLast
         
-        if lastSpawnTime > 0.2 {
+        if lastSpawnTime > 2 {
             spawnEnemy()
             lastSpawnTime = 0
         }
@@ -91,7 +91,7 @@ class GameScene: BaseScene {
         enemy.physicsBody = SKPhysicsBody(rectangleOf: enemy.size)
         enemy.physicsBody?.isDynamic = false
         enemy.physicsBody?.restitution = 1.0
-        enemy.physicsBody?.collisionBitMask = EnemyCollisionBitMask.enemy
+        enemy.physicsBody?.collisionBitMask = PhysicsCollisionBitMask.enemy
         
         // Setup enemy speed
         let minDuration = 2.0
@@ -111,16 +111,37 @@ class GameScene: BaseScene {
         default:
             flappingSpeed = 0.0
         }
+        
+        let playBirdSoundAction = SKAction.playSoundFileNamed("bird.wav", waitForCompletion: false)
         let flapAction = SKAction.animate(with: enemy.sprites, timePerFrame: flappingSpeed)
+        let flappingSoundAction = SKAction.repeat(SKAction.playSoundFileNamed("wing_flap.wav", waitForCompletion: false), count: Int(duration / 0.2))
         let flyAction = SKAction.repeat(flapAction, count: Int(duration / 0.2))
-        let moveAction = SKAction.move(to: CGPoint(x: -enemy.size.width * 2, y: enemy.position.y), duration: duration)
+        let moveAction = SKAction.move(to: CGPoint(x: -enemy.size.width / 2, y: enemy.position.y), duration: duration)
         let flyAndMoveAction = SKAction.group([flyAction, moveAction])
         
         let removeAction = SKAction.removeFromParent()
-        let sequence = SKAction.sequence([flyAndMoveAction, removeAction])
+        let sequence = isMuted ? SKAction.sequence([flyAndMoveAction, removeAction])
+                               : SKAction.sequence([flappingSoundAction, flyAndMoveAction, playBirdSoundAction, removeAction])
         
         // Run actions
         enemy.run(sequence)
+    }
+    
+    private func shootMissile(in location: CGPoint) {
+        let missile = Missile(delegate: self)
+        missile.position = location
+        
+        // Setup missile's Physics
+        missile.physicsBody = SKPhysicsBody(rectangleOf: missile.size)
+        missile.physicsBody?.isDynamic = false
+        missile.physicsBody?.restitution = 0.0
+        missile.physicsBody?.collisionBitMask = PhysicsCollisionBitMask.missile
+        
+        if !isMuted {
+            missile.run(SKAction.playSoundFileNamed("shot", waitForCompletion: false))
+        }
+        
+        addChild(missile)
     }
 }
 
@@ -128,7 +149,20 @@ class GameScene: BaseScene {
 // Touch-based event handling
 extension GameScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
+        for touch in touches {
+            let location = touch.location(in: self)
+            // Limit taps to shoot missiles based on current bird spawn times and last touch time
+            if lastShotFiredTime == 0.0 {
+                shootMissile(in: location)
+                lastShotFiredTime = CACurrentMediaTime()
+            } else {
+                let deltaTime = CACurrentMediaTime() - lastShotFiredTime
+                if deltaTime >= lastSpawnTime * 0.5 {
+                    shootMissile(in: location)
+                    lastShotFiredTime = CACurrentMediaTime()
+                }
+            }
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -149,7 +183,17 @@ extension GameScene {
 // Mouse-based event handling
 extension GameScene {
     override func mouseDown(with event: NSEvent) {
-        
+        let location = event.location(in: self)
+        if lastShotFiredTime == 0.0 {
+            shootMissile(in: location)
+            lastShotFiredTime = CACurrentMediaTime()
+        } else {
+            let deltaTime = CACurrentMediaTime() - lastShotFiredTime
+            if deltaTime >= lastSpawnTime * 0.5 {
+                shootMissile(in: location)
+                lastShotFiredTime = CACurrentMediaTime()
+            }
+        }
     }
     
     override func mouseDragged(with event: NSEvent) {
@@ -161,3 +205,11 @@ extension GameScene {
     }
 }
 #endif
+
+// MARK: - GameScoreDelegate
+
+extension GameScene: GameScoreDelegate {
+    func updateScore() {
+        // TODO: implement
+    }
+}

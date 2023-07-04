@@ -1,5 +1,5 @@
 //
-//  EnemyCollisionBitMask.swift
+//  PhysicsCollisionBitMask.swift
 //  Shotty Bird
 //
 //  Created by Jorge Tapia on 7/3/23.
@@ -9,7 +9,7 @@
 import Foundation
 
 /// Defines values for collision bit masks in Physics bodies.
-struct EnemyCollisionBitMask {
+struct PhysicsCollisionBitMask {
     static let enemy: UInt32 = 0x1 << 0
     static let missile: UInt32 = 0x1 << 1
 }
