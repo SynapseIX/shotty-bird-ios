@@ -22,6 +22,8 @@ class GameScene: BaseScene {
     /// Game score.
     private(set) var score: Int64 = 0
     
+    /// Audio manager to play background music.
+    let audioManager = AudioManager(file: "TwinEngines-JeremyKorpas", type: "mp3", loop: true)
     /// Flag that determines if audio is muted.
     var isMuted = false
     
@@ -35,6 +37,7 @@ class GameScene: BaseScene {
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
+        setupAudioManager()
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -142,6 +145,14 @@ class GameScene: BaseScene {
         }
         
         addChild(missile)
+    }
+    
+    // MARK: - Audio methods
+        
+    private func setupAudioManager() {
+        audioManager.player?.enableRate = true
+        audioManager.tryPlayMusic()
+        audioManager.player?.volume = isMuted ? 0.0 : AudioManager.maxVolume
     }
 }
 

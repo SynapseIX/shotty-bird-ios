@@ -7,55 +7,63 @@
 
 import AVFoundation
 
+/// Audio manager class to control game music playback.
 class AudioManager: NSObject {
     
+    /// The maximum volume for the music.
+    static let maxVolume: Float = 0.5
+    
+    /// The audio session.
     private(set) var session: AVAudioSession?
+    /// The audio player.
     private(set) var player: AVAudioPlayer?
     
-    private(set) var musicPlaying = false
-    private(set) var musicInterrupted = false
+    /// Flag that determines if the music was interrupted due to an audio session interruption.
+    private(set) var isMusicInterrupted = false
     
+    /// Creates a new `AudioManager` instance.
+    /// - Parameters:
+    ///   - file: The audio file to play.
+    ///   - type: The audio file type extension.
+    ///   - loop: Flag to determine if the audio should play again after it is over.
     init(file:String?, type:String?, loop: Bool) {
         super.init()
         configureAudioSession()
         configureAudioPlayer(file: file, type: type, loop: loop)
     }
     
+    /// Attempts to play the audio file selected during initialization.
     func tryPlayMusic() {
         if session?.isOtherAudioPlaying == false {
             player?.prepareToPlay()
             player?.play()
-            musicPlaying = true
         }
     }
     
+    /// Stops music playback.
     func stopMusic() {
-        if musicPlaying {
+        if player?.isPlaying == true {
             player?.stop()
         }
     }
     
     // MARK: - Audio session and player setup
     
+    /// Configures the audio session.
     private func configureAudioSession() {
         session = AVAudioSession.sharedInstance()
-        if session?.isOtherAudioPlaying == true {
-            do {
-                try session?.setCategory(.playback)
-                musicPlaying = false
-            } catch {
-                print("Error setting category: \(error.localizedDescription)")
-            }
-        } else {
-            do {
-                try session?.setCategory(.playback)
-                musicPlaying = false
-            } catch {
-                print("Error setting category: \(error.localizedDescription)")
-            }
+        do {
+            try session?.setCategory(.playback)
+        } catch {
+            print("Error setting category: \(error.localizedDescription)")
         }
     }
     
+    /// Configures the audio player.
+    /// - Parameters:
+    ///   - file: The audio file to play.
+    ///   - type: The audio file type extension.
+    ///   - loop: Flag to determine if the audio should play again after it is over.
     private func configureAudioPlayer(file: String?, type: String?, loop: Bool) {
         guard let backgroundMusicPath = Bundle.main.path(forResource: file, ofType: type) else {
             return
@@ -75,12 +83,13 @@ class AudioManager: NSObject {
 
 extension AudioManager: AVAudioPlayerDelegate {
     func audioPlayerBeginInterruption(_ player: AVAudioPlayer) {
-        musicInterrupted = true
-        musicPlaying = false
+        isMusicInterrupted = true
     }
     
     func audioPlayerEndInterruption(_ player: AVAudioPlayer, withOptions flags: Int) {
         tryPlayMusic()
-        musicInterrupted = false
+        if player.isPlaying == true {
+            isMusicInterrupted = false
+        }
     }
 }
