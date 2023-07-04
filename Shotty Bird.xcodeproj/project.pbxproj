@@ -155,8 +155,8 @@
 				CF77C6A72A4D292600BA03ED /* Nodes */,
 				CFB43E092A4DB7B100A3F426 /* Scenes */,
 				CF1A8F522A53C6E100BAD0A6 /* Physics */,
-				CF1A8F5B2A53DA2C00BAD0A6 /* GameScoreDelegate.swift */,
 				CF1A8F5F2A53DC9400BAD0A6 /* Sounds */,
+				CF1A8F5B2A53DA2C00BAD0A6 /* GameScoreDelegate.swift */,
 				CF77C65F2A4D24D900BA03ED /* Assets.xcassets */,
 			);
 			path = "Shotty Bird Shared";
