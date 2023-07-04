@@ -112,7 +112,7 @@ class GameScene: BaseScene {
             flappingSpeed = 0.0
         }
         let flapAction = SKAction.animate(with: enemy.sprites, timePerFrame: flappingSpeed)
-        let flyAction = SKAction.repeat(flapAction, count: 10)
+        let flyAction = SKAction.repeat(flapAction, count: Int(duration / 0.2))
         let moveAction = SKAction.move(to: CGPoint(x: -enemy.size.width * 2, y: enemy.position.y), duration: duration)
         let flyAndMoveAction = SKAction.group([flyAction, moveAction])
         
