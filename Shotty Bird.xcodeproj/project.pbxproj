@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CF1A8F4F2A53A57400BAD0A6 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A8F4E2A53A57400BAD0A6 /* Enemy.swift */; };
+		CF1A8F502A53A57400BAD0A6 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A8F4E2A53A57400BAD0A6 /* Enemy.swift */; };
+		CF1A8F512A53A57400BAD0A6 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A8F4E2A53A57400BAD0A6 /* Enemy.swift */; };
+		CF1A8F542A53C71300BAD0A6 /* EnemyCollisionBitMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A8F532A53C71300BAD0A6 /* EnemyCollisionBitMask.swift */; };
+		CF1A8F552A53C71300BAD0A6 /* EnemyCollisionBitMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A8F532A53C71300BAD0A6 /* EnemyCollisionBitMask.swift */; };
+		CF1A8F562A53C71300BAD0A6 /* EnemyCollisionBitMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A8F532A53C71300BAD0A6 /* EnemyCollisionBitMask.swift */; };
 		CF77C6682A4D24D900BA03ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF77C6672A4D24D900BA03ED /* AppDelegate.swift */; };
 		CF77C66A2A4D24D900BA03ED /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF77C6692A4D24D900BA03ED /* GameViewController.swift */; };
 		CF77C66D2A4D24D900BA03ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF77C66B2A4D24D900BA03ED /* Main.storyboard */; };
@@ -33,6 +39,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CF1A8F4E2A53A57400BAD0A6 /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
+		CF1A8F532A53C71300BAD0A6 /* EnemyCollisionBitMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyCollisionBitMask.swift; sourceTree = "<group>"; };
 		CF77C65E2A4D24D800BA03ED /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		CF77C65F2A4D24D900BA03ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CF77C6642A4D24D900BA03ED /* Shotty Bird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shotty Bird.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +87,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CF1A8F522A53C6E100BAD0A6 /* Physics */ = {
+			isa = PBXGroup;
+			children = (
+				CF1A8F532A53C71300BAD0A6 /* EnemyCollisionBitMask.swift */,
+			);
+			path = Physics;
+			sourceTree = "<group>";
+		};
 		CF77C6562A4D24D800BA03ED = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +111,7 @@
 			children = (
 				CF77C6A72A4D292600BA03ED /* Nodes */,
 				CFB43E092A4DB7B100A3F426 /* Scenes */,
+				CF1A8F522A53C6E100BAD0A6 /* Physics */,
 				CF77C65F2A4D24D900BA03ED /* Assets.xcassets */,
 			);
 			path = "Shotty Bird Shared";
@@ -146,6 +163,7 @@
 		CF77C6A72A4D292600BA03ED /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
+				CF1A8F4E2A53A57400BAD0A6 /* Enemy.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -295,7 +313,9 @@
 			files = (
 				CFB43E0F2A4DBAA700A3F426 /* MainMenuScene.swift in Sources */,
 				CF77C6952A4D24D900BA03ED /* GameScene.swift in Sources */,
+				CF1A8F4F2A53A57400BAD0A6 /* Enemy.swift in Sources */,
 				CF77C66A2A4D24D900BA03ED /* GameViewController.swift in Sources */,
+				CF1A8F542A53C71300BAD0A6 /* EnemyCollisionBitMask.swift in Sources */,
 				CF77C6682A4D24D900BA03ED /* AppDelegate.swift in Sources */,
 				CFB43E0B2A4DB7CD00A3F426 /* BaseScene.swift in Sources */,
 			);
@@ -307,7 +327,9 @@
 			files = (
 				CFB43E102A4DBAA700A3F426 /* MainMenuScene.swift in Sources */,
 				CF77C6962A4D24D900BA03ED /* GameScene.swift in Sources */,
+				CF1A8F502A53A57400BAD0A6 /* Enemy.swift in Sources */,
 				CF77C67A2A4D24D900BA03ED /* GameViewController.swift in Sources */,
+				CF1A8F552A53C71300BAD0A6 /* EnemyCollisionBitMask.swift in Sources */,
 				CF77C6782A4D24D900BA03ED /* AppDelegate.swift in Sources */,
 				CFB43E0C2A4DB7CD00A3F426 /* BaseScene.swift in Sources */,
 			);
@@ -319,7 +341,9 @@
 			files = (
 				CFB43E112A4DBAA700A3F426 /* MainMenuScene.swift in Sources */,
 				CF77C6972A4D24D900BA03ED /* GameScene.swift in Sources */,
+				CF1A8F512A53A57400BAD0A6 /* Enemy.swift in Sources */,
 				CF77C68A2A4D24D900BA03ED /* GameViewController.swift in Sources */,
+				CF1A8F562A53C71300BAD0A6 /* EnemyCollisionBitMask.swift in Sources */,
 				CF77C6882A4D24D900BA03ED /* AppDelegate.swift in Sources */,
 				CFB43E0D2A4DB7CD00A3F426 /* BaseScene.swift in Sources */,
 			);
