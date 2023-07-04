@@ -93,14 +93,24 @@ class GameScene: BaseScene {
         enemy.physicsBody?.restitution = 1.0
         enemy.physicsBody?.collisionBitMask = EnemyCollisionBitMask.enemy
         
-        // Setup bird speed
+        // Setup enemy speed
         let minDuration = 2.0
         let maxDuration = 5.0
         let duration = TimeInterval.random(in: minDuration...maxDuration)
         enemy.flightSpeed = duration
         
         // Configure actions
-        let flappingSpeed = duration <= 3 ? 1.0 / 120.0 : 1.0 / 60.0
+        var flappingSpeed: TimeInterval
+        switch duration {
+        case 2..<3:
+            flappingSpeed = 1.0 / 120.0
+        case 3..<4:
+            flappingSpeed = 1.0 / 90.0
+        case 4...5:
+            flappingSpeed = 1.0 / 60.0
+        default:
+            flappingSpeed = 0.0
+        }
         let flapAction = SKAction.animate(with: enemy.sprites, timePerFrame: flappingSpeed)
         let flyAction = SKAction.repeat(flapAction, count: 10)
         let moveAction = SKAction.move(to: CGPoint(x: -enemy.size.width * 2, y: enemy.position.y), duration: duration)
