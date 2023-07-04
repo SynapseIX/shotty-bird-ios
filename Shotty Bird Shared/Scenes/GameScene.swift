@@ -10,13 +10,19 @@ import SpriteKit
 /// Main game scene.
 class GameScene: BaseScene {
     
+    /// Last time update method was called.
     private(set) var lastUpdateTime: CFTimeInterval = 0.0
+    /// Lat time an enemy spawned.
     private(set) var lastSpawnTime: CFTimeInterval = 0.0
+    /// Last time a shot was fired.
     private(set) var lastShotFiredTime: CFTimeInterval = 0.0
     
+    /// Number of lives remaining.
     private(set) var lives = 3
+    /// Game score.
     private(set) var score: Int64 = 0
     
+    /// Flag that determines if audio is muted.
     var isMuted = false
     
     override init(backgroundSpeed: BackgroundSpeed = .slow) {
@@ -49,6 +55,7 @@ class GameScene: BaseScene {
         }
     }
     
+    /// Spawns and animates a new enemy node.
     func spawnEnemy() {
         let enemy = Enemy(enemyType: .raven)
         
