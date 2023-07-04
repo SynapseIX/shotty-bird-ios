@@ -31,6 +31,9 @@
 		CF1A8F6D2A53DD1500BAD0A6 /* wing_flap.wav in Resources */ = {isa = PBXBuildFile; fileRef = CF1A8F6C2A53DD1500BAD0A6 /* wing_flap.wav */; };
 		CF1A8F6E2A53DD1500BAD0A6 /* wing_flap.wav in Resources */ = {isa = PBXBuildFile; fileRef = CF1A8F6C2A53DD1500BAD0A6 /* wing_flap.wav */; };
 		CF1A8F6F2A53DD1500BAD0A6 /* wing_flap.wav in Resources */ = {isa = PBXBuildFile; fileRef = CF1A8F6C2A53DD1500BAD0A6 /* wing_flap.wav */; };
+		CF68C0C22A5401EA00264E81 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF68C0C12A5401EA00264E81 /* AudioManager.swift */; };
+		CF68C0C32A5401EA00264E81 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF68C0C12A5401EA00264E81 /* AudioManager.swift */; };
+		CF68C0C42A5401EA00264E81 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF68C0C12A5401EA00264E81 /* AudioManager.swift */; };
 		CF77C6682A4D24D900BA03ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF77C6672A4D24D900BA03ED /* AppDelegate.swift */; };
 		CF77C66A2A4D24D900BA03ED /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF77C6692A4D24D900BA03ED /* GameViewController.swift */; };
 		CF77C66D2A4D24D900BA03ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF77C66B2A4D24D900BA03ED /* Main.storyboard */; };
@@ -65,6 +68,7 @@
 		CF1A8F642A53DCC700BAD0A6 /* explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion.wav; sourceTree = "<group>"; };
 		CF1A8F682A53DCF100BAD0A6 /* shot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shot.wav; sourceTree = "<group>"; };
 		CF1A8F6C2A53DD1500BAD0A6 /* wing_flap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = wing_flap.wav; sourceTree = "<group>"; };
+		CF68C0C12A5401EA00264E81 /* AudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		CF77C65E2A4D24D800BA03ED /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		CF77C65F2A4D24D900BA03ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CF77C6642A4D24D900BA03ED /* Shotty Bird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shotty Bird.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,6 +142,14 @@
 			path = Music;
 			sourceTree = "<group>";
 		};
+		CF68C0C02A5401D900264E81 /* Audio Manager */ = {
+			isa = PBXGroup;
+			children = (
+				CF68C0C12A5401EA00264E81 /* AudioManager.swift */,
+			);
+			path = "Audio Manager";
+			sourceTree = "<group>";
+		};
 		CF77C6562A4D24D800BA03ED = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +164,7 @@
 		CF77C65B2A4D24D800BA03ED /* Shotty Bird Shared */ = {
 			isa = PBXGroup;
 			children = (
+				CF68C0C02A5401D900264E81 /* Audio Manager */,
 				CF77C6A72A4D292600BA03ED /* Nodes */,
 				CFB43E092A4DB7B100A3F426 /* Scenes */,
 				CF1A8F522A53C6E100BAD0A6 /* Physics */,
@@ -377,6 +390,7 @@
 				CF1A8F542A53C71300BAD0A6 /* PhysicsCollisionBitMask.swift in Sources */,
 				CF77C6682A4D24D900BA03ED /* AppDelegate.swift in Sources */,
 				CF1A8F582A53D96F00BAD0A6 /* Missile.swift in Sources */,
+				CF68C0C22A5401EA00264E81 /* AudioManager.swift in Sources */,
 				CFB43E0B2A4DB7CD00A3F426 /* BaseScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -393,6 +407,7 @@
 				CF1A8F552A53C71300BAD0A6 /* PhysicsCollisionBitMask.swift in Sources */,
 				CF77C6782A4D24D900BA03ED /* AppDelegate.swift in Sources */,
 				CF1A8F592A53D96F00BAD0A6 /* Missile.swift in Sources */,
+				CF68C0C32A5401EA00264E81 /* AudioManager.swift in Sources */,
 				CFB43E0C2A4DB7CD00A3F426 /* BaseScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -409,6 +424,7 @@
 				CF1A8F562A53C71300BAD0A6 /* PhysicsCollisionBitMask.swift in Sources */,
 				CF77C6882A4D24D900BA03ED /* AppDelegate.swift in Sources */,
 				CF1A8F5A2A53D96F00BAD0A6 /* Missile.swift in Sources */,
+				CF68C0C42A5401EA00264E81 /* AudioManager.swift in Sources */,
 				CFB43E0D2A4DB7CD00A3F426 /* BaseScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
