@@ -15,6 +15,10 @@ enum EnemyType {
 
 /// Represents an enemy that will spawn and that can be destroyed by a missle.
 class Enemy: SKSpriteNode {
+    
+    /// The node name.
+    static let nodeName = "enemy"
+    
     /// The enemy type.
     let enemyType: EnemyType
     /// Array of textures containing the animation sequence for the enemy.
@@ -57,7 +61,7 @@ class Enemy: SKSpriteNode {
                        SKTexture(imageNamed: "raven+texture0025")]
         }
         super.init(texture: sprites[0], color: .clear, size: sprites[0].size())
-        super.name = "enemy"
+        super.name = Enemy.nodeName
     }
     
     required init?(coder aDecoder: NSCoder) {

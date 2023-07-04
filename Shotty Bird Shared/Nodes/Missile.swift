@@ -11,6 +11,9 @@ import SpriteKit
 /// Represents a missle used to shoot down enemies.
 class Missile: SKSpriteNode {
     
+    /// The node name.
+    static let nodeName = "missile"
+    
     /// The named images for the missile sprite.
     private var sprites = ["missile_1", "missile_2", "missile_3"]
     /// A scale animation that provides the perfection of a missile going inside the screen.
@@ -29,7 +32,7 @@ class Missile: SKSpriteNode {
         
         super.init(texture: texture, color: .clear, size: texture.size())
         self.setScale(1.0)
-        self.name = "missile"
+        self.name = Missile.nodeName
         self.zPosition = 10
         
         let textures = [SKTexture(imageNamed: sprites[0]),
@@ -114,7 +117,7 @@ class Missile: SKSpriteNode {
         guard let gameScene = delegate as? GameScene else {
             return
         }
-        gameScene.enumerateChildNodes(withName: "enemy") { node, stop in
+        gameScene.enumerateChildNodes(withName: Enemy.nodeName) { node, stop in
             guard let enemy = node as? Enemy else {
                 return
             }
