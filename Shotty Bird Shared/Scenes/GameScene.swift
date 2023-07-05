@@ -117,12 +117,12 @@ class GameScene: BaseScene {
         
         let playBirdSoundAction = SKAction.playSoundFileNamed("bird.wav", waitForCompletion: false)
         let flapAction = SKAction.animate(with: enemy.sprites, timePerFrame: flappingSpeed)
-        let flappingSoundAction = SKAction.repeat(SKAction.playSoundFileNamed("wing_flap.wav", waitForCompletion: false), count: Int(duration / 0.2))
+        let flappingSoundAction = SKAction.playSoundFileNamed("wing_flap.wav", waitForCompletion: false)
         let flyAction = SKAction.repeat(flapAction, count: Int(duration / 0.2))
         let moveAction = SKAction.move(to: CGPoint(x: -enemy.size.width / 2, y: enemy.position.y), duration: duration)
         let flyAndMoveAction = SKAction.group([flyAction, moveAction])
-        
         let removeAction = SKAction.removeFromParent()
+        
         let sequence = isMuted ? SKAction.sequence([flyAndMoveAction, removeAction])
                                : SKAction.sequence([flappingSoundAction, flyAndMoveAction, playBirdSoundAction, removeAction])
         
