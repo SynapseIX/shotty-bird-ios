@@ -130,6 +130,8 @@ class GameScene: BaseScene {
         enemy.run(sequence)
     }
     
+    /// Shoots a missile sprite node.
+    /// - Parameter location: The location where the node should appear.
     private func shootMissile(in location: CGPoint) {
         let missile = Missile(delegate: self)
         missile.position = location
@@ -148,7 +150,8 @@ class GameScene: BaseScene {
     }
     
     // MARK: - Audio methods
-        
+    
+    /// Sets up the audio manager object.
     private func setupAudioManager() {
         audioManager.player?.enableRate = true
         audioManager.tryPlayMusic()
