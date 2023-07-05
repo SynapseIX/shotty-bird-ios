@@ -113,6 +113,7 @@ class Missile: SKSpriteNode {
     
     // MARK: - Collision methods
     
+    /// Validates the collision between a missile and an enemy.
     private func validateCollision() {
         guard let gameScene = delegate as? GameScene else {
             return
