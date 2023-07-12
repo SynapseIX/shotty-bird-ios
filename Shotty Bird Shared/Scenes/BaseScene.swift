@@ -149,3 +149,4 @@ class BaseScene: SKScene {
         animateBackground(backgroundLayerNode: hillLayerNode3, clonedBackgroundLayerNode: hillLayerNode3Clone, speed: 1500.0 * speedMultiplier)
     }
 }
+
