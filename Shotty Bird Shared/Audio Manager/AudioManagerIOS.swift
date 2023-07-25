@@ -7,7 +7,8 @@
 
 import AVFoundation
 
-/// Audio manager class to control game music playback onn iOS and iPadOS.
+/// Audio manager class to control game music playback on iOS and iPadOS.
+@available(iOS 16.4, *)
 class AudioManagerIOS: NSObject {
     
     /// The maximum volume for the music.
@@ -17,11 +18,6 @@ class AudioManagerIOS: NSObject {
     private(set) var session: AVAudioSession?
     /// The audio player.
     private(set) var player: AVAudioPlayer?
-    
-    /// Determines if the music is muted or not
-    var isMuted: Bool {
-        player?.volume == 0.0
-    }
     
     /// Flag that determines if the music was interrupted due to an audio session interruption.
     private(set) var isMusicInterrupted = false
@@ -73,6 +69,10 @@ class AudioManagerIOS: NSObject {
 // MARK: - AudioManager
 
 extension AudioManagerIOS: AudioManager {
+    var isMuted: Bool {
+        player?.volume == 0.0
+    }
+    
     func tryPlayMusic() {
         if session?.isOtherAudioPlaying == false {
             player?.prepareToPlay()

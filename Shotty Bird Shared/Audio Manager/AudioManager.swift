@@ -8,7 +8,11 @@
 
 import Foundation
 
+/// Defines an interface for a multi-platform audio manager.
 protocol AudioManager {
+    /// Determines if the music is muted or not.
+    var isMuted: Bool { get }
+    
     /// Attempts to play the audio file selected during initialization.
     func tryPlayMusic()
     /// Stops music playback.
@@ -16,3 +20,4 @@ protocol AudioManager {
     /// Toggles audio player mute state.
     func toggleMute()
 }
+

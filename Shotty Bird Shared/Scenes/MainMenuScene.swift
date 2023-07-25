@@ -12,7 +12,13 @@ import SpriteKit
 class MainMenuScene: BaseScene {
     
     /// Audio manager to play background music.
-    let audioManager = AudioManagerIOS(file: "Crimson-Sextile", type: "mp3", loop: true)
+    var audioManager: AudioManager {
+        #if os(iOS) || os(tvOS)
+            AudioManagerIOS(file: "TwinEngines-JeremyKorpas", type: "mp3", loop: true)
+        #elseif os(OSX)
+            AudioManagerMac()
+        #endif
+    }
     
     /// The z-axis position for all menu UI elements.
     let zPositionMenuItems = CGFloat(Int.max)
@@ -25,7 +31,13 @@ class MainMenuScene: BaseScene {
     let playExplosionSoundAction = SKAction.playSoundFileNamed("explosion.wav", waitForCompletion: false)
     
     /// Determines if the game is running on a phone device.
-    private let isPhone = UIDevice.current.userInterfaceIdiom == .phone
+    private var isPhone: Bool {
+        #if os(iOS) || os(tvOS)
+            UIDevice.current.userInterfaceIdiom == .phone
+        #else
+            false
+        #endif
+    }
     
     override init(backgroundSpeed: BackgroundSpeed = .slow) {
         super.init(backgroundSpeed: backgroundSpeed)
