@@ -26,9 +26,7 @@ class GameScene: BaseScene {
     private(set) var score: Int64 = 0
     
     /// Audio manager to play background music.
-    let audioManager = AudioManager(file: "TwinEngines-JeremyKorpas", type: "mp3", loop: true)
-    /// Flag that determines if audio is muted.
-    var isMuted = false
+    let audioManager = AudioManagerIOS(file: "TwinEngines-JeremyKorpas", type: "mp3", loop: true)
     
     override init(backgroundSpeed: BackgroundSpeed = .slow) {
         super.init(backgroundSpeed: backgroundSpeed)
@@ -41,7 +39,7 @@ class GameScene: BaseScene {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         setupUI()
-        setupAudioManager()
+        audioManager.tryPlayMusic()
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -138,7 +136,7 @@ class GameScene: BaseScene {
         let flyAndMoveAction = SKAction.group([flyAction, moveAction])
         let removeAction = SKAction.removeFromParent()
         
-        let sequence = isMuted ? SKAction.sequence([flyAndMoveAction, removeAction])
+        let sequence = audioManager.isMuted ? SKAction.sequence([flyAndMoveAction, removeAction])
                                : SKAction.sequence([flappingSoundAction, flyAndMoveAction, playBirdSoundAction, removeAction])
         
         // Run actions
@@ -157,20 +155,11 @@ class GameScene: BaseScene {
         missile.physicsBody?.restitution = 0.0
         missile.physicsBody?.collisionBitMask = PhysicsCollisionBitMask.missile
         
-        if !isMuted {
+        if !audioManager.isMuted {
             missile.run(SKAction.playSoundFileNamed("shot", waitForCompletion: false))
         }
         
         addChild(missile)
-    }
-    
-    // MARK: - Audio methods
-    
-    /// Sets up the audio manager object.
-    private func setupAudioManager() {
-        audioManager.player?.enableRate = true
-        audioManager.tryPlayMusic()
-        audioManager.player?.volume = isMuted ? 0.0 : AudioManager.maxVolume
     }
 }
 

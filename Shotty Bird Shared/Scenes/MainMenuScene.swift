@@ -12,9 +12,7 @@ import SpriteKit
 class MainMenuScene: BaseScene {
     
     /// Audio manager to play background music.
-    let audioManager = AudioManager(file: "Crimson-Sextile", type: "mp3", loop: true)
-    /// Flag that determines if audio is muted.
-    var isMuted = false
+    let audioManager = AudioManagerIOS(file: "Crimson-Sextile", type: "mp3", loop: true)
     
     /// The z-axis position for all menu UI elements.
     let zPositionMenuItems = CGFloat(Int.max)
@@ -40,7 +38,7 @@ class MainMenuScene: BaseScene {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         setupUI()
-        setupAudioManager()
+        audioManager.tryPlayMusic()
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -84,7 +82,7 @@ class MainMenuScene: BaseScene {
         addChild(shareButton)
         
         // Add mute button
-        let muteButton = isMuted ? SKSpriteNode(imageNamed: "mute_button") : SKSpriteNode(imageNamed: "unmute_button")
+        let muteButton = audioManager.isMuted ? SKSpriteNode(imageNamed: "mute_button") : SKSpriteNode(imageNamed: "unmute_button")
         muteButton.position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height + screenCompensation)
         muteButton.name = "muteButton"
         muteButton.zPosition = zPositionMenuItems
@@ -98,19 +96,9 @@ class MainMenuScene: BaseScene {
             return
         }
         if muteButton.contains(location) {
-            audioManager.player?.volume = isMuted ? 1.0 : 0.0
-            isMuted = audioManager.player?.volume == 0.0 ? true : false
-            muteButton.texture = isMuted ? SKTexture(imageNamed: "mute_button") : SKTexture(imageNamed: "unmute_button")
+            audioManager.toggleMute()
+            muteButton.texture = audioManager.isMuted ? SKTexture(imageNamed: "mute_button") : SKTexture(imageNamed: "unmute_button")
         }
-    }
-    
-    // MARK: - Audio methods
-    
-    /// Sets up the audio manager object.
-    private func setupAudioManager() {
-        audioManager.player?.enableRate = true
-        audioManager.tryPlayMusic()
-        audioManager.player?.volume = isMuted ? 0.0 : AudioManager.maxVolume
     }
 }
 

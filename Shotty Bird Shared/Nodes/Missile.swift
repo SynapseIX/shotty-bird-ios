@@ -128,7 +128,7 @@ class Missile: SKSpriteNode {
                 let yScaleTmp = enemy.yScale
                 let positionTmp = enemy.position
                 let zPostionTmp = enemy.zPosition
-                let muted = gameScene.isMuted
+                let isMuted = gameScene.audioManager.isMuted
                 
                 // Remove missile
                 self.run(SKAction.removeFromParent())
@@ -136,7 +136,7 @@ class Missile: SKSpriteNode {
                 // Explosion sound action
                 let playExplosionSoundAction = SKAction.playSoundFileNamed("explosion.wav", waitForCompletion: false)
                 
-                if !muted {
+                if !isMuted {
                     enemy.run(SKAction.sequence([playExplosionSoundAction, SKAction.removeFromParent()]))
                 } else {
                     enemy.run(SKAction.removeFromParent())
