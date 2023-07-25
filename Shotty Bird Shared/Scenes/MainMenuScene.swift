@@ -93,7 +93,7 @@ class MainMenuScene: BaseScene {
     
     // MARK: - UI event handlers
     
-    private func handleMuteButtonTap(in location: CGPoint) {
+    private func handleMuteButton(in location: CGPoint) {
         guard let muteButton = childNode(withName: "muteButton") as? SKSpriteNode else {
             return
         }
@@ -121,7 +121,7 @@ extension MainMenuScene {
         for touch in touches {
             let location = touch.location(in: self)
             // Handle mute button tap
-            handleMuteButtonTap(in: location)
+            handleMuteButton(in: location)
         }
     }
 }
@@ -133,7 +133,7 @@ extension MainMenuScene {
     override func mouseDown(with event: NSEvent) {
         let location = event.location(in: self)
         // Handle mute button click
-        handleMuteButtonTap(in: location)
+        handleMuteButton(in: location)
     }
 }
 #endif
