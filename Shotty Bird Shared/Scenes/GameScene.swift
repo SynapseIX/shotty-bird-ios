@@ -26,13 +26,7 @@ class GameScene: BaseScene {
     private(set) var score: Int64 = 0
     
     /// Audio manager to play background music.
-    var audioManager: AudioManager {
-        #if os(iOS) || os(tvOS)
-            AudioManagerIOS(file: "TwinEngines-JeremyKorpas", type: "mp3", loop: true)
-        #elseif os(OSX)
-            AudioManagerMac()
-        #endif
-    }
+    let audioManager = AudioManager(file: "TwinEngines-JeremyKorpas", type: "mp3", loop: true)
     
     override init(backgroundSpeed: BackgroundSpeed = .slow) {
         super.init(backgroundSpeed: backgroundSpeed)

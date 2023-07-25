@@ -12,13 +12,7 @@ import SpriteKit
 class MainMenuScene: BaseScene {
     
     /// Audio manager to play background music.
-    var audioManager: AudioManager {
-        #if os(iOS) || os(tvOS)
-            AudioManagerIOS(file: "TwinEngines-JeremyKorpas", type: "mp3", loop: true)
-        #elseif os(OSX)
-            AudioManagerMac()
-        #endif
-    }
+    let audioManager = AudioManager(file: "Crimson-Sextile", type: "mp3", loop: true)
     
     /// The z-axis position for all menu UI elements.
     let zPositionMenuItems = CGFloat(Int.max)
