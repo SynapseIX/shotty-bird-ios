@@ -10,6 +10,9 @@ import SpriteKit
 /// Main game scene.
 class GameScene: BaseScene {
     
+    /// Fixed position on the z-axis for UI elements.
+    private let zPositionUIElements = CGFloat(Int.max)
+    
     /// Last time update method was called.
     private(set) var lastUpdateTime: CFTimeInterval = 0.0
     /// Lat time an enemy spawned.
@@ -37,6 +40,7 @@ class GameScene: BaseScene {
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
+        setupUI()
         setupAudioManager()
     }
     
@@ -58,30 +62,41 @@ class GameScene: BaseScene {
         }
     }
     
+    /// Creates and positions UI elements to be displayed during gameplay.
+    /// - Number of lives
+    /// - Score
+    /// - Pause Button
+    /// - Mute button
+    func setupUI() {
+        
+    }
+    
+    // MARK: - Gameplay Elements
+    
     /// Spawns and animates a new enemy node.
     func spawnEnemy() {
-        let enemy = Enemy(enemyType: .raven)
-        
         // Assign enemy nodes depth and scaling
         let zPosEnemy = CGFloat(arc4random_uniform(5))
-        enemy.zPosition = zPosEnemy
-        var scale: CGFloat = 0
+        var scale: EnemyScale
+        
         switch zPosEnemy {
         case 4:
-            scale = 1.5
+            scale = .large
         case 3:
-            scale = 1.25
+            scale = .medium
         case 2:
-            scale = 1.0
+            scale = .small
         case 1:
-            scale = 0.75
+            scale = .smaller
         case 0:
-            scale = 0.50
+            scale = .smallest
         default:
-            break
+            scale = .large
         }
-        enemy.xScale = -scale
-        enemy.yScale = scale
+        
+        // Initialize enemy node
+        let enemy = Enemy(enemyType: .raven, scale: scale)
+        enemy.zPosition = zPosEnemy
         
         // Set starting point and add node
         let minY = CGFloat(200)
@@ -227,3 +242,4 @@ extension GameScene: GameScoreDelegate {
         // TODO: implement
     }
 }
+

@@ -13,7 +13,16 @@ enum EnemyType {
     case raven
 }
 
-/// Represents an enemy that will spawn and that can be destroyed by a missle.
+/// Enemy node size scaling factor.
+enum EnemyScale: CGFloat {
+    case large = 1.1
+    case medium = 0.9
+    case small = 0.7
+    case smaller = 0.5
+    case smallest = 0.3
+}
+
+/// Represents an enemy that will spawn and that can be destroyed by a missile.
 class Enemy: SKSpriteNode {
     
     /// The node name.
@@ -29,8 +38,8 @@ class Enemy: SKSpriteNode {
     /// Cteates a new `Enemy` object.
     /// - Parameters:
     ///   - enemyType: The type of enemy to be created.
-    ///   - movementSpeed: The speed at which the enemy will fly through the screen.
-    init(enemyType: EnemyType = .raven) {
+    ///   - scale: The size scale for the node.
+    init(enemyType: EnemyType = .raven, scale: EnemyScale = .large) {
         self.enemyType = enemyType
         switch enemyType {
         case .raven:
@@ -62,6 +71,8 @@ class Enemy: SKSpriteNode {
         }
         super.init(texture: sprites[0], color: .clear, size: sprites[0].size())
         super.name = Enemy.nodeName
+        super.xScale = -scale.rawValue
+        super.yScale = scale.rawValue
     }
     
     required init?(coder aDecoder: NSCoder) {

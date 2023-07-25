@@ -31,15 +31,15 @@ class Missile: SKSpriteNode {
         let texture = SKTexture(imageNamed: sprites[0])
         
         super.init(texture: texture, color: .clear, size: texture.size())
-        self.setScale(1.0)
-        self.name = Missile.nodeName
-        self.zPosition = 10
+        setScale(1.0)
+        name = Missile.nodeName
+        zPosition = 10
         
         let textures = [SKTexture(imageNamed: sprites[0]),
                         SKTexture(imageNamed: sprites[1]),
                         SKTexture(imageNamed: sprites[2])]
         
-        let missileTextureAnimation = SKAction.animate(with: textures, timePerFrame: 1.0 / 60.0)
+        let missileTextureAnimation = SKAction.animate(with: textures, timePerFrame: 0.01)
         let repeatMissileTextureAnimation = SKAction.repeat(missileTextureAnimation, count: 2)
         let travelAction = SKAction.group([repeatMissileTextureAnimation, scaleAction])
         
@@ -166,6 +166,7 @@ class Missile: SKSpriteNode {
                 explosion.run(SKAction.sequence([explosionAction, SKAction.removeFromParent()]))
                 gameScene.addChild(explosion)
                 
+                // TODO: Implement
                 // Increase game score
 //                    gameScene.updateScore()
                 

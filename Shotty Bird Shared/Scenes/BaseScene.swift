@@ -144,7 +144,7 @@ class BaseScene: SKScene {
         lastFrameTime = currentTime
         
         let speedMultiplier = backgroundSpeed == .slow ? 0.33 : 1.0
-        animateBackground(backgroundLayerNode: hillLayerNode1, clonedBackgroundLayerNode: hillLayerNode1Clone, speed: 200.0 * speedMultiplier)
+        animateBackground(backgroundLayerNode: hillLayerNode1, clonedBackgroundLayerNode: hillLayerNode1Clone, speed: 100.0 * speedMultiplier)
         animateBackground(backgroundLayerNode: hillLayerNode2, clonedBackgroundLayerNode: hillLayerNode2Clone, speed: 750.0 * speedMultiplier)
         animateBackground(backgroundLayerNode: hillLayerNode3, clonedBackgroundLayerNode: hillLayerNode3Clone, speed: 1500.0 * speedMultiplier)
     }
