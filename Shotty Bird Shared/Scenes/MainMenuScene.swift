@@ -105,6 +105,7 @@ class MainMenuScene: BaseScene {
         }
         if playButton.contains(location) {
             let gameScene = GameScene(backgroundSpeed: .fast)
+            gameScene.audioManager.isMuted = audioManager.isMuted
             
             let transition = SKTransition.doorsOpenHorizontal(withDuration: 1.0)
             view?.presentScene(gameScene, transition: transition)
@@ -118,7 +119,7 @@ class MainMenuScene: BaseScene {
             return
         }
         if muteButton.contains(location) {
-            audioManager.toggleMute()
+            audioManager.isMuted.toggle()
             muteButton.texture = audioManager.isMuted ? SKTexture(imageNamed: "mute_button") : SKTexture(imageNamed: "unmute_button")
         }
     }

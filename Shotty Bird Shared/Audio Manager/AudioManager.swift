@@ -18,9 +18,14 @@ class AudioManager: NSObject {
     /// The audio player.
     private(set) var player: AVAudioPlayer?
     
-    /// Returns the current mute state of the audio player.
+    /// Returns or sets the current mute state of the audio player.
     var isMuted: Bool {
-        player?.volume == 0.0
+        get {
+            player?.volume == 0.0
+        }
+        set {
+            player?.volume = newValue ? 0.0 : AudioManager.maxVolume
+        }
     }
     
     /// Flag that determines if the music was interrupted due to an audio session interruption.
@@ -74,7 +79,6 @@ class AudioManager: NSObject {
         if session?.isOtherAudioPlaying == false {
             player?.prepareToPlay()
             player?.play()
-            player?.volume = AudioManager.maxVolume
         }
     }
     
@@ -83,11 +87,6 @@ class AudioManager: NSObject {
         if player?.isPlaying == true {
             player?.stop()
         }
-    }
-    
-    /// Toggles the mute state of the audio player.
-    func toggleMute() {
-        player?.volume = isMuted ? AudioManager.maxVolume : 0.0
     }
 }
 
