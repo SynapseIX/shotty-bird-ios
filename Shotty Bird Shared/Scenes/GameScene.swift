@@ -178,7 +178,7 @@ extension GameScene {
                 lastShotFiredTime = CACurrentMediaTime()
             } else {
                 let deltaTime = CACurrentMediaTime() - lastShotFiredTime
-                if deltaTime >= spawnFrequency / 2 {
+                if deltaTime >= spawnFrequency / 3 {
                     shootMissile(in: location)
                     lastShotFiredTime = CACurrentMediaTime()
                 }
