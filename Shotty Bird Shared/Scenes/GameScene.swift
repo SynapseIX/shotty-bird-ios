@@ -57,7 +57,7 @@ class GameScene: BaseScene {
         
         lastSpawnTime += timeSinceLast
         
-        if lastSpawnTime > 2 {
+        if lastSpawnTime > spawnFrequency {
             spawnEnemy()
             lastSpawnTime = 0
         }

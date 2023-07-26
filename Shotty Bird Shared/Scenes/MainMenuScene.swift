@@ -105,13 +105,35 @@ class MainMenuScene: BaseScene {
         }
         if playButton.contains(location) {
             audioManager.stopMusic()
-            run(playBirdSoundAction)
+            run(playExplosionSoundAction)
             
             let gameScene = GameScene(backgroundSpeed: .fast)
             gameScene.audioManager.isMuted = audioManager.isMuted
             
             let transition = SKTransition.doorsOpenHorizontal(withDuration: 1.0)
             view?.presentScene(gameScene, transition: transition)
+        }
+    }
+    
+    /// Handles the play leaderboard tap event.
+    /// - Parameter location: A point where the screen is tapped.
+    private func handleLeaderboardButton(in location: CGPoint) {
+        guard let leaderboardButton = childNode(withName: "leaderboard_button") else {
+            return
+        }
+        if leaderboardButton.contains(location) {
+            // TODO: implement transition
+        }
+    }
+    
+    /// Handles the play credits tap event.
+    /// - Parameter location: A point where the screen is tapped.
+    private func handleCreditsButton(in location: CGPoint) {
+        guard let creditsButton = childNode(withName: "credits_button") else {
+            return
+        }
+        if creditsButton.contains(location) {
+            // TODO: implement transition
         }
     }
     
@@ -136,7 +158,10 @@ extension MainMenuScene {
             let location = touch.location(in: self)
             // Handle play button tap
             handlePlayButton(in: location)
-            
+            // Handle leaderboard button tap
+            handleLeaderboardButton(in: location)
+            // Handle credits button tap
+            handleCreditsButton(in: location)
             // Handle mute button tap
             handleMuteButton(in: location)
         }
