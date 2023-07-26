@@ -10,6 +10,9 @@ import SpriteKit
 /// Main game scene.
 class GameScene: BaseScene {
     
+    /// Fixed position on the z-axis for UI elements.
+    private let zPositionUIElements = CGFloat(Int.max)
+    
     /// Last time update method was called.
     private(set) var lastUpdateTime: CFTimeInterval = 0.0
     /// Lat time an enemy spawned.
@@ -22,8 +25,11 @@ class GameScene: BaseScene {
     /// Game score.
     private(set) var score: Int64 = 0
     
-    /// Flag that determines if audio is muted.
-    var isMuted = false
+    /// Controls how many seconds has to pass before spawning a new enemy.
+    private var spawnFrequency: TimeInterval = 2
+    
+    /// Audio manager to play background music.
+    let audioManager = AudioManager(file: "TwinEngines-JeremyKorpas", type: "mp3", loop: true)
     
     override init(backgroundSpeed: BackgroundSpeed = .slow) {
         super.init(backgroundSpeed: backgroundSpeed)
@@ -35,6 +41,8 @@ class GameScene: BaseScene {
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
+        setupUI()
+        audioManager.tryPlayMusic()
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -49,36 +57,47 @@ class GameScene: BaseScene {
         
         lastSpawnTime += timeSinceLast
         
-        if lastSpawnTime > 2 {
+        if lastSpawnTime > spawnFrequency {
             spawnEnemy()
             lastSpawnTime = 0
         }
     }
     
+    /// Creates and positions UI elements to be displayed during gameplay.
+    /// - Number of lives
+    /// - Score
+    /// - Pause Button
+    /// - Mute button
+    func setupUI() {
+        
+    }
+    
+    // MARK: - Gameplay Elements
+    
     /// Spawns and animates a new enemy node.
     func spawnEnemy() {
-        let enemy = Enemy(enemyType: .raven)
-        
         // Assign enemy nodes depth and scaling
         let zPosEnemy = CGFloat(arc4random_uniform(5))
-        enemy.zPosition = zPosEnemy
-        var scale: CGFloat = 0
+        var scale: EnemyScale
+        
         switch zPosEnemy {
         case 4:
-            scale = 1.5
+            scale = .large
         case 3:
-            scale = 1.25
+            scale = .medium
         case 2:
-            scale = 1.0
+            scale = .small
         case 1:
-            scale = 0.75
+            scale = .smaller
         case 0:
-            scale = 0.50
+            scale = .smallest
         default:
-            break
+            scale = .large
         }
-        enemy.xScale = -scale
-        enemy.yScale = scale
+        
+        // Initialize enemy node
+        let enemy = Enemy(enemyType: .raven, scale: scale)
+        enemy.zPosition = zPosEnemy
         
         // Set starting point and add node
         let minY = CGFloat(200)
@@ -114,19 +133,21 @@ class GameScene: BaseScene {
         
         let playBirdSoundAction = SKAction.playSoundFileNamed("bird.wav", waitForCompletion: false)
         let flapAction = SKAction.animate(with: enemy.sprites, timePerFrame: flappingSpeed)
-        let flappingSoundAction = SKAction.repeat(SKAction.playSoundFileNamed("wing_flap.wav", waitForCompletion: false), count: Int(duration / 0.2))
+        let flappingSoundAction = SKAction.playSoundFileNamed("wing_flap.wav", waitForCompletion: false)
         let flyAction = SKAction.repeat(flapAction, count: Int(duration / 0.2))
         let moveAction = SKAction.move(to: CGPoint(x: -enemy.size.width / 2, y: enemy.position.y), duration: duration)
         let flyAndMoveAction = SKAction.group([flyAction, moveAction])
-        
         let removeAction = SKAction.removeFromParent()
-        let sequence = isMuted ? SKAction.sequence([flyAndMoveAction, removeAction])
+        
+        let sequence = audioManager.isMuted ? SKAction.sequence([flyAndMoveAction, removeAction])
                                : SKAction.sequence([flappingSoundAction, flyAndMoveAction, playBirdSoundAction, removeAction])
         
         // Run actions
         enemy.run(sequence)
     }
     
+    /// Shoots a missile sprite node.
+    /// - Parameter location: The location where the node should appear.
     private func shootMissile(in location: CGPoint) {
         let missile = Missile(delegate: self)
         missile.position = location
@@ -137,7 +158,7 @@ class GameScene: BaseScene {
         missile.physicsBody?.restitution = 0.0
         missile.physicsBody?.collisionBitMask = PhysicsCollisionBitMask.missile
         
-        if !isMuted {
+        if !audioManager.isMuted {
             missile.run(SKAction.playSoundFileNamed("shot", waitForCompletion: false))
         }
         
@@ -145,8 +166,8 @@ class GameScene: BaseScene {
     }
 }
 
-#if os(iOS) || os(tvOS)
-// Touch-based event handling
+// MARK: - Touch-based event handling
+
 extension GameScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
@@ -157,54 +178,14 @@ extension GameScene {
                 lastShotFiredTime = CACurrentMediaTime()
             } else {
                 let deltaTime = CACurrentMediaTime() - lastShotFiredTime
-                if deltaTime >= lastSpawnTime * 0.5 {
+                if deltaTime >= spawnFrequency / 3 {
                     shootMissile(in: location)
                     lastShotFiredTime = CACurrentMediaTime()
                 }
             }
         }
     }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
 }
-#endif
-
-#if os(OSX)
-// Mouse-based event handling
-extension GameScene {
-    override func mouseDown(with event: NSEvent) {
-        let location = event.location(in: self)
-        if lastShotFiredTime == 0.0 {
-            shootMissile(in: location)
-            lastShotFiredTime = CACurrentMediaTime()
-        } else {
-            let deltaTime = CACurrentMediaTime() - lastShotFiredTime
-            if deltaTime >= lastSpawnTime * 0.5 {
-                shootMissile(in: location)
-                lastShotFiredTime = CACurrentMediaTime()
-            }
-        }
-    }
-    
-    override func mouseDragged(with event: NSEvent) {
-        
-    }
-    
-    override func mouseUp(with event: NSEvent) {
-        
-    }
-}
-#endif
 
 // MARK: - GameScoreDelegate
 
@@ -213,3 +194,4 @@ extension GameScene: GameScoreDelegate {
         // TODO: implement
     }
 }
+

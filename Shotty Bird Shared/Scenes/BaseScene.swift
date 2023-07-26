@@ -21,30 +21,30 @@ class BaseScene: SKScene {
     var backgroundSpeed: BackgroundSpeed
     
     /// Node that contains the sky texture.
-    var skyNode : SKSpriteNode!
+    private var skyNode : SKSpriteNode!
     /// Sky node clone for parallax effect.
-    var skyNodeNext : SKSpriteNode!
+    private var skyNodeNext : SKSpriteNode!
     
     /// Farthestmost hill layer node.
-    var hillLayerNode1: SKSpriteNode!
+    private var hillLayerNode1: SKSpriteNode!
     /// Clone node for parallax effect.
-    var hillLayerNode1Clone : SKSpriteNode!
+    private var hillLayerNode1Clone : SKSpriteNode!
     
     /// Mid hill layer node.
-    var hillLayerNode2: SKSpriteNode!
+    private var hillLayerNode2: SKSpriteNode!
     /// Clone node for parallax effect.
-    var hillLayerNode2Clone : SKSpriteNode!
+    private var hillLayerNode2Clone : SKSpriteNode!
     
     /// Closes hill layer node.
-    var hillLayerNode3: SKSpriteNode!
+    private var hillLayerNode3: SKSpriteNode!
     /// Clone node for parallax effect.
-    var hillLayerNode3Clone : SKSpriteNode!
+    private var hillLayerNode3Clone : SKSpriteNode!
     
     /// Time of last frame rendered.
-    var lastFrameTime: TimeInterval = 0
+    private var lastFrameTime: TimeInterval = 0
     
     /// Time since last frame was rendered.
-    var deltaTime: TimeInterval = 0
+    private var deltaTime: TimeInterval = 0
     
     init(backgroundSpeed: BackgroundSpeed) {
         self.backgroundSpeed = backgroundSpeed
@@ -144,8 +144,9 @@ class BaseScene: SKScene {
         lastFrameTime = currentTime
         
         let speedMultiplier = backgroundSpeed == .slow ? 0.33 : 1.0
-        animateBackground(backgroundLayerNode: hillLayerNode1, clonedBackgroundLayerNode: hillLayerNode1Clone, speed: 200.0 * speedMultiplier)
+        animateBackground(backgroundLayerNode: hillLayerNode1, clonedBackgroundLayerNode: hillLayerNode1Clone, speed: 100.0 * speedMultiplier)
         animateBackground(backgroundLayerNode: hillLayerNode2, clonedBackgroundLayerNode: hillLayerNode2Clone, speed: 750.0 * speedMultiplier)
         animateBackground(backgroundLayerNode: hillLayerNode3, clonedBackgroundLayerNode: hillLayerNode3Clone, speed: 1500.0 * speedMultiplier)
     }
 }
+

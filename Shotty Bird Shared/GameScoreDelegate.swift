@@ -13,3 +13,4 @@ protocol GameScoreDelegate {
     /// Executes logic to update the game score.
     mutating func updateScore()
 }
+

@@ -13,3 +13,4 @@ struct PhysicsCollisionBitMask {
     static let enemy: UInt32 = 0x1 << 0
     static let missile: UInt32 = 0x1 << 1
 }
+

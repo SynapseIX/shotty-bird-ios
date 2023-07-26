@@ -11,4 +11,4 @@ Shoot down incoming birds by timing your shots perfectly. Speed and distance are
 - Superb Physics
 - Dynamic difficulty: easy to play, hard to master
 - Leaderboards and achievements
-- Score sharing on Facebook and Twitter
+- Score sharing on any supported apps

@@ -11,6 +11,9 @@ import SpriteKit
 /// Represents a missle used to shoot down enemies.
 class Missile: SKSpriteNode {
     
+    /// The node name.
+    static let nodeName = "missile"
+    
     /// The named images for the missile sprite.
     private var sprites = ["missile_1", "missile_2", "missile_3"]
     /// A scale animation that provides the perfection of a missile going inside the screen.
@@ -28,15 +31,15 @@ class Missile: SKSpriteNode {
         let texture = SKTexture(imageNamed: sprites[0])
         
         super.init(texture: texture, color: .clear, size: texture.size())
-        self.setScale(1.0)
-        self.name = "missile"
-        self.zPosition = 10
+        setScale(1.0)
+        name = Missile.nodeName
+        zPosition = 10
         
         let textures = [SKTexture(imageNamed: sprites[0]),
                         SKTexture(imageNamed: sprites[1]),
                         SKTexture(imageNamed: sprites[2])]
         
-        let missileTextureAnimation = SKAction.animate(with: textures, timePerFrame: 1.0 / 60.0)
+        let missileTextureAnimation = SKAction.animate(with: textures, timePerFrame: 0.01)
         let repeatMissileTextureAnimation = SKAction.repeat(missileTextureAnimation, count: 2)
         let travelAction = SKAction.group([repeatMissileTextureAnimation, scaleAction])
         
@@ -110,11 +113,12 @@ class Missile: SKSpriteNode {
     
     // MARK: - Collision methods
     
+    /// Validates the collision between a missile and an enemy.
     private func validateCollision() {
         guard let gameScene = delegate as? GameScene else {
             return
         }
-        gameScene.enumerateChildNodes(withName: "enemy") { node, stop in
+        gameScene.enumerateChildNodes(withName: Enemy.nodeName) { node, stop in
             guard let enemy = node as? Enemy else {
                 return
             }
@@ -124,7 +128,7 @@ class Missile: SKSpriteNode {
                 let yScaleTmp = enemy.yScale
                 let positionTmp = enemy.position
                 let zPostionTmp = enemy.zPosition
-                let muted = gameScene.isMuted
+                let isMuted = gameScene.audioManager.isMuted
                 
                 // Remove missile
                 self.run(SKAction.removeFromParent())
@@ -132,7 +136,7 @@ class Missile: SKSpriteNode {
                 // Explosion sound action
                 let playExplosionSoundAction = SKAction.playSoundFileNamed("explosion.wav", waitForCompletion: false)
                 
-                if !muted {
+                if !isMuted {
                     enemy.run(SKAction.sequence([playExplosionSoundAction, SKAction.removeFromParent()]))
                 } else {
                     enemy.run(SKAction.removeFromParent())
@@ -162,6 +166,7 @@ class Missile: SKSpriteNode {
                 explosion.run(SKAction.sequence([explosionAction, SKAction.removeFromParent()]))
                 gameScene.addChild(explosion)
                 
+                // TODO: Implement
                 // Increase game score
 //                    gameScene.updateScore()
                 
@@ -183,3 +188,4 @@ class Missile: SKSpriteNode {
         }
     }
 }
+
