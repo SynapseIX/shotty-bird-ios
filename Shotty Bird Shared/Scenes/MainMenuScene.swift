@@ -157,7 +157,7 @@ class MainMenuScene: BaseScene {
     /// Handles the play leaderboard tap event.
     /// - Parameter location: A point where the screen is tapped.
     private func handleLeaderboardButton(in location: CGPoint) {
-        guard let leaderboardButton = childNode(withName: "leaderboard_button") else {
+        guard let leaderboardButton = childNode(withName: "leaderboardButton") else {
             return
         }
         if leaderboardButton.contains(location) {
@@ -168,7 +168,7 @@ class MainMenuScene: BaseScene {
     /// Handles the play credits tap event.
     /// - Parameter location: A point where the screen is tapped.
     private func handleCreditsButton(in location: CGPoint) {
-        guard let creditsButton = childNode(withName: "credits_button") else {
+        guard let creditsButton = childNode(withName: "creditsButton") else {
             return
         }
         if creditsButton.contains(location) {
