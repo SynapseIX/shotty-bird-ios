@@ -97,6 +97,22 @@ class MainMenuScene: BaseScene {
     
     // MARK: - UI event handlers
     
+    /// Handles the play button tap event.
+    /// - Parameter location: A point where the screen is tapped.
+    private func handlePlayButton(in location: CGPoint) {
+        guard let playButton = childNode(withName: "playButton") else {
+            return
+        }
+        if playButton.contains(location) {
+            let gameScene = GameScene(backgroundSpeed: .fast)
+            
+            let transition = SKTransition.doorsOpenHorizontal(withDuration: 1.0)
+            view?.presentScene(gameScene, transition: transition)
+        }
+    }
+    
+    /// Handles the mute button tap event.
+    /// - Parameter location: A point where the screen is tapped.
     private func handleMuteButton(in location: CGPoint) {
         guard let muteButton = childNode(withName: "muteButton") as? SKSpriteNode else {
             return
@@ -108,27 +124,18 @@ class MainMenuScene: BaseScene {
     }
 }
 
-#if os(iOS) || os(tvOS)
-// Touch-based event handling
+// MARK: - Touch-based event handling
+
 extension MainMenuScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
+            // Handle play button tap
+            handlePlayButton(in: location)
+            
             // Handle mute button tap
             handleMuteButton(in: location)
         }
     }
 }
-#endif
-
-#if os(OSX)
-// Mouse-based event handling
-extension MainMenuScene {
-    override func mouseDown(with event: NSEvent) {
-        let location = event.location(in: self)
-        // Handle mute button click
-        handleMuteButton(in: location)
-    }
-}
-#endif
 
