@@ -79,6 +79,8 @@
 		CFB43E0A2A4DB7CD00A3F426 /* BaseScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScene.swift; sourceTree = "<group>"; };
 		CFB43E0E2A4DBAA700A3F426 /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 		CFCEA7E22A70E6E500D00C03 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		CFCEA7E52A70F9D700D00C03 /* Shotty-Bird-iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Shotty-Bird-iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
+		CFCEA7E62A70FACB00D00C03 /* Shotty-Bird-tvOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Shotty-Bird-tvOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 				CF77C6692A4D24D900BA03ED /* GameViewController.swift */,
 				CF77C66B2A4D24D900BA03ED /* Main.storyboard */,
 				CF77C66E2A4D24D900BA03ED /* LaunchScreen.storyboard */,
+				CFCEA7E52A70F9D700D00C03 /* Shotty-Bird-iOS-Info.plist */,
 			);
 			path = "Shotty Bird iOS";
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 				CF77C6792A4D24D900BA03ED /* GameViewController.swift */,
 				CF77C67B2A4D24D900BA03ED /* Main.storyboard */,
 				CF77C67E2A4D24D900BA03ED /* LaunchScreen.storyboard */,
+				CFCEA7E62A70FACB00D00C03 /* Shotty-Bird-tvOS-Info.plist */,
 			);
 			path = "Shotty Bird tvOS";
 			sourceTree = "<group>";
@@ -525,8 +529,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RTCYSWYBFH;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Shotty-Bird-iOS-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Shotty Bird";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -538,7 +544,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "co.profapps.Shotty-Bird";
 				PRODUCT_NAME = "Shotty Bird";
 				SDKROOT = iphoneos;
@@ -557,8 +563,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RTCYSWYBFH;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Shotty-Bird-iOS-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Shotty Bird";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -570,7 +578,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "co.profapps.Shotty-Bird";
 				PRODUCT_NAME = "Shotty Bird";
 				SDKROOT = iphoneos;
@@ -589,6 +597,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Shotty-Bird-tvOS-Info.plist";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
@@ -615,6 +624,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Shotty-Bird-tvOS-Info.plist";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
