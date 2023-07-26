@@ -25,13 +25,7 @@ class MainMenuScene: BaseScene {
     let playExplosionSoundAction = SKAction.playSoundFileNamed("explosion.wav", waitForCompletion: false)
     
     /// Determines if the game is running on a phone device.
-    private var isPhone: Bool {
-        #if os(iOS) || os(tvOS)
-            UIDevice.current.userInterfaceIdiom == .phone
-        #else
-            false
-        #endif
-    }
+    private var isPhone = UIDevice.current.userInterfaceIdiom == .phone
     
     override init(backgroundSpeed: BackgroundSpeed = .slow) {
         super.init(backgroundSpeed: backgroundSpeed)
