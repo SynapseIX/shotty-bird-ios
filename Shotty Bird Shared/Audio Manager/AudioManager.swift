@@ -14,9 +14,9 @@ class AudioManager: NSObject {
     static let maxVolume: Float = 0.5
     
     /// The audio session.
-    private(set) var session: AVAudioSession?
+    private var session: AVAudioSession?
     /// The audio player.
-    private(set) var player: AVAudioPlayer?
+    private var player: AVAudioPlayer?
     
     /// Returns or sets the current mute state of the audio player.
     var isMuted: Bool {
