@@ -25,6 +25,9 @@ class GameScene: BaseScene {
     /// Game score.
     private(set) var score: Int64 = 0
     
+    /// Controls how many seconds has to pass before spawning a new enemy.
+    private var spawnFrequency: TimeInterval = 2
+    
     /// Audio manager to play background music.
     let audioManager = AudioManager(file: "TwinEngines-JeremyKorpas", type: "mp3", loop: true)
     
@@ -207,7 +210,7 @@ extension GameScene {
             lastShotFiredTime = CACurrentMediaTime()
         } else {
             let deltaTime = CACurrentMediaTime() - lastShotFiredTime
-            if deltaTime >= lastSpawnTime * 0.5 {
+            if deltaTime >= spawnFrequency {
                 shootMissile(in: location)
                 lastShotFiredTime = CACurrentMediaTime()
             }
