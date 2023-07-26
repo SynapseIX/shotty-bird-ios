@@ -74,12 +74,14 @@ class MainMenuScene: BaseScene {
                        SKTexture(imageNamed: "idle-texture0023"),
                        SKTexture(imageNamed: "idle-texture0024"),
                        SKTexture(imageNamed: "idle-texture0025")]
+        
         let enemy = SKSpriteNode(texture: sprites[0], color: .clear, size: sprites[0].size())
         enemy.setScale(0.5)
         enemy.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame) + 150)
         enemy.name = "enemyIdle"
         enemy.zPosition = zPositionMenuItems
         addChild(enemy)
+        
         let animationAction = SKAction.animate(with: sprites, timePerFrame: 1.0 / 25.0)
         let waitAction = SKAction.wait(forDuration: 2.0)
         let animateAndWait = SKAction.sequence([animationAction, waitAction])
