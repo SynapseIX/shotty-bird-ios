@@ -166,8 +166,8 @@ class GameScene: BaseScene {
     }
 }
 
-#if os(iOS) || os(tvOS)
-// Touch-based event handling
+// MARK: - Touch-based event handling
+
 extension GameScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
@@ -178,54 +178,14 @@ extension GameScene {
                 lastShotFiredTime = CACurrentMediaTime()
             } else {
                 let deltaTime = CACurrentMediaTime() - lastShotFiredTime
-                if deltaTime >= lastSpawnTime * 0.5 {
+                if deltaTime >= spawnFrequency / 2 {
                     shootMissile(in: location)
                     lastShotFiredTime = CACurrentMediaTime()
                 }
             }
         }
     }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
 }
-#endif
-
-#if os(OSX)
-// Mouse-based event handling
-extension GameScene {
-    override func mouseDown(with event: NSEvent) {
-        let location = event.location(in: self)
-        if lastShotFiredTime == 0.0 {
-            shootMissile(in: location)
-            lastShotFiredTime = CACurrentMediaTime()
-        } else {
-            let deltaTime = CACurrentMediaTime() - lastShotFiredTime
-            if deltaTime >= spawnFrequency {
-                shootMissile(in: location)
-                lastShotFiredTime = CACurrentMediaTime()
-            }
-        }
-    }
-    
-    override func mouseDragged(with event: NSEvent) {
-        
-    }
-    
-    override func mouseUp(with event: NSEvent) {
-        
-    }
-}
-#endif
 
 // MARK: - GameScoreDelegate
 
