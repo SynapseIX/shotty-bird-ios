@@ -104,6 +104,9 @@ class MainMenuScene: BaseScene {
             return
         }
         if playButton.contains(location) {
+            audioManager.stopMusic()
+            run(playBirdSoundAction)
+            
             let gameScene = GameScene(backgroundSpeed: .fast)
             gameScene.audioManager.isMuted = audioManager.isMuted
             
