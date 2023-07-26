@@ -178,6 +178,41 @@ class MainMenuScene: BaseScene {
         }
     }
     
+    /// Handles the share credits tap event.
+    /// - Parameter location: A point where the screen is tapped.
+    private func handleShareButton(in location: CGPoint) {
+        guard let shareButton = childNode(withName: "shareButton") as? SKSpriteNode,
+              let gameViewController = view?.window?.rootViewController as? GameViewController else {
+            return
+        }
+        if shareButton.contains(location) {
+            var convertedOrigin = convertPoint(toView: shareButton.frame.origin)
+            convertedOrigin.y = convertedOrigin.y - shareButton.frame.size.height / 2
+            let shareFrame = CGRect(origin: convertedOrigin, size: shareButton.frame.size)
+            
+            let activityItems: [Any] = [Constants.shareText, Constants.shareURL, Constants.appIconImage]
+            let excludedActivityTypes: [UIActivity.ActivityType] = [.print,
+                                                                    .copyToPasteboard,
+                                                                    .assignToContact,
+                                                                    .saveToCameraRoll,
+                                                                    .addToReadingList,
+                                                                    .airDrop,
+                                                                    .openInIBooks,
+                                                                    .postToVimeo,
+                                                                    .collaborationCopyLink,
+                                                                    .collaborationInviteWithLink,
+                                                                    .markupAsPDF,
+                                                                    .sharePlay]
+            
+            let shareController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+            shareController.excludedActivityTypes = excludedActivityTypes
+            shareController.popoverPresentationController?.sourceView = view
+            shareController.popoverPresentationController?.sourceRect = shareFrame
+            shareController.popoverPresentationController?.permittedArrowDirections = [.down]
+            gameViewController.present(shareController, animated: true)
+        }
+    }
+    
     /// Handles the mute button tap event.
     /// - Parameter location: A point where the screen is tapped.
     private func handleMuteButton(in location: CGPoint) {
@@ -203,6 +238,8 @@ extension MainMenuScene {
             handleLeaderboardButton(in: location)
             // Handle credits button tap
             handleCreditsButton(in: location)
+            // Handle share button tap
+            handleShareButton(in: location)
             // Handle mute button tap
             handleMuteButton(in: location)
         }

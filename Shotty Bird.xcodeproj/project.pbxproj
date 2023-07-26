@@ -47,6 +47,8 @@
 		CFB43E0C2A4DB7CD00A3F426 /* BaseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB43E0A2A4DB7CD00A3F426 /* BaseScene.swift */; };
 		CFB43E0F2A4DBAA700A3F426 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB43E0E2A4DBAA700A3F426 /* MainMenuScene.swift */; };
 		CFB43E102A4DBAA700A3F426 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB43E0E2A4DBAA700A3F426 /* MainMenuScene.swift */; };
+		CFCEA7E32A70E6E500D00C03 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCEA7E22A70E6E500D00C03 /* Constants.swift */; };
+		CFCEA7E42A70E6E500D00C03 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCEA7E22A70E6E500D00C03 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +78,7 @@
 		CF77C67F2A4D24D900BA03ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CFB43E0A2A4DB7CD00A3F426 /* BaseScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScene.swift; sourceTree = "<group>"; };
 		CFB43E0E2A4DBAA700A3F426 /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
+		CFCEA7E22A70E6E500D00C03 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +150,7 @@
 		CF77C65B2A4D24D800BA03ED /* Shotty Bird Shared */ = {
 			isa = PBXGroup;
 			children = (
+				CFCEA7E12A70E6C600D00C03 /* Constants */,
 				CF68C0C02A5401D900264E81 /* Audio Manager */,
 				CF77C6A72A4D292600BA03ED /* Nodes */,
 				CFB43E092A4DB7B100A3F426 /* Scenes */,
@@ -206,6 +210,14 @@
 				CFB43E0E2A4DBAA700A3F426 /* MainMenuScene.swift */,
 			);
 			path = Scenes;
+			sourceTree = "<group>";
+		};
+		CFCEA7E12A70E6C600D00C03 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				CFCEA7E22A70E6E500D00C03 /* Constants.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -326,6 +338,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFB43E0F2A4DBAA700A3F426 /* MainMenuScene.swift in Sources */,
+				CFCEA7E32A70E6E500D00C03 /* Constants.swift in Sources */,
 				CF77C6952A4D24D900BA03ED /* GameScene.swift in Sources */,
 				CF1A8F4F2A53A57400BAD0A6 /* Enemy.swift in Sources */,
 				CF1A8F5C2A53DA2C00BAD0A6 /* GameScoreDelegate.swift in Sources */,
@@ -343,6 +356,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFB43E102A4DBAA700A3F426 /* MainMenuScene.swift in Sources */,
+				CFCEA7E42A70E6E500D00C03 /* Constants.swift in Sources */,
 				CF77C6962A4D24D900BA03ED /* GameScene.swift in Sources */,
 				CF1A8F502A53A57400BAD0A6 /* Enemy.swift in Sources */,
 				CF1A8F5D2A53DA2C00BAD0A6 /* GameScoreDelegate.swift in Sources */,
