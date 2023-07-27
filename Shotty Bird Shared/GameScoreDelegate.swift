@@ -11,6 +11,6 @@ import Foundation
 /// Delegate object in charge of updating the game score.
 protocol GameScoreDelegate {
     /// Executes logic to update the game score.
-    mutating func updateScore()
+    mutating func updateScore(grantExtraLife: Bool)
 }
 

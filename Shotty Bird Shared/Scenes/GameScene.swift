@@ -163,7 +163,7 @@ class GameScene: BaseScene {
         let playBirdSoundAction = SKAction.playSoundFileNamed("bird.wav", waitForCompletion: false)
         let flapAction = SKAction.animate(with: enemy.sprites, timePerFrame: flappingSpeed)
         let flappingSoundAction = SKAction.playSoundFileNamed("wing_flap.wav", waitForCompletion: false)
-        let flyAction = SKAction.repeat(flapAction, count: Int(duration / 0.2))
+        let flyAction = SKAction.repeat(flapAction, count: Int(duration / flappingSpeed / 25))
         let moveAction = SKAction.move(to: CGPoint(x: -enemy.size.width / 2, y: enemy.position.y), duration: duration)
         let flyAndMoveAction = SKAction.group([flyAction, moveAction])
         let removeAction = SKAction.removeFromParent()
@@ -171,16 +171,17 @@ class GameScene: BaseScene {
         let sequence = audioManager.isMuted ? SKAction.sequence([flyAndMoveAction, removeAction])
                                             : SKAction.sequence([flappingSoundAction,
                                                                  flyAndMoveAction,
-                                                                 playBirdSoundAction,
-                                                                 removeAction])
+                                                                 playBirdSoundAction])
         enemy.run(sequence) {
             if self.mode == .slayer {
-                if enemy.position == CGPoint(x: -enemy.size.width / 2, y: enemy.position.y) {
+                if enemy.position.x == -enemy.size.width / 2 {
                     self.lives -= 1
                     
                     // TODO: consider extra life if player watches ad or purchased no ads
                     if self.lives == 2 {
-                        let node = self.childNode(withName: "life1") as! SKSpriteNode
+                        guard let node = self.childNode(withName: "life1") as? SKSpriteNode else {
+                            return
+                        }
                         node.texture = SKTexture(imageNamed: "death")
                     } else if self.lives == 1 {
                         let node = self.childNode(withName: "life2") as! SKSpriteNode
@@ -408,7 +409,7 @@ extension GameScene {
 // MARK: - GameScoreDelegate
 
 extension GameScene: GameScoreDelegate {
-    func updateScore() {
+    func updateScore(grantExtraLife: Bool) {
         score += 1
         
         if mode == .slayer {
@@ -416,6 +417,26 @@ extension GameScene: GameScoreDelegate {
                 audioManager.increasePlaybackRate(by: 0.1)
                 if spawnFrequency >= 0.8 {
                     spawnFrequency -= 0.2
+                }
+            }
+            
+            // TODO: consider extra life if player watched ad or purchased no ads
+            if grantExtraLife {
+                if lives == 1 {
+                    guard let node = self.childNode(withName: "life2") as? SKSpriteNode else {
+                        return
+                    }
+                    node.texture = SKTexture(imageNamed: "life")
+                    lives += 1
+                } else if lives == 2 {
+                    guard let node = self.childNode(withName: "life1") as? SKSpriteNode else {
+                        return
+                    }
+                    node.texture = SKTexture(imageNamed: "life")
+                    lives += 1
+                }
+                if !audioManager.isMuted {
+                    run(SKAction.playSoundFileNamed("1up.mp3", waitForCompletion: false))
                 }
             }
         }
