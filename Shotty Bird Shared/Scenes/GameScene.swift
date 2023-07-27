@@ -39,6 +39,10 @@ class GameScene: BaseScene {
     /// Last time a shot was fired.
     private(set) var lastShotFiredTime: CFTimeInterval = 0.0
     
+    private var timer: Timer?
+    
+    /// Time attack mode timer value.
+    private(set) var timerValue = 60
     /// Number of lives remaining.
     private(set) var lives = 3
     /// Game score.
@@ -78,6 +82,9 @@ class GameScene: BaseScene {
             case .hard:
                 spawnFrequency = 0.8
             }
+        } else if mode == .timeAttack {
+            spawnFrequency = 0.33
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimerNode), userInfo: nil, repeats: true)
         }
         
         let musicType: MusicType = mode == .slayer ? .gameplay : .practice
@@ -219,6 +226,32 @@ class GameScene: BaseScene {
         
         addChild(missile)
     }
+    
+    @objc private func updateTimerNode() {
+        timerValue -= 1
+        
+        // Update timer label with new time value
+        guard let node = childNode(withName: "timer") as? AttributedLabelNode,
+              let font =  UIFont(name: "Kenney-Bold", size: 35) else {
+            return
+        }
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .left
+        let attributes: [NSAttributedString.Key: Any] = [.font: font,
+                                                         .foregroundColor: UIColor.white,
+                                                         .strokeColor: UIColor.black,
+                                                         .strokeWidth: -10,
+                                                         .paragraphStyle: paragraphStyle]
+        
+        let formattedString = timerValue < 10 ? "0\(timerValue)"
+                                              : "\(timerValue)"
+        node.attributedString = NSAttributedString(string: formattedString, attributes: attributes)
+        if timerValue == 0 {
+            timer?.invalidate()
+            // TODO: transition to game over
+            print("GG")
+        }
+    }
 }
 
 // MARK: - UI configuration
@@ -236,12 +269,41 @@ extension GameScene {
         case .practice:
             addBackButton()
         case .timeAttack:
-            break
-            // TODO: add timer node
+            addTimerNode()
         }
         addScoreNode()
         addPauseButton()
         addMuteButton()
+    }
+    
+    /// Adds the timer node.
+    private func addTimerNode() {
+        guard let font = UIFont(name: "Kenney-Bold", size: 35) else {
+            return
+        }
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .left
+        let attributes: [NSAttributedString.Key: Any] = [.font: font,
+                                                         .foregroundColor: UIColor.white,
+                                                         .strokeColor: UIColor.black,
+                                                         .strokeWidth: -10,
+                                                         .paragraphStyle: paragraphStyle]
+        let attributedString = NSAttributedString(string: "59", attributes: attributes)
+        
+        let timerNode = AttributedLabelNode(size: CGSize(width: 165, height: 65.0))
+        timerNode.attributedString = attributedString
+        var position: CGPoint = .zero
+        if DeviceModel.iPad || DeviceModel.iPadPro {
+            position = CGPoint(x: CGRectGetMinX(frame) + timerNode.size.width / 2 + 20, y: CGRectGetMaxY(frame) - timerNode.size.height / 2 - 10)
+        } else if DeviceModel.iPhoneSE {
+            position = CGPoint(x: CGRectGetMinX(frame) + timerNode.size.width / 2 + 20, y: CGRectGetMaxY(frame) - timerNode.size.height + 20)
+        } else {
+            position = CGPoint(x: CGRectGetMinX(frame) + timerNode.size.width / 2 + 20, y: CGRectGetMaxY(frame) - timerNode.size.height)
+        }
+        timerNode.position = position
+        timerNode.name = "timer"
+        timerNode.zPosition = zPositionUIElements
+        addChild(timerNode)
     }
     
     /// Adds back button node.
