@@ -17,7 +17,7 @@ class GameViewController: UIViewController {
         let scene = MainMenuScene(backgroundSpeed: .slow)
         
         let skView = self.view as! SKView
-        skView.ignoresSiblingOrder = true
+        skView.ignoresSiblingOrder = false
         skView.presentScene(scene)
     }
 }

@@ -22,7 +22,7 @@ class GameViewController: UIViewController {
         
         let skView = self.view as! SKView
         skView.isMultipleTouchEnabled = false
-        skView.ignoresSiblingOrder = true
+        skView.ignoresSiblingOrder = false
         skView.presentScene(scene)
     }
 
