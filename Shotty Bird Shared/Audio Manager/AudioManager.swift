@@ -84,7 +84,7 @@ final class AudioManager: NSObject {
             return
         }
         if player?.isPlaying == true {
-            player?.pause()
+            player?.stop()
         }
         do {
             let backgroundMusicURL = URL(fileURLWithPath: backgroundMusicPath)
