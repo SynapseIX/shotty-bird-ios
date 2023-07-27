@@ -15,7 +15,7 @@ enum MusicType {
     case gameOver
 }
 
-/// Audio manager class to control game music playback on iOS and iPadOS.
+/// Audio manager class to control game music playback.
 final class AudioManager: NSObject {
     
     /// Shared manager instance.
@@ -75,10 +75,12 @@ final class AudioManager: NSObject {
         switch type {
         case .menu:
             resource = "Crimson-Sextile"
+        case .practice:
+            resource = "Practice"
         case .gameplay:
             resource = "TwinEngines-JeremyKorpas"
-        default:
-            resource = "Crimson-Sextile"
+        case .gameOver:
+            resource = "CrowsCawInField"
         }
         guard let backgroundMusicPath = Bundle.main.path(forResource: resource, ofType: "mp3") else {
             return
