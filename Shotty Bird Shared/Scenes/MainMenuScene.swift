@@ -118,19 +118,32 @@ class MainMenuScene: BaseScene {
         creditsButton.zPosition = zPositionMenuItems
         addChild(creditsButton)
         
-        // Needed to position UI elements at the bottom of the screen
-        let screenCompensation: CGFloat = isPhone ? 20 : -20
-        
         // Add share button
         let shareButton = SKSpriteNode(imageNamed: "share_button")
-        shareButton.position = CGPoint(x: CGRectGetMinX(frame) + shareButton.size.width / 2 + 20, y: CGRectGetMinY(frame) + shareButton.size.height + screenCompensation)
+        var shareButtonPosition: CGPoint = .zero
+        if DeviceModel.iPad || DeviceModel.iPadPro {
+            shareButtonPosition = CGPoint(x: CGRectGetMinX(frame) + shareButton.size.width / 2 + 20, y: CGRectGetMinY(frame) + shareButton.size.height - 20)
+        } else if DeviceModel.iPhoneSE {
+            shareButtonPosition = CGPoint(x: CGRectGetMinX(frame) + shareButton.size.width / 2 + 20, y: CGRectGetMinY(frame) + shareButton.size.height - 10)
+        } else {
+            shareButtonPosition = CGPoint(x: CGRectGetMinX(frame) + shareButton.size.width / 2 + 20, y: CGRectGetMinY(frame) + shareButton.size.height + 20)
+        }
+        shareButton.position = shareButtonPosition
         shareButton.name = "shareButton"
         shareButton.zPosition = zPositionMenuItems
         addChild(shareButton)
         
         // Add mute button
         let muteButton = audioManager.isMuted ? SKSpriteNode(imageNamed: "mute_button") : SKSpriteNode(imageNamed: "unmute_button")
-        muteButton.position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height + screenCompensation)
+        var muteButtonPosition: CGPoint = .zero
+        if DeviceModel.iPad || DeviceModel.iPadPro {
+            muteButtonPosition = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height - 20)
+        } else if DeviceModel.iPhoneSE {
+            muteButtonPosition = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height - 10)
+        } else {
+            muteButtonPosition = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height + 20)
+        }
+        muteButton.position = muteButtonPosition
         muteButton.name = "muteButton"
         muteButton.zPosition = zPositionMenuItems
         addChild(muteButton)

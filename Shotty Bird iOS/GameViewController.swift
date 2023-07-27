@@ -20,13 +20,9 @@ class GameViewController: UIViewController {
         
         let scene = MainMenuScene(backgroundSpeed: .slow)
         
-        // Configure the view.
         let skView = self.view as! SKView
         skView.isMultipleTouchEnabled = false
-        skView.showsFPS = true
-        skView.showsNodeCount = true
-        skView.showsPhysics = true
-        skView.ignoresSiblingOrder = false
+        skView.ignoresSiblingOrder = true
         skView.presentScene(scene)
     }
 
