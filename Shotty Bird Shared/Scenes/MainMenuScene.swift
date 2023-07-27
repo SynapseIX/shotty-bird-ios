@@ -163,7 +163,7 @@ class MainMenuScene: BaseScene {
                 run(playExplosionSoundAction)
             }
             
-            let gameScene = GameScene(backgroundSpeed: .fast)
+            let gameScene = GameScene(mode: .slayer)
             let transition = SKTransition.doorsOpenHorizontal(withDuration: 1.0)
             view?.presentScene(gameScene, transition: transition)
         }

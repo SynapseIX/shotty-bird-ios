@@ -7,8 +7,26 @@
 
 import SpriteKit
 
+/// Defines what game mode to play.
+enum GameMode {
+    case slayer
+    case practice
+}
+
+/// The difficulty level for practice mode.
+enum Difficulty {
+    case easy
+    case normal
+    case hard
+}
+
 /// Main game scene.
 class GameScene: BaseScene {
+    
+    /// The game mode to play.
+    private(set) var mode: GameMode
+    /// Practice mode difficulty level.
+    private(set) var difficulty: Difficulty
     
     /// Fixed position on the z-axis for UI elements.
     private let zPositionUIElements = CGFloat(Int.max)
@@ -31,10 +49,14 @@ class GameScene: BaseScene {
     /// Audio manager to play background music.
     let audioManager = AudioManager.shared
     
-    /// Determines if the game is running on a phone device.
-    private var isPhone = UIDevice.current.userInterfaceIdiom == .phone
-    
-    override init(backgroundSpeed: BackgroundSpeed = .slow) {
+    /// Creates a new game scene to play.
+    /// - Parameters:
+    ///   - mode: The game mode.
+    ///   - difficulty: Practice mode difficulty level.
+    ///   - backgroundSpeed: The parallax background speed.
+    init(mode: GameMode, difficulty: Difficulty = .easy, backgroundSpeed: BackgroundSpeed = .fast) {
+        self.mode = mode
+        self.difficulty = difficulty
         super.init(backgroundSpeed: backgroundSpeed)
     }
     
@@ -45,7 +67,20 @@ class GameScene: BaseScene {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         setupUI()
-        audioManager.playMusic(type: .gameplay, loop: true)
+        
+        if mode == .practice {
+            switch difficulty {
+            case .easy:
+                spawnFrequency = 2.2
+            case .normal:
+                spawnFrequency = 1.5
+            case .hard:
+                spawnFrequency = 0.8
+            }
+        }
+        
+        let musicType: MusicType = mode == .slayer ? .gameplay : .practice
+        audioManager.playMusic(type: musicType, loop: true)
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -138,7 +173,30 @@ class GameScene: BaseScene {
                                                                  flyAndMoveAction,
                                                                  playBirdSoundAction,
                                                                  removeAction])
-        enemy.run(sequence)
+        enemy.run(sequence) {
+            if self.mode == .slayer {
+                if enemy.position == CGPoint(x: -enemy.size.width / 2, y: enemy.position.y) {
+                    self.lives -= 1
+                    
+                    // TODO: consider extra life if player watches ad or purchased no ads
+                    if self.lives == 2 {
+                        let node = self.childNode(withName: "life1") as! SKSpriteNode
+                        node.texture = SKTexture(imageNamed: "death")
+                    } else if self.lives == 1 {
+                        let node = self.childNode(withName: "life2") as! SKSpriteNode
+                        node.texture = SKTexture(imageNamed: "death")
+                    } else if self.lives == 0 {
+                        let node = self.childNode(withName: "life3") as! SKSpriteNode
+                        node.texture = SKTexture(imageNamed: "death")
+                        
+                        self.audioManager.stop()
+                        // TODO: Transition to Game Over scene
+                        // let transition = SKTransition.flipVertical(withDuration: 0.5)
+                        // self.view?.presentScene(self.getGameOverScene(), transition: transition)
+                    }
+                }
+            }
+        }
     }
     
     /// Shoots a missile sprite node.
@@ -170,7 +228,11 @@ extension GameScene {
     /// - Pause Button
     /// - Mute button
     private func setupUI() {
-        addLifeNodes()
+        if mode == .slayer {
+            addLifeNodes()
+        } else {
+            // TODO: add back button
+        }
         addScoreNode()
         addPauseButton()
         addMuteButton()
@@ -349,10 +411,12 @@ extension GameScene: GameScoreDelegate {
     func updateScore() {
         score += 1
         
-        if score % 5 == 0 {
-            audioManager.increasePlaybackRate(by: 0.1)
-            if spawnFrequency >= 0.8 {
-                spawnFrequency -= 0.2
+        if mode == .slayer {
+            if score % 5 == 0 {
+                audioManager.increasePlaybackRate(by: 0.1)
+                if spawnFrequency >= 0.8 {
+                    spawnFrequency -= 0.2
+                }
             }
         }
         
