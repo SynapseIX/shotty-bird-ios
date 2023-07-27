@@ -208,10 +208,10 @@ extension GameScene {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .right
         let attributes: [NSAttributedString.Key: Any] = [.font: font,
-                                                          .foregroundColor: UIColor.white,
-                                                          .strokeColor: UIColor.black,
-                                                          .strokeWidth: -10,
-                                                          .paragraphStyle: paragraphStyle]
+                                                         .foregroundColor: UIColor.white,
+                                                         .strokeColor: UIColor.black,
+                                                         .strokeWidth: -10,
+                                                         .paragraphStyle: paragraphStyle]
         
         let attributedString = NSAttributedString(string: "0", attributes: attributes)
         let scoreNode = AttributedLabelNode(size: CGSize(width: 165.0, height: 65.0))
