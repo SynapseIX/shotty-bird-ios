@@ -348,10 +348,10 @@ extension GameScene: GameScoreDelegate {
     func updateScore() {
         score += 1
         
-        if score % 10 == 0 {
-            audioManager.increasePlaybackRate(by: 0.2)
+        if score % 5 == 0 {
+            audioManager.increasePlaybackRate(by: 0.1)
             if spawnFrequency >= 0.8 {
-                spawnFrequency -= 0.4
+                spawnFrequency -= 0.2
             }
         }
         
