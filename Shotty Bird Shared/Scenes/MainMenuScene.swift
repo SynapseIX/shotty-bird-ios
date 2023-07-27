@@ -12,7 +12,7 @@ import SpriteKit
 class MainMenuScene: BaseScene {
     
     /// Audio manager to play background music.
-    let audioManager = AudioManager(file: "Crimson-Sextile", type: "mp3", loop: true)
+    let audioManager = AudioManager.shared
     
     /// The z-axis position for all menu UI elements.
     let zPositionMenuItems = CGFloat(Int.max)
@@ -38,7 +38,7 @@ class MainMenuScene: BaseScene {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         setupUI()
-        audioManager.tryPlayMusic()
+        audioManager.playMusic(type: .menu, loop: true)
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -84,7 +84,7 @@ class MainMenuScene: BaseScene {
         
         let animationAction = SKAction.animate(with: sprites, timePerFrame: 1.0 / 25.0)
         let waitAction = SKAction.wait(forDuration: 2.0)
-        let animateAndWait = SKAction.sequence([animationAction, playBirdSoundAction, waitAction])
+        let animateAndWait = SKAction.sequence([animationAction, waitAction])
         let repeatAction = SKAction.repeatForever(animateAndWait)
         enemy.run(repeatAction)
     }
@@ -158,12 +158,12 @@ class MainMenuScene: BaseScene {
             return
         }
         if playButton.contains(location) {
-            audioManager.stopMusic()
-            run(playExplosionSoundAction)
+            audioManager.stop()
+            if !audioManager.isMuted {
+                run(playExplosionSoundAction)
+            }
             
             let gameScene = GameScene(backgroundSpeed: .fast)
-            gameScene.audioManager.isMuted = audioManager.isMuted
-            
             let transition = SKTransition.doorsOpenHorizontal(withDuration: 1.0)
             view?.presentScene(gameScene, transition: transition)
         }

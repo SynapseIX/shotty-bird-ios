@@ -29,7 +29,7 @@ class GameScene: BaseScene {
     private(set) var spawnFrequency: TimeInterval = 2.2
     
     /// Audio manager to play background music.
-    let audioManager = AudioManager(file: "TwinEngines-JeremyKorpas", type: "mp3", loop: true)
+    let audioManager = AudioManager.shared
     
     /// Determines if the game is running on a phone device.
     private var isPhone = UIDevice.current.userInterfaceIdiom == .phone
@@ -45,7 +45,7 @@ class GameScene: BaseScene {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         setupUI()
-        audioManager.tryPlayMusic()
+        audioManager.playMusic(type: .gameplay, loop: true)
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -134,9 +134,10 @@ class GameScene: BaseScene {
         let removeAction = SKAction.removeFromParent()
         
         let sequence = audioManager.isMuted ? SKAction.sequence([flyAndMoveAction, removeAction])
-                               : SKAction.sequence([flappingSoundAction, flyAndMoveAction, playBirdSoundAction, removeAction])
-        
-        // Run actions
+                                            : SKAction.sequence([flappingSoundAction,
+                                                                 flyAndMoveAction,
+                                                                 playBirdSoundAction,
+                                                                 removeAction])
         enemy.run(sequence)
     }
     
@@ -263,7 +264,7 @@ extension GameScene {
         if pauseButton.contains(location) {
             if view.isPaused {
                 pauseButton.texture = SKTexture(imageNamed: "pause_button")
-                audioManager.tryPlayMusic()
+                audioManager.resume()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                     view.isPaused = false
                 }
