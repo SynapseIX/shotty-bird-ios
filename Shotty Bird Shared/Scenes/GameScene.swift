@@ -87,7 +87,7 @@ class GameScene: BaseScene {
             timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimerNode), userInfo: nil, repeats: true)
         }
         
-        let musicType: MusicType = mode == .slayer ? .gameplay : .practice
+        let musicType: MusicType = (mode == .slayer || mode == .timeAttack) ? .gameplay : .practice
         audioManager.playMusic(type: musicType, loop: true)
     }
     
@@ -236,16 +236,19 @@ class GameScene: BaseScene {
             return
         }
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .left
+        paragraphStyle.alignment = .right
         let attributes: [NSAttributedString.Key: Any] = [.font: font,
-                                                         .foregroundColor: UIColor.white,
+                                                         .foregroundColor: timerValue <= 5 ? UIColor.red : UIColor.white,
                                                          .strokeColor: UIColor.black,
                                                          .strokeWidth: -10,
                                                          .paragraphStyle: paragraphStyle]
         
-        let formattedString = timerValue < 10 ? "0\(timerValue)"
-                                              : "\(timerValue)"
+        let formattedString = timerValue < 10 ? "00: 0\(timerValue)"
+                                              : "00: \(timerValue)"
         node.attributedString = NSAttributedString(string: formattedString, attributes: attributes)
+        if timerValue <= 5 {
+            run(SKAction.playSoundFileNamed("beep.mp3", waitForCompletion: false))
+        }
         if timerValue == 0 {
             timer?.invalidate()
             let scene = GameOverScene(score: score, mode: .timeAttack)
@@ -283,13 +286,13 @@ extension GameScene {
             return
         }
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .left
+        paragraphStyle.alignment = .right
         let attributes: [NSAttributedString.Key: Any] = [.font: font,
                                                          .foregroundColor: UIColor.white,
                                                          .strokeColor: UIColor.black,
                                                          .strokeWidth: -10,
                                                          .paragraphStyle: paragraphStyle]
-        let attributedString = NSAttributedString(string: "59", attributes: attributes)
+        let attributedString = NSAttributedString(string: "01:00", attributes: attributes)
         
         let timerNode = AttributedLabelNode(size: CGSize(width: 165, height: 65.0))
         timerNode.attributedString = attributedString
@@ -386,7 +389,7 @@ extension GameScene {
                                                          .strokeColor: UIColor.black,
                                                          .strokeWidth: -10,
                                                          .paragraphStyle: paragraphStyle]
-        let attributedString = NSAttributedString(string: "0", attributes: attributes)
+        let attributedString = NSAttributedString(string: "x0", attributes: attributes)
         
         let scoreNode = AttributedLabelNode(size: CGSize(width: 165.0, height: 65.0))
         scoreNode.attributedString = attributedString
@@ -564,7 +567,7 @@ extension GameScene: GameScoreDelegate {
                                                          .strokeColor: UIColor.black,
                                                          .strokeWidth: -10,
                                                          .paragraphStyle: paragraphStyle]
-        node.attributedString = NSAttributedString(string: "\(score)", attributes: attributes)
+        node.attributedString = NSAttributedString(string: "x\(score)", attributes: attributes)
     }
 }
 

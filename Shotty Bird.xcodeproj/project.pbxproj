@@ -31,6 +31,8 @@
 		CF22757A2A7315B300A246D6 /* DifficultyScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2275782A7315B300A246D6 /* DifficultyScene.swift */; };
 		CF22757C2A7328A600A246D6 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF22757B2A7328A600A246D6 /* GameOverScene.swift */; };
 		CF22757D2A7328A600A246D6 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF22757B2A7328A600A246D6 /* GameOverScene.swift */; };
+		CF22757F2A73378F00A246D6 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF22757E2A73378F00A246D6 /* beep.mp3 */; };
+		CF2275802A73378F00A246D6 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF22757E2A73378F00A246D6 /* beep.mp3 */; };
 		CF68C0C22A5401EA00264E81 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF68C0C12A5401EA00264E81 /* AudioManager.swift */; };
 		CF68C0C32A5401EA00264E81 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF68C0C12A5401EA00264E81 /* AudioManager.swift */; };
 		CF68C0C62A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF68C0C52A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 */; };
@@ -84,6 +86,7 @@
 		CF1A8F6C2A53DD1500BAD0A6 /* wing_flap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = wing_flap.wav; sourceTree = "<group>"; };
 		CF2275782A7315B300A246D6 /* DifficultyScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyScene.swift; sourceTree = "<group>"; };
 		CF22757B2A7328A600A246D6 /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
+		CF22757E2A73378F00A246D6 /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
 		CF68C0C12A5401EA00264E81 /* AudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		CF68C0C52A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "TwinEngines-JeremyKorpas.mp3"; sourceTree = "<group>"; };
 		CF68C0C92A5412D000264E81 /* CrowsCawInField.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CrowsCawInField.mp3; sourceTree = "<group>"; };
@@ -153,6 +156,7 @@
 			children = (
 				CF1A8F702A53DD3700BAD0A6 /* Music */,
 				CFAB33072A72FF5B00538D13 /* 1up.mp3 */,
+				CF22757E2A73378F00A246D6 /* beep.mp3 */,
 				CF1A8F602A53DCAB00BAD0A6 /* bird.wav */,
 				CF1A8F642A53DCC700BAD0A6 /* explosion.wav */,
 				CFAB330A2A730C2800538D13 /* game_over_positive.mp3 */,
@@ -362,6 +366,7 @@
 			files = (
 				CF1A8F692A53DCF100BAD0A6 /* shot.wav in Resources */,
 				CF1A8F6D2A53DD1500BAD0A6 /* wing_flap.wav in Resources */,
+				CF22757F2A73378F00A246D6 /* beep.mp3 in Resources */,
 				CF1A8F652A53DCC700BAD0A6 /* explosion.wav in Resources */,
 				CFAB33082A72FF5B00538D13 /* 1up.mp3 in Resources */,
 				CF77C66D2A4D24D900BA03ED /* Main.storyboard in Resources */,
@@ -384,6 +389,7 @@
 			files = (
 				CF1A8F6A2A53DCF100BAD0A6 /* shot.wav in Resources */,
 				CF1A8F6E2A53DD1500BAD0A6 /* wing_flap.wav in Resources */,
+				CF2275802A73378F00A246D6 /* beep.mp3 in Resources */,
 				CF1A8F662A53DCC700BAD0A6 /* explosion.wav in Resources */,
 				CFAB33092A72FF5B00538D13 /* 1up.mp3 in Resources */,
 				CF77C67D2A4D24D900BA03ED /* Main.storyboard in Resources */,
