@@ -21,7 +21,7 @@ class DifficultyScene: BaseScene {
     let playBirdSoundAction = SKAction.playSoundFileNamed("bird.wav", waitForCompletion: false)
     /// Plays a shot audio clip.
     let playShotSoundAction = SKAction.playSoundFileNamed("shot", waitForCompletion: false)
-    /// Plays an explosion sound cliop.
+    /// Plays an explosion sound clip.
     let playExplosionSoundAction = SKAction.playSoundFileNamed("explosion.wav", waitForCompletion: false)
     
     override init(backgroundSpeed: BackgroundSpeed = .slow) {

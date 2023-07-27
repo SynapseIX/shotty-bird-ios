@@ -21,7 +21,7 @@ class GameModeScene: BaseScene {
     let playBirdSoundAction = SKAction.playSoundFileNamed("bird.wav", waitForCompletion: false)
     /// Plays a shot audio clip.
     let playShotSoundAction = SKAction.playSoundFileNamed("shot", waitForCompletion: false)
-    /// Plays an explosion sound cliop.
+    /// Plays an explosion sound clip.
     let playExplosionSoundAction = SKAction.playSoundFileNamed("explosion.wav", waitForCompletion: false)
     
     override init(backgroundSpeed: BackgroundSpeed = .slow) {
@@ -35,7 +35,6 @@ class GameModeScene: BaseScene {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         setupUI()
-//        audioManager.playMusic(type: .menu, loop: true)
     }
     
     override func update(_ currentTime: TimeInterval) {

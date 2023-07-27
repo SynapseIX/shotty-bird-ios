@@ -21,8 +21,13 @@ final class AudioManager: NSObject {
     /// Shared manager instance.
     static let shared = AudioManager()
     
+    /// The music type is being played. Defualts to `.menu`.
+    private var type: MusicType = .menu
+    
     /// The maximum volume for the music.
-    static let maxVolume: Float = 0.5
+    var maxVolume: Float {
+        type == .gameOver ? 1.0 : 0.5
+    }
     
     /// The maxium playback rate allowed.
     static let maximumPlaybackRate: Float = 2.0
@@ -41,7 +46,7 @@ final class AudioManager: NSObject {
         }
         set {
             isMutedValue = newValue
-            player?.volume = newValue ? 0.0 : AudioManager.maxVolume
+            player?.volume = newValue ? 0.0 : maxVolume
         }
     }
     
@@ -71,6 +76,7 @@ final class AudioManager: NSObject {
     ///   - type: The type of music to play.
     ///   - loop: Determines if the music should play again after it is over.
     func playMusic(type: MusicType, loop: Bool) {
+        self.type = type
         var resource: String
         switch type {
         case .menu:
@@ -94,7 +100,7 @@ final class AudioManager: NSObject {
             player?.delegate = self
             player?.numberOfLoops = loop ? -1 : 0
             player?.enableRate = true
-            player?.volume = isMuted ? 0.0 : AudioManager.maxVolume
+            player?.volume = isMuted ? 0.0 : maxVolume
             resume()
         } catch {
             print("Error when trying to setup the audio player: \(error.localizedDescription)")

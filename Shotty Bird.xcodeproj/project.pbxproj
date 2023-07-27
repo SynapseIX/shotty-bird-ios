@@ -29,6 +29,8 @@
 		CF1A8F6E2A53DD1500BAD0A6 /* wing_flap.wav in Resources */ = {isa = PBXBuildFile; fileRef = CF1A8F6C2A53DD1500BAD0A6 /* wing_flap.wav */; };
 		CF2275792A7315B300A246D6 /* DifficultyScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2275782A7315B300A246D6 /* DifficultyScene.swift */; };
 		CF22757A2A7315B300A246D6 /* DifficultyScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2275782A7315B300A246D6 /* DifficultyScene.swift */; };
+		CF22757C2A7328A600A246D6 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF22757B2A7328A600A246D6 /* GameOverScene.swift */; };
+		CF22757D2A7328A600A246D6 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF22757B2A7328A600A246D6 /* GameOverScene.swift */; };
 		CF68C0C22A5401EA00264E81 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF68C0C12A5401EA00264E81 /* AudioManager.swift */; };
 		CF68C0C32A5401EA00264E81 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF68C0C12A5401EA00264E81 /* AudioManager.swift */; };
 		CF68C0C62A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF68C0C52A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 */; };
@@ -81,6 +83,7 @@
 		CF1A8F682A53DCF100BAD0A6 /* shot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shot.wav; sourceTree = "<group>"; };
 		CF1A8F6C2A53DD1500BAD0A6 /* wing_flap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = wing_flap.wav; sourceTree = "<group>"; };
 		CF2275782A7315B300A246D6 /* DifficultyScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyScene.swift; sourceTree = "<group>"; };
+		CF22757B2A7328A600A246D6 /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		CF68C0C12A5401EA00264E81 /* AudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		CF68C0C52A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "TwinEngines-JeremyKorpas.mp3"; sourceTree = "<group>"; };
 		CF68C0C92A5412D000264E81 /* CrowsCawInField.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CrowsCawInField.mp3; sourceTree = "<group>"; };
@@ -264,6 +267,7 @@
 				CFAB330D2A730D0D00538D13 /* GameModeScene.swift */,
 				CF2275782A7315B300A246D6 /* DifficultyScene.swift */,
 				CF77C65E2A4D24D800BA03ED /* GameScene.swift */,
+				CF22757B2A7328A600A246D6 /* GameOverScene.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -405,6 +409,7 @@
 			files = (
 				CFB43E0F2A4DBAA700A3F426 /* MainMenuScene.swift in Sources */,
 				CFAB33022A72218200538D13 /* DeviceModel.swift in Sources */,
+				CF22757C2A7328A600A246D6 /* GameOverScene.swift in Sources */,
 				CFCEA7E32A70E6E500D00C03 /* Constants.swift in Sources */,
 				CFAB32FE2A72165F00538D13 /* AttributedLabelNode.swift in Sources */,
 				CF77C6952A4D24D900BA03ED /* GameScene.swift in Sources */,
@@ -427,6 +432,7 @@
 			files = (
 				CFB43E102A4DBAA700A3F426 /* MainMenuScene.swift in Sources */,
 				CFAB33032A72218200538D13 /* DeviceModel.swift in Sources */,
+				CF22757D2A7328A600A246D6 /* GameOverScene.swift in Sources */,
 				CFCEA7E42A70E6E500D00C03 /* Constants.swift in Sources */,
 				CFAB32FF2A72165F00538D13 /* AttributedLabelNode.swift in Sources */,
 				CF77C6962A4D24D900BA03ED /* GameScene.swift in Sources */,

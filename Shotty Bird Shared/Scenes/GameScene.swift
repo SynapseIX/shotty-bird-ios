@@ -197,11 +197,11 @@ class GameScene: BaseScene {
                     } else if self.lives == 0 {
                         let node = self.childNode(withName: "life3") as! SKSpriteNode
                         node.texture = SKTexture(imageNamed: "death")
-                        
                         self.audioManager.stop()
-                        // TODO: Transition to Game Over scene
-                        // let transition = SKTransition.flipVertical(withDuration: 0.5)
-                        // self.view?.presentScene(self.getGameOverScene(), transition: transition)
+
+                        let scene = GameOverScene(score: self.score, mode: .slayer)
+                        let transition = SKTransition.flipVertical(withDuration: 1.0)
+                        self.view?.presentScene(scene, transition: transition)
                     }
                 }
             }
@@ -248,8 +248,9 @@ class GameScene: BaseScene {
         node.attributedString = NSAttributedString(string: formattedString, attributes: attributes)
         if timerValue == 0 {
             timer?.invalidate()
-            // TODO: transition to game over
-            print("GG")
+            let scene = GameOverScene(score: score, mode: .timeAttack)
+            let transition = SKTransition.flipVertical(withDuration: 1.0)
+            self.view?.presentScene(scene, transition: transition)
         }
     }
 }
