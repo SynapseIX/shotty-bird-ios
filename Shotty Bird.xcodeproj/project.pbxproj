@@ -49,6 +49,8 @@
 		CF77C6992A4D24D900BA03ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF77C65F2A4D24D900BA03ED /* Assets.xcassets */; };
 		CFAB32FE2A72165F00538D13 /* AttributedLabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAB32FD2A72165F00538D13 /* AttributedLabelNode.swift */; };
 		CFAB32FF2A72165F00538D13 /* AttributedLabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAB32FD2A72165F00538D13 /* AttributedLabelNode.swift */; };
+		CFAB33022A72218200538D13 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAB33012A72218200538D13 /* DeviceModel.swift */; };
+		CFAB33032A72218200538D13 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAB33012A72218200538D13 /* DeviceModel.swift */; };
 		CFB43E0B2A4DB7CD00A3F426 /* BaseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB43E0A2A4DB7CD00A3F426 /* BaseScene.swift */; };
 		CFB43E0C2A4DB7CD00A3F426 /* BaseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB43E0A2A4DB7CD00A3F426 /* BaseScene.swift */; };
 		CFB43E0F2A4DBAA700A3F426 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB43E0E2A4DBAA700A3F426 /* MainMenuScene.swift */; };
@@ -85,6 +87,7 @@
 		CF77C67C2A4D24D900BA03ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CF77C67F2A4D24D900BA03ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CFAB32FD2A72165F00538D13 /* AttributedLabelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedLabelNode.swift; sourceTree = "<group>"; };
+		CFAB33012A72218200538D13 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
 		CFB43E0A2A4DB7CD00A3F426 /* BaseScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScene.swift; sourceTree = "<group>"; };
 		CFB43E0E2A4DBAA700A3F426 /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 		CFCEA7E22A70E6E500D00C03 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -174,6 +177,7 @@
 				CF68C0C02A5401D900264E81 /* Audio Manager */,
 				CF77C6A72A4D292600BA03ED /* Nodes */,
 				CFB43E092A4DB7B100A3F426 /* Scenes */,
+				CFAB33002A72216B00538D13 /* Util */,
 				CF1A8F522A53C6E100BAD0A6 /* Physics */,
 				CF0A46152A7212C600F52F44 /* Fonts */,
 				CF1A8F5F2A53DC9400BAD0A6 /* Sounds */,
@@ -224,6 +228,14 @@
 				CFAB32FD2A72165F00538D13 /* AttributedLabelNode.swift */,
 			);
 			path = Nodes;
+			sourceTree = "<group>";
+		};
+		CFAB33002A72216B00538D13 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				CFAB33012A72218200538D13 /* DeviceModel.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 		CFB43E092A4DB7B100A3F426 /* Scenes */ = {
@@ -366,6 +378,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFB43E0F2A4DBAA700A3F426 /* MainMenuScene.swift in Sources */,
+				CFAB33022A72218200538D13 /* DeviceModel.swift in Sources */,
 				CFCEA7E32A70E6E500D00C03 /* Constants.swift in Sources */,
 				CFAB32FE2A72165F00538D13 /* AttributedLabelNode.swift in Sources */,
 				CF77C6952A4D24D900BA03ED /* GameScene.swift in Sources */,
@@ -385,6 +398,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFB43E102A4DBAA700A3F426 /* MainMenuScene.swift in Sources */,
+				CFAB33032A72218200538D13 /* DeviceModel.swift in Sources */,
 				CFCEA7E42A70E6E500D00C03 /* Constants.swift in Sources */,
 				CFAB32FF2A72165F00538D13 /* AttributedLabelNode.swift in Sources */,
 				CF77C6962A4D24D900BA03ED /* GameScene.swift in Sources */,

@@ -212,12 +212,18 @@ extension GameScene {
                                                          .strokeColor: UIColor.black,
                                                          .strokeWidth: -10,
                                                          .paragraphStyle: paragraphStyle]
-        
         let attributedString = NSAttributedString(string: "0", attributes: attributes)
+        
         let scoreNode = AttributedLabelNode(size: CGSize(width: 165.0, height: 65.0))
         scoreNode.attributedString = attributedString
-        let position = isPhone ? CGPoint(x: CGRectGetMaxX(frame) - scoreNode.size.width / 2 - 10, y: CGRectGetMaxY(frame) - scoreNode.size.height * 2 - 10)
-                               : CGPoint(x: CGRectGetMaxX(frame) - scoreNode.size.width / 2 - 10, y: CGRectGetMaxY(frame) - scoreNode.size.height / 2 - 10)
+        var position: CGPoint = .zero
+        if DeviceModel.iPad || DeviceModel.iPadPro {
+            position = CGPoint(x: CGRectGetMaxX(frame) - scoreNode.size.width / 2 - 10, y: CGRectGetMaxY(frame) - scoreNode.size.height / 2 - 10)
+        } else if DeviceModel.iPhoneSE {
+            position = CGPoint(x: CGRectGetMaxX(frame) - scoreNode.size.width / 2 - 20, y: CGRectGetMaxY(frame) - scoreNode.size.height)
+        } else {
+            position = CGPoint(x: CGRectGetMaxX(frame) - scoreNode.size.width / 2 - 10, y: CGRectGetMaxY(frame) - scoreNode.size.height)
+        }
         scoreNode.position = position
         scoreNode.name = "score"
         scoreNode.zPosition = zPositionUIElements
@@ -226,10 +232,16 @@ extension GameScene {
     
     /// Adds the pause button node.
     private func addPauseButton() {
-        // Needed to position UI elements at the bottom of the screen
-        let screenCompensation: CGFloat = isPhone ? 0 : -20
         let pauseButton = SKSpriteNode(imageNamed: "pause_button")
-        pauseButton.position = CGPoint(x: CGRectGetMinX(frame) + pauseButton.size.width + screenCompensation, y: CGRectGetMinY(frame) + pauseButton.size.height + screenCompensation)
+        var position: CGPoint = .zero
+        if DeviceModel.iPad || DeviceModel.iPadPro {
+            position = CGPoint(x: CGRectGetMinX(frame) + pauseButton.size.width - 20, y: CGRectGetMinY(frame) + pauseButton.size.height - 20)
+        } else if DeviceModel.iPhoneSE {
+            position = CGPoint(x: CGRectGetMinX(frame) + pauseButton.size.width / 2 + 20, y: CGRectGetMinY(frame) + pauseButton.size.height)
+        } else {
+            position = CGPoint(x: CGRectGetMinX(frame) + pauseButton.size.width, y: CGRectGetMinY(frame) + pauseButton.size.height)
+        }
+        pauseButton.position = position
         pauseButton.name = "pauseButton"
         pauseButton.zPosition = zPositionUIElements
         addChild(pauseButton)
