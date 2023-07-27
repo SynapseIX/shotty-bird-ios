@@ -95,7 +95,7 @@ class GameScene: BaseScene {
         
         // Set starting point and add node
         let minY = CGFloat(200)
-        let maxY = size.height - enemy.size.height / 2
+        let maxY = size.height - enemy.size.height / 2 - 70 * 1.5 - 5
         let randomY = CGFloat.random(in: minY...maxY)
         enemy.position = CGPoint(x: size.width + enemy.size.width / 2, y: randomY)
         addChild(enemy)
@@ -169,16 +169,42 @@ extension GameScene {
     /// - Pause Button
     /// - Mute button
     private func setupUI() {
+        addLifeNodes()
         addPauseButton()
         addMuteButton()
+    }
+    
+    /// Adds life nodes.
+    private func addLifeNodes() {
+        // Needed to position UI elements at the bottom of the screen
+        let screenCompensation: CGFloat = isPhone ? 0 : -20
+        
+        // TODO: add 4th life if watched ad or purchased no ads
+        let lifeNode1 = SKSpriteNode(imageNamed: "life")
+        lifeNode1.position = CGPoint(x: CGRectGetMinX(frame) + lifeNode1.size.width / 2 + 20, y: CGRectGetMaxY(frame) - lifeNode1.size.height - screenCompensation)
+        lifeNode1.name = "life1"
+        lifeNode1.zPosition = zPositionUIElements
+        addChild(lifeNode1)
+        
+        let lifeNode2 = SKSpriteNode(imageNamed: "life")
+        lifeNode2.position = CGPoint(x: CGRectGetMinX(frame) + lifeNode2.size.width * 2 - 10, y: CGRectGetMaxY(frame) - lifeNode2.size.height - screenCompensation)
+        lifeNode2.name = "life2"
+        lifeNode2.zPosition = zPositionUIElements
+        addChild(lifeNode2)
+        
+        let lifeNode3 = SKSpriteNode(imageNamed: "life")
+        lifeNode3.position = CGPoint(x: CGRectGetMinX(frame) + lifeNode3.size.width * 3 - 5, y: CGRectGetMaxY(frame) - lifeNode3.size.height - screenCompensation)
+        lifeNode3.name = "life3"
+        lifeNode3.zPosition = zPositionUIElements
+        addChild(lifeNode3)
     }
     
     /// Adds the pause button node.
     private func addPauseButton() {
         // Needed to position UI elements at the bottom of the screen
-        let screenCompensation: CGFloat = isPhone ? 20 : -20
+        let screenCompensation: CGFloat = isPhone ? 0 : -20
         let pauseButton = SKSpriteNode(imageNamed: "pause_button")
-        pauseButton.position = CGPoint(x: CGRectGetMinX(frame) + pauseButton.size.width - screenCompensation, y: CGRectGetMinY(frame) + pauseButton.size.height + screenCompensation)
+        pauseButton.position = CGPoint(x: CGRectGetMinX(frame) + pauseButton.size.width + screenCompensation, y: CGRectGetMinY(frame) + pauseButton.size.height + screenCompensation)
         pauseButton.name = "pauseButton"
         pauseButton.zPosition = zPositionUIElements
         addChild(pauseButton)
