@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CF0A46182A7212C600F52F44 /* Kenney-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF0A46162A7212C600F52F44 /* Kenney-Bold.ttf */; };
+		CF0A46192A7212C600F52F44 /* Kenney-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF0A46162A7212C600F52F44 /* Kenney-Bold.ttf */; };
+		CF0A461A2A7212C600F52F44 /* Kenney-Blocks.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF0A46172A7212C600F52F44 /* Kenney-Blocks.ttf */; };
+		CF0A461B2A7212C600F52F44 /* Kenney-Blocks.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF0A46172A7212C600F52F44 /* Kenney-Blocks.ttf */; };
 		CF1A8F4F2A53A57400BAD0A6 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A8F4E2A53A57400BAD0A6 /* Enemy.swift */; };
 		CF1A8F502A53A57400BAD0A6 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A8F4E2A53A57400BAD0A6 /* Enemy.swift */; };
 		CF1A8F542A53C71300BAD0A6 /* PhysicsCollisionBitMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A8F532A53C71300BAD0A6 /* PhysicsCollisionBitMask.swift */; };
@@ -43,6 +47,8 @@
 		CF77C6962A4D24D900BA03ED /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF77C65E2A4D24D800BA03ED /* GameScene.swift */; };
 		CF77C6982A4D24D900BA03ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF77C65F2A4D24D900BA03ED /* Assets.xcassets */; };
 		CF77C6992A4D24D900BA03ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF77C65F2A4D24D900BA03ED /* Assets.xcassets */; };
+		CFAB32FE2A72165F00538D13 /* AttributedLabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAB32FD2A72165F00538D13 /* AttributedLabelNode.swift */; };
+		CFAB32FF2A72165F00538D13 /* AttributedLabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAB32FD2A72165F00538D13 /* AttributedLabelNode.swift */; };
 		CFB43E0B2A4DB7CD00A3F426 /* BaseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB43E0A2A4DB7CD00A3F426 /* BaseScene.swift */; };
 		CFB43E0C2A4DB7CD00A3F426 /* BaseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB43E0A2A4DB7CD00A3F426 /* BaseScene.swift */; };
 		CFB43E0F2A4DBAA700A3F426 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB43E0E2A4DBAA700A3F426 /* MainMenuScene.swift */; };
@@ -52,6 +58,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CF0A46162A7212C600F52F44 /* Kenney-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kenney-Bold.ttf"; sourceTree = "<group>"; };
+		CF0A46172A7212C600F52F44 /* Kenney-Blocks.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kenney-Blocks.ttf"; sourceTree = "<group>"; };
 		CF1A8F4E2A53A57400BAD0A6 /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		CF1A8F532A53C71300BAD0A6 /* PhysicsCollisionBitMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsCollisionBitMask.swift; sourceTree = "<group>"; };
 		CF1A8F572A53D96F00BAD0A6 /* Missile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Missile.swift; sourceTree = "<group>"; };
@@ -76,6 +84,7 @@
 		CF77C6792A4D24D900BA03ED /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		CF77C67C2A4D24D900BA03ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CF77C67F2A4D24D900BA03ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CFAB32FD2A72165F00538D13 /* AttributedLabelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedLabelNode.swift; sourceTree = "<group>"; };
 		CFB43E0A2A4DB7CD00A3F426 /* BaseScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScene.swift; sourceTree = "<group>"; };
 		CFB43E0E2A4DBAA700A3F426 /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 		CFCEA7E22A70E6E500D00C03 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -101,6 +110,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CF0A46152A7212C600F52F44 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				CF0A46162A7212C600F52F44 /* Kenney-Bold.ttf */,
+				CF0A46172A7212C600F52F44 /* Kenney-Blocks.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		CF1A8F522A53C6E100BAD0A6 /* Physics */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +175,7 @@
 				CF77C6A72A4D292600BA03ED /* Nodes */,
 				CFB43E092A4DB7B100A3F426 /* Scenes */,
 				CF1A8F522A53C6E100BAD0A6 /* Physics */,
+				CF0A46152A7212C600F52F44 /* Fonts */,
 				CF1A8F5F2A53DC9400BAD0A6 /* Sounds */,
 				CF1A8F5B2A53DA2C00BAD0A6 /* GameScoreDelegate.swift */,
 				CF77C65F2A4D24D900BA03ED /* Assets.xcassets */,
@@ -202,6 +221,7 @@
 			children = (
 				CF1A8F4E2A53A57400BAD0A6 /* Enemy.swift */,
 				CF1A8F572A53D96F00BAD0A6 /* Missile.swift */,
+				CFAB32FD2A72165F00538D13 /* AttributedLabelNode.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -310,7 +330,9 @@
 				CF77C66D2A4D24D900BA03ED /* Main.storyboard in Resources */,
 				CF1A8F612A53DCAB00BAD0A6 /* bird.wav in Resources */,
 				CF68C0CE2A5412D000264E81 /* Crimson-Sextile.mp3 in Resources */,
+				CF0A461A2A7212C600F52F44 /* Kenney-Blocks.ttf in Resources */,
 				CF77C6702A4D24D900BA03ED /* LaunchScreen.storyboard in Resources */,
+				CF0A46182A7212C600F52F44 /* Kenney-Bold.ttf in Resources */,
 				CF68C0CB2A5412D000264E81 /* CrowsCawInField.mp3 in Resources */,
 				CF68C0C62A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 in Resources */,
 				CF77C6982A4D24D900BA03ED /* Assets.xcassets in Resources */,
@@ -327,7 +349,9 @@
 				CF77C67D2A4D24D900BA03ED /* Main.storyboard in Resources */,
 				CF1A8F622A53DCAB00BAD0A6 /* bird.wav in Resources */,
 				CF68C0CF2A5412D000264E81 /* Crimson-Sextile.mp3 in Resources */,
+				CF0A461B2A7212C600F52F44 /* Kenney-Blocks.ttf in Resources */,
 				CF77C6802A4D24D900BA03ED /* LaunchScreen.storyboard in Resources */,
+				CF0A46192A7212C600F52F44 /* Kenney-Bold.ttf in Resources */,
 				CF68C0CC2A5412D000264E81 /* CrowsCawInField.mp3 in Resources */,
 				CF68C0C72A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 in Resources */,
 				CF77C6992A4D24D900BA03ED /* Assets.xcassets in Resources */,
@@ -343,6 +367,7 @@
 			files = (
 				CFB43E0F2A4DBAA700A3F426 /* MainMenuScene.swift in Sources */,
 				CFCEA7E32A70E6E500D00C03 /* Constants.swift in Sources */,
+				CFAB32FE2A72165F00538D13 /* AttributedLabelNode.swift in Sources */,
 				CF77C6952A4D24D900BA03ED /* GameScene.swift in Sources */,
 				CF1A8F4F2A53A57400BAD0A6 /* Enemy.swift in Sources */,
 				CF1A8F5C2A53DA2C00BAD0A6 /* GameScoreDelegate.swift in Sources */,
@@ -361,6 +386,7 @@
 			files = (
 				CFB43E102A4DBAA700A3F426 /* MainMenuScene.swift in Sources */,
 				CFCEA7E42A70E6E500D00C03 /* Constants.swift in Sources */,
+				CFAB32FF2A72165F00538D13 /* AttributedLabelNode.swift in Sources */,
 				CF77C6962A4D24D900BA03ED /* GameScene.swift in Sources */,
 				CF1A8F502A53A57400BAD0A6 /* Enemy.swift in Sources */,
 				CF1A8F5D2A53DA2C00BAD0A6 /* GameScoreDelegate.swift in Sources */,

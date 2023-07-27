@@ -170,6 +170,7 @@ extension GameScene {
     /// - Mute button
     private func setupUI() {
         addLifeNodes()
+        addScoreNode()
         addPauseButton()
         addMuteButton()
     }
@@ -197,6 +198,30 @@ extension GameScene {
         lifeNode3.name = "life3"
         lifeNode3.zPosition = zPositionUIElements
         addChild(lifeNode3)
+    }
+    
+    /// Adds the score node.
+    private func addScoreNode() {
+        guard let font = UIFont(name: "Kenney-Bold", size: 35) else {
+            return
+        }
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .right
+        let attributes: [NSAttributedString.Key: Any] = [.font: font,
+                                                          .foregroundColor: UIColor.white,
+                                                          .strokeColor: UIColor.black,
+                                                          .strokeWidth: -10,
+                                                          .paragraphStyle: paragraphStyle]
+        
+        let attributedString = NSAttributedString(string: "0", attributes: attributes)
+        let scoreNode = AttributedLabelNode(size: CGSize(width: 165.0, height: 65.0))
+        scoreNode.attributedString = attributedString
+        let position = isPhone ? CGPoint(x: CGRectGetMaxX(frame) - scoreNode.size.width / 2 - 10, y: CGRectGetMaxY(frame) - scoreNode.size.height * 2 - 10)
+                               : CGPoint(x: CGRectGetMaxX(frame) - scoreNode.size.width / 2 - 10, y: CGRectGetMaxY(frame) - scoreNode.size.height / 2 - 10)
+        scoreNode.position = position
+        scoreNode.name = "score"
+        scoreNode.zPosition = zPositionUIElements
+        addChild(scoreNode)
     }
     
     /// Adds the pause button node.
