@@ -165,11 +165,11 @@ class Missile: SKSpriteNode {
                 
                 explosion.run(SKAction.sequence([explosionAction, SKAction.removeFromParent()]))
                 gameScene.addChild(explosion)
-                
-                // TODO: Implement
+
                 // Increase game score
-//                    gameScene.updateScore()
-                
+                gameScene.updateScore()
+
+                // TODO: Implement
                 // Check if the "Sniper" achievement need to be unlocked and report if necessary
 //                    if enemy.zPosition == 0 && enemy.flightSpeed == 2.0 {
 //                        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate

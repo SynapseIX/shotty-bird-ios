@@ -13,6 +13,9 @@ class AudioManager: NSObject {
     /// The maximum volume for the music.
     static let maxVolume: Float = 0.5
     
+    /// The maxium playback rate allowed.
+    static let maximumPlaybackRate: Float = 2.0
+    
     /// The audio session.
     private var session: AVAudioSession?
     /// The audio player.
@@ -82,10 +85,26 @@ class AudioManager: NSObject {
         }
     }
     
+    /// Pauses music playback.
+    func pause() {
+        player?.pause()
+    }
+    
     /// Stops playing audio.
     func stopMusic() {
         if player?.isPlaying == true {
             player?.stop()
+        }
+    }
+    
+    /// Increases the playback rate by a given amount.
+    /// - Parameter by: The playback rate value to added .
+    func increasePlaybackRate(by: Float) {
+        guard let rate = player?.rate else {
+            return
+        }
+        if rate <= AudioManager.maximumPlaybackRate {
+            player?.rate += by
         }
     }
 }
