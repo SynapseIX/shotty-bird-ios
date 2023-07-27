@@ -84,7 +84,7 @@ class MainMenuScene: BaseScene {
         
         let animationAction = SKAction.animate(with: sprites, timePerFrame: 1.0 / 25.0)
         let waitAction = SKAction.wait(forDuration: 2.0)
-        let animateAndWait = SKAction.sequence([animationAction, waitAction])
+        let animateAndWait = SKAction.sequence([animationAction, playBirdSoundAction, waitAction])
         let repeatAction = SKAction.repeatForever(animateAndWait)
         enemy.run(repeatAction)
     }
