@@ -1,15 +1,15 @@
 //
-//  MainMenuScene.swift
+//  DifficultyScene.swift
 //  Shotty Bird
 //
-//  Created by Jorge Tapia on 6/29/23.
+//  Created by Jorge Tapia on 7/27/23.
 //  Copyright © 2023 Komodo Life. All rights reserved.
 //
 
 import SpriteKit
 
-/// Main menu scene.
-class MainMenuScene: BaseScene {
+/// Difficulty selection scene for practice mode.
+class DifficultyScene: BaseScene {
     
     /// Audio manager to play background music.
     let audioManager = AudioManager.shared
@@ -35,6 +35,7 @@ class MainMenuScene: BaseScene {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         setupUI()
+//        audioManager.playMusic(type: .menu, loop: true)
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -90,44 +91,44 @@ class MainMenuScene: BaseScene {
         // Add idle enemy and animate it
         addIdleEnemy()
         
-        // Add play button
-        let playButton = SKSpriteNode(imageNamed: "play_button")
-        playButton.setScale(0.75)
-        playButton.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame))
-        playButton.name = "playButton"
-        playButton.zPosition = zPositionMenuItems
-        addChild(playButton)
+        // Add easy button
+        let easyButton = SKSpriteNode(imageNamed: "easy_button")
+        easyButton.setScale(0.75)
+        easyButton.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame))
+        easyButton.name = "easyButton"
+        easyButton.zPosition = zPositionMenuItems
+        addChild(easyButton)
         
-        // Add leaderboard button
-        let leaderboardButton = SKSpriteNode(imageNamed: "leaderboard_button")
-        leaderboardButton.setScale(0.75)
-        leaderboardButton.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame) - leaderboardButton.size.height - 10)
-        leaderboardButton.name = "leaderboardButton"
-        leaderboardButton.zPosition = zPositionMenuItems
-        addChild(leaderboardButton)
+        // Add normal button
+        let normalButton = SKSpriteNode(imageNamed: "normal_button")
+        normalButton.setScale(0.75)
+        normalButton.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame) - normalButton.size.height - 10)
+        normalButton.name = "normalButton"
+        normalButton.zPosition = zPositionMenuItems
+        addChild(normalButton)
         
-        // Add credits button
-        let creditsButton = SKSpriteNode(imageNamed: "credits_button")
-        creditsButton.setScale(0.75)
-        creditsButton.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame) - (leaderboardButton.size.height * 2) - 20)
-        creditsButton.name = "creditsButton"
-        creditsButton.zPosition = zPositionMenuItems
-        addChild(creditsButton)
+        // Add hard button
+        let hardButton = SKSpriteNode(imageNamed: "hard_button")
+        hardButton.setScale(0.75)
+        hardButton.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame) - (normalButton.size.height * 2) - 20)
+        hardButton.name = "hardButton"
+        hardButton.zPosition = zPositionMenuItems
+        addChild(hardButton)
         
-        // Add share button
-        let shareButton = SKSpriteNode(imageNamed: "share_button")
-        var shareButtonPosition: CGPoint = .zero
+        // Add back button
+        let backButton = SKSpriteNode(imageNamed: "back_button")
+        var backButtonPosition: CGPoint = .zero
         if DeviceModel.iPad || DeviceModel.iPadPro {
-            shareButtonPosition = CGPoint(x: CGRectGetMinX(frame) + shareButton.size.width / 2 + 20, y: CGRectGetMinY(frame) + shareButton.size.height - 20)
+            backButtonPosition = CGPoint(x: CGRectGetMinX(frame) + backButton.size.width / 2 + 20, y: CGRectGetMinY(frame) + backButton.size.height - 20)
         } else if DeviceModel.iPhoneSE {
-            shareButtonPosition = CGPoint(x: CGRectGetMinX(frame) + shareButton.size.width / 2 + 20, y: CGRectGetMinY(frame) + shareButton.size.height - 10)
+            backButtonPosition = CGPoint(x: CGRectGetMinX(frame) + backButton.size.width / 2 + 20, y: CGRectGetMinY(frame) + backButton.size.height - 10)
         } else {
-            shareButtonPosition = CGPoint(x: CGRectGetMinX(frame) + shareButton.size.width / 2 + 20, y: CGRectGetMinY(frame) + shareButton.size.height + 20)
+            backButtonPosition = CGPoint(x: CGRectGetMinX(frame) + backButton.size.width / 2 + 20, y: CGRectGetMinY(frame) + backButton.size.height + 20)
         }
-        shareButton.position = shareButtonPosition
-        shareButton.name = "shareButton"
-        shareButton.zPosition = zPositionMenuItems
-        addChild(shareButton)
+        backButton.position = backButtonPosition
+        backButton.name = "backButton"
+        backButton.zPosition = zPositionMenuItems
+        addChild(backButton)
         
         // Add mute button
         let muteButton = audioManager.isMuted ? SKSpriteNode(imageNamed: "mute_button") : SKSpriteNode(imageNamed: "unmute_button")
@@ -147,77 +148,74 @@ class MainMenuScene: BaseScene {
     
     // MARK: - UI event handlers
     
-    /// Handles the play button tap event.
+    /// Handles the easy button tap event.
     /// - Parameter location: A point where the screen is tapped.
-    private func handlePlayButton(in location: CGPoint) {
-        guard let playButton = childNode(withName: "playButton") else {
+    private func handleEasyButton(in location: CGPoint) {
+        guard let easyButton = childNode(withName: "easyButton") else {
             return
         }
-        if playButton.contains(location) {
+        if easyButton.contains(location) {
+            audioManager.stop()
             if !audioManager.isMuted {
                 run(playExplosionSoundAction)
             }
             
-            let gameModeScene = GameModeScene()
+            let gameScene = GameScene(mode: .practice, difficulty: .easy)
+            let transition = SKTransition.doorsOpenHorizontal(withDuration: 1.0)
+            view?.presentScene(gameScene, transition: transition)
+        }
+    }
+    
+    /// Handles the normal button tap event.
+    /// - Parameter location: A point where the screen is tapped.
+    private func handleNormalButton(in location: CGPoint) {
+        guard let normalButton = childNode(withName: "normalButton") else {
+            return
+        }
+        if normalButton.contains(location) {
+            audioManager.stop()
+            if !audioManager.isMuted {
+                run(playExplosionSoundAction)
+            }
+            
+            let gameScene = GameScene(mode: .practice, difficulty: .normal)
+            let transition = SKTransition.doorsOpenHorizontal(withDuration: 1.0)
+            view?.presentScene(gameScene, transition: transition)
+        }
+    }
+    
+    /// Handles the hard button tap event.
+    /// - Parameter location: A point where the screen is tapped.
+    private func handleHardButton(in location: CGPoint) {
+        guard let hardButton = childNode(withName: "hardButton") else {
+            return
+        }
+        if hardButton.contains(location) {
+            audioManager.stop()
+            if !audioManager.isMuted {
+                run(playExplosionSoundAction)
+            }
+            
+            let gameScene = GameScene(mode: .practice, difficulty: .hard)
+            let transition = SKTransition.doorsOpenHorizontal(withDuration: 1.0)
+            view?.presentScene(gameScene, transition: transition)
+        }
+    }
+    
+    /// Handles the back button tap event.
+    /// - Parameter location: A point where the screen is tapped.
+    private func handleBackButton(in location: CGPoint) {
+        guard let backButton = childNode(withName: "backButton") as? SKSpriteNode else {
+            return
+        }
+        if backButton.contains(location) {
+            if !audioManager.isMuted {
+                backButton.run(playBirdSoundAction)
+            }
+            
+            let mainMenuScene = GameModeScene()
             let transition = SKTransition.crossFade(withDuration: 1.0)
-            view?.presentScene(gameModeScene, transition: transition)
-        }
-    }
-    
-    /// Handles the leaderboard button tap event.
-    /// - Parameter location: A point where the screen is tapped.
-    private func handleLeaderboardButton(in location: CGPoint) {
-        guard let leaderboardButton = childNode(withName: "leaderboardButton") else {
-            return
-        }
-        if leaderboardButton.contains(location) {
-            // TODO: implement transition
-        }
-    }
-    
-    /// Handles the credits button tap event.
-    /// - Parameter location: A point where the screen is tapped.
-    private func handleCreditsButton(in location: CGPoint) {
-        guard let creditsButton = childNode(withName: "creditsButton") else {
-            return
-        }
-        if creditsButton.contains(location) {
-            // TODO: implement transition
-        }
-    }
-    
-    /// Handles the share button tap event.
-    /// - Parameter location: A point where the screen is tapped.
-    private func handleShareButton(in location: CGPoint) {
-        guard let shareButton = childNode(withName: "shareButton") as? SKSpriteNode,
-              let gameViewController = view?.window?.rootViewController as? GameViewController else {
-            return
-        }
-        if shareButton.contains(location) {
-            var convertedOrigin = convertPoint(toView: shareButton.frame.origin)
-            convertedOrigin.y = convertedOrigin.y - shareButton.frame.size.height / 2
-            let shareFrame = CGRect(origin: convertedOrigin, size: shareButton.frame.size)
-            
-            let activityItems: [Any] = [Constants.shareText, Constants.shareURL, Constants.appIconImage]
-            let excludedActivityTypes: [UIActivity.ActivityType] = [.print,
-                                                                    .copyToPasteboard,
-                                                                    .assignToContact,
-                                                                    .saveToCameraRoll,
-                                                                    .addToReadingList,
-                                                                    .airDrop,
-                                                                    .openInIBooks,
-                                                                    .postToVimeo,
-                                                                    .collaborationCopyLink,
-                                                                    .collaborationInviteWithLink,
-                                                                    .markupAsPDF,
-                                                                    .sharePlay]
-            
-            let shareController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
-            shareController.excludedActivityTypes = excludedActivityTypes
-            shareController.popoverPresentationController?.sourceView = view
-            shareController.popoverPresentationController?.sourceRect = shareFrame
-            shareController.popoverPresentationController?.permittedArrowDirections = [.down]
-            gameViewController.present(shareController, animated: true)
+            view?.presentScene(mainMenuScene, transition: transition)
         }
     }
     
@@ -236,21 +234,20 @@ class MainMenuScene: BaseScene {
 
 // MARK: - Touch-based event handling
 
-extension MainMenuScene {
+extension DifficultyScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
             // Handle play button tap
-            handlePlayButton(in: location)
+            handleEasyButton(in: location)
             // Handle leaderboard button tap
-            handleLeaderboardButton(in: location)
+            handleNormalButton(in: location)
             // Handle credits button tap
-            handleCreditsButton(in: location)
+            handleHardButton(in: location)
             // Handle share button tap
-            handleShareButton(in: location)
+            handleBackButton(in: location)
             // Handle mute button tap
             handleMuteButton(in: location)
         }
     }
 }
-

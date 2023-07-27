@@ -18,6 +18,7 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        AudioManager.shared.playMusic(type: .menu, loop: true)
         let scene = MainMenuScene(backgroundSpeed: .slow)
         
         let skView = self.view as! SKView

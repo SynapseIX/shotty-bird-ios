@@ -10,6 +10,7 @@ import SpriteKit
 /// Defines what game mode to play.
 enum GameMode {
     case slayer
+    case timeAttack
     case practice
 }
 
@@ -229,14 +230,55 @@ extension GameScene {
     /// - Pause Button
     /// - Mute button
     private func setupUI() {
-        if mode == .slayer {
+        switch mode {
+        case .slayer:
             addLifeNodes()
-        } else {
-            // TODO: add back button
+        case .practice:
+            addBackButton()
+        case .timeAttack:
+            break
+            // TODO: add timer node
         }
         addScoreNode()
         addPauseButton()
         addMuteButton()
+    }
+    
+    /// Adds back button node.
+    private func addBackButton() {
+        let backButton = SKSpriteNode(imageNamed: "back_button")
+        var y: CGFloat = 0.0
+        if DeviceModel.iPad || DeviceModel.iPadPro {
+            y = CGRectGetMaxY(frame) - backButton.size.height + 20
+        } else if DeviceModel.iPhoneSE {
+            y = CGRectGetMaxY(frame) - backButton.size.height + 20
+        } else {
+            y = CGRectGetMaxY(frame) - backButton.size.height
+        }
+        backButton.position = CGPoint(x: CGRectGetMinX(frame) + backButton.size.width / 2 + 20, y: y)
+        backButton.name = "backButton"
+        backButton.zPosition = zPositionUIElements
+        addChild(backButton)
+    }
+    
+    /// Handles the back button tap event.
+    /// - Parameter location: A point where the screen is tapped.
+    private func handleBackButton(in location: CGPoint) -> Bool {
+        guard let backButton = childNode(withName: "backButton") as? SKSpriteNode else {
+            return false
+        }
+        if backButton.contains(location) {
+            if !audioManager.isMuted {
+                backButton.run(SKAction.playSoundFileNamed("explosion", waitForCompletion: false))
+            }
+            
+            let mainMenuScene = GameModeScene()
+            let transition = SKTransition.doorsCloseHorizontal(withDuration: 1.0)
+            view?.presentScene(mainMenuScene, transition: transition)
+            audioManager.playMusic(type: .menu, loop: true)
+            return true
+        }
+        return false
     }
     
     /// Adds life nodes.
@@ -383,6 +425,12 @@ extension GameScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
+            // Handle back button
+            if mode == .practice {
+                if handleBackButton(in: location) {
+                    return
+                }
+            }
             // Handle pause button tap
             if handlePauseButton(in: location) {
                 return
