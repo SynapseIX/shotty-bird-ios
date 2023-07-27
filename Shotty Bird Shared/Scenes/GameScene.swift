@@ -323,7 +323,25 @@ extension GameScene {
 
 extension GameScene: GameScoreDelegate {
     func updateScore() {
-        // TODO: implement
+        score += 1
+        
+        if score % 10 == 0 {
+            audioManager.increasePlaybackRate(by: 0.2)
+        }
+        
+        // Update score label with new score
+        guard let node = childNode(withName: "score") as? AttributedLabelNode,
+              let font =  UIFont(name: "Kenney-Bold", size: 35) else {
+            return
+        }
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .right
+        let attributes: [NSAttributedString.Key: Any] = [.font: font,
+                                                         .foregroundColor: UIColor.white,
+                                                         .strokeColor: UIColor.black,
+                                                         .strokeWidth: -10,
+                                                         .paragraphStyle: paragraphStyle]
+        node.attributedString = NSAttributedString(string: "\(score)", attributes: attributes)
     }
 }
 
