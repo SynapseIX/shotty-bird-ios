@@ -26,7 +26,7 @@ class GameScene: BaseScene {
     private(set) var score: Int64 = 0
     
     /// Controls how many seconds has to pass before spawning a new enemy.
-    private var spawnFrequency: TimeInterval = 2
+    private(set) var spawnFrequency: TimeInterval = 2.2
     
     /// Audio manager to play background music.
     let audioManager = AudioManager(file: "TwinEngines-JeremyKorpas", type: "mp3", loop: true)
@@ -94,7 +94,7 @@ class GameScene: BaseScene {
         enemy.zPosition = zPosEnemy
         
         // Set starting point and add node
-        let minY = CGFloat(200)
+        let minY = CGFloat(180)
         let maxY = size.height - enemy.size.height / 2 - 70 * 1.5 - 5
         let randomY = CGFloat.random(in: minY...maxY)
         enemy.position = CGPoint(x: size.width + enemy.size.width / 2, y: randomY)
@@ -350,6 +350,9 @@ extension GameScene: GameScoreDelegate {
         
         if score % 10 == 0 {
             audioManager.increasePlaybackRate(by: 0.2)
+            if spawnFrequency >= 0.8 {
+                spawnFrequency -= 0.4
+            }
         }
         
         // Update score label with new score
