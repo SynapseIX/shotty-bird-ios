@@ -15,11 +15,11 @@ enum EnemyType {
 
 /// Enemy node size scaling factor.
 enum EnemyScale: CGFloat {
-    case large = 1
-    case medium = 0.75
-    case small = 0.5
-    case smaller = 0.35
-    case smallest = 0.2
+    case large = 1.2
+    case medium = 1.0
+    case small = 0.8
+    case smaller = 0.6
+    case smallest = 0.4
 }
 
 /// Represents an enemy that will spawn and that can be destroyed by a missile.

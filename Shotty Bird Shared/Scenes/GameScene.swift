@@ -177,24 +177,29 @@ extension GameScene {
     
     /// Adds life nodes.
     private func addLifeNodes() {
-        // Needed to position UI elements at the bottom of the screen
-        let screenCompensation: CGFloat = isPhone ? 0 : -20
-        
         // TODO: add 4th life if watched ad or purchased no ads
         let lifeNode1 = SKSpriteNode(imageNamed: "life")
-        lifeNode1.position = CGPoint(x: CGRectGetMinX(frame) + lifeNode1.size.width / 2 + 20, y: CGRectGetMaxY(frame) - lifeNode1.size.height - screenCompensation)
+        var y: CGFloat = 0.0
+        if DeviceModel.iPad || DeviceModel.iPadPro {
+            y = CGRectGetMaxY(frame) - lifeNode1.size.height + 20
+        } else if DeviceModel.iPhoneSE {
+            y = CGRectGetMaxY(frame) - lifeNode1.size.height + 20
+        } else {
+            y = CGRectGetMaxY(frame) - lifeNode1.size.height
+        }
+        lifeNode1.position = CGPoint(x: CGRectGetMinX(frame) + lifeNode1.size.width / 2 + 20, y: y)
         lifeNode1.name = "life1"
         lifeNode1.zPosition = zPositionUIElements
         addChild(lifeNode1)
         
         let lifeNode2 = SKSpriteNode(imageNamed: "life")
-        lifeNode2.position = CGPoint(x: CGRectGetMinX(frame) + lifeNode2.size.width * 2 - 10, y: CGRectGetMaxY(frame) - lifeNode2.size.height - screenCompensation)
+        lifeNode2.position = CGPoint(x: CGRectGetMinX(frame) + lifeNode2.size.width * 2 - 10, y: y)
         lifeNode2.name = "life2"
         lifeNode2.zPosition = zPositionUIElements
         addChild(lifeNode2)
         
         let lifeNode3 = SKSpriteNode(imageNamed: "life")
-        lifeNode3.position = CGPoint(x: CGRectGetMinX(frame) + lifeNode3.size.width * 3 - 5, y: CGRectGetMaxY(frame) - lifeNode3.size.height - screenCompensation)
+        lifeNode3.position = CGPoint(x: CGRectGetMinX(frame) + lifeNode3.size.width * 3 - 5, y: y)
         lifeNode3.name = "life3"
         lifeNode3.zPosition = zPositionUIElements
         addChild(lifeNode3)
@@ -220,7 +225,7 @@ extension GameScene {
         if DeviceModel.iPad || DeviceModel.iPadPro {
             position = CGPoint(x: CGRectGetMaxX(frame) - scoreNode.size.width / 2 - 10, y: CGRectGetMaxY(frame) - scoreNode.size.height / 2 - 10)
         } else if DeviceModel.iPhoneSE {
-            position = CGPoint(x: CGRectGetMaxX(frame) - scoreNode.size.width / 2 - 20, y: CGRectGetMaxY(frame) - scoreNode.size.height)
+            position = CGPoint(x: CGRectGetMaxX(frame) - scoreNode.size.width / 2 - 10, y: CGRectGetMaxY(frame) - scoreNode.size.height + 20)
         } else {
             position = CGPoint(x: CGRectGetMaxX(frame) - scoreNode.size.width / 2 - 10, y: CGRectGetMaxY(frame) - scoreNode.size.height)
         }
@@ -237,7 +242,7 @@ extension GameScene {
         if DeviceModel.iPad || DeviceModel.iPadPro {
             position = CGPoint(x: CGRectGetMinX(frame) + pauseButton.size.width - 20, y: CGRectGetMinY(frame) + pauseButton.size.height - 20)
         } else if DeviceModel.iPhoneSE {
-            position = CGPoint(x: CGRectGetMinX(frame) + pauseButton.size.width / 2 + 20, y: CGRectGetMinY(frame) + pauseButton.size.height)
+            position = CGPoint(x: CGRectGetMinX(frame) + pauseButton.size.width / 2 + 20, y: CGRectGetMinY(frame) + pauseButton.size.height - 20)
         } else {
             position = CGPoint(x: CGRectGetMinX(frame) + pauseButton.size.width, y: CGRectGetMinY(frame) + pauseButton.size.height)
         }
@@ -277,10 +282,16 @@ extension GameScene {
     
     /// Adds the mute button.
     private func addMuteButton() {
-        // Needed to position UI elements at the bottom of the screen
-        let screenCompensation: CGFloat = isPhone ? 20 : -20
         let muteButton = audioManager.isMuted ? SKSpriteNode(imageNamed: "mute_button") : SKSpriteNode(imageNamed: "unmute_button")
-        muteButton.position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height + screenCompensation)
+        var position: CGPoint = .zero
+        if DeviceModel.iPad || DeviceModel.iPadPro {
+            position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height - 20)
+        } else if DeviceModel.iPhoneSE {
+            position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height - 20)
+        } else {
+            position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height + 20)
+        }
+        muteButton.position = position
         muteButton.name = "muteButton"
         muteButton.zPosition = zPositionUIElements
         addChild(muteButton)
