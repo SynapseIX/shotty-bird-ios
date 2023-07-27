@@ -49,7 +49,9 @@ class GameOverScene: BaseScene {
         super.didMove(to: view)
         setupUI()
         audioManager.playMusic(type: .gameOver, loop: true)
-        run(playGameOverChime)
+        if !audioManager.isMuted {
+            run(playGameOverChime)
+        }
     }
     
     override func update(_ currentTime: TimeInterval) {

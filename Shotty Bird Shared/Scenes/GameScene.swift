@@ -246,7 +246,7 @@ class GameScene: BaseScene {
         let formattedString = timerValue < 10 ? "00: 0\(timerValue)"
                                               : "00: \(timerValue)"
         node.attributedString = NSAttributedString(string: formattedString, attributes: attributes)
-        if timerValue <= 5 {
+        if timerValue <= 5 && !audioManager.isMuted {
             run(SKAction.playSoundFileNamed("beep.mp3", waitForCompletion: false))
         }
         if timerValue == 0 {
