@@ -31,6 +31,9 @@ class GameScene: BaseScene {
     /// Audio manager to play background music.
     let audioManager = AudioManager(file: "TwinEngines-JeremyKorpas", type: "mp3", loop: true)
     
+    /// Determines if the game is running on a phone device.
+    private var isPhone = UIDevice.current.userInterfaceIdiom == .phone
+    
     override init(backgroundSpeed: BackgroundSpeed = .slow) {
         super.init(backgroundSpeed: backgroundSpeed)
     }
@@ -61,15 +64,6 @@ class GameScene: BaseScene {
             spawnEnemy()
             lastSpawnTime = 0
         }
-    }
-    
-    /// Creates and positions UI elements to be displayed during gameplay.
-    /// - Number of lives
-    /// - Score
-    /// - Pause Button
-    /// - Mute button
-    func setupUI() {
-        
     }
     
     // MARK: - Gameplay Elements
@@ -166,13 +160,100 @@ class GameScene: BaseScene {
     }
 }
 
+// MARK: - UI configuration
+
+extension GameScene {
+    /// Creates and positions UI elements to be displayed during gameplay.
+    /// - Number of lives
+    /// - Score
+    /// - Pause Button
+    /// - Mute button
+    private func setupUI() {
+        addPauseButton()
+        addMuteButton()
+    }
+    
+    /// Adds the pause button node.
+    private func addPauseButton() {
+        // Needed to position UI elements at the bottom of the screen
+        let screenCompensation: CGFloat = isPhone ? 20 : -20
+        let pauseButton = SKSpriteNode(imageNamed: "pause_button")
+        pauseButton.position = CGPoint(x: CGRectGetMinX(frame) + pauseButton.size.width - screenCompensation, y: CGRectGetMinY(frame) + pauseButton.size.height + screenCompensation)
+        pauseButton.name = "pauseButton"
+        pauseButton.zPosition = zPositionUIElements
+        addChild(pauseButton)
+    }
+    
+    /// Intercepts the pause button tap and processes it.
+    /// - Parameter location: Tap locatiopn on screen.
+    /// - Returns: Value of `true` if the pause button was tapped.
+    private func handlePauseButton(in location: CGPoint) -> Bool {
+        guard let view = view,
+              let pauseButton = childNode(withName: "pauseButton") as? SKSpriteNode else {
+            return false
+        }
+        if pauseButton.contains(location) {
+            if view.isPaused {
+                pauseButton.texture = SKTexture(imageNamed: "pause_button")
+                audioManager.tryPlayMusic()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    view.isPaused = false
+                }
+            } else {
+                pauseButton.texture = SKTexture(imageNamed: "play_button_icon")
+                audioManager.pause()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    view.isPaused = true
+                }
+            }
+            return true
+        }
+        return false
+    }
+    
+    
+    /// Adds the mute button.
+    private func addMuteButton() {
+        // Needed to position UI elements at the bottom of the screen
+        let screenCompensation: CGFloat = isPhone ? 20 : -20
+        let muteButton = audioManager.isMuted ? SKSpriteNode(imageNamed: "mute_button") : SKSpriteNode(imageNamed: "unmute_button")
+        muteButton.position = CGPoint(x: CGRectGetMaxX(frame) - muteButton.size.width / 2 - 20, y: CGRectGetMinY(frame) + muteButton.size.height + screenCompensation)
+        muteButton.name = "muteButton"
+        muteButton.zPosition = zPositionUIElements
+        addChild(muteButton)
+    }
+    
+    /// Handles the mute button tap event.
+    /// - Parameter location: A point where the screen is tapped.
+    /// - Returns: Value of `true` if the mute button was tapped.
+    private func handleMuteButton(in location: CGPoint) -> Bool {
+        guard let muteButton = childNode(withName: "muteButton") as? SKSpriteNode else {
+            return false
+        }
+        if muteButton.contains(location) {
+            audioManager.isMuted.toggle()
+            muteButton.texture = audioManager.isMuted ? SKTexture(imageNamed: "mute_button") : SKTexture(imageNamed: "unmute_button")
+            return true
+        }
+        return false
+    }
+}
+
 // MARK: - Touch-based event handling
 
 extension GameScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
-            // Limit taps to shoot missiles based on current bird spawn times and last touch time
+            // Handle pause button tap
+            if handlePauseButton(in: location) {
+                return
+            }
+            // Handle mute button tap
+            if handleMuteButton(in: location) {
+                return
+            }
+            // Shoot a missile
             if lastShotFiredTime == 0.0 {
                 shootMissile(in: location)
                 lastShotFiredTime = CACurrentMediaTime()

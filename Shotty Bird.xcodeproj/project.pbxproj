@@ -210,8 +210,8 @@
 			isa = PBXGroup;
 			children = (
 				CFB43E0A2A4DB7CD00A3F426 /* BaseScene.swift */,
-				CF77C65E2A4D24D800BA03ED /* GameScene.swift */,
 				CFB43E0E2A4DBAA700A3F426 /* MainMenuScene.swift */,
+				CF77C65E2A4D24D800BA03ED /* GameScene.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";

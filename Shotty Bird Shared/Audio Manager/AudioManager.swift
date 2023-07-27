@@ -82,6 +82,11 @@ class AudioManager: NSObject {
         }
     }
     
+    /// Pauses music playback.
+    func pause() {
+        player?.pause()
+    }
+    
     /// Stops playing audio.
     func stopMusic() {
         if player?.isPlaying == true {
