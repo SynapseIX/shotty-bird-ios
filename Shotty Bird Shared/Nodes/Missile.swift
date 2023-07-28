@@ -166,8 +166,8 @@ class Missile: SKSpriteNode {
                 explosion.run(SKAction.sequence([explosionAction, SKAction.removeFromParent()]))
                 gameScene.addChild(explosion)
 
-                // Increase game score
-                gameScene.updateScore()
+                // Increase game score and grant extra life if needed
+                gameScene.updateScore(grantExtraLife: enemy.zPosition == 0)
 
                 // TODO: Implement
                 // Check if the "Sniper" achievement need to be unlocked and report if necessary

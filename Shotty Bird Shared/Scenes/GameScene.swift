@@ -7,8 +7,27 @@
 
 import SpriteKit
 
+/// Defines what game mode to play.
+enum GameMode {
+    case slayer
+    case timeAttack
+    case practice
+}
+
+/// The difficulty level for practice mode.
+enum Difficulty {
+    case easy
+    case normal
+    case hard
+}
+
 /// Main game scene.
 class GameScene: BaseScene {
+    
+    /// The game mode to play.
+    private(set) var mode: GameMode
+    /// Practice mode difficulty level.
+    private(set) var difficulty: Difficulty
     
     /// Fixed position on the z-axis for UI elements.
     private let zPositionUIElements = CGFloat(Int.max)
@@ -20,6 +39,10 @@ class GameScene: BaseScene {
     /// Last time a shot was fired.
     private(set) var lastShotFiredTime: CFTimeInterval = 0.0
     
+    private var timer: Timer?
+    
+    /// Time attack mode timer value.
+    private(set) var timerValue = 60
     /// Number of lives remaining.
     private(set) var lives = 3
     /// Game score.
@@ -29,12 +52,16 @@ class GameScene: BaseScene {
     private(set) var spawnFrequency: TimeInterval = 2.2
     
     /// Audio manager to play background music.
-    let audioManager = AudioManager(file: "TwinEngines-JeremyKorpas", type: "mp3", loop: true)
+    let audioManager = AudioManager.shared
     
-    /// Determines if the game is running on a phone device.
-    private var isPhone = UIDevice.current.userInterfaceIdiom == .phone
-    
-    override init(backgroundSpeed: BackgroundSpeed = .slow) {
+    /// Creates a new game scene to play.
+    /// - Parameters:
+    ///   - mode: The game mode.
+    ///   - difficulty: Practice mode difficulty level.
+    ///   - backgroundSpeed: The parallax background speed.
+    init(mode: GameMode, difficulty: Difficulty = .easy, backgroundSpeed: BackgroundSpeed = .fast) {
+        self.mode = mode
+        self.difficulty = difficulty
         super.init(backgroundSpeed: backgroundSpeed)
     }
     
@@ -45,7 +72,23 @@ class GameScene: BaseScene {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         setupUI()
-        audioManager.tryPlayMusic()
+        
+        if mode == .practice {
+            switch difficulty {
+            case .easy:
+                spawnFrequency = 2.2
+            case .normal:
+                spawnFrequency = 1.5
+            case .hard:
+                spawnFrequency = 0.8
+            }
+        } else if mode == .timeAttack {
+            spawnFrequency = 0.33
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimerNode), userInfo: nil, repeats: true)
+        }
+        
+        let musicType: MusicType = (mode == .slayer || mode == .timeAttack) ? .gameplay : .practice
+        audioManager.playMusic(type: musicType, loop: true)
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -128,16 +171,41 @@ class GameScene: BaseScene {
         let playBirdSoundAction = SKAction.playSoundFileNamed("bird.wav", waitForCompletion: false)
         let flapAction = SKAction.animate(with: enemy.sprites, timePerFrame: flappingSpeed)
         let flappingSoundAction = SKAction.playSoundFileNamed("wing_flap.wav", waitForCompletion: false)
-        let flyAction = SKAction.repeat(flapAction, count: Int(duration / 0.2))
+        let flyAction = SKAction.repeat(flapAction, count: Int(duration / flappingSpeed / 25))
         let moveAction = SKAction.move(to: CGPoint(x: -enemy.size.width / 2, y: enemy.position.y), duration: duration)
         let flyAndMoveAction = SKAction.group([flyAction, moveAction])
         let removeAction = SKAction.removeFromParent()
         
         let sequence = audioManager.isMuted ? SKAction.sequence([flyAndMoveAction, removeAction])
-                               : SKAction.sequence([flappingSoundAction, flyAndMoveAction, playBirdSoundAction, removeAction])
-        
-        // Run actions
-        enemy.run(sequence)
+                                            : SKAction.sequence([flappingSoundAction,
+                                                                 flyAndMoveAction,
+                                                                 playBirdSoundAction])
+        enemy.run(sequence) {
+            if self.mode == .slayer {
+                if enemy.position.x == -enemy.size.width / 2 {
+                    self.lives -= 1
+                    
+                    // TODO: consider extra life if player watches ad or purchased no ads
+                    if self.lives == 2 {
+                        guard let node = self.childNode(withName: "life1") as? SKSpriteNode else {
+                            return
+                        }
+                        node.texture = SKTexture(imageNamed: "death")
+                    } else if self.lives == 1 {
+                        let node = self.childNode(withName: "life2") as! SKSpriteNode
+                        node.texture = SKTexture(imageNamed: "death")
+                    } else if self.lives == 0 {
+                        let node = self.childNode(withName: "life3") as! SKSpriteNode
+                        node.texture = SKTexture(imageNamed: "death")
+                        self.audioManager.stop()
+
+                        let scene = GameOverScene(score: self.score, mode: .slayer)
+                        let transition = SKTransition.flipVertical(withDuration: 1.0)
+                        self.view?.presentScene(scene, transition: transition)
+                    }
+                }
+            }
+        }
     }
     
     /// Shoots a missile sprite node.
@@ -158,6 +226,36 @@ class GameScene: BaseScene {
         
         addChild(missile)
     }
+    
+    @objc private func updateTimerNode() {
+        timerValue -= 1
+        
+        // Update timer label with new time value
+        guard let node = childNode(withName: "timer") as? AttributedLabelNode,
+              let font =  UIFont(name: "Kenney-Bold", size: 35) else {
+            return
+        }
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .right
+        let attributes: [NSAttributedString.Key: Any] = [.font: font,
+                                                         .foregroundColor: timerValue <= 5 ? UIColor.red : UIColor.white,
+                                                         .strokeColor: UIColor.black,
+                                                         .strokeWidth: -10,
+                                                         .paragraphStyle: paragraphStyle]
+        
+        let formattedString = timerValue < 10 ? "00: 0\(timerValue)"
+                                              : "00: \(timerValue)"
+        node.attributedString = NSAttributedString(string: formattedString, attributes: attributes)
+        if timerValue <= 5 && !audioManager.isMuted {
+            run(SKAction.playSoundFileNamed("beep.mp3", waitForCompletion: false))
+        }
+        if timerValue == 0 {
+            timer?.invalidate()
+            let scene = GameOverScene(score: score, mode: .timeAttack)
+            let transition = SKTransition.flipVertical(withDuration: 1.0)
+            self.view?.presentScene(scene, transition: transition)
+        }
+    }
 }
 
 // MARK: - UI configuration
@@ -169,10 +267,84 @@ extension GameScene {
     /// - Pause Button
     /// - Mute button
     private func setupUI() {
-        addLifeNodes()
+        switch mode {
+        case .slayer:
+            addLifeNodes()
+        case .practice:
+            addBackButton()
+        case .timeAttack:
+            addTimerNode()
+        }
         addScoreNode()
         addPauseButton()
         addMuteButton()
+    }
+    
+    /// Adds the timer node.
+    private func addTimerNode() {
+        guard let font = UIFont(name: "Kenney-Bold", size: 35) else {
+            return
+        }
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .right
+        let attributes: [NSAttributedString.Key: Any] = [.font: font,
+                                                         .foregroundColor: UIColor.white,
+                                                         .strokeColor: UIColor.black,
+                                                         .strokeWidth: -10,
+                                                         .paragraphStyle: paragraphStyle]
+        let attributedString = NSAttributedString(string: "01:00", attributes: attributes)
+        
+        let timerNode = AttributedLabelNode(size: CGSize(width: 165, height: 65.0))
+        timerNode.attributedString = attributedString
+        var position: CGPoint = .zero
+        if DeviceModel.iPad || DeviceModel.iPadPro {
+            position = CGPoint(x: CGRectGetMinX(frame) + timerNode.size.width / 2 + 20, y: CGRectGetMaxY(frame) - timerNode.size.height / 2 - 10)
+        } else if DeviceModel.iPhoneSE {
+            position = CGPoint(x: CGRectGetMinX(frame) + timerNode.size.width / 2 + 20, y: CGRectGetMaxY(frame) - timerNode.size.height + 20)
+        } else {
+            position = CGPoint(x: CGRectGetMinX(frame) + timerNode.size.width / 2 + 20, y: CGRectGetMaxY(frame) - timerNode.size.height)
+        }
+        timerNode.position = position
+        timerNode.name = "timer"
+        timerNode.zPosition = zPositionUIElements
+        addChild(timerNode)
+    }
+    
+    /// Adds back button node.
+    private func addBackButton() {
+        let backButton = SKSpriteNode(imageNamed: "back_button")
+        var y: CGFloat = 0.0
+        if DeviceModel.iPad || DeviceModel.iPadPro {
+            y = CGRectGetMaxY(frame) - backButton.size.height + 20
+        } else if DeviceModel.iPhoneSE {
+            y = CGRectGetMaxY(frame) - backButton.size.height + 20
+        } else {
+            y = CGRectGetMaxY(frame) - backButton.size.height
+        }
+        backButton.position = CGPoint(x: CGRectGetMinX(frame) + backButton.size.width / 2 + 20, y: y)
+        backButton.name = "backButton"
+        backButton.zPosition = zPositionUIElements
+        addChild(backButton)
+    }
+    
+    /// Handles the back button tap event.
+    /// - Parameter location: A point where the screen is tapped.
+    private func handleBackButton(in location: CGPoint) -> Bool {
+        guard let backButton = childNode(withName: "backButton") as? SKSpriteNode else {
+            return false
+        }
+        if backButton.contains(location) {
+            if !audioManager.isMuted {
+                backButton.run(SKAction.playSoundFileNamed("explosion", waitForCompletion: false))
+            }
+            
+            let mainMenuScene = GameModeScene()
+            let transition = SKTransition.doorsCloseHorizontal(withDuration: 1.0)
+            view?.presentScene(mainMenuScene, transition: transition)
+            audioManager.playMusic(type: .menu, loop: true)
+            return true
+        }
+        return false
     }
     
     /// Adds life nodes.
@@ -217,7 +389,7 @@ extension GameScene {
                                                          .strokeColor: UIColor.black,
                                                          .strokeWidth: -10,
                                                          .paragraphStyle: paragraphStyle]
-        let attributedString = NSAttributedString(string: "0", attributes: attributes)
+        let attributedString = NSAttributedString(string: "x0", attributes: attributes)
         
         let scoreNode = AttributedLabelNode(size: CGSize(width: 165.0, height: 65.0))
         scoreNode.attributedString = attributedString
@@ -263,7 +435,7 @@ extension GameScene {
         if pauseButton.contains(location) {
             if view.isPaused {
                 pauseButton.texture = SKTexture(imageNamed: "pause_button")
-                audioManager.tryPlayMusic()
+                audioManager.resume()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                     view.isPaused = false
                 }
@@ -319,6 +491,12 @@ extension GameScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
+            // Handle back button
+            if mode == .practice {
+                if handleBackButton(in: location) {
+                    return
+                }
+            }
             // Handle pause button tap
             if handlePauseButton(in: location) {
                 return
@@ -345,13 +523,35 @@ extension GameScene {
 // MARK: - GameScoreDelegate
 
 extension GameScene: GameScoreDelegate {
-    func updateScore() {
+    func updateScore(grantExtraLife: Bool) {
         score += 1
         
-        if score % 5 == 0 {
-            audioManager.increasePlaybackRate(by: 0.1)
-            if spawnFrequency >= 0.8 {
-                spawnFrequency -= 0.2
+        if mode == .slayer {
+            if score % 5 == 0 {
+                audioManager.increasePlaybackRate(by: 0.1)
+                if spawnFrequency >= 0.8 {
+                    spawnFrequency -= 0.2
+                }
+            }
+            
+            // TODO: consider extra life if player watched ad or purchased no ads
+            if grantExtraLife {
+                if lives == 1 {
+                    guard let node = self.childNode(withName: "life2") as? SKSpriteNode else {
+                        return
+                    }
+                    node.texture = SKTexture(imageNamed: "life")
+                    lives += 1
+                } else if lives == 2 {
+                    guard let node = self.childNode(withName: "life1") as? SKSpriteNode else {
+                        return
+                    }
+                    node.texture = SKTexture(imageNamed: "life")
+                    lives += 1
+                }
+                if !audioManager.isMuted {
+                    run(SKAction.playSoundFileNamed("1up.mp3", waitForCompletion: false))
+                }
             }
         }
         
@@ -367,7 +567,7 @@ extension GameScene: GameScoreDelegate {
                                                          .strokeColor: UIColor.black,
                                                          .strokeWidth: -10,
                                                          .paragraphStyle: paragraphStyle]
-        node.attributedString = NSAttributedString(string: "\(score)", attributes: attributes)
+        node.attributedString = NSAttributedString(string: "x\(score)", attributes: attributes)
     }
 }
 

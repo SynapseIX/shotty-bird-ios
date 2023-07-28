@@ -7,11 +7,27 @@
 
 import AVFoundation
 
-/// Audio manager class to control game music playback on iOS and iPadOS.
-class AudioManager: NSObject {
+/// Defines what type of music to play.
+enum MusicType {
+    case menu
+    case gameplay
+    case practice
+    case gameOver
+}
+
+/// Audio manager class to control game music playback.
+final class AudioManager: NSObject {
+    
+    /// Shared manager instance.
+    static let shared = AudioManager()
+    
+    /// The music type is being played. Defualts to `.menu`.
+    private var type: MusicType = .menu
     
     /// The maximum volume for the music.
-    static let maxVolume: Float = 0.5
+    var maxVolume: Float {
+        type == .gameOver ? 1.0 : 0.5
+    }
     
     /// The maxium playback rate allowed.
     static let maximumPlaybackRate: Float = 2.0
@@ -21,13 +37,16 @@ class AudioManager: NSObject {
     /// The audio player.
     private var player: AVAudioPlayer?
     
+    /// Internal mute state value.
+    private var isMutedValue = false
     /// Returns or sets the current mute state of the audio player.
     var isMuted: Bool {
         get {
-            player?.volume == 0.0
+            isMutedValue
         }
         set {
-            player?.volume = newValue ? 0.0 : AudioManager.maxVolume
+            isMutedValue = newValue
+            player?.volume = newValue ? 0.0 : maxVolume
         }
     }
     
@@ -35,14 +54,9 @@ class AudioManager: NSObject {
     private(set) var isMusicInterrupted = false
     
     /// Creates a new `AudioManager` instance.
-    /// - Parameters:
-    ///   - file: The audio file to play.
-    ///   - type: The audio file type extension.
-    ///   - loop: Flag to determine if the audio should play again after it is over.
-    init(file:String?, type:String?, loop: Bool) {
+    private override init() {
         super.init()
         configureAudioSession()
-        configureAudioPlayer(file: file, type: type, loop: loop)
     }
     
     // MARK: - Audio session and player setup
@@ -57,14 +71,28 @@ class AudioManager: NSObject {
         }
     }
     
-    /// Configures the audio player.
+    /// Plays game music.
     /// - Parameters:
-    ///   - file: The audio file to play.
-    ///   - type: The audio file type extension.
-    ///   - loop: Flag to determine if the audio should play again after it is over.
-    private func configureAudioPlayer(file: String?, type: String?, loop: Bool) {
-        guard let backgroundMusicPath = Bundle.main.path(forResource: file, ofType: type) else {
+    ///   - type: The type of music to play.
+    ///   - loop: Determines if the music should play again after it is over.
+    func playMusic(type: MusicType, loop: Bool) {
+        self.type = type
+        var resource: String
+        switch type {
+        case .menu:
+            resource = "Crimson-Sextile"
+        case .practice:
+            resource = "Practice"
+        case .gameplay:
+            resource = "TwinEngines-JeremyKorpas"
+        case .gameOver:
+            resource = "CrowsCawInField"
+        }
+        guard let backgroundMusicPath = Bundle.main.path(forResource: resource, ofType: "mp3") else {
             return
+        }
+        if player?.isPlaying == true {
+            player?.stop()
         }
         do {
             let backgroundMusicURL = URL(fileURLWithPath: backgroundMusicPath)
@@ -72,26 +100,28 @@ class AudioManager: NSObject {
             player?.delegate = self
             player?.numberOfLoops = loop ? -1 : 0
             player?.enableRate = true
+            player?.volume = isMuted ? 0.0 : maxVolume
+            resume()
         } catch {
             print("Error when trying to setup the audio player: \(error.localizedDescription)")
         }
     }
     
-    /// Attempts to play the loaded audio file.
-    func tryPlayMusic() {
+    /// Attempts to resume audio playback.
+    func resume() {
         if session?.isOtherAudioPlaying == false {
             player?.prepareToPlay()
             player?.play()
         }
     }
     
-    /// Pauses music playback.
+    /// Pauses audio playback.
     func pause() {
         player?.pause()
     }
     
-    /// Stops playing audio.
-    func stopMusic() {
+    /// Stops audio playback.
+    func stop() {
         if player?.isPlaying == true {
             player?.stop()
         }
@@ -117,7 +147,7 @@ extension AudioManager: AVAudioPlayerDelegate {
     }
     
     func audioPlayerEndInterruption(_ player: AVAudioPlayer, withOptions flags: Int) {
-        tryPlayMusic()
+        resume()
         if player.isPlaying == true {
             isMusicInterrupted = false
         }
