@@ -236,13 +236,13 @@ extension GameModeScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
-            // Handle play button tap
+            // Handle slayer button tap
             handleSlayerButton(in: location)
-            // Handle leaderboard button tap
+            // Handle time attack button tap
             handleTimeAttackButton(in: location)
-            // Handle credits button tap
+            // Handle practice button tap
             handlePracticeButton(in: location)
-            // Handle share button tap
+            // Handle back button tap
             handleBackButton(in: location)
             // Handle mute button tap
             handleMuteButton(in: location)
