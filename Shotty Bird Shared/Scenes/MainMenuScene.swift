@@ -170,11 +170,13 @@ class MainMenuScene: BaseScene {
         guard let gameCenterButton = childNode(withName: "gameCenterButton") else {
             return
         }
-        if !audioManager.isMuted {
-            run(playExplosionSoundAction)
-        }
-        if gameCenterButton.contains(location) && GameCenterHelper.shared.isGameCenterEnabled {
-            GameCenterHelper.shared.presentGameCenterViewController()
+        if gameCenterButton.contains(location) {
+            if !audioManager.isMuted {
+                run(playExplosionSoundAction)
+            }
+            if gameCenterButton.contains(location) && GameCenterHelper.shared.isGameCenterEnabled {
+                GameCenterHelper.shared.presentGameCenterViewController()
+            }
         }
     }
     
