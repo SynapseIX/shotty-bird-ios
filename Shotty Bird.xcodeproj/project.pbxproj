@@ -8,69 +8,37 @@
 
 /* Begin PBXBuildFile section */
 		CF0A46182A7212C600F52F44 /* Kenney-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF0A46162A7212C600F52F44 /* Kenney-Bold.ttf */; };
-		CF0A46192A7212C600F52F44 /* Kenney-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF0A46162A7212C600F52F44 /* Kenney-Bold.ttf */; };
 		CF0A461A2A7212C600F52F44 /* Kenney-Blocks.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF0A46172A7212C600F52F44 /* Kenney-Blocks.ttf */; };
-		CF0A461B2A7212C600F52F44 /* Kenney-Blocks.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF0A46172A7212C600F52F44 /* Kenney-Blocks.ttf */; };
 		CF1A8F4F2A53A57400BAD0A6 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A8F4E2A53A57400BAD0A6 /* Enemy.swift */; };
-		CF1A8F502A53A57400BAD0A6 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A8F4E2A53A57400BAD0A6 /* Enemy.swift */; };
 		CF1A8F542A53C71300BAD0A6 /* PhysicsCollisionBitMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A8F532A53C71300BAD0A6 /* PhysicsCollisionBitMask.swift */; };
-		CF1A8F552A53C71300BAD0A6 /* PhysicsCollisionBitMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A8F532A53C71300BAD0A6 /* PhysicsCollisionBitMask.swift */; };
 		CF1A8F582A53D96F00BAD0A6 /* Missile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A8F572A53D96F00BAD0A6 /* Missile.swift */; };
-		CF1A8F592A53D96F00BAD0A6 /* Missile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A8F572A53D96F00BAD0A6 /* Missile.swift */; };
 		CF1A8F5C2A53DA2C00BAD0A6 /* GameScoreDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A8F5B2A53DA2C00BAD0A6 /* GameScoreDelegate.swift */; };
-		CF1A8F5D2A53DA2C00BAD0A6 /* GameScoreDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A8F5B2A53DA2C00BAD0A6 /* GameScoreDelegate.swift */; };
 		CF1A8F612A53DCAB00BAD0A6 /* bird.wav in Resources */ = {isa = PBXBuildFile; fileRef = CF1A8F602A53DCAB00BAD0A6 /* bird.wav */; };
-		CF1A8F622A53DCAB00BAD0A6 /* bird.wav in Resources */ = {isa = PBXBuildFile; fileRef = CF1A8F602A53DCAB00BAD0A6 /* bird.wav */; };
 		CF1A8F652A53DCC700BAD0A6 /* explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = CF1A8F642A53DCC700BAD0A6 /* explosion.wav */; };
-		CF1A8F662A53DCC700BAD0A6 /* explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = CF1A8F642A53DCC700BAD0A6 /* explosion.wav */; };
 		CF1A8F692A53DCF100BAD0A6 /* shot.wav in Resources */ = {isa = PBXBuildFile; fileRef = CF1A8F682A53DCF100BAD0A6 /* shot.wav */; };
-		CF1A8F6A2A53DCF100BAD0A6 /* shot.wav in Resources */ = {isa = PBXBuildFile; fileRef = CF1A8F682A53DCF100BAD0A6 /* shot.wav */; };
 		CF1A8F6D2A53DD1500BAD0A6 /* wing_flap.wav in Resources */ = {isa = PBXBuildFile; fileRef = CF1A8F6C2A53DD1500BAD0A6 /* wing_flap.wav */; };
-		CF1A8F6E2A53DD1500BAD0A6 /* wing_flap.wav in Resources */ = {isa = PBXBuildFile; fileRef = CF1A8F6C2A53DD1500BAD0A6 /* wing_flap.wav */; };
 		CF2275792A7315B300A246D6 /* DifficultyScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2275782A7315B300A246D6 /* DifficultyScene.swift */; };
-		CF22757A2A7315B300A246D6 /* DifficultyScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2275782A7315B300A246D6 /* DifficultyScene.swift */; };
 		CF22757C2A7328A600A246D6 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF22757B2A7328A600A246D6 /* GameOverScene.swift */; };
-		CF22757D2A7328A600A246D6 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF22757B2A7328A600A246D6 /* GameOverScene.swift */; };
 		CF22757F2A73378F00A246D6 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF22757E2A73378F00A246D6 /* beep.mp3 */; };
-		CF2275802A73378F00A246D6 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF22757E2A73378F00A246D6 /* beep.mp3 */; };
 		CF68C0C22A5401EA00264E81 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF68C0C12A5401EA00264E81 /* AudioManager.swift */; };
-		CF68C0C32A5401EA00264E81 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF68C0C12A5401EA00264E81 /* AudioManager.swift */; };
 		CF68C0C62A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF68C0C52A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 */; };
-		CF68C0C72A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF68C0C52A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 */; };
 		CF68C0CB2A5412D000264E81 /* CrowsCawInField.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF68C0C92A5412D000264E81 /* CrowsCawInField.mp3 */; };
-		CF68C0CC2A5412D000264E81 /* CrowsCawInField.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF68C0C92A5412D000264E81 /* CrowsCawInField.mp3 */; };
 		CF68C0CE2A5412D000264E81 /* Crimson-Sextile.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF68C0CA2A5412D000264E81 /* Crimson-Sextile.mp3 */; };
-		CF68C0CF2A5412D000264E81 /* Crimson-Sextile.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF68C0CA2A5412D000264E81 /* Crimson-Sextile.mp3 */; };
 		CF77C6682A4D24D900BA03ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF77C6672A4D24D900BA03ED /* AppDelegate.swift */; };
 		CF77C66A2A4D24D900BA03ED /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF77C6692A4D24D900BA03ED /* GameViewController.swift */; };
 		CF77C66D2A4D24D900BA03ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF77C66B2A4D24D900BA03ED /* Main.storyboard */; };
 		CF77C6702A4D24D900BA03ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF77C66E2A4D24D900BA03ED /* LaunchScreen.storyboard */; };
-		CF77C6782A4D24D900BA03ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF77C6772A4D24D900BA03ED /* AppDelegate.swift */; };
-		CF77C67A2A4D24D900BA03ED /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF77C6792A4D24D900BA03ED /* GameViewController.swift */; };
-		CF77C67D2A4D24D900BA03ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF77C67B2A4D24D900BA03ED /* Main.storyboard */; };
-		CF77C6802A4D24D900BA03ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF77C67E2A4D24D900BA03ED /* LaunchScreen.storyboard */; };
 		CF77C6952A4D24D900BA03ED /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF77C65E2A4D24D800BA03ED /* GameScene.swift */; };
-		CF77C6962A4D24D900BA03ED /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF77C65E2A4D24D800BA03ED /* GameScene.swift */; };
 		CF77C6982A4D24D900BA03ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF77C65F2A4D24D900BA03ED /* Assets.xcassets */; };
-		CF77C6992A4D24D900BA03ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF77C65F2A4D24D900BA03ED /* Assets.xcassets */; };
 		CFAB32FE2A72165F00538D13 /* AttributedLabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAB32FD2A72165F00538D13 /* AttributedLabelNode.swift */; };
-		CFAB32FF2A72165F00538D13 /* AttributedLabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAB32FD2A72165F00538D13 /* AttributedLabelNode.swift */; };
 		CFAB33022A72218200538D13 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAB33012A72218200538D13 /* DeviceModel.swift */; };
-		CFAB33032A72218200538D13 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAB33012A72218200538D13 /* DeviceModel.swift */; };
 		CFAB33052A72E98D00538D13 /* Practice.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CFAB33042A72E98D00538D13 /* Practice.mp3 */; };
-		CFAB33062A72E98D00538D13 /* Practice.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CFAB33042A72E98D00538D13 /* Practice.mp3 */; };
 		CFAB33082A72FF5B00538D13 /* 1up.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CFAB33072A72FF5B00538D13 /* 1up.mp3 */; };
-		CFAB33092A72FF5B00538D13 /* 1up.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CFAB33072A72FF5B00538D13 /* 1up.mp3 */; };
 		CFAB330B2A730C2800538D13 /* game_over_positive.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CFAB330A2A730C2800538D13 /* game_over_positive.mp3 */; };
-		CFAB330C2A730C2800538D13 /* game_over_positive.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CFAB330A2A730C2800538D13 /* game_over_positive.mp3 */; };
 		CFAB330E2A730D0D00538D13 /* GameModeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAB330D2A730D0D00538D13 /* GameModeScene.swift */; };
-		CFAB330F2A730D0D00538D13 /* GameModeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAB330D2A730D0D00538D13 /* GameModeScene.swift */; };
 		CFB43E0B2A4DB7CD00A3F426 /* BaseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB43E0A2A4DB7CD00A3F426 /* BaseScene.swift */; };
-		CFB43E0C2A4DB7CD00A3F426 /* BaseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB43E0A2A4DB7CD00A3F426 /* BaseScene.swift */; };
 		CFB43E0F2A4DBAA700A3F426 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB43E0E2A4DBAA700A3F426 /* MainMenuScene.swift */; };
-		CFB43E102A4DBAA700A3F426 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB43E0E2A4DBAA700A3F426 /* MainMenuScene.swift */; };
 		CFCEA7E32A70E6E500D00C03 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCEA7E22A70E6E500D00C03 /* Constants.swift */; };
-		CFCEA7E42A70E6E500D00C03 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCEA7E22A70E6E500D00C03 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,11 +66,6 @@
 		CF77C6692A4D24D900BA03ED /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		CF77C66C2A4D24D900BA03ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CF77C66F2A4D24D900BA03ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		CF77C6752A4D24D900BA03ED /* Shotty Bird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shotty Bird.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CF77C6772A4D24D900BA03ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CF77C6792A4D24D900BA03ED /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		CF77C67C2A4D24D900BA03ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		CF77C67F2A4D24D900BA03ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CFAB32FD2A72165F00538D13 /* AttributedLabelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedLabelNode.swift; sourceTree = "<group>"; };
 		CFAB33012A72218200538D13 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
 		CFAB33042A72E98D00538D13 /* Practice.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Practice.mp3; sourceTree = "<group>"; };
@@ -113,18 +76,10 @@
 		CFB43E0E2A4DBAA700A3F426 /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 		CFCEA7E22A70E6E500D00C03 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CFCEA7E52A70F9D700D00C03 /* Shotty-Bird-iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Shotty-Bird-iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
-		CFCEA7E62A70FACB00D00C03 /* Shotty-Bird-tvOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Shotty-Bird-tvOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		CF77C6612A4D24D900BA03ED /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CF77C6722A4D24D900BA03ED /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -190,7 +145,6 @@
 			children = (
 				CF77C65B2A4D24D800BA03ED /* Shotty Bird Shared */,
 				CF77C6662A4D24D900BA03ED /* Shotty Bird iOS */,
-				CF77C6762A4D24D900BA03ED /* Shotty Bird tvOS */,
 				CF77C6652A4D24D900BA03ED /* Products */,
 			);
 			sourceTree = "<group>";
@@ -216,7 +170,6 @@
 			isa = PBXGroup;
 			children = (
 				CF77C6642A4D24D900BA03ED /* Shotty Bird.app */,
-				CF77C6752A4D24D900BA03ED /* Shotty Bird.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -231,18 +184,6 @@
 				CFCEA7E52A70F9D700D00C03 /* Shotty-Bird-iOS-Info.plist */,
 			);
 			path = "Shotty Bird iOS";
-			sourceTree = "<group>";
-		};
-		CF77C6762A4D24D900BA03ED /* Shotty Bird tvOS */ = {
-			isa = PBXGroup;
-			children = (
-				CF77C6772A4D24D900BA03ED /* AppDelegate.swift */,
-				CF77C6792A4D24D900BA03ED /* GameViewController.swift */,
-				CF77C67B2A4D24D900BA03ED /* Main.storyboard */,
-				CF77C67E2A4D24D900BA03ED /* LaunchScreen.storyboard */,
-				CFCEA7E62A70FACB00D00C03 /* Shotty-Bird-tvOS-Info.plist */,
-			);
-			path = "Shotty Bird tvOS";
 			sourceTree = "<group>";
 		};
 		CF77C6A72A4D292600BA03ED /* Nodes */ = {
@@ -304,23 +245,6 @@
 			productReference = CF77C6642A4D24D900BA03ED /* Shotty Bird.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CF77C6742A4D24D900BA03ED /* Shotty Bird tvOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CF77C6A02A4D24D900BA03ED /* Build configuration list for PBXNativeTarget "Shotty Bird tvOS" */;
-			buildPhases = (
-				CF77C6712A4D24D900BA03ED /* Sources */,
-				CF77C6722A4D24D900BA03ED /* Frameworks */,
-				CF77C6732A4D24D900BA03ED /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Shotty Bird tvOS";
-			productName = "Shotty Bird tvOS";
-			productReference = CF77C6752A4D24D900BA03ED /* Shotty Bird.app */;
-			productType = "com.apple.product-type.application";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -333,9 +257,6 @@
 				ORGANIZATIONNAME = "Komodo Life";
 				TargetAttributes = {
 					CF77C6632A4D24D900BA03ED = {
-						CreatedOnToolsVersion = 14.3.1;
-					};
-					CF77C6742A4D24D900BA03ED = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
 				};
@@ -354,7 +275,6 @@
 			projectRoot = "";
 			targets = (
 				CF77C6632A4D24D900BA03ED /* Shotty Bird iOS */,
-				CF77C6742A4D24D900BA03ED /* Shotty Bird tvOS */,
 			);
 		};
 /* End PBXProject section */
@@ -380,29 +300,6 @@
 				CF68C0CB2A5412D000264E81 /* CrowsCawInField.mp3 in Resources */,
 				CF68C0C62A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 in Resources */,
 				CF77C6982A4D24D900BA03ED /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CF77C6732A4D24D900BA03ED /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CF1A8F6A2A53DCF100BAD0A6 /* shot.wav in Resources */,
-				CF1A8F6E2A53DD1500BAD0A6 /* wing_flap.wav in Resources */,
-				CF2275802A73378F00A246D6 /* beep.mp3 in Resources */,
-				CF1A8F662A53DCC700BAD0A6 /* explosion.wav in Resources */,
-				CFAB33092A72FF5B00538D13 /* 1up.mp3 in Resources */,
-				CF77C67D2A4D24D900BA03ED /* Main.storyboard in Resources */,
-				CF1A8F622A53DCAB00BAD0A6 /* bird.wav in Resources */,
-				CF68C0CF2A5412D000264E81 /* Crimson-Sextile.mp3 in Resources */,
-				CFAB33062A72E98D00538D13 /* Practice.mp3 in Resources */,
-				CFAB330C2A730C2800538D13 /* game_over_positive.mp3 in Resources */,
-				CF0A461B2A7212C600F52F44 /* Kenney-Blocks.ttf in Resources */,
-				CF77C6802A4D24D900BA03ED /* LaunchScreen.storyboard in Resources */,
-				CF0A46192A7212C600F52F44 /* Kenney-Bold.ttf in Resources */,
-				CF68C0CC2A5412D000264E81 /* CrowsCawInField.mp3 in Resources */,
-				CF68C0C72A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 in Resources */,
-				CF77C6992A4D24D900BA03ED /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,29 +329,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CF77C6712A4D24D900BA03ED /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CFB43E102A4DBAA700A3F426 /* MainMenuScene.swift in Sources */,
-				CFAB33032A72218200538D13 /* DeviceModel.swift in Sources */,
-				CF22757D2A7328A600A246D6 /* GameOverScene.swift in Sources */,
-				CFCEA7E42A70E6E500D00C03 /* Constants.swift in Sources */,
-				CFAB32FF2A72165F00538D13 /* AttributedLabelNode.swift in Sources */,
-				CF77C6962A4D24D900BA03ED /* GameScene.swift in Sources */,
-				CF1A8F502A53A57400BAD0A6 /* Enemy.swift in Sources */,
-				CF1A8F5D2A53DA2C00BAD0A6 /* GameScoreDelegate.swift in Sources */,
-				CF77C67A2A4D24D900BA03ED /* GameViewController.swift in Sources */,
-				CF1A8F552A53C71300BAD0A6 /* PhysicsCollisionBitMask.swift in Sources */,
-				CFAB330F2A730D0D00538D13 /* GameModeScene.swift in Sources */,
-				CF77C6782A4D24D900BA03ED /* AppDelegate.swift in Sources */,
-				CF1A8F592A53D96F00BAD0A6 /* Missile.swift in Sources */,
-				CF68C0C32A5401EA00264E81 /* AudioManager.swift in Sources */,
-				CF22757A2A7315B300A246D6 /* DifficultyScene.swift in Sources */,
-				CFB43E0C2A4DB7CD00A3F426 /* BaseScene.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
@@ -470,22 +344,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				CF77C66F2A4D24D900BA03ED /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		CF77C67B2A4D24D900BA03ED /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CF77C67C2A4D24D900BA03ED /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		CF77C67E2A4D24D900BA03ED /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CF77C67F2A4D24D900BA03ED /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -671,61 +529,6 @@
 			};
 			name = Release;
 		};
-		CF77C6A12A4D24D900BA03ED /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "tvOS App Icon & Top Shelf Image";
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Shotty-Bird-tvOS-Info.plist";
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "co.profapps.Shotty-Bird";
-				PRODUCT_NAME = "Shotty Bird";
-				SDKROOT = appletvos;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 16.4;
-			};
-			name = Debug;
-		};
-		CF77C6A22A4D24D900BA03ED /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "tvOS App Icon & Top Shelf Image";
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Shotty-Bird-tvOS-Info.plist";
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "co.profapps.Shotty-Bird";
-				PRODUCT_NAME = "Shotty Bird";
-				SDKROOT = appletvos;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 16.4;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -743,15 +546,6 @@
 			buildConfigurations = (
 				CF77C69E2A4D24D900BA03ED /* Debug */,
 				CF77C69F2A4D24D900BA03ED /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CF77C6A02A4D24D900BA03ED /* Build configuration list for PBXNativeTarget "Shotty Bird tvOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CF77C6A12A4D24D900BA03ED /* Debug */,
-				CF77C6A22A4D24D900BA03ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
