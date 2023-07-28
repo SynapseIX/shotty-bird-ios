@@ -16,9 +16,9 @@ struct Constants {
     /// URL to use when tapping the share button.
     static let shareURL = URL(string: "https://komodo.life")!
     /// Share slayer score text with format.
-    static let shareSlayerScoreText = "I slew %d birds in Shotty Bird! Can you beat my score? Download now for FREE.\n\(shareURL.absoluteString)\n#HappySlaying"
+    static let shareSlayerScoreText = "I slayed %d birds in Shotty Bird! Can you beat my score? Download now for FREE.\n\(shareURL.absoluteString)\n#HappySlaying"
     /// Share slayer score text with format.
-    static let shareTimeAttackScoreText = "I slew %d birds in Shotty Bird in 1 minute! Can you beat my score? Download now for FREE.\n\(shareURL.absoluteString)\n#HappySlaying"
+    static let shareTimeAttackScoreText = "I slayed %d birds in Shotty Bird in 1 minute! Can you beat my score? Download now for FREE.\n\(shareURL.absoluteString)\n#HappySlaying"
     /// The app icon image to use when sharing the game.
     static let appIconImage = UIImage(named: "AppIcon")!
 }
