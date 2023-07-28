@@ -169,18 +169,18 @@ class Missile: SKSpriteNode {
                 // Increase game score and grant extra life if needed
                 gameScene.updateScore(grantExtraLife: enemy.zPosition == 0)
 
-                // TODO: Implement
                 // Check if the "Sniper" achievement need to be unlocked and report if necessary
-//                    if enemy.zPosition == 0 && enemy.flightSpeed == 2.0 {
-//                        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-//                        let gameCenterHelper = appDelegate.gameCenterHelper
-//
-//                        if !gameCenterHelper.sniper.unlocked {
-//                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-//                                gameCenterHelper.reportAchievement("co.profapps.Shotty_Bird.achievement.sniper", percentComplete: 100.0, showsCompletionBanner: true)
-//                            }
-//                        }
-//                    }
+                if enemy.zPosition == 0 && enemy.flightSpeed == 2.0 {
+                    let gameCenterHelper = GameCenterHelper.shared
+                    guard let achievement = gameCenterHelper.getAchievement(with: Constants.sniper) else {
+                        return
+                    }
+                    if achievement.percentComplete != 100 {
+                        DispatchQueue.main.async {
+                            gameCenterHelper.reportAchievement(identifier: achievement.identifier, percentComplete: 100.0, showsCompletionBanner: true)
+                        }
+                    }
+                }
                 
                 // Stop the enumeration
                 stop.pointee = true

@@ -46,7 +46,7 @@ class GameScene: BaseScene {
     /// Number of lives remaining.
     private(set) var lives = 3
     /// Game score.
-    private(set) var score: Int64 = 0
+    private(set) var score = 0
     
     /// Controls how many seconds has to pass before spawning a new enemy.
     private(set) var spawnFrequency: TimeInterval = 2.2

@@ -6,13 +6,14 @@
 //  Copyright © 2023 Komodo Life. All rights reserved.
 //
 
+import GameKit
 import SpriteKit
 
 /// Game over scene.
 class GameOverScene: BaseScene {
     
     /// The score that was obtained by the player
-    let score: Int64
+    let score: Int
     
     /// The game mode that was played.
     let mode: GameMode
@@ -35,7 +36,7 @@ class GameOverScene: BaseScene {
     /// Creates a new Game Over scene instance.
     /// - Parameter score: The score that was obtained.
     /// - Parameter mode: The game mode that was played.
-    init(score: Int64, mode: GameMode) {
+    init(score: Int, mode: GameMode) {
         self.score = score
         self.mode = mode
         super.init(backgroundSpeed: .slow)
@@ -52,6 +53,7 @@ class GameOverScene: BaseScene {
         if !audioManager.isMuted {
             run(playGameOverChime)
         }
+        reportAchievements()
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -88,6 +90,39 @@ class GameOverScene: BaseScene {
                                                          .paragraphStyle: paragraphStyle]
         scoreLabel.attributedString = NSAttributedString(string: "\(score)", attributes: attributes)
         addChild(scoreLabel)
+        
+        // Add best score label
+        let bestScoreLabel = SKLabelNode()
+        bestScoreLabel.fontName = "Kenney-Bold"
+        bestScoreLabel.fontSize = 17.0
+        bestScoreLabel.fontColor = SKColor(red: 205.0 / 255.0, green: 164.0 / 255.0, blue: 0.0, alpha: 1.0)
+        bestScoreLabel.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMinY(panel.frame) + 20)
+        bestScoreLabel.zPosition = zPositionMenuItems
+        
+        if score == 0 {
+            bestScoreLabel.text = Constants.scored0
+        } else {
+            let gameCenterHelper = GameCenterHelper.shared
+            let leaderboardID = mode == .slayer ? Constants.slayerLeaderboardID : Constants.timeAttackLeaderboardID
+            let leaderboard = gameCenterHelper.getLeaderboard(with: leaderboardID)
+            leaderboard?.loadEntries(for: .global, timeScope: .allTime, range: NSMakeRange(1, 1)) { entry, entries, totalPlayerCount, error in
+                guard let entry = entry else {
+                    return
+                }
+                let bestScore = entry.score
+                DispatchQueue.main.async {
+                    if self.score > bestScore {
+                        bestScoreLabel.text = Constants.newRecord
+                        gameCenterHelper.submitScore(self.score, for: self.mode) { success in
+                            print("Score submitted: \(success)")
+                        }
+                    } else {
+                        bestScoreLabel.text = String(format: Constants.yourBestScoreFormat, bestScore)
+                    }
+                }
+            }
+        }
+        addChild(bestScoreLabel)
         
         // Add game over node
         let gameOver = SKSpriteNode(imageNamed: "game_over")
@@ -166,6 +201,20 @@ class GameOverScene: BaseScene {
             let gameScene = GameScene(mode: mode)
             let transition = SKTransition.doorsOpenHorizontal(withDuration: 1.0)
             view?.presentScene(gameScene, transition: transition)
+        }
+    }
+    
+    /// Handles the leaderboard button tap event.
+    /// - Parameter location: A point where the screen is tapped.
+    private func handleGameCenterButton(in location: CGPoint) {
+        guard let leaderboardButton = childNode(withName: "leaderboardButton") else {
+            return
+        }
+        if leaderboardButton.contains(location) && GameCenterHelper.shared.isGameCenterEnabled {
+            if !audioManager.isMuted {
+                run(playExplosionSoundAction)
+            }
+            GameCenterHelper.shared.presentLeaderboard(for: mode)
         }
     }
     
@@ -249,12 +298,47 @@ extension GameOverScene {
             let location = touch.location(in: self)
             // Handle replay button tap
             handleReplayButton(in: location)
+            // Handle Game Center button tap
+            handleGameCenterButton(in: location)
             // Handle share button tap
             handleShareButton(in: location)
             // Handle back button tap
             handleBackButton(in: location)
             // Handle mute button tap
             handleMuteButton(in: location)
+        }
+    }
+}
+
+// MARK: Achievement reporting
+
+extension GameOverScene {
+    /// Reports progress for all achievements in Slayer mode.
+    private func reportAchievements() {
+        if mode == .slayer {
+            let gameCenterHelper = GameCenterHelper.shared
+            for achievement in gameCenterHelper.achievements {
+                switch achievement.identifier {
+                case Constants.x0:
+                    gameCenterHelper.reportAchievement(identifier: Constants.x0, percentComplete: 100, showsCompletionBanner: true)
+                case Constants.x50:
+                    gameCenterHelper.reportAchievement(identifier: Constants.x50, percentComplete: Double(score * 100 / 50), showsCompletionBanner: true)
+                case Constants.x100:
+                    gameCenterHelper.reportAchievement(identifier: Constants.x100, percentComplete: Double(score * 100 / 100), showsCompletionBanner: true)
+                case Constants.x150:
+                    gameCenterHelper.reportAchievement(identifier: Constants.x150, percentComplete: Double(score * 100 / 150), showsCompletionBanner: true)
+                case Constants.x200:
+                    gameCenterHelper.reportAchievement(identifier: Constants.x200, percentComplete: Double(score * 100 / 200), showsCompletionBanner: true)
+                case Constants.x250:
+                    gameCenterHelper.reportAchievement(identifier: Constants.x250, percentComplete: Double(score * 100 / 250), showsCompletionBanner: true)
+                case Constants.x300:
+                    gameCenterHelper.reportAchievement(identifier: Constants.x300, percentComplete: Double(score * 100 / 300), showsCompletionBanner: true)
+                case Constants.x500:
+                    gameCenterHelper.reportAchievement(identifier: Constants.x500, percentComplete: Double(score * 100 / 500), showsCompletionBanner: true)
+                default:
+                    break
+                }
+            }
         }
     }
 }

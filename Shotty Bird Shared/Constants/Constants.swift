@@ -10,6 +10,24 @@ import UIKit
 
 /// Defines constants used across the game.
 struct Constants {
+    // MARK: - Game Over scene
+    static let scored0 = "Lead your shots and try again"
+    static let yourBestScoreFormat = "Your best score is %d"
+    static let newRecord = "NEW RECORD"
+    
+    // MARK: Game Center
+    static let x0 = "co.profapps.Shotty_Bird.achievement.x0"
+    static let x50 = "co.profapps.Shotty_Bird.achievement.x50"
+    static let x100 = "co.profapps.Shotty_Bird.achievement.x100"
+    static let x150 = "co.profapps.Shotty_Bird.achievement.x150"
+    static let x200 = "co.profapps.Shotty_Bird.achievement.x200"
+    static let x250 = "co.profapps.Shotty_Bird.achievement.x250"
+    static let x300 = "co.profapps.Shotty_Bird.achievement.x300"
+    static let x500 = "co.profapps.Shotty_Bird.achievement.x500"
+    static let sniper = "co.profapps.Shotty_Bird.sniper"
+    static let slayerLeaderboardID = "shotty_bird_leaderboard"
+    static let timeAttackLeaderboardID = "shotty_bird_time_attack_leaderboard"
+    
     // MARK: - Sharing the game
     /// The text copy used when tapping the share button.
     static let shareText = "Shotty Bird is free to download and play! Brace yourself for the challenge of your life! Become the world's top slayer by shooting down birds, unlocking achievements, and climbing up the ladder. Available on the  App Store."
