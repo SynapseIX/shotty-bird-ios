@@ -20,6 +20,7 @@
 		CF2275792A7315B300A246D6 /* DifficultyScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2275782A7315B300A246D6 /* DifficultyScene.swift */; };
 		CF22757C2A7328A600A246D6 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF22757B2A7328A600A246D6 /* GameOverScene.swift */; };
 		CF22757F2A73378F00A246D6 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF22757E2A73378F00A246D6 /* beep.mp3 */; };
+		CF396A912A73A21D0083544D /* GameCenterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF396A902A73A21D0083544D /* GameCenterHelper.swift */; };
 		CF68C0C22A5401EA00264E81 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF68C0C12A5401EA00264E81 /* AudioManager.swift */; };
 		CF68C0C62A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF68C0C52A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 */; };
 		CF68C0CB2A5412D000264E81 /* CrowsCawInField.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF68C0C92A5412D000264E81 /* CrowsCawInField.mp3 */; };
@@ -55,6 +56,7 @@
 		CF2275782A7315B300A246D6 /* DifficultyScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyScene.swift; sourceTree = "<group>"; };
 		CF22757B2A7328A600A246D6 /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		CF22757E2A73378F00A246D6 /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
+		CF396A902A73A21D0083544D /* GameCenterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterHelper.swift; sourceTree = "<group>"; };
 		CF68C0C12A5401EA00264E81 /* AudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		CF68C0C52A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "TwinEngines-JeremyKorpas.mp3"; sourceTree = "<group>"; };
 		CF68C0C92A5412D000264E81 /* CrowsCawInField.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CrowsCawInField.mp3; sourceTree = "<group>"; };
@@ -132,6 +134,14 @@
 			path = Music;
 			sourceTree = "<group>";
 		};
+		CF396A8D2A73A0EF0083544D /* Game Center */ = {
+			isa = PBXGroup;
+			children = (
+				CF396A902A73A21D0083544D /* GameCenterHelper.swift */,
+			);
+			path = "Game Center";
+			sourceTree = "<group>";
+		};
 		CF68C0C02A5401D900264E81 /* Audio Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,8 +166,9 @@
 				CF68C0C02A5401D900264E81 /* Audio Manager */,
 				CF77C6A72A4D292600BA03ED /* Nodes */,
 				CFB43E092A4DB7B100A3F426 /* Scenes */,
-				CFAB33002A72216B00538D13 /* Util */,
 				CF1A8F522A53C6E100BAD0A6 /* Physics */,
+				CF396A8D2A73A0EF0083544D /* Game Center */,
+				CFAB33002A72216B00538D13 /* Util */,
 				CF0A46152A7212C600F52F44 /* Fonts */,
 				CF1A8F5F2A53DC9400BAD0A6 /* Sounds */,
 				CF1A8F5B2A53DA2C00BAD0A6 /* GameScoreDelegate.swift */,
@@ -321,6 +332,7 @@
 				CF77C66A2A4D24D900BA03ED /* GameViewController.swift in Sources */,
 				CF1A8F542A53C71300BAD0A6 /* PhysicsCollisionBitMask.swift in Sources */,
 				CFAB330E2A730D0D00538D13 /* GameModeScene.swift in Sources */,
+				CF396A912A73A21D0083544D /* GameCenterHelper.swift in Sources */,
 				CF77C6682A4D24D900BA03ED /* AppDelegate.swift in Sources */,
 				CF1A8F582A53D96F00BAD0A6 /* Missile.swift in Sources */,
 				CF68C0C22A5401EA00264E81 /* AudioManager.swift in Sources */,

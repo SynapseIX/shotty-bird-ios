@@ -169,6 +169,20 @@ class GameOverScene: BaseScene {
         }
     }
     
+    /// Handles the leaderboard button tap event.
+    /// - Parameter location: A point where the screen is tapped.
+    private func handleLeaderboardButton(in location: CGPoint) {
+        guard let leaderboardButton = childNode(withName: "leaderboardButton") else {
+            return
+        }
+        if leaderboardButton.contains(location) && GameCenterHelper.shared.isGameCenterEnabled {
+            if !audioManager.isMuted {
+                run(playExplosionSoundAction)
+            }
+            GameCenterHelper.shared.presentLeaderboard(for: .slayer)
+        }
+    }
+    
     /// Handles the share button tap event.
     /// - Parameter location: A point where the screen is tapped.
     private func handleShareButton(in location: CGPoint) {
@@ -249,6 +263,8 @@ extension GameOverScene {
             let location = touch.location(in: self)
             // Handle replay button tap
             handleReplayButton(in: location)
+            // Handle leaderboard button tap
+            handleLeaderboardButton(in: location)
             // Handle share button tap
             handleShareButton(in: location)
             // Handle back button tap

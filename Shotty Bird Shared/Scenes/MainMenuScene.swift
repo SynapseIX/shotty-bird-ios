@@ -170,8 +170,11 @@ class MainMenuScene: BaseScene {
         guard let leaderboardButton = childNode(withName: "leaderboardButton") else {
             return
         }
-        if leaderboardButton.contains(location) {
-            // TODO: implement transition
+        if !audioManager.isMuted {
+            run(playExplosionSoundAction)
+        }
+        if leaderboardButton.contains(location) && GameCenterHelper.shared.isGameCenterEnabled {
+            GameCenterHelper.shared.presentLeaderboard(for: .slayer)
         }
     }
     
