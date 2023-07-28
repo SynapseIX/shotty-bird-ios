@@ -98,18 +98,18 @@ class MainMenuScene: BaseScene {
         playButton.zPosition = zPositionMenuItems
         addChild(playButton)
         
-        // Add leaderboard button
-        let leaderboardButton = SKSpriteNode(imageNamed: "leaderboard_button")
-        leaderboardButton.setScale(0.75)
-        leaderboardButton.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame) - leaderboardButton.size.height - 10)
-        leaderboardButton.name = "leaderboardButton"
-        leaderboardButton.zPosition = zPositionMenuItems
-        addChild(leaderboardButton)
+        // Add Game Center button
+        let gameCenterButton = SKSpriteNode(imageNamed: "game_center_button")
+        gameCenterButton.setScale(0.75)
+        gameCenterButton.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame) - gameCenterButton.size.height - 10)
+        gameCenterButton.name = "gameCenterButton"
+        gameCenterButton.zPosition = zPositionMenuItems
+        addChild(gameCenterButton)
         
         // Add credits button
         let creditsButton = SKSpriteNode(imageNamed: "credits_button")
         creditsButton.setScale(0.75)
-        creditsButton.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame) - (leaderboardButton.size.height * 2) - 20)
+        creditsButton.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame) - (gameCenterButton.size.height * 2) - 20)
         creditsButton.name = "creditsButton"
         creditsButton.zPosition = zPositionMenuItems
         addChild(creditsButton)
@@ -164,17 +164,17 @@ class MainMenuScene: BaseScene {
         }
     }
     
-    /// Handles the leaderboard button tap event.
+    /// Handles the Game Center button tap event.
     /// - Parameter location: A point where the screen is tapped.
-    private func handleLeaderboardButton(in location: CGPoint) {
-        guard let leaderboardButton = childNode(withName: "leaderboardButton") else {
+    private func handleGameCenterButton(in location: CGPoint) {
+        guard let gameCenterButton = childNode(withName: "gameCenterButton") else {
             return
         }
         if !audioManager.isMuted {
             run(playExplosionSoundAction)
         }
-        if leaderboardButton.contains(location) && GameCenterHelper.shared.isGameCenterEnabled {
-            GameCenterHelper.shared.presentLeaderboard(for: .slayer)
+        if gameCenterButton.contains(location) && GameCenterHelper.shared.isGameCenterEnabled {
+            GameCenterHelper.shared.presentGameCenterViewController()
         }
     }
     
@@ -245,8 +245,8 @@ extension MainMenuScene {
             let location = touch.location(in: self)
             // Handle play button tap
             handlePlayButton(in: location)
-            // Handle leaderboard button tap
-            handleLeaderboardButton(in: location)
+            // Handle Game Center button tap
+            handleGameCenterButton(in: location)
             // Handle credits button tap
             handleCreditsButton(in: location)
             // Handle share button tap

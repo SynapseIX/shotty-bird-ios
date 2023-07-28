@@ -35,8 +35,7 @@ class GameCenterHelper: NSObject {
         player.authenticateHandler = { viewController, error in
             if player.isAuthenticated {
                 // Load leaderboards
-                // TODO: load time attack
-                let IDs = ["shotty_bird_leaderboard"]
+                let IDs = [Constants.slayerLeaderboardID, Constants.timeAttackLeaderboardID]
                 GKLeaderboard.loadLeaderboards(IDs: IDs) { leaderboards, error in
                     if let error = error {
                         print(error.localizedDescription)
@@ -69,26 +68,102 @@ class GameCenterHelper: NSObject {
         }
     }
     
+    /// Gets a leaderboard object that matches the given leaderboard base ID.
+    /// - Parameter baseLeaderboardID: The base ID.
+    /// - Returns: A leaderboard object.
+    func getLeaderboard(with baseLeaderboardID: String) -> GKLeaderboard? {
+        leaderboards.first(where: { $0.baseLeaderboardID == baseLeaderboardID })
+    }
+    
+    /// Gets an achievement object that matches the given identifier.
+    /// - Parameter baseLeaderboardID: The achievement identifier.
+    /// - Returns: An achievement object.
+    func getAchievement(with identifier: String) -> GKAchievement? {
+        achievements.first(where: { $0.identifier == identifier })
+    }
+    
+    /// Presents a Game Center view controller displaying a leaderboard for a given game mode.
+    /// - Parameter mode: The game mode for which a leadeboard should be displayed.
     func presentLeaderboard(for mode: GameMode) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
-//        var leaderboardIdentifier: String
-//        switch mode {
-//        case .slayer:
-//            leaderboardIdentifier = "shotty_bird_leaderboard"
-//        case .timeAttack:
-//            leaderboardIdentifier = "shotty_bird_time_attack_leaderboard"
-//        default:
-//            leaderboardIdentifier = "shotty_bird_leaderboard"
-//        }
-//        guard let leaderboard = leaderboards.first(where: { $0.baseLeaderboardID == leaderboardIdentifier }) else {
-//            return
-//        }
+        var leaderboardID: String
+        switch mode {
+        case .slayer:
+            leaderboardID = Constants.slayerLeaderboardID
+        case .timeAttack:
+            leaderboardID = Constants.timeAttackLeaderboardID
+        default:
+            leaderboardID = Constants.slayerLeaderboardID
+        }
+        let gameCenterVC = GKGameCenterViewController(leaderboardID: leaderboardID, playerScope: .global, timeScope: .allTime)
+        gameCenterVC.gameCenterDelegate = self
+        let rootViewController = appDelegate.window?.rootViewController
+        rootViewController?.present(gameCenterVC, animated: true, completion: nil)
+    }
+    
+    /// Presents the Game Center view controller.
+    func presentGameCenterViewController() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
         let gameCenterVC = GKGameCenterViewController()
         gameCenterVC.gameCenterDelegate = self
         let rootViewController = appDelegate.window?.rootViewController
         rootViewController?.present(gameCenterVC, animated: true, completion: nil)
+    }
+    
+    // MARK: - Achievement methods
+    
+    /// Reports achievement progress.
+    /// - Parameters:
+    ///   - identifier: The achievement identifier.
+    ///   - percentComplete: Achievement percent completed.
+    ///   - showsCompletionBanner: Flag to determine if a Game Center banner should be displayed upon completion.
+    func reportAchievement(identifier: String, percentComplete: Double, showsCompletionBanner: Bool) {
+        let achievement = GKAchievement(identifier: identifier)
+        achievement.percentComplete = percentComplete
+        achievement.showsCompletionBanner = showsCompletionBanner
+        
+        if achievement.percentComplete < 100 {
+            GKAchievement.report([achievement]) { (error) in
+                if let error = error {
+                    print("Error reporting achievement: \(error.localizedDescription)", error)
+                    return
+                }
+                print("Achievement \(identifier) reported")
+            }
+        } else {
+            print("Achievement \(identifier) already unlocked")
+        }
+    }
+    
+    // MARK: - Score submission
+    
+    /// Submits a score to a leaderboard.
+    /// - Parameters:
+    ///   - score: The score to be submitted.
+    ///   - mode: The game mode for which a leaderboard should be updated.
+    ///   - completionHandler: Score submission completion handler.
+    func submitScore(_ score: Int, for mode: GameMode, completionHandler: ((_ success: Bool) -> Void)?) {
+        var leaderboardID: String
+        switch mode {
+        case .slayer:
+            leaderboardID = Constants.slayerLeaderboardID
+        case .timeAttack:
+            leaderboardID = Constants.timeAttackLeaderboardID
+        default:
+            leaderboardID = Constants.slayerLeaderboardID
+        }
+        GKLeaderboard.submitScore(score, context: 0, player: GKLocalPlayer.local, leaderboardIDs: [leaderboardID]) { error in
+            if let error = error {
+                print(error.localizedDescription)
+                completionHandler?(false)
+                return
+            }
+            completionHandler?(true)
+        }
     }
 }
 
