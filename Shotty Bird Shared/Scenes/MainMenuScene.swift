@@ -109,10 +109,18 @@ class MainMenuScene: BaseScene {
         // Add credits button
         let creditsButton = SKSpriteNode(imageNamed: "credits_button")
         creditsButton.setScale(0.75)
-        creditsButton.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame) - (gameCenterButton.size.height * 2) - 20)
+        creditsButton.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame) - (creditsButton.size.height * 2) - 20)
         creditsButton.name = "creditsButton"
         creditsButton.zPosition = zPositionMenuItems
         addChild(creditsButton)
+        
+        // Add store button
+        let storeButton = SKSpriteNode(imageNamed: "store_button")
+        storeButton.setScale(0.75)
+        storeButton.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame) - (storeButton.size.height * 3) - 30)
+        storeButton.name = "storeButton"
+        storeButton.zPosition = zPositionMenuItems
+        addChild(storeButton)
         
         // Add share button
         let shareButton = SKSpriteNode(imageNamed: "share_button")
@@ -191,6 +199,17 @@ class MainMenuScene: BaseScene {
         }
     }
     
+    /// Handles the store button tap event.
+    /// - Parameter location: A point where the screen is tapped.
+    private func handleStoreButton(in location: CGPoint) {
+        guard let storeButton = childNode(withName: "storeButton") else {
+            return
+        }
+        if storeButton.contains(location) {
+            // TODO: implement transition
+        }
+    }
+    
     /// Handles the share button tap event.
     /// - Parameter location: A point where the screen is tapped.
     private func handleShareButton(in location: CGPoint) {
@@ -251,6 +270,8 @@ extension MainMenuScene {
             handleGameCenterButton(in: location)
             // Handle credits button tap
             handleCreditsButton(in: location)
+            // Handle store button tap
+            handleStoreButton(in: location)
             // Handle share button tap
             handleShareButton(in: location)
             // Handle mute button tap
