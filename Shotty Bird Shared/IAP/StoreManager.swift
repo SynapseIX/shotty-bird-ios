@@ -93,8 +93,10 @@ class StoreManager: NSObject {
         numberFormatter.formatterBehavior = .behavior10_4
         numberFormatter.numberStyle = .currency
         numberFormatter.locale = noAdsProduct.priceLocale
-        let formattedPrice = numberFormatter.string(from: noAdsProduct.price)
-        return noAdsProduct.localizedDescription + "\n\(formattedPrice!)"
+        guard let formattedPrice = numberFormatter.string(from: noAdsProduct.price) else {
+            return "N/A"
+        }
+        return noAdsProduct.localizedDescription + "\n\(formattedPrice)"
     }
 }
 
