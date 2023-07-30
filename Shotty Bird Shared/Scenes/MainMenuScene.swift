@@ -206,6 +206,10 @@ class MainMenuScene: BaseScene {
             return
         }
         if storeButton.contains(location) {
+            if !audioManager.isMuted {
+                run(playExplosionSoundAction)
+            }
+            
             let storeScene = StoreScene()
             let transition = SKTransition.crossFade(withDuration: 1.0)
             view?.presentScene(storeScene, transition: transition)
