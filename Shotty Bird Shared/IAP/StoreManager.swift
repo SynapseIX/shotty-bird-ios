@@ -35,9 +35,13 @@ enum StoreManagerAlertType {
 class StoreManager: NSObject {
     
     /// App Store Connect No Ads product ID.
-    let noAdsProductID = "life.komodo.shottybird.noads"
+    static let noAdsProductID = "life.komodo.shottybird.noads"
     /// The IAP No Ads product.
     private(set) var noAdsProduct: SKProduct?
+    /// Determines if player has previously purchased No Ads.
+    private var hasPurchased: Bool {
+        UserDefaults.standard.bool(forKey: StoreManager.noAdsProductID)
+    }
     /// Closure that handles the status of a purchase.
     var purchaseStatusHandler: ((StoreManagerAlertType) -> Void)?
     /// Shared manager instance.
@@ -51,6 +55,14 @@ class StoreManager: NSObject {
     /// - Returns: If purchases can be made: `true`. Otherwise: `false`.
     func canMakePurchases() -> Bool {
         SKPaymentQueue.canMakePayments()
+    }
+    
+    /// Fetch available IAP products.
+    func fetchAvailableProducts(){
+        let productIdentifiers: Set = [StoreManager.noAdsProductID]
+        let request = SKProductsRequest(productIdentifiers: productIdentifiers)
+        request.delegate = self
+        request.start()
     }
     
     /// Attempts to purchases No Ads.
@@ -71,14 +83,6 @@ class StoreManager: NSObject {
     func restorePurchase(){
         SKPaymentQueue.default().add(self)
         SKPaymentQueue.default().restoreCompletedTransactions()
-    }
-    
-    /// Fetch available IAP products.
-    func fetchAvailableProducts(){
-        let productIdentifiers: Set = [noAdsProductID]
-        let request = SKProductsRequest(productIdentifiers: productIdentifiers)
-        request.delegate = self
-        request.start()
     }
     
     /// Fetches the No Ads product price in local currency.
@@ -119,6 +123,9 @@ extension StoreManager: SKPaymentTransactionObserver {
         switch transaction.transactionState {
         case .purchased:
             SKPaymentQueue.default().finishTransaction(transaction)
+            let defaults = UserDefaults.standard
+            defaults.set(true, forKey: StoreManager.noAdsProductID)
+            defaults.synchronize()
             purchaseStatusHandler?(.purchased)
         case .restored:
             SKPaymentQueue.default().finishTransaction(transaction)
@@ -131,6 +138,9 @@ extension StoreManager: SKPaymentTransactionObserver {
     }
     
     func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
+        let defaults = UserDefaults.standard
+        defaults.set(true, forKey: StoreManager.noAdsProductID)
+        defaults.synchronize()
         purchaseStatusHandler?(.restored)
     }
 }
