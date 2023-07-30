@@ -41,6 +41,8 @@
 		CFB43E0B2A4DB7CD00A3F426 /* BaseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB43E0A2A4DB7CD00A3F426 /* BaseScene.swift */; };
 		CFB43E0F2A4DBAA700A3F426 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB43E0E2A4DBAA700A3F426 /* MainMenuScene.swift */; };
 		CFCEA7E32A70E6E500D00C03 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCEA7E22A70E6E500D00C03 /* Constants.swift */; };
+		CFEBBC332A7662430000FC58 /* StoreConfiguration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = CFEBBC322A7662430000FC58 /* StoreConfiguration.storekit */; };
+		CFEBBC362A7664580000FC58 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFEBBC352A7664580000FC58 /* StoreKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +82,8 @@
 		CFB43E0E2A4DBAA700A3F426 /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 		CFCEA7E22A70E6E500D00C03 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CFCEA7E52A70F9D700D00C03 /* Shotty-Bird-iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Shotty-Bird-iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
+		CFEBBC322A7662430000FC58 /* StoreConfiguration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = StoreConfiguration.storekit; sourceTree = "<group>"; };
+		CFEBBC352A7664580000FC58 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFEBBC362A7664580000FC58 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,6 +171,7 @@
 				CF77C65B2A4D24D800BA03ED /* Shotty Bird Shared */,
 				CF77C6662A4D24D900BA03ED /* Shotty Bird iOS */,
 				CF77C6652A4D24D900BA03ED /* Products */,
+				CFEBBC342A7664580000FC58 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -184,6 +190,7 @@
 				CF1A8F5F2A53DC9400BAD0A6 /* Sounds */,
 				CF1A8F5B2A53DA2C00BAD0A6 /* GameScoreDelegate.swift */,
 				CF77C65F2A4D24D900BA03ED /* Assets.xcassets */,
+				CFEBBC322A7662430000FC58 /* StoreConfiguration.storekit */,
 			);
 			path = "Shotty Bird Shared";
 			sourceTree = "<group>";
@@ -245,6 +252,14 @@
 				CFCEA7E22A70E6E500D00C03 /* Constants.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		CFEBBC342A7664580000FC58 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CFEBBC352A7664580000FC58 /* StoreKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -310,6 +325,7 @@
 				CF1A8F6D2A53DD1500BAD0A6 /* wing_flap.wav in Resources */,
 				CF22757F2A73378F00A246D6 /* beep.mp3 in Resources */,
 				CF1A8F652A53DCC700BAD0A6 /* explosion.wav in Resources */,
+				CFEBBC332A7662430000FC58 /* StoreConfiguration.storekit in Resources */,
 				CFAB33082A72FF5B00538D13 /* 1up.mp3 in Resources */,
 				CF77C66D2A4D24D900BA03ED /* Main.storyboard in Resources */,
 				CF1A8F612A53DCAB00BAD0A6 /* bird.wav in Resources */,

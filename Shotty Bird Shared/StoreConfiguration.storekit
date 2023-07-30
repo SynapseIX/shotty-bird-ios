@@ -1,0 +1,35 @@
+{
+  "identifier" : "B2DAFA30",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "6455496149",
+      "localizations" : [
+        {
+          "description" : "No ads +  a permanent extra life.",
+          "displayName" : "No Ads",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "life.komodo.shottybird.noads",
+      "referenceName" : "shottybird_no_ads_iap",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "1114259560",
+    "_developerTeamID" : "RTCYSWYBFH",
+    "_lastSynchronizedDate" : 712401477.06381297
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 2,
+    "minor" : 0
+  }
+}

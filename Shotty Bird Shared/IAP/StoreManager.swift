@@ -8,140 +8,141 @@
 
 import StoreKit
 
-/// The type of alert message to display after an IAP operation.
-enum StoreManagerAlertType {
-    case purchased
-    case restored
-    case failed
-    case disabled
-    
-    /// Builds an alert message for a given alert type.
-    /// - Returns: An alert message.
-    func message() -> String{
-        switch self {
-        case .purchased:
-            return Constants.purchased
-        case .restored:
-            return Constants.purchaseRestored
-        case .failed:
-            return Constants.purchasesDisabled
-        case .disabled:
-            return Constants.purchaseFailed
-        }
-    }
+/// In-app purchase transation error.
+enum StoreKitError: Error {
+    case failedVerification
+    case unknownError
+}
+
+/// In-app purchase transaction status.
+enum PurchaseStatus {
+    case success(String)
+    case pending
+    case cancelled
+    case failed(Error)
+    case unknown
+}
+
+/// Footprint for store manager implementations.
+protocol StoreKitManageable {
+    func retrieveProducts() async
+    func purchase(_ item: Product) async
+    func verifyPurchase<T>(_ verificationResult: VerificationResult<T>) throws -> T
+    func transactionStatusStream() -> Task<Void, Error>
 }
 
 /// Manager class for processing in-app purchases.
-class StoreManager: NSObject {
+class StoreManager: ObservableObject {
     
     /// Shared manager instance.
     static let shared = StoreManager()
-    /// App Store Connect No Ads product ID.
+    /// The No Ads product ID.
     static let noAdsProductID = "life.komodo.shottybird.noads"
-    /// The IAP No Ads product.
-    private(set) var noAdsProduct: SKProduct?
-    /// Determines if player has previously purchased No Ads.
-    /// Closure that handles the status of a purchase.
-    var purchaseStatusHandler: ((StoreManagerAlertType) -> Void)?
-    var hasPurchased: Bool {
-        UserDefaults.standard.bool(forKey: StoreManager.noAdsProductID)
+    
+    @Published private(set) var items = [Product] ()
+    @Published var transactionCompletionStatus = false
+    
+    private let productIds = [StoreManager.noAdsProductID]
+    private(set) var purchaseStatus: PurchaseStatus = .unknown
+    private(set) var transactionListener: Task<Void, Error>?
+    
+    init() {
+        transactionListener = transactionStatusStream()
+        Task {
+            await retrieveProducts()
+        }
     }
     
-    private override init() {
-        super.init()
+    deinit {
+        transactionListener?.cancel()
     }
     
-    /// Determines if in-app purchases can be made.
-    /// - Returns: If purchases can be made: `true`. Otherwise: `false`.
-    func canMakePurchases() -> Bool {
-        SKPaymentQueue.canMakePayments()
-    }
-    
-    /// Fetch available IAP products.
-    func fetchAvailableProducts(){
-        let productIdentifiers: Set = [StoreManager.noAdsProductID]
-        let request = SKProductsRequest(productIdentifiers: productIdentifiers)
-        request.delegate = self
-        request.start()
-    }
-    
-    /// Attempts to purchases No Ads.
-    func purchaseNoAds() {
-        if canMakePurchases() {
-            guard let noAdsProduct = noAdsProduct else {
-                return
+    /// Retrieves all of the in-app products.
+    func retrieveProducts() async {
+        do {
+            let products = try await Product.products(for: productIds)
+            items = products.sorted(by: { $0.price < $1.price })
+            for product in items {
+                print("In-App Product:: \(product.displayName) in \(product.displayPrice)")
             }
-            let payment = SKPayment(product: noAdsProduct)
-            SKPaymentQueue.default().add(self)
-            SKPaymentQueue.default().add(payment)
-        } else {
-            purchaseStatusHandler?(.disabled)
+        } catch {
+            print(error)
         }
     }
     
-    /// Restores purchases made.
-    func restorePurchase(){
-        SKPaymentQueue.default().add(self)
-        SKPaymentQueue.default().restoreCompletedTransactions()
-    }
-    
-    /// Fetches the No Ads product price in local currency.
-    /// - Returns: The formatted product price.
-    func fetchPurchasePrice() -> String {
-        guard let noAdsProduct = noAdsProduct else {
-            return "N/A"
-        }
-        let numberFormatter = NumberFormatter()
-        numberFormatter.formatterBehavior = .behavior10_4
-        numberFormatter.numberStyle = .currency
-        numberFormatter.locale = noAdsProduct.priceLocale
-        guard let formattedPrice = numberFormatter.string(from: noAdsProduct.price) else {
-            return "N/A"
-        }
-        return noAdsProduct.localizedDescription + "\n\(formattedPrice)"
-    }
-}
-
-// MARK: - SKProductsRequestDelegate
-
-extension StoreManager: SKProductsRequestDelegate {
-    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        guard let noAdsProduct = response.products.first else {
-            return
-        }
-        self.noAdsProduct = noAdsProduct
-    }
-}
-
-// MARK: - SKPaymentTransactionObserver
-
-extension StoreManager: SKPaymentTransactionObserver {
-    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-        guard let transaction = transactions.first else {
-            return
-        }
-        switch transaction.transactionState {
-        case .purchased:
-            SKPaymentQueue.default().finishTransaction(transaction)
-            let defaults = UserDefaults.standard
-            defaults.set(true, forKey: StoreManager.noAdsProductID)
-            defaults.synchronize()
-            purchaseStatusHandler?(.purchased)
-        case .restored:
-            SKPaymentQueue.default().finishTransaction(transaction)
-        case .failed:
-            SKPaymentQueue.default().finishTransaction(transaction)
-            purchaseStatusHandler?(.failed)
-        default:
-            break
+    /// Purchases the in-app product.
+    /// - Parameter item: The product to purchase.
+    func purchase(_ item: Product) async {
+        do {
+            let result = try await item.purchase()
+            
+            switch result {
+            case .success(let verification):
+                print("Purchase was a success, now it can be verified.")
+                do {
+                    let verificationResult = try verifyPurchase(verification)
+                    purchaseStatus = .success(verificationResult.productID)
+                    await verificationResult.finish()
+                    transactionCompletionStatus = true
+                } catch {
+                    purchaseStatus = .failed(error)
+                    transactionCompletionStatus = true
+                }
+            case .pending:
+                print("Transaction is pending for some action from the users related to the account")
+                purchaseStatus = .pending
+                transactionCompletionStatus = false
+            case .userCancelled:
+                print("Use cancelled the transaction")
+                purchaseStatus = .cancelled
+                transactionCompletionStatus = false
+            default:
+                print("Unknown error")
+                purchaseStatus = .failed(StoreKitError.unknownError)
+                transactionCompletionStatus = false
+            }
+        } catch {
+            print(error)
+            purchaseStatus = .failed(error)
+            transactionCompletionStatus = false
         }
     }
     
-    func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
-        let defaults = UserDefaults.standard
-        defaults.set(true, forKey: StoreManager.noAdsProductID)
-        defaults.synchronize()
-        purchaseStatusHandler?(.restored)
+    /// Verifies a purchase.
+    /// - Parameter verificationResult: The verification result.
+    /// - Returns: A result with the verification status or an error.
+    func verifyPurchase<T>(_ verificationResult: VerificationResult<T>) throws -> T {
+        switch verificationResult {
+        case .unverified(_, let error):
+            throw error // Successful purchase but transaction/receipt can't be verified due to some conditions like jailbroken phone
+        case .verified(let result):
+            return result  // Successful purchase
+        }
+    }
+    
+    /// Handles Interruptions.
+    func transactionStatusStream() -> Task<Void, Error> {
+        Task.detached(priority: .background) { @MainActor [weak self] in
+            do {
+                for await result in Transaction.updates {
+                    let transaction = try self?.verifyPurchase(result)
+                    self?.purchaseStatus = .success(transaction?.productID ?? "Unknown product ID")
+                    self?.transactionCompletionStatus = true
+                    await transaction?.finish()
+                }
+            } catch {
+                self?.transactionCompletionStatus = true
+                self?.purchaseStatus = .failed(error)
+            }
+        }
+    }
+    
+    /// Unlock in-app features.
+    func inAppEntitlements() async {
+        // Array with all transactions
+        for await result in Transaction.all {
+            dump(result.payloadData)
+        }
     }
 }
 
