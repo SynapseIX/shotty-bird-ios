@@ -34,18 +34,18 @@ enum StoreManagerAlertType {
 /// Manager class for processing in-app purchases.
 class StoreManager: NSObject {
     
+    /// Shared manager instance.
+    static let shared = StoreManager()
     /// App Store Connect No Ads product ID.
     static let noAdsProductID = "life.komodo.shottybird.noads"
     /// The IAP No Ads product.
     private(set) var noAdsProduct: SKProduct?
     /// Determines if player has previously purchased No Ads.
-    private var hasPurchased: Bool {
-        UserDefaults.standard.bool(forKey: StoreManager.noAdsProductID)
-    }
     /// Closure that handles the status of a purchase.
     var purchaseStatusHandler: ((StoreManagerAlertType) -> Void)?
-    /// Shared manager instance.
-    static let shared = StoreManager()
+    var hasPurchased: Bool {
+        UserDefaults.standard.bool(forKey: StoreManager.noAdsProductID)
+    }
     
     private override init() {
         super.init()
