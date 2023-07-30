@@ -1,5 +1,5 @@
 {
-  "identifier" : "B2DAFA30",
+  "identifier" : "686001CE",
   "nonRenewingSubscriptions" : [
 
   ],
@@ -10,7 +10,7 @@
       "internalID" : "6455496149",
       "localizations" : [
         {
-          "description" : "No ads +  a permanent extra life.",
+          "description" : "No ads +  1 permanent extra life.",
           "displayName" : "No Ads",
           "locale" : "en_US"
         }
@@ -23,7 +23,7 @@
   "settings" : {
     "_applicationInternalID" : "1114259560",
     "_developerTeamID" : "RTCYSWYBFH",
-    "_lastSynchronizedDate" : 712401477.06381297
+    "_lastSynchronizedDate" : 712406269.33371401
   },
   "subscriptionGroups" : [
 
