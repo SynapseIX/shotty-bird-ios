@@ -16,9 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Initialize store manager
+        // Initialize store manager and restore purchases
         Task {
-            await StoreManager.shared.inAppEntitlements()
+            do {
+                try await StoreManager.shared.restorePurchases()
+            } catch {
+                print(error.localizedDescription)
+            }
         }
         
         // Game Center initialization

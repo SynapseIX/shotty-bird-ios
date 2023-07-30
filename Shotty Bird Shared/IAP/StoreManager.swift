@@ -11,6 +11,7 @@ import StoreKit
 /// In-app purchase transation error.
 enum StoreKitError: Error {
     case failedVerification
+    case unableToSync
     case unknownError
 }
 
@@ -39,7 +40,7 @@ class StoreManager: ObservableObject {
     /// The No Ads product ID.
     static let noAdsProductID = "life.komodo.shottybird.noads"
     
-    @Published private(set) var items = [Product] ()
+    @Published private(set) var items = [Product]()
     @Published var transactionCompletionStatus = false
     
     private let productIds = [StoreManager.noAdsProductID]
@@ -63,7 +64,7 @@ class StoreManager: ObservableObject {
             let products = try await Product.products(for: productIds)
             items = products.sorted(by: { $0.price < $1.price })
             for product in items {
-                print("In-App Product:: \(product.displayName) in \(product.displayPrice)")
+                print("Product: \(product.displayName) - \(product.displayPrice)")
             }
         } catch {
             print(error)
@@ -143,6 +144,11 @@ class StoreManager: ObservableObject {
         for await result in Transaction.all {
             dump(result.payloadData)
         }
+    }
+    
+    /// Attempts to restore purchases by syncing transactions.
+    func restorePurchases() async throws {
+        try await AppStore.sync()
     }
 }
 
