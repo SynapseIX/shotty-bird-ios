@@ -8,8 +8,6 @@
 
 import StoreKit
 
-import StoreKit
-
 /// The type of aler to display after an IAP operation.
 enum StoreManagerAlertType {
     case purchased
