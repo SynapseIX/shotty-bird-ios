@@ -206,7 +206,9 @@ class MainMenuScene: BaseScene {
             return
         }
         if storeButton.contains(location) {
-            // TODO: implement transition
+            let storeScene = StoreScene()
+            let transition = SKTransition.crossFade(withDuration: 1.0)
+            view?.presentScene(storeScene, transition: transition)
         }
     }
     

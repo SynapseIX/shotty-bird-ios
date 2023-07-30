@@ -139,16 +139,25 @@ class StoreManager: ObservableObject {
     }
     
     /// Unlock in-app features.
-    func inAppEntitlements() async {
+    func unlockNoAds() async -> Bool {
         // Array with all transactions
-        for await result in Transaction.all {
-            dump(result.payloadData)
+        for await result in Transaction.currentEntitlements {
+            guard case .verified(let transaction) = result else {
+                return false
+            }
+            return transaction.ownershipType == .purchased
         }
+        return false
     }
     
     /// Attempts to restore purchases by syncing transactions.
-    func restorePurchases() async throws {
-        try await AppStore.sync()
+    func restorePurchases() async -> Result<Bool, Error> {
+        do {
+            try await AppStore.sync()
+            return .success(true)
+        } catch {
+            return .failure(error)
+        }
     }
 }
 
