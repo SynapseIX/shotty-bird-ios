@@ -12,6 +12,7 @@ enum GameMode {
     case slayer
     case timeAttack
     case practice
+    case none
 }
 
 /// The difficulty level for practice mode.
@@ -19,6 +20,7 @@ enum Difficulty {
     case easy
     case normal
     case hard
+    case none
 }
 
 /// Main game scene.
@@ -55,6 +57,9 @@ class GameScene: BaseScene {
     /// Controls how many seconds has to pass before spawning a new enemy.
     private(set) var spawnFrequency: TimeInterval = 2.2
     
+    /// Determines if a player has interacted with an ad and is elegible for a reward.
+    private let didInteractWithAd: Bool
+    
     /// Audio manager to play background music.
     let audioManager = AudioManager.shared
     
@@ -63,9 +68,11 @@ class GameScene: BaseScene {
     ///   - mode: The game mode.
     ///   - difficulty: Practice mode difficulty level.
     ///   - backgroundSpeed: The parallax background speed.
-    init(mode: GameMode, difficulty: Difficulty = .easy, backgroundSpeed: BackgroundSpeed = .fast) {
+    ///   - didWatchdAd: Determines if player watched and ad and is elegible for a reward.
+    init(mode: GameMode, difficulty: Difficulty = .easy, backgroundSpeed: BackgroundSpeed = .fast, didInteractWithAd: Bool = false) {
         self.mode = mode
         self.difficulty = difficulty
+        self.didInteractWithAd = didInteractWithAd
         super.init(backgroundSpeed: backgroundSpeed)
     }
     
@@ -77,12 +84,17 @@ class GameScene: BaseScene {
         super.didMove(to: view)
         // TODO: ad rewards can also increase lives
         Task {
-            if await StoreManager.shared.unlockNoAds() {
+            if await StoreManager.shared.unlockRemoveAds() {
                 initialLives = 4
                 lives = 4
             } else {
-                initialLives = 3
-                lives = 3
+                if self.didInteractWithAd {
+                    initialLives = 4
+                    lives = 4
+                } else {
+                    initialLives = 3
+                    lives = 3
+                }
             }
             setupUI()
         }
@@ -98,6 +110,8 @@ class GameScene: BaseScene {
                 spawnFrequency = 1.5
             case .hard:
                 spawnFrequency = 0.8
+            default:
+                spawnFrequency = 2.2
             }
         }
         
@@ -320,6 +334,8 @@ extension GameScene {
             addBackButton()
         case .timeAttack:
             addTimerNode()
+        default:
+            break
         }
         addScoreNode()
         addPauseButton()
@@ -581,7 +597,7 @@ extension GameScene: GameScoreDelegate {
         
         if mode == .slayer {
             if score % 5 == 0 {
-                audioManager.increasePlaybackRate(by: 0.1)
+                audioManager.increasePlaybackRate(by: 0.05)
                 if spawnFrequency >= 0.8 {
                     spawnFrequency -= 0.2
                 }

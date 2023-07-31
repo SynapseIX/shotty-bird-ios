@@ -1,5 +1,5 @@
 {
-  "identifier" : "686001CE",
+  "identifier" : "79F35A68",
   "nonRenewingSubscriptions" : [
 
   ],
@@ -10,8 +10,8 @@
       "internalID" : "6455496149",
       "localizations" : [
         {
-          "description" : "No ads +  1 permanent extra life.",
-          "displayName" : "No Ads",
+          "description" : "No Ads +  1 permanent extra life on Slayer.",
+          "displayName" : "Remove Ads + Extra Life",
           "locale" : "en_US"
         }
       ],
@@ -23,7 +23,7 @@
   "settings" : {
     "_applicationInternalID" : "1114259560",
     "_developerTeamID" : "RTCYSWYBFH",
-    "_lastSynchronizedDate" : 712406269.33371401
+    "_lastSynchronizedDate" : 712537527.72065604
   },
   "subscriptionGroups" : [
 

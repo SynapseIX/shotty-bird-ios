@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		CF0A46182A7212C600F52F44 /* Kenney-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF0A46162A7212C600F52F44 /* Kenney-Bold.ttf */; };
 		CF0A461A2A7212C600F52F44 /* Kenney-Blocks.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF0A46172A7212C600F52F44 /* Kenney-Blocks.ttf */; };
+		CF13CBAE2A774ABA00098F83 /* Practice.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF13CBAD2A774ABA00098F83 /* Practice.mp3 */; };
+		CF13CBB02A774C5E00098F83 /* HigherOctane-VansinJapan.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF13CBAF2A774C5E00098F83 /* HigherOctane-VansinJapan.mp3 */; };
 		CF1A8F4F2A53A57400BAD0A6 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A8F4E2A53A57400BAD0A6 /* Enemy.swift */; };
 		CF1A8F542A53C71300BAD0A6 /* PhysicsCollisionBitMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A8F532A53C71300BAD0A6 /* PhysicsCollisionBitMask.swift */; };
 		CF1A8F582A53D96F00BAD0A6 /* Missile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A8F572A53D96F00BAD0A6 /* Missile.swift */; };
@@ -24,9 +26,10 @@
 		CF396A912A73A21D0083544D /* GameCenterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF396A902A73A21D0083544D /* GameCenterHelper.swift */; };
 		CF4911A62A76E2F000AC1FCF /* StoreScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4911A52A76E2F000AC1FCF /* StoreScene.swift */; };
 		CF68C0C22A5401EA00264E81 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF68C0C12A5401EA00264E81 /* AudioManager.swift */; };
-		CF68C0C62A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF68C0C52A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 */; };
 		CF68C0CB2A5412D000264E81 /* CrowsCawInField.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF68C0C92A5412D000264E81 /* CrowsCawInField.mp3 */; };
 		CF68C0CE2A5412D000264E81 /* Crimson-Sextile.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF68C0CA2A5412D000264E81 /* Crimson-Sextile.mp3 */; };
+		CF7661792A7842DC00C12C62 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = CF7661782A7842DC00C12C62 /* GoogleMobileAds */; };
+		CF76617B2A7875B400C12C62 /* StoreConfiguration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = CF76617A2A7875B400C12C62 /* StoreConfiguration.storekit */; };
 		CF77C6682A4D24D900BA03ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF77C6672A4D24D900BA03ED /* AppDelegate.swift */; };
 		CF77C66A2A4D24D900BA03ED /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF77C6692A4D24D900BA03ED /* GameViewController.swift */; };
 		CF77C66D2A4D24D900BA03ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF77C66B2A4D24D900BA03ED /* Main.storyboard */; };
@@ -35,7 +38,6 @@
 		CF77C6982A4D24D900BA03ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF77C65F2A4D24D900BA03ED /* Assets.xcassets */; };
 		CFAB32FE2A72165F00538D13 /* AttributedLabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAB32FD2A72165F00538D13 /* AttributedLabelNode.swift */; };
 		CFAB33022A72218200538D13 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAB33012A72218200538D13 /* DeviceModel.swift */; };
-		CFAB33052A72E98D00538D13 /* Practice.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CFAB33042A72E98D00538D13 /* Practice.mp3 */; };
 		CFAB33082A72FF5B00538D13 /* 1up.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CFAB33072A72FF5B00538D13 /* 1up.mp3 */; };
 		CFAB330B2A730C2800538D13 /* game_over_positive.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CFAB330A2A730C2800538D13 /* game_over_positive.mp3 */; };
 		CFAB330E2A730D0D00538D13 /* GameModeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAB330D2A730D0D00538D13 /* GameModeScene.swift */; };
@@ -43,12 +45,13 @@
 		CFB43E0F2A4DBAA700A3F426 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB43E0E2A4DBAA700A3F426 /* MainMenuScene.swift */; };
 		CFCEA7E32A70E6E500D00C03 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCEA7E22A70E6E500D00C03 /* Constants.swift */; };
 		CFEBBC362A7664580000FC58 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFEBBC352A7664580000FC58 /* StoreKit.framework */; };
-		CFEBBC382A7674FA0000FC58 /* StoreConfiguration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = CFEBBC372A7674FA0000FC58 /* StoreConfiguration.storekit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CF0A46162A7212C600F52F44 /* Kenney-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kenney-Bold.ttf"; sourceTree = "<group>"; };
 		CF0A46172A7212C600F52F44 /* Kenney-Blocks.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kenney-Blocks.ttf"; sourceTree = "<group>"; };
+		CF13CBAD2A774ABA00098F83 /* Practice.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Practice.mp3; sourceTree = "<group>"; };
+		CF13CBAF2A774C5E00098F83 /* HigherOctane-VansinJapan.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "HigherOctane-VansinJapan.mp3"; sourceTree = "<group>"; };
 		CF1A8F4E2A53A57400BAD0A6 /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		CF1A8F532A53C71300BAD0A6 /* PhysicsCollisionBitMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsCollisionBitMask.swift; sourceTree = "<group>"; };
 		CF1A8F572A53D96F00BAD0A6 /* Missile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Missile.swift; sourceTree = "<group>"; };
@@ -64,9 +67,9 @@
 		CF396A902A73A21D0083544D /* GameCenterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterHelper.swift; sourceTree = "<group>"; };
 		CF4911A52A76E2F000AC1FCF /* StoreScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreScene.swift; sourceTree = "<group>"; };
 		CF68C0C12A5401EA00264E81 /* AudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
-		CF68C0C52A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "TwinEngines-JeremyKorpas.mp3"; sourceTree = "<group>"; };
 		CF68C0C92A5412D000264E81 /* CrowsCawInField.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CrowsCawInField.mp3; sourceTree = "<group>"; };
 		CF68C0CA2A5412D000264E81 /* Crimson-Sextile.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Crimson-Sextile.mp3"; sourceTree = "<group>"; };
+		CF76617A2A7875B400C12C62 /* StoreConfiguration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = StoreConfiguration.storekit; sourceTree = "<group>"; };
 		CF77C65E2A4D24D800BA03ED /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		CF77C65F2A4D24D900BA03ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CF77C6642A4D24D900BA03ED /* Shotty Bird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shotty Bird.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,7 +79,6 @@
 		CF77C66F2A4D24D900BA03ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CFAB32FD2A72165F00538D13 /* AttributedLabelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedLabelNode.swift; sourceTree = "<group>"; };
 		CFAB33012A72218200538D13 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
-		CFAB33042A72E98D00538D13 /* Practice.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Practice.mp3; sourceTree = "<group>"; };
 		CFAB33072A72FF5B00538D13 /* 1up.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 1up.mp3; sourceTree = "<group>"; };
 		CFAB330A2A730C2800538D13 /* game_over_positive.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = game_over_positive.mp3; sourceTree = "<group>"; };
 		CFAB330D2A730D0D00538D13 /* GameModeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModeScene.swift; sourceTree = "<group>"; };
@@ -85,7 +87,6 @@
 		CFCEA7E22A70E6E500D00C03 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CFCEA7E52A70F9D700D00C03 /* Shotty-Bird-iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Shotty-Bird-iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 		CFEBBC352A7664580000FC58 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
-		CFEBBC372A7674FA0000FC58 /* StoreConfiguration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = StoreConfiguration.storekit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF7661792A7842DC00C12C62 /* GoogleMobileAds in Frameworks */,
 				CFEBBC362A7664580000FC58 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,9 +138,9 @@
 			isa = PBXGroup;
 			children = (
 				CF68C0CA2A5412D000264E81 /* Crimson-Sextile.mp3 */,
-				CFAB33042A72E98D00538D13 /* Practice.mp3 */,
-				CF68C0C52A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 */,
 				CF68C0C92A5412D000264E81 /* CrowsCawInField.mp3 */,
+				CF13CBAF2A774C5E00098F83 /* HigherOctane-VansinJapan.mp3 */,
+				CF13CBAD2A774ABA00098F83 /* Practice.mp3 */,
 			);
 			path = Music;
 			sourceTree = "<group>";
@@ -192,7 +194,7 @@
 				CF1A8F5F2A53DC9400BAD0A6 /* Sounds */,
 				CF1A8F5B2A53DA2C00BAD0A6 /* GameScoreDelegate.swift */,
 				CF77C65F2A4D24D900BA03ED /* Assets.xcassets */,
-				CFEBBC372A7674FA0000FC58 /* StoreConfiguration.storekit */,
+				CF76617A2A7875B400C12C62 /* StoreConfiguration.storekit */,
 			);
 			path = "Shotty Bird Shared";
 			sourceTree = "<group>";
@@ -240,8 +242,8 @@
 			children = (
 				CFB43E0A2A4DB7CD00A3F426 /* BaseScene.swift */,
 				CFB43E0E2A4DBAA700A3F426 /* MainMenuScene.swift */,
-				CFAB330D2A730D0D00538D13 /* GameModeScene.swift */,
 				CF4911A52A76E2F000AC1FCF /* StoreScene.swift */,
+				CFAB330D2A730D0D00538D13 /* GameModeScene.swift */,
 				CF2275782A7315B300A246D6 /* DifficultyScene.swift */,
 				CF77C65E2A4D24D800BA03ED /* GameScene.swift */,
 				CF22757B2A7328A600A246D6 /* GameOverScene.swift */,
@@ -281,6 +283,9 @@
 			dependencies = (
 			);
 			name = "Shotty Bird iOS";
+			packageProductDependencies = (
+				CF7661782A7842DC00C12C62 /* GoogleMobileAds */,
+			);
 			productName = "Shotty Bird iOS";
 			productReference = CF77C6642A4D24D900BA03ED /* Shotty Bird.app */;
 			productType = "com.apple.product-type.application";
@@ -310,6 +315,9 @@
 				Base,
 			);
 			mainGroup = CF77C6562A4D24D800BA03ED;
+			packageReferences = (
+				CF7661772A7842DC00C12C62 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+			);
 			productRefGroup = CF77C6652A4D24D900BA03ED /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -324,22 +332,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF76617B2A7875B400C12C62 /* StoreConfiguration.storekit in Resources */,
 				CF1A8F692A53DCF100BAD0A6 /* shot.wav in Resources */,
+				CF13CBAE2A774ABA00098F83 /* Practice.mp3 in Resources */,
 				CF1A8F6D2A53DD1500BAD0A6 /* wing_flap.wav in Resources */,
 				CF22757F2A73378F00A246D6 /* beep.mp3 in Resources */,
 				CF1A8F652A53DCC700BAD0A6 /* explosion.wav in Resources */,
-				CFEBBC382A7674FA0000FC58 /* StoreConfiguration.storekit in Resources */,
 				CFAB33082A72FF5B00538D13 /* 1up.mp3 in Resources */,
 				CF77C66D2A4D24D900BA03ED /* Main.storyboard in Resources */,
 				CF1A8F612A53DCAB00BAD0A6 /* bird.wav in Resources */,
+				CF13CBB02A774C5E00098F83 /* HigherOctane-VansinJapan.mp3 in Resources */,
 				CF68C0CE2A5412D000264E81 /* Crimson-Sextile.mp3 in Resources */,
-				CFAB33052A72E98D00538D13 /* Practice.mp3 in Resources */,
 				CFAB330B2A730C2800538D13 /* game_over_positive.mp3 in Resources */,
 				CF0A461A2A7212C600F52F44 /* Kenney-Blocks.ttf in Resources */,
 				CF77C6702A4D24D900BA03ED /* LaunchScreen.storyboard in Resources */,
 				CF0A46182A7212C600F52F44 /* Kenney-Bold.ttf in Resources */,
 				CF68C0CB2A5412D000264E81 /* CrowsCawInField.mp3 in Resources */,
-				CF68C0C62A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 in Resources */,
 				CF77C6982A4D24D900BA03ED /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -529,6 +537,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "co.profapps.Shotty-Bird";
 				PRODUCT_NAME = "Shotty Bird";
 				SDKROOT = iphoneos;
@@ -563,6 +572,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "co.profapps.Shotty-Bird";
 				PRODUCT_NAME = "Shotty Bird";
 				SDKROOT = iphoneos;
@@ -595,6 +605,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CF7661772A7842DC00C12C62 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CF7661782A7842DC00C12C62 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CF7661772A7842DC00C12C62 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CF77C6572A4D24D800BA03ED /* Project object */;
 }

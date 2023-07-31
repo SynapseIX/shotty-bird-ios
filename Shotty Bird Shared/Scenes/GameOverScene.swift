@@ -124,11 +124,12 @@ class GameOverScene: BaseScene {
         addChild(bestScoreLabel)
         
         // Add game over node
-        let gameOver = SKSpriteNode(imageNamed: "game_over")
+        let gameOver = AttributedLabelNode(size: CGSize(width: frame.size.width, height: 160))
         gameOver.name = "gameOver"
         gameOver.setScale(0.8)
         gameOver.zPosition = zPositionMenuItems
-        gameOver.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMaxY(panel.frame) + gameOver.size.height - 30)
+        gameOver.position = CGPoint(x: CGRectGetMidX(frame), y: panel.position.y + gameOver.size.height + 40)
+        gameOver.attributedString = NSAttributedString(string: "Game Over", attributes: attributes)
         addChild(gameOver)
         
         // Add leaderboard button
@@ -197,6 +198,7 @@ class GameOverScene: BaseScene {
                 run(playExplosionSoundAction)
             }
             
+            // TODO: present interstitial if needed
             let gameScene = GameScene(mode: mode)
             let transition = SKTransition.doorsOpenHorizontal(withDuration: 1.0)
             view?.presentScene(gameScene, transition: transition)
@@ -347,17 +349,10 @@ extension GameOverScene {
 extension GameOverScene {
     // TODO: hide banner view
     private func takeScreenshot() -> UIImage? {
-        guard let gameViewController = view?.window?.rootViewController as? GameViewController else {
-            return nil
-        }
-        // gameViewController.bannerView.hidden = true
-        
         UIGraphicsBeginImageContextWithOptions(frame.size, true, UIScreen.main.scale)
         view?.drawHierarchy(in: frame, afterScreenUpdates: true)
         let screenshot = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
-        //gameViewController.bannerView.hidden = false
         return screenshot
     }
 }
