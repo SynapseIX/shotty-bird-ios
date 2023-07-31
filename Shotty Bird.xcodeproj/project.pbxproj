@@ -239,8 +239,8 @@
 			children = (
 				CFB43E0A2A4DB7CD00A3F426 /* BaseScene.swift */,
 				CFB43E0E2A4DBAA700A3F426 /* MainMenuScene.swift */,
-				CFAB330D2A730D0D00538D13 /* GameModeScene.swift */,
 				CF4911A52A76E2F000AC1FCF /* StoreScene.swift */,
+				CFAB330D2A730D0D00538D13 /* GameModeScene.swift */,
 				CF2275782A7315B300A246D6 /* DifficultyScene.swift */,
 				CF77C65E2A4D24D800BA03ED /* GameScene.swift */,
 				CF22757B2A7328A600A246D6 /* GameOverScene.swift */,
