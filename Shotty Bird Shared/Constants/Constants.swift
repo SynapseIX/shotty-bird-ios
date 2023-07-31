@@ -10,6 +10,11 @@ import UIKit
 
 /// Defines constants used across the game.
 struct Constants {
+    // MARK: - Google Mobile Ads
+    static let rewardedInterstitialAdUnitID = "ca-app-pub-5774553422556987/2470518261"
+    static let interstitialAdUnitID = "ca-app-pub-5774553422556987/3590924591"
+    static let adsAlert = "Would you like to watch a short ad and earn an extra life?\n\nRegardless of your choice, you'll still see an ad. You can purchase the option to remove ads by visiting the Store section on the main menu."
+    
     // MARK: - Store manager
     static let purchased = "You've successfully bought this purchase!"
     static let purchasedAlready = "You've already purchased this product!\nEnjoy ad-free gaming and 1 permanent extra life on Slayer mode.\nYou can restore your purchase by tapping the Restore Purchase button. Thank you!"

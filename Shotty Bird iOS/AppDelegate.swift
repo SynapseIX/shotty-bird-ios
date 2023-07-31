@@ -9,6 +9,8 @@ import GameKit
 import SpriteKit
 import UIKit
 
+import GoogleMobileAds
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -18,9 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Initialize store manager and restore purchases
         Task {
-            await StoreManager.shared.unlockNoAds()
+            await StoreManager.shared.unlockRemoveAds()
         }
-        
         // Game Center initialization
         GameCenterHelper.shared.authenticateLocalPlayer(presentingViewController: window?.rootViewController) { success in
             if success {
@@ -29,6 +30,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Game Center authentication failed...")
             }
         }
+        // Initialize Google Mobile Ads
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
+        #if DEBUG
+        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = ["67bbb807cc18d05549bb0586e9950eef"]
+        #endif
         return true
     }
 }

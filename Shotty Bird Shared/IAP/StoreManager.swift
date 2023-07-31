@@ -37,7 +37,7 @@ class StoreManager: ObservableObject {
     
     /// Shared manager instance.
     static let shared = StoreManager()
-    /// The No Ads product ID.
+    /// The Remove Ads product ID.
     static let noAdsProductID = "life.komodo.shottybird.noads"
     
     @Published private(set) var items = [Product]()
@@ -136,7 +136,7 @@ class StoreManager: ObservableObject {
     }
     
     /// Unlock in-app features.
-    func unlockNoAds() async -> Bool {
+    func unlockRemoveAds() async -> Bool {
         for await result in Transaction.currentEntitlements {
             guard case .verified(let transaction) = result else {
                 return false

@@ -12,6 +12,7 @@ enum GameMode {
     case slayer
     case timeAttack
     case practice
+    case none
 }
 
 /// The difficulty level for practice mode.
@@ -19,6 +20,7 @@ enum Difficulty {
     case easy
     case normal
     case hard
+    case none
 }
 
 /// Main game scene.
@@ -82,7 +84,7 @@ class GameScene: BaseScene {
         super.didMove(to: view)
         // TODO: ad rewards can also increase lives
         Task {
-            if await StoreManager.shared.unlockNoAds() {
+            if await StoreManager.shared.unlockRemoveAds() {
                 initialLives = 4
                 lives = 4
             } else {
@@ -108,6 +110,8 @@ class GameScene: BaseScene {
                 spawnFrequency = 1.5
             case .hard:
                 spawnFrequency = 0.8
+            default:
+                spawnFrequency = 2.2
             }
         }
         
@@ -330,6 +334,8 @@ extension GameScene {
             addBackButton()
         case .timeAttack:
             addTimerNode()
+        default:
+            break
         }
         addScoreNode()
         addPauseButton()

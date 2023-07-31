@@ -130,7 +130,7 @@ class StoreScene: BaseScene {
         noAdsLabel.fontColor = SKColor(red: 205.0 / 255.0, green: 164.0 / 255.0, blue: 0.0, alpha: 1.0)
         noAdsLabel.position = CGPoint(x: CGRectGetMidX(frame), y: extraLifeLabel.position.y + 30)
         noAdsLabel.zPosition = zPositionMenuItems
-        noAdsLabel.text = "NO ADS"
+        noAdsLabel.text = "REMOVE ADS"
         addChild(noAdsLabel)
         
         // Add restore purchase button
@@ -187,7 +187,7 @@ class StoreScene: BaseScene {
             
             let store = StoreManager.shared
             Task {
-                if await store.unlockNoAds() {
+                if await store.unlockRemoveAds() {
                     showAlert(message: Constants.purchasedAlready)
                 } else {
                     guard let product = store.items.first else {

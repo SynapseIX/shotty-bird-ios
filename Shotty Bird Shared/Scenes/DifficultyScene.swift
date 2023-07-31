@@ -7,9 +7,13 @@
 //
 
 import SpriteKit
+import GoogleMobileAds
 
 /// Difficulty selection scene for practice mode.
 class DifficultyScene: BaseScene {
+    
+    /// The selected difficulty level for practice mode.
+    private var selectedDifficulty: Difficulty = .none
     
     /// Audio manager to play background music.
     let audioManager = AudioManager.shared
@@ -24,6 +28,9 @@ class DifficultyScene: BaseScene {
     /// Plays an explosion sound clip.
     let playExplosionSoundAction = SKAction.playSoundFileNamed("explosion.wav", waitForCompletion: false)
     
+    /// Non-rewarded interstitial ad instance.
+    private var interstitialAd: GADInterstitialAd?
+    
     override init(backgroundSpeed: BackgroundSpeed = .slow) {
         super.init(backgroundSpeed: backgroundSpeed)
     }
@@ -34,8 +41,8 @@ class DifficultyScene: BaseScene {
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
+        loadAd()
         setupUI()
-//        audioManager.playMusic(type: .menu, loop: true)
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -146,59 +153,96 @@ class DifficultyScene: BaseScene {
         addChild(muteButton)
     }
     
+    /// Transitions to the game scene for given game mode.
+    private func launchPractice() {
+        if selectedDifficulty != .none {
+            audioManager.stop()
+            if !audioManager.isMuted {
+                run(playExplosionSoundAction)
+            }
+            let gameScene = GameScene(mode: .practice, difficulty: selectedDifficulty, didInteractWithAd: false)
+            let transition = SKTransition.doorsOpenHorizontal(withDuration: 1.1)
+            view?.presentScene(gameScene, transition: transition)
+        }
+    }
+    
     // MARK: - UI event handlers
     
     /// Handles the easy button tap event.
     /// - Parameter location: A point where the screen is tapped.
     private func handleEasyButton(in location: CGPoint) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+              let rootViewController = appDelegate.window?.rootViewController as? GameViewController else {
+            return
+        }
+        if !rootViewController.loadingOverlay.isHidden {
+            return
+        }
+        
         guard let easyButton = childNode(withName: "easyButton") else {
             return
         }
         if easyButton.contains(location) {
-            audioManager.stop()
-            if !audioManager.isMuted {
-                run(playExplosionSoundAction)
+            selectedDifficulty = .easy
+            Task {
+                if await StoreManager.shared.unlockRemoveAds() {
+                    launchPractice()
+                } else {
+                    showAd()
+                }
             }
-            
-            let gameScene = GameScene(mode: .practice, difficulty: .easy)
-            let transition = SKTransition.doorsOpenHorizontal(withDuration: 1.0)
-            view?.presentScene(gameScene, transition: transition)
         }
     }
     
     /// Handles the normal button tap event.
     /// - Parameter location: A point where the screen is tapped.
     private func handleNormalButton(in location: CGPoint) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+              let rootViewController = appDelegate.window?.rootViewController as? GameViewController else {
+            return
+        }
+        if !rootViewController.loadingOverlay.isHidden {
+            return
+        }
+        
         guard let normalButton = childNode(withName: "normalButton") else {
             return
         }
         if normalButton.contains(location) {
-            audioManager.stop()
-            if !audioManager.isMuted {
-                run(playExplosionSoundAction)
+            selectedDifficulty = .normal
+            Task {
+                if await StoreManager.shared.unlockRemoveAds() {
+                    launchPractice()
+                } else {
+                    showAd()
+                }
             }
-            
-            let gameScene = GameScene(mode: .practice, difficulty: .normal)
-            let transition = SKTransition.doorsOpenHorizontal(withDuration: 1.0)
-            view?.presentScene(gameScene, transition: transition)
         }
     }
     
     /// Handles the hard button tap event.
     /// - Parameter location: A point where the screen is tapped.
     private func handleHardButton(in location: CGPoint) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+              let rootViewController = appDelegate.window?.rootViewController as? GameViewController else {
+            return
+        }
+        if !rootViewController.loadingOverlay.isHidden {
+            return
+        }
+        
         guard let hardButton = childNode(withName: "hardButton") else {
             return
         }
         if hardButton.contains(location) {
-            audioManager.stop()
-            if !audioManager.isMuted {
-                run(playExplosionSoundAction)
+            selectedDifficulty = .hard
+            Task {
+                if await StoreManager.shared.unlockRemoveAds() {
+                    launchPractice()
+                } else {
+                    showAd()
+                }
             }
-            
-            let gameScene = GameScene(mode: .practice, difficulty: .hard)
-            let transition = SKTransition.doorsOpenHorizontal(withDuration: 1.0)
-            view?.presentScene(gameScene, transition: transition)
         }
     }
     
@@ -249,5 +293,68 @@ extension DifficultyScene {
             // Handle mute button tap
             handleMuteButton(in: location)
         }
+    }
+}
+
+// MARK: - Google Mobile Ads
+
+extension DifficultyScene {
+    /// Loads a rewarded interstitial ad and stores a reference.
+    private func loadAd() {
+        Task {
+            if await !StoreManager.shared.unlockRemoveAds() {
+                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+                      let rootViewController = appDelegate.window?.rootViewController as? GameViewController else {
+                    return
+                }
+                rootViewController.loadingOverlay.isHidden = false
+                do {
+                    // Non-rewarded interstital
+                    interstitialAd = try await GADInterstitialAd.load(withAdUnitID: Constants.interstitialAdUnitID,
+                                                                  request: GADRequest())
+                    interstitialAd?.fullScreenContentDelegate = self
+                    // Hide overlay
+                    rootViewController.loadingOverlay.isHidden = true
+                } catch {
+                    rootViewController.loadingOverlay.isHidden = true
+                    print("Failed to load ad with error: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    
+    /// Shows an interactive intesrtitial ad.
+    func showAd() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+              let rootViewController = appDelegate.window?.rootViewController as? GameViewController else {
+            return
+        }
+        rootViewController.loadingOverlay.isHidden = false
+        interstitialAd?.present(fromRootViewController: rootViewController)
+    }
+}
+
+// MARK: - GADFullScreenContentDelegate
+
+extension DifficultyScene: GADFullScreenContentDelegate {
+    /// Tells the delegate that the ad failed to present full screen content.
+    func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+        print("Ad did fail to present full screen content.")
+        print(error.localizedDescription)
+    }
+    
+    /// Tells the delegate that the ad will present full screen content.
+    func adWillPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+              let rootViewController = appDelegate.window?.rootViewController as? GameViewController else {
+            return
+        }
+        rootViewController.loadingOverlay.isHidden = true
+    }
+    
+    /// Tells the delegate that the ad dismissed full screen content.
+    func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+        interstitialAd = nil
+        launchPractice()
     }
 }

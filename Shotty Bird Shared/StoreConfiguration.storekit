@@ -1,5 +1,5 @@
 {
-  "identifier" : "E5527FD6",
+  "identifier" : "79F35A68",
   "nonRenewingSubscriptions" : [
 
   ],
@@ -11,7 +11,7 @@
       "localizations" : [
         {
           "description" : "No Ads +  1 permanent extra life on Slayer.",
-          "displayName" : "No Ads + Extra Life",
+          "displayName" : "Remove Ads + Extra Life",
           "locale" : "en_US"
         }
       ],
@@ -23,7 +23,7 @@
   "settings" : {
     "_applicationInternalID" : "1114259560",
     "_developerTeamID" : "RTCYSWYBFH",
-    "_lastSynchronizedDate" : 712459864.15755403
+    "_lastSynchronizedDate" : 712537527.72065604
   },
   "subscriptionGroups" : [
 

@@ -5,11 +5,14 @@
 //  Copyright © 2023 Komodo Life. All rights reserved.
 //
 
+import GameplayKit
 import UIKit
 import SpriteKit
-import GameplayKit
 
+/// Game's root view controller.
 class GameViewController: UIViewController {
+    
+    @IBOutlet weak var loadingOverlay: UIView!
     
     override var prefersHomeIndicatorAutoHidden: Bool {
         true
@@ -17,10 +20,8 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         AudioManager.shared.playMusic(type: .menu, loop: true)
         let scene = MainMenuScene(backgroundSpeed: .slow)
-        
         let skView = self.view as! SKView
         skView.isMultipleTouchEnabled = false
         skView.ignoresSiblingOrder = false
