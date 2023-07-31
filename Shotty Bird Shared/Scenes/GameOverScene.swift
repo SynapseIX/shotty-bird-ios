@@ -349,17 +349,10 @@ extension GameOverScene {
 extension GameOverScene {
     // TODO: hide banner view
     private func takeScreenshot() -> UIImage? {
-        guard let gameViewController = view?.window?.rootViewController as? GameViewController else {
-            return nil
-        }
-        // gameViewController.bannerView.hidden = true
-        
         UIGraphicsBeginImageContextWithOptions(frame.size, true, UIScreen.main.scale)
         view?.drawHierarchy(in: frame, afterScreenUpdates: true)
         let screenshot = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
-        //gameViewController.bannerView.hidden = false
         return screenshot
     }
 }
