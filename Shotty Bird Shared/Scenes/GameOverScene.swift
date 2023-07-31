@@ -124,11 +124,12 @@ class GameOverScene: BaseScene {
         addChild(bestScoreLabel)
         
         // Add game over node
-        let gameOver = SKSpriteNode(imageNamed: "game_over")
+        let gameOver = AttributedLabelNode(size: CGSize(width: frame.size.width, height: 160))
         gameOver.name = "gameOver"
         gameOver.setScale(0.8)
         gameOver.zPosition = zPositionMenuItems
-        gameOver.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMaxY(panel.frame) + gameOver.size.height - 30)
+        gameOver.position = CGPoint(x: CGRectGetMidX(frame), y: panel.position.y + gameOver.size.height + 40)
+        gameOver.attributedString = NSAttributedString(string: "Game Over", attributes: attributes)
         addChild(gameOver)
         
         // Add leaderboard button
