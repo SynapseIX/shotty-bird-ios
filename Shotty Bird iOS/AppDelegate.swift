@@ -16,7 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        // Initialize store manager and restore purchases
+        Task {
+            await StoreManager.shared.unlockNoAds()
+        }
+        
+        // Game Center initialization
         GameCenterHelper.shared.authenticateLocalPlayer(presentingViewController: window?.rootViewController) { success in
             if success {
                 print("Game Center authentication completed as \(GKLocalPlayer.local.displayName)")

@@ -20,7 +20,9 @@
 		CF2275792A7315B300A246D6 /* DifficultyScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2275782A7315B300A246D6 /* DifficultyScene.swift */; };
 		CF22757C2A7328A600A246D6 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF22757B2A7328A600A246D6 /* GameOverScene.swift */; };
 		CF22757F2A73378F00A246D6 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF22757E2A73378F00A246D6 /* beep.mp3 */; };
+		CF364AB52A74BD40002682C9 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF364AB42A74BD40002682C9 /* StoreManager.swift */; };
 		CF396A912A73A21D0083544D /* GameCenterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF396A902A73A21D0083544D /* GameCenterHelper.swift */; };
+		CF4911A62A76E2F000AC1FCF /* StoreScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4911A52A76E2F000AC1FCF /* StoreScene.swift */; };
 		CF68C0C22A5401EA00264E81 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF68C0C12A5401EA00264E81 /* AudioManager.swift */; };
 		CF68C0C62A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF68C0C52A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 */; };
 		CF68C0CB2A5412D000264E81 /* CrowsCawInField.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF68C0C92A5412D000264E81 /* CrowsCawInField.mp3 */; };
@@ -40,6 +42,8 @@
 		CFB43E0B2A4DB7CD00A3F426 /* BaseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB43E0A2A4DB7CD00A3F426 /* BaseScene.swift */; };
 		CFB43E0F2A4DBAA700A3F426 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB43E0E2A4DBAA700A3F426 /* MainMenuScene.swift */; };
 		CFCEA7E32A70E6E500D00C03 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCEA7E22A70E6E500D00C03 /* Constants.swift */; };
+		CFEBBC362A7664580000FC58 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFEBBC352A7664580000FC58 /* StoreKit.framework */; };
+		CFEBBC382A7674FA0000FC58 /* StoreConfiguration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = CFEBBC372A7674FA0000FC58 /* StoreConfiguration.storekit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,7 +60,9 @@
 		CF2275782A7315B300A246D6 /* DifficultyScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyScene.swift; sourceTree = "<group>"; };
 		CF22757B2A7328A600A246D6 /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		CF22757E2A73378F00A246D6 /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
+		CF364AB42A74BD40002682C9 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		CF396A902A73A21D0083544D /* GameCenterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterHelper.swift; sourceTree = "<group>"; };
+		CF4911A52A76E2F000AC1FCF /* StoreScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreScene.swift; sourceTree = "<group>"; };
 		CF68C0C12A5401EA00264E81 /* AudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		CF68C0C52A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "TwinEngines-JeremyKorpas.mp3"; sourceTree = "<group>"; };
 		CF68C0C92A5412D000264E81 /* CrowsCawInField.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CrowsCawInField.mp3; sourceTree = "<group>"; };
@@ -78,6 +84,8 @@
 		CFB43E0E2A4DBAA700A3F426 /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 		CFCEA7E22A70E6E500D00C03 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CFCEA7E52A70F9D700D00C03 /* Shotty-Bird-iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Shotty-Bird-iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
+		CFEBBC352A7664580000FC58 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
+		CFEBBC372A7674FA0000FC58 /* StoreConfiguration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = StoreConfiguration.storekit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFEBBC362A7664580000FC58 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,6 +143,14 @@
 			path = Music;
 			sourceTree = "<group>";
 		};
+		CF364AB32A74BD10002682C9 /* IAP */ = {
+			isa = PBXGroup;
+			children = (
+				CF364AB42A74BD40002682C9 /* StoreManager.swift */,
+			);
+			path = IAP;
+			sourceTree = "<group>";
+		};
 		CF396A8D2A73A0EF0083544D /* Game Center */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +173,7 @@
 				CF77C65B2A4D24D800BA03ED /* Shotty Bird Shared */,
 				CF77C6662A4D24D900BA03ED /* Shotty Bird iOS */,
 				CF77C6652A4D24D900BA03ED /* Products */,
+				CFEBBC342A7664580000FC58 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -164,15 +182,17 @@
 			children = (
 				CFCEA7E12A70E6C600D00C03 /* Constants */,
 				CF68C0C02A5401D900264E81 /* Audio Manager */,
+				CF396A8D2A73A0EF0083544D /* Game Center */,
+				CF364AB32A74BD10002682C9 /* IAP */,
 				CF77C6A72A4D292600BA03ED /* Nodes */,
 				CFB43E092A4DB7B100A3F426 /* Scenes */,
 				CF1A8F522A53C6E100BAD0A6 /* Physics */,
-				CF396A8D2A73A0EF0083544D /* Game Center */,
 				CFAB33002A72216B00538D13 /* Util */,
 				CF0A46152A7212C600F52F44 /* Fonts */,
 				CF1A8F5F2A53DC9400BAD0A6 /* Sounds */,
 				CF1A8F5B2A53DA2C00BAD0A6 /* GameScoreDelegate.swift */,
 				CF77C65F2A4D24D900BA03ED /* Assets.xcassets */,
+				CFEBBC372A7674FA0000FC58 /* StoreConfiguration.storekit */,
 			);
 			path = "Shotty Bird Shared";
 			sourceTree = "<group>";
@@ -221,6 +241,7 @@
 				CFB43E0A2A4DB7CD00A3F426 /* BaseScene.swift */,
 				CFB43E0E2A4DBAA700A3F426 /* MainMenuScene.swift */,
 				CFAB330D2A730D0D00538D13 /* GameModeScene.swift */,
+				CF4911A52A76E2F000AC1FCF /* StoreScene.swift */,
 				CF2275782A7315B300A246D6 /* DifficultyScene.swift */,
 				CF77C65E2A4D24D800BA03ED /* GameScene.swift */,
 				CF22757B2A7328A600A246D6 /* GameOverScene.swift */,
@@ -234,6 +255,14 @@
 				CFCEA7E22A70E6E500D00C03 /* Constants.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		CFEBBC342A7664580000FC58 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CFEBBC352A7664580000FC58 /* StoreKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,6 +328,7 @@
 				CF1A8F6D2A53DD1500BAD0A6 /* wing_flap.wav in Resources */,
 				CF22757F2A73378F00A246D6 /* beep.mp3 in Resources */,
 				CF1A8F652A53DCC700BAD0A6 /* explosion.wav in Resources */,
+				CFEBBC382A7674FA0000FC58 /* StoreConfiguration.storekit in Resources */,
 				CFAB33082A72FF5B00538D13 /* 1up.mp3 in Resources */,
 				CF77C66D2A4D24D900BA03ED /* Main.storyboard in Resources */,
 				CF1A8F612A53DCAB00BAD0A6 /* bird.wav in Resources */,
@@ -334,8 +364,10 @@
 				CFAB330E2A730D0D00538D13 /* GameModeScene.swift in Sources */,
 				CF396A912A73A21D0083544D /* GameCenterHelper.swift in Sources */,
 				CF77C6682A4D24D900BA03ED /* AppDelegate.swift in Sources */,
+				CF4911A62A76E2F000AC1FCF /* StoreScene.swift in Sources */,
 				CF1A8F582A53D96F00BAD0A6 /* Missile.swift in Sources */,
 				CF68C0C22A5401EA00264E81 /* AudioManager.swift in Sources */,
+				CF364AB52A74BD40002682C9 /* StoreManager.swift in Sources */,
 				CF2275792A7315B300A246D6 /* DifficultyScene.swift in Sources */,
 				CFB43E0B2A4DB7CD00A3F426 /* BaseScene.swift in Sources */,
 			);

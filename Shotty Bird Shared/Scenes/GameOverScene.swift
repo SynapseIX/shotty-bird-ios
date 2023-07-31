@@ -77,7 +77,6 @@ class GameOverScene: BaseScene {
         let scoreLabel = AttributedLabelNode(size: panel.size)
         scoreLabel.zPosition = zPositionMenuItems
         scoreLabel.position = CGPoint(x: CGRectGetMidX(panel.frame), y: CGRectGetMidY(panel.frame))
-        
         guard let font =  UIFont(name: "Kenney-Bold", size: 80) else {
             return
         }

@@ -39,12 +39,16 @@ class GameScene: BaseScene {
     /// Last time a shot was fired.
     private(set) var lastShotFiredTime: CFTimeInterval = 0.0
     
-    private var timer: Timer?
+    /// Initial amount of lives on Slayer.
+    private(set) var initialLives = -1
+    /// Number of lives remaining on Slayer.
+    private(set) var lives = -1
     
+    /// Time attack timer.
+    private var timer: Timer?
     /// Time attack mode timer value.
     private(set) var timerValue = 60
-    /// Number of lives remaining.
-    private(set) var lives = 3
+    
     /// Game score.
     private(set) var score = 0
     
@@ -71,9 +75,22 @@ class GameScene: BaseScene {
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-        setupUI()
+        // TODO: ad rewards can also increase lives
+        Task {
+            if await StoreManager.shared.unlockNoAds() {
+                initialLives = 4
+                lives = 4
+            } else {
+                initialLives = 3
+                lives = 3
+            }
+            setupUI()
+        }
         
-        if mode == .practice {
+        if mode == .timeAttack {
+            spawnFrequency = 0.33
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimerNode), userInfo: nil, repeats: true)
+        } else if mode == .practice {
             switch difficulty {
             case .easy:
                 spawnFrequency = 2.2
@@ -82,9 +99,6 @@ class GameScene: BaseScene {
             case .hard:
                 spawnFrequency = 0.8
             }
-        } else if mode == .timeAttack {
-            spawnFrequency = 0.33
-            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimerNode), userInfo: nil, repeats: true)
         }
         
         let musicType: MusicType = (mode == .slayer || mode == .timeAttack) ? .gameplay : .practice
@@ -185,23 +199,55 @@ class GameScene: BaseScene {
                 if enemy.position.x == -enemy.size.width / 2 {
                     self.lives -= 1
                     
-                    // TODO: consider extra life if player watches ad or purchased no ads
-                    if self.lives == 2 {
-                        guard let node = self.childNode(withName: "life1") as? SKSpriteNode else {
-                            return
-                        }
-                        node.texture = SKTexture(imageNamed: "death")
-                    } else if self.lives == 1 {
-                        let node = self.childNode(withName: "life2") as! SKSpriteNode
-                        node.texture = SKTexture(imageNamed: "death")
-                    } else if self.lives == 0 {
-                        let node = self.childNode(withName: "life3") as! SKSpriteNode
-                        node.texture = SKTexture(imageNamed: "death")
-                        self.audioManager.stop()
+                    if self.initialLives == 4 {
+                        if self.lives == 3 {
+                            guard let node = self.childNode(withName: "life1") as? SKSpriteNode else {
+                                return
+                            }
+                            node.texture = SKTexture(imageNamed: "death")
+                        } else if self.lives == 2 {
+                            guard let node = self.childNode(withName: "life2") as? SKSpriteNode else {
+                                return
+                            }
+                            node.texture = SKTexture(imageNamed: "death")
+                        } else if self.lives == 1 {
+                            guard let node = self.childNode(withName: "life3") as? SKSpriteNode else {
+                                return
+                            }
+                            node.texture = SKTexture(imageNamed: "death")
+                        } else if self.lives == 0 {
+                            guard let node = self.childNode(withName: "life4") as? SKSpriteNode else {
+                                return
+                            }
+                            node.texture = SKTexture(imageNamed: "death")
+                            self.audioManager.stop()
 
-                        let scene = GameOverScene(score: self.score, mode: .slayer)
-                        let transition = SKTransition.flipVertical(withDuration: 1.0)
-                        self.view?.presentScene(scene, transition: transition)
+                            let scene = GameOverScene(score: self.score, mode: .slayer)
+                            let transition = SKTransition.flipVertical(withDuration: 1.0)
+                            self.view?.presentScene(scene, transition: transition)
+                        }
+                    } else {
+                        if self.lives == 2 {
+                            guard let node = self.childNode(withName: "life1") as? SKSpriteNode else {
+                                return
+                            }
+                            node.texture = SKTexture(imageNamed: "death")
+                        } else if self.lives == 1 {
+                            guard let node = self.childNode(withName: "life2") as? SKSpriteNode else {
+                                return
+                            }
+                            node.texture = SKTexture(imageNamed: "death")
+                        } else if self.lives == 0 {
+                            guard let node = self.childNode(withName: "life3") as? SKSpriteNode else {
+                                return
+                            }
+                            node.texture = SKTexture(imageNamed: "death")
+                            self.audioManager.stop()
+
+                            let scene = GameOverScene(score: self.score, mode: .slayer)
+                            let transition = SKTransition.flipVertical(withDuration: 1.0)
+                            self.view?.presentScene(scene, transition: transition)
+                        }
                     }
                 }
             }
@@ -349,7 +395,6 @@ extension GameScene {
     
     /// Adds life nodes.
     private func addLifeNodes() {
-        // TODO: add 4th life if watched ad or purchased no ads
         let lifeNode1 = SKSpriteNode(imageNamed: "life")
         var y: CGFloat = 0.0
         if DeviceModel.iPad || DeviceModel.iPadPro {
@@ -375,6 +420,14 @@ extension GameScene {
         lifeNode3.name = "life3"
         lifeNode3.zPosition = zPositionUIElements
         addChild(lifeNode3)
+        
+        if lives == 4 {
+            let lifeNode4 = SKSpriteNode(imageNamed: "life")
+            lifeNode4.position = CGPoint(x: CGRectGetMinX(frame) + lifeNode4.size.width * 4 - 2.5, y: y)
+            lifeNode4.name = "life4"
+            lifeNode4.zPosition = zPositionUIElements
+            addChild(lifeNode4)
+        }
     }
     
     /// Adds the score node.
@@ -534,20 +587,41 @@ extension GameScene: GameScoreDelegate {
                 }
             }
             
-            // TODO: consider extra life if player watched ad or purchased no ads
             if grantExtraLife {
-                if lives == 1 {
-                    guard let node = self.childNode(withName: "life2") as? SKSpriteNode else {
-                        return
+                if initialLives == 4 {
+                    if lives == 1 {
+                        guard let node = self.childNode(withName: "life3") as? SKSpriteNode else {
+                            return
+                        }
+                        node.texture = SKTexture(imageNamed: "life")
+                        lives += 1
+                    } else if lives == 2 {
+                        guard let node = self.childNode(withName: "life2") as? SKSpriteNode else {
+                            return
+                        }
+                        node.texture = SKTexture(imageNamed: "life")
+                        lives += 1
+                    } else if lives == 3 {
+                        guard let node = self.childNode(withName: "life1") as? SKSpriteNode else {
+                            return
+                        }
+                        node.texture = SKTexture(imageNamed: "life")
+                        lives += 1
                     }
-                    node.texture = SKTexture(imageNamed: "life")
-                    lives += 1
-                } else if lives == 2 {
-                    guard let node = self.childNode(withName: "life1") as? SKSpriteNode else {
-                        return
+                } else {
+                    if lives == 1 {
+                        guard let node = self.childNode(withName: "life2") as? SKSpriteNode else {
+                            return
+                        }
+                        node.texture = SKTexture(imageNamed: "life")
+                        lives += 1
+                    } else if lives == 2 {
+                        guard let node = self.childNode(withName: "life1") as? SKSpriteNode else {
+                            return
+                        }
+                        node.texture = SKTexture(imageNamed: "life")
+                        lives += 1
                     }
-                    node.texture = SKTexture(imageNamed: "life")
-                    lives += 1
                 }
                 if !audioManager.isMuted {
                     run(SKAction.playSoundFileNamed("1up.mp3", waitForCompletion: false))

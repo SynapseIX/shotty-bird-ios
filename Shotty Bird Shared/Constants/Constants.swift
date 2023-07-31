@@ -10,6 +10,14 @@ import UIKit
 
 /// Defines constants used across the game.
 struct Constants {
+    // MARK: - Store manager
+    static let purchased = "You've successfully bought this purchase!"
+    static let purchasedAlready = "You've already purchased this product!\nEnjoy ad-free gaming and 1 permanent extra life on Slayer mode.\nYou can restore your purchase by tapping the Restore Purchase button. Thank you!"
+    static let purchaseRestored = "Your purchase has been restored. You're all set!"
+    static let purchasesDisabled = "Purchases are disabled on your device."
+    static let purchaseFailed = "An error has ocurred with this purchase. Please try again later."
+    
+    
     // MARK: - Game Over scene
     static let scored0 = "Lead your shots and try again"
     static let yourBestScoreFormat = "Your best score is %d"
