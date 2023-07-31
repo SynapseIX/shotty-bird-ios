@@ -137,7 +137,6 @@ class StoreManager: ObservableObject {
     
     /// Unlock in-app features.
     func unlockNoAds() async -> Bool {
-        // Array with all transactions
         for await result in Transaction.currentEntitlements {
             guard case .verified(let transaction) = result else {
                 return false
