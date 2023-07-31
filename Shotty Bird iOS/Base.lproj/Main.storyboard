@@ -19,22 +19,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="KAH-Zr-a3I">
-                                        <rect key="frame" x="178" y="407.66666666666669" width="37" height="37"/>
+                                        <rect key="frame" x="324" y="32" width="37" height="37"/>
                                         <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </activityIndicatorView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading game assets..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acn-Kq-OZx">
-                                        <rect key="frame" x="117.66666666666667" y="452.66666666666669" width="157.66666666666663" height="18"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="KAH-Zr-a3I" firstAttribute="centerY" secondItem="8er-Vz-VK9" secondAttribute="centerY" id="2VU-Ge-a4k"/>
-                                    <constraint firstItem="acn-Kq-OZx" firstAttribute="top" secondItem="KAH-Zr-a3I" secondAttribute="bottom" constant="8" id="FfY-3V-ATp"/>
-                                    <constraint firstItem="KAH-Zr-a3I" firstAttribute="centerX" secondItem="8er-Vz-VK9" secondAttribute="centerX" id="Mhq-f8-Cpa"/>
-                                    <constraint firstItem="acn-Kq-OZx" firstAttribute="centerX" secondItem="KAH-Zr-a3I" secondAttribute="centerX" id="dde-rW-WhB"/>
+                                    <constraint firstAttribute="trailing" secondItem="KAH-Zr-a3I" secondAttribute="trailing" constant="32" id="gWv-Xy-86e"/>
+                                    <constraint firstItem="KAH-Zr-a3I" firstAttribute="top" secondItem="8er-Vz-VK9" secondAttribute="top" constant="32" id="uZe-YW-aj9"/>
                                 </constraints>
                             </view>
                         </subviews>
