@@ -63,9 +63,6 @@ class StoreManager: ObservableObject {
         do {
             let products = try await Product.products(for: productIds)
             items = products.sorted(by: { $0.price < $1.price })
-            for product in items {
-                print("Product: \(product.displayName) - \(product.displayPrice)")
-            }
         } catch {
             print(error)
         }
