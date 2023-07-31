@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CF0A46182A7212C600F52F44 /* Kenney-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF0A46162A7212C600F52F44 /* Kenney-Bold.ttf */; };
 		CF0A461A2A7212C600F52F44 /* Kenney-Blocks.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF0A46172A7212C600F52F44 /* Kenney-Blocks.ttf */; };
+		CF13CBAA2A774A0600098F83 /* Practice.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF13CBA92A774A0600098F83 /* Practice.mp3 */; };
 		CF1A8F4F2A53A57400BAD0A6 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A8F4E2A53A57400BAD0A6 /* Enemy.swift */; };
 		CF1A8F542A53C71300BAD0A6 /* PhysicsCollisionBitMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A8F532A53C71300BAD0A6 /* PhysicsCollisionBitMask.swift */; };
 		CF1A8F582A53D96F00BAD0A6 /* Missile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1A8F572A53D96F00BAD0A6 /* Missile.swift */; };
@@ -35,7 +36,6 @@
 		CF77C6982A4D24D900BA03ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF77C65F2A4D24D900BA03ED /* Assets.xcassets */; };
 		CFAB32FE2A72165F00538D13 /* AttributedLabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAB32FD2A72165F00538D13 /* AttributedLabelNode.swift */; };
 		CFAB33022A72218200538D13 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAB33012A72218200538D13 /* DeviceModel.swift */; };
-		CFAB33052A72E98D00538D13 /* Practice.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CFAB33042A72E98D00538D13 /* Practice.mp3 */; };
 		CFAB33082A72FF5B00538D13 /* 1up.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CFAB33072A72FF5B00538D13 /* 1up.mp3 */; };
 		CFAB330B2A730C2800538D13 /* game_over_positive.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CFAB330A2A730C2800538D13 /* game_over_positive.mp3 */; };
 		CFAB330E2A730D0D00538D13 /* GameModeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAB330D2A730D0D00538D13 /* GameModeScene.swift */; };
@@ -49,6 +49,7 @@
 		CF0A46162A7212C600F52F44 /* Kenney-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kenney-Bold.ttf"; sourceTree = "<group>"; };
 		CF0A46172A7212C600F52F44 /* Kenney-Blocks.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kenney-Blocks.ttf"; sourceTree = "<group>"; };
 		CF13CBA82A77465600098F83 /* StoreConfiguration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = StoreConfiguration.storekit; sourceTree = "<group>"; };
+		CF13CBA92A774A0600098F83 /* Practice.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Practice.mp3; path = ../../../../../Downloads/Practice.mp3; sourceTree = "<group>"; };
 		CF1A8F4E2A53A57400BAD0A6 /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		CF1A8F532A53C71300BAD0A6 /* PhysicsCollisionBitMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsCollisionBitMask.swift; sourceTree = "<group>"; };
 		CF1A8F572A53D96F00BAD0A6 /* Missile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Missile.swift; sourceTree = "<group>"; };
@@ -76,7 +77,6 @@
 		CF77C66F2A4D24D900BA03ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CFAB32FD2A72165F00538D13 /* AttributedLabelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedLabelNode.swift; sourceTree = "<group>"; };
 		CFAB33012A72218200538D13 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
-		CFAB33042A72E98D00538D13 /* Practice.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Practice.mp3; sourceTree = "<group>"; };
 		CFAB33072A72FF5B00538D13 /* 1up.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 1up.mp3; sourceTree = "<group>"; };
 		CFAB330A2A730C2800538D13 /* game_over_positive.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = game_over_positive.mp3; sourceTree = "<group>"; };
 		CFAB330D2A730D0D00538D13 /* GameModeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModeScene.swift; sourceTree = "<group>"; };
@@ -135,7 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				CF68C0CA2A5412D000264E81 /* Crimson-Sextile.mp3 */,
-				CFAB33042A72E98D00538D13 /* Practice.mp3 */,
+				CF13CBA92A774A0600098F83 /* Practice.mp3 */,
 				CF68C0C52A5405DD00264E81 /* TwinEngines-JeremyKorpas.mp3 */,
 				CF68C0C92A5412D000264E81 /* CrowsCawInField.mp3 */,
 			);
@@ -324,6 +324,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF1A8F692A53DCF100BAD0A6 /* shot.wav in Resources */,
+				CF13CBAA2A774A0600098F83 /* Practice.mp3 in Resources */,
 				CF1A8F6D2A53DD1500BAD0A6 /* wing_flap.wav in Resources */,
 				CF22757F2A73378F00A246D6 /* beep.mp3 in Resources */,
 				CF1A8F652A53DCC700BAD0A6 /* explosion.wav in Resources */,
@@ -331,7 +332,6 @@
 				CF77C66D2A4D24D900BA03ED /* Main.storyboard in Resources */,
 				CF1A8F612A53DCAB00BAD0A6 /* bird.wav in Resources */,
 				CF68C0CE2A5412D000264E81 /* Crimson-Sextile.mp3 in Resources */,
-				CFAB33052A72E98D00538D13 /* Practice.mp3 in Resources */,
 				CFAB330B2A730C2800538D13 /* game_over_positive.mp3 in Resources */,
 				CF0A461A2A7212C600F52F44 /* Kenney-Blocks.ttf in Resources */,
 				CF77C6702A4D24D900BA03ED /* LaunchScreen.storyboard in Resources */,
