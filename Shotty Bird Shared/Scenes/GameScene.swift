@@ -55,6 +55,9 @@ class GameScene: BaseScene {
     /// Controls how many seconds has to pass before spawning a new enemy.
     private(set) var spawnFrequency: TimeInterval = 2.2
     
+    /// Determines if a player has interacted with an ad and is elegible for a reward.
+    private let didWatchdAd: Bool
+    
     /// Audio manager to play background music.
     let audioManager = AudioManager.shared
     
@@ -63,9 +66,11 @@ class GameScene: BaseScene {
     ///   - mode: The game mode.
     ///   - difficulty: Practice mode difficulty level.
     ///   - backgroundSpeed: The parallax background speed.
-    init(mode: GameMode, difficulty: Difficulty = .easy, backgroundSpeed: BackgroundSpeed = .fast) {
+    ///   - didWatchdAd: Determines if player watched and ad and is elegible for a reward.
+    init(mode: GameMode, difficulty: Difficulty = .easy, backgroundSpeed: BackgroundSpeed = .fast, didWatchdAd: Bool = false) {
         self.mode = mode
         self.difficulty = difficulty
+        self.didWatchdAd = didWatchdAd
         super.init(backgroundSpeed: backgroundSpeed)
     }
     
@@ -81,8 +86,13 @@ class GameScene: BaseScene {
                 initialLives = 4
                 lives = 4
             } else {
-                initialLives = 3
-                lives = 3
+                if self.didWatchdAd {
+                    initialLives = 4
+                    lives = 4
+                } else {
+                    initialLives = 3
+                    lives = 3
+                }
             }
             setupUI()
         }

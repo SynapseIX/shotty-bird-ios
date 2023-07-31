@@ -198,6 +198,7 @@ class GameOverScene: BaseScene {
                 run(playExplosionSoundAction)
             }
             
+            // TODO: present interstitial if needed
             let gameScene = GameScene(mode: mode)
             let transition = SKTransition.doorsOpenHorizontal(withDuration: 1.0)
             view?.presentScene(gameScene, transition: transition)
