@@ -17,12 +17,6 @@ struct Constants {
     static let purchasesDisabled = "Purchases are disabled on your device."
     static let purchaseFailed = "An error has ocurred with this purchase. Please try again later."
     
-    
-    // MARK: - Game Over scene
-    static let scored0 = "Lead your shots and try again"
-    static let yourBestScoreFormat = "Your best score is %d"
-    static let newRecord = "NEW RECORD"
-    
     // MARK: Game Center
     static let x0 = "co.profapps.Shotty_Bird.achievement.x0"
     static let x50 = "co.profapps.Shotty_Bird.achievement.x50"
@@ -38,14 +32,24 @@ struct Constants {
     
     // MARK: - Sharing the game
     /// The text copy used when tapping the share button.
-    static let shareText = "Shotty Bird is free to download and play! Brace yourself for the challenge of your life! Become the world's top slayer by shooting down birds, unlocking achievements, and climbing up the ladder. Available on the  App Store."
+    static let shareText = "Download Shotty Bird for FREE! Become the world's top slayer by shooting down birds, unlocking achievements, and climbing up the leaderboards. Available on the  App Store."
     /// URL to use when tapping the share button.
-    static let shareURL = URL(string: "https://komodo.life")!
+    static let appStoreURL = URL(string: "https://apps.apple.com/us/app/shotty-bird/id1114259560")!
     /// Share slayer score text with format.
-    static let shareSlayerScoreText = "I slayed %d birds in Shotty Bird! Can you beat my score? Download now for FREE.\n\(shareURL.absoluteString)\n#HappySlaying"
+    static let shareSlayerScoreText = "I slayed %d birds in Shotty Bird! Can you beat my score? Download now for FREE.\n\(appStoreURL.absoluteString)\n#HappySlaying"
     /// Share slayer score text with format.
-    static let shareTimeAttackScoreText = "I slayed %d birds in Shotty Bird in 1 minute! Can you beat my score? Download now for FREE.\n\(shareURL.absoluteString)\n#HappySlaying"
+    static let shareTimeAttackScoreText = "Time Attack is so fun! I slayed %d birds in Shotty Bird in 1 minute! Can you beat my score? Download now for FREE.\n\(appStoreURL.absoluteString)\n#HappySlaying"
     /// The app icon image to use when sharing the game.
     static let appIconImage = UIImage(named: "AppIcon")!
+    
+    // MARK: - Game Over scene
+    static let scored0 = "Lead your shots and try again"
+    static let yourBestScoreFormat = "Your best score is %d"
+    static let newRecord = "NEW RECORD"
+    
+    // MARK: - Credits scene
+    let komodoURL = URL(string: "https://komodo.life")!
+    let jorgeSocialURL = URL(string: "https://linktr.ee/4Stryngs")!
+    let juanPabloSocialURL = URL(string: "http://twitter.com/jpalbuja")!
 }
 

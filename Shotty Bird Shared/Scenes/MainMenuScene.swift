@@ -228,7 +228,7 @@ class MainMenuScene: BaseScene {
             convertedOrigin.y = convertedOrigin.y - shareButton.frame.size.height / 2
             let shareFrame = CGRect(origin: convertedOrigin, size: shareButton.frame.size)
             
-            let activityItems: [Any] = [Constants.shareText, Constants.shareURL, Constants.appIconImage]
+            let activityItems: [Any] = [Constants.shareText, Constants.appStoreURL, Constants.appIconImage]
             let excludedActivityTypes: [UIActivity.ActivityType] = [.print,
                                                                     .copyToPasteboard,
                                                                     .assignToContact,

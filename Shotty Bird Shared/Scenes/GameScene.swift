@@ -56,7 +56,7 @@ class GameScene: BaseScene {
     private(set) var spawnFrequency: TimeInterval = 2.2
     
     /// Determines if a player has interacted with an ad and is elegible for a reward.
-    private let didWatchdAd: Bool
+    private let didInteractWithAd: Bool
     
     /// Audio manager to play background music.
     let audioManager = AudioManager.shared
@@ -67,10 +67,10 @@ class GameScene: BaseScene {
     ///   - difficulty: Practice mode difficulty level.
     ///   - backgroundSpeed: The parallax background speed.
     ///   - didWatchdAd: Determines if player watched and ad and is elegible for a reward.
-    init(mode: GameMode, difficulty: Difficulty = .easy, backgroundSpeed: BackgroundSpeed = .fast, didWatchdAd: Bool = false) {
+    init(mode: GameMode, difficulty: Difficulty = .easy, backgroundSpeed: BackgroundSpeed = .fast, didInteractWithAd: Bool = false) {
         self.mode = mode
         self.difficulty = difficulty
-        self.didWatchdAd = didWatchdAd
+        self.didInteractWithAd = didInteractWithAd
         super.init(backgroundSpeed: backgroundSpeed)
     }
     
@@ -86,7 +86,7 @@ class GameScene: BaseScene {
                 initialLives = 4
                 lives = 4
             } else {
-                if self.didWatchdAd {
+                if self.didInteractWithAd {
                     initialLives = 4
                     lives = 4
                 } else {

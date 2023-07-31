@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-/// Game mode selection scene.
+/// Store scene.
 class StoreScene: BaseScene {
     
     /// Audio manager to play background music.
