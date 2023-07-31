@@ -84,7 +84,7 @@ final class AudioManager: NSObject {
         case .practice:
             resource = "Practice"
         case .gameplay:
-            resource = "TwinEngines-JeremyKorpas"
+            resource = "HigherOctane-VansinJapan"
         case .gameOver:
             resource = "CrowsCawInField"
         }

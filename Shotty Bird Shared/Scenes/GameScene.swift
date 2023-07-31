@@ -581,7 +581,7 @@ extension GameScene: GameScoreDelegate {
         
         if mode == .slayer {
             if score % 5 == 0 {
-                audioManager.increasePlaybackRate(by: 0.1)
+                audioManager.increasePlaybackRate(by: 0.05)
                 if spawnFrequency >= 0.8 {
                     spawnFrequency -= 0.2
                 }
