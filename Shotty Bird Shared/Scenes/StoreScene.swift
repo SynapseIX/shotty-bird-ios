@@ -188,17 +188,17 @@ class StoreScene: BaseScene {
             let store = StoreManager.shared
             Task {
                 if await store.unlockNoAds() {
-                    // TODO: display alert already purchased
-                    print("Already purchased")
+                    showAlert(message: Constants.purchasedAlready)
                 } else {
                     guard let product = store.items.first else {
                         return
                     }
                     await store.purchase(product)
-                    // TODO: present error alerts
                     switch store.purchaseStatus {
                     case .success(let productID):
                         print("Successfully purchased: \(productID)")
+                    case .failed(let error):
+                        showAlert(message: error.localizedDescription)
                     default:
                         print(store.purchaseStatus)
                         break
@@ -220,13 +220,14 @@ class StoreScene: BaseScene {
             }
             
             Task {
-                // TODO: present alerts
                 let result = await StoreManager.shared.restorePurchases()
                 switch result {
                 case .success(let isRestored):
-                    print("Purchase restored: \(isRestored)")
+                    if isRestored {
+                        showAlert(message: Constants.purchaseRestored)
+                    }
                 case .failure(let error):
-                    print("Purchase restored: \(error.localizedDescription)")
+                    showAlert(message: error.localizedDescription)
                 }
             }
         }
@@ -277,6 +278,24 @@ extension StoreScene {
             // Handle mute button tap
             handleMuteButton(in: location)
         }
+    }
+}
+
+// MARK: - Alerts
+
+extension StoreScene {
+    /// Presents an alert controller with a given message.
+    /// - Parameter message: The message to be displayed by the alert.
+    private func showAlert(message: String) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+              let gameViewController = appDelegate.window?.rootViewController else {
+            return
+        }
+        let alert = UIAlertController(title: "Shotty Bird", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .default) { _ in
+            alert.dismiss(animated: true)
+        })
+        gameViewController.present(alert, animated: true)
     }
 }
 

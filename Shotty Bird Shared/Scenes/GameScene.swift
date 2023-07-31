@@ -75,7 +75,7 @@ class GameScene: BaseScene {
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-        // TODO: ads can also increase lives
+        // TODO: ad rewards can also increase lives
         Task {
             if await StoreManager.shared.unlockNoAds() {
                 initialLives = 4
@@ -395,7 +395,6 @@ extension GameScene {
     
     /// Adds life nodes.
     private func addLifeNodes() {
-        // TODO: add 4th life if watched ad or purchased no ads
         let lifeNode1 = SKSpriteNode(imageNamed: "life")
         var y: CGFloat = 0.0
         if DeviceModel.iPad || DeviceModel.iPadPro {
@@ -588,20 +587,41 @@ extension GameScene: GameScoreDelegate {
                 }
             }
             
-            // TODO: consider extra life if player watched ad or purchased no ads
             if grantExtraLife {
-                if lives == 1 {
-                    guard let node = self.childNode(withName: "life2") as? SKSpriteNode else {
-                        return
+                if initialLives == 4 {
+                    if lives == 1 {
+                        guard let node = self.childNode(withName: "life3") as? SKSpriteNode else {
+                            return
+                        }
+                        node.texture = SKTexture(imageNamed: "life")
+                        lives += 1
+                    } else if lives == 2 {
+                        guard let node = self.childNode(withName: "life2") as? SKSpriteNode else {
+                            return
+                        }
+                        node.texture = SKTexture(imageNamed: "life")
+                        lives += 1
+                    } else if lives == 3 {
+                        guard let node = self.childNode(withName: "life1") as? SKSpriteNode else {
+                            return
+                        }
+                        node.texture = SKTexture(imageNamed: "life")
+                        lives += 1
                     }
-                    node.texture = SKTexture(imageNamed: "life")
-                    lives += 1
-                } else if lives == 2 {
-                    guard let node = self.childNode(withName: "life1") as? SKSpriteNode else {
-                        return
+                } else {
+                    if lives == 1 {
+                        guard let node = self.childNode(withName: "life2") as? SKSpriteNode else {
+                            return
+                        }
+                        node.texture = SKTexture(imageNamed: "life")
+                        lives += 1
+                    } else if lives == 2 {
+                        guard let node = self.childNode(withName: "life1") as? SKSpriteNode else {
+                            return
+                        }
+                        node.texture = SKTexture(imageNamed: "life")
+                        lives += 1
                     }
-                    node.texture = SKTexture(imageNamed: "life")
-                    lives += 1
                 }
                 if !audioManager.isMuted {
                     run(SKAction.playSoundFileNamed("1up.mp3", waitForCompletion: false))
