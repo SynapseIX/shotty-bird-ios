@@ -52,48 +52,6 @@ class MainMenuScene: BaseScene {
     
     // MARK: - UI configuration
     
-    /// Adds an idle enemy with animation.
-    private func addIdleEnemy() {
-        let sprites = [SKTexture(imageNamed: "idle-texture0001"),
-                       SKTexture(imageNamed: "idle-texture0002"),
-                       SKTexture(imageNamed: "idle-texture0003"),
-                       SKTexture(imageNamed: "idle-texture0004"),
-                       SKTexture(imageNamed: "idle-texture0005"),
-                       SKTexture(imageNamed: "idle-texture0006"),
-                       SKTexture(imageNamed: "idle-texture0007"),
-                       SKTexture(imageNamed: "idle-texture0008"),
-                       SKTexture(imageNamed: "idle-texture0009"),
-                       SKTexture(imageNamed: "idle-texture0010"),
-                       SKTexture(imageNamed: "idle-texture0011"),
-                       SKTexture(imageNamed: "idle-texture0012"),
-                       SKTexture(imageNamed: "idle-texture0013"),
-                       SKTexture(imageNamed: "idle-texture0014"),
-                       SKTexture(imageNamed: "idle-texture0015"),
-                       SKTexture(imageNamed: "idle-texture0016"),
-                       SKTexture(imageNamed: "idle-texture0017"),
-                       SKTexture(imageNamed: "idle-texture0018"),
-                       SKTexture(imageNamed: "idle-texture0019"),
-                       SKTexture(imageNamed: "idle-texture0020"),
-                       SKTexture(imageNamed: "idle-texture0021"),
-                       SKTexture(imageNamed: "idle-texture0022"),
-                       SKTexture(imageNamed: "idle-texture0023"),
-                       SKTexture(imageNamed: "idle-texture0024"),
-                       SKTexture(imageNamed: "idle-texture0025")]
-        
-        let enemy = SKSpriteNode(texture: sprites[0], color: .clear, size: sprites[0].size())
-        enemy.setScale(0.5)
-        enemy.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame) + 150)
-        enemy.name = "enemyIdle"
-        enemy.zPosition = zPositionMenuItems
-        addChild(enemy)
-        
-        let animationAction = SKAction.animate(with: sprites, timePerFrame: 1.0 / 25.0)
-        let waitAction = SKAction.wait(forDuration: 2.0)
-        let animateAndWait = SKAction.sequence([animationAction, waitAction])
-        let repeatAction = SKAction.repeatForever(animateAndWait)
-        enemy.run(repeatAction)
-    }
-    
     /// Sets up all UI elements on the menu scene.
     private func setupUI() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
@@ -112,8 +70,22 @@ class MainMenuScene: BaseScene {
             }
         }
         
-        // Add idle enemy and animate it
-        addIdleEnemy()
+        // Add title label
+        let titleLabel = AttributedLabelNode(size: CGSize(width: 500, height: 250))
+        titleLabel.zPosition = zPositionMenuItems
+        titleLabel.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMaxY(frame) - 200)
+        guard let font =  UIFont(name: "Kenney-Bold", size: 80) else {
+            return
+        }
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        let attributes: [NSAttributedString.Key: Any] = [.font : font,
+                                                         .foregroundColor: UIColor.white,
+                                                         .strokeColor: UIColor.black,
+                                                         .strokeWidth: -10,
+                                                         .paragraphStyle: paragraphStyle]
+        titleLabel.attributedString = NSAttributedString(string: "SHOTTY\nBIRD", attributes: attributes)
+        addChild(titleLabel)
         
         // Add play button
         let playButton = SKSpriteNode(imageNamed: "play_button")
@@ -220,7 +192,13 @@ class MainMenuScene: BaseScene {
             return
         }
         if creditsButton.contains(location) {
-            // TODO: implement transition
+            if !audioManager.isMuted {
+                run(playExplosionSoundAction)
+            }
+            
+            let creditsScene = CreditsScene()
+            let transition = SKTransition.crossFade(withDuration: 1.0)
+            view?.presentScene(creditsScene, transition: transition)
         }
     }
     

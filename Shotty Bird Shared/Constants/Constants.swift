@@ -13,7 +13,7 @@ struct Constants {
     // MARK: - Google Mobile Ads
     static let rewardedInterstitialAdUnitID = "ca-app-pub-5774553422556987/2470518261"
     static let interstitialAdUnitID = "ca-app-pub-5774553422556987/3590924591"
-    static let adsAlert = "Would you like to watch a short ad and earn an extra life?\n\nRegardless of your choice, you'll still see an ad. You can purchase the option to remove ads by visiting the Store section on the main menu."
+    static let adsAlert = "Would you like to watch a short ad and earn an extra life?\n\nRegardless of your choice, an ad will be shown. You can purchase the option to remove ads by visiting the Store section on the main menu."
     
     // MARK: - Store manager
     static let purchased = "You've successfully bought this purchase!"
@@ -53,8 +53,8 @@ struct Constants {
     static let newRecord = "NEW RECORD"
     
     // MARK: - Credits scene
-    let komodoURL = URL(string: "https://komodo.life")!
-    let jorgeSocialURL = URL(string: "https://linktr.ee/4Stryngs")!
-    let juanPabloSocialURL = URL(string: "http://twitter.com/jpalbuja")!
+    static let komodoURL = URL(string: "https://komodo.life")!
+    static let jorgeSocialURL = URL(string: "https://linktr.ee/4Stryngs")!
+    static let juanPabloSocialURL = URL(string: "http://twitter.com/jpalbuja")!
 }
 
