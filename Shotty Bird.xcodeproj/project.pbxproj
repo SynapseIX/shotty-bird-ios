@@ -88,6 +88,7 @@
 		CFAB330D2A730D0D00538D13 /* GameModeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModeScene.swift; sourceTree = "<group>"; };
 		CFB43E0A2A4DB7CD00A3F426 /* BaseScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScene.swift; sourceTree = "<group>"; };
 		CFB43E0E2A4DBAA700A3F426 /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
+		CFC0B4062A78BF130044935E /* Shotty Bird iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Shotty Bird iOS.entitlements"; sourceTree = "<group>"; };
 		CFCEA7E22A70E6E500D00C03 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CFCEA7E52A70F9D700D00C03 /* Shotty-Bird-iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Shotty-Bird-iOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 		CFEBBC352A7664580000FC58 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -227,6 +228,7 @@
 				CF77C6692A4D24D900BA03ED /* GameViewController.swift */,
 				CF77C66B2A4D24D900BA03ED /* Main.storyboard */,
 				CF77C66E2A4D24D900BA03ED /* LaunchScreen.storyboard */,
+				CFC0B4062A78BF130044935E /* Shotty Bird iOS.entitlements */,
 				CFCEA7E52A70F9D700D00C03 /* Shotty-Bird-iOS-Info.plist */,
 			);
 			path = "Shotty Bird iOS";
@@ -533,6 +535,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Shotty Bird iOS/Shotty Bird iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RTCYSWYBFH;
@@ -568,6 +571,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Shotty Bird iOS/Shotty Bird iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RTCYSWYBFH;
