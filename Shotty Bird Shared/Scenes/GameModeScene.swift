@@ -7,13 +7,13 @@
 //
 
 import SpriteKit
-import GoogleMobileAds
 
 /// Game mode selection scene.
 class GameModeScene: BaseScene {
     
     /// Audio manager to play background music.
     let audioManager = AudioManager.shared
+    let ads = AdsManager.shared
     
     /// Selected game mode to launch
     private(set) var selectedMode: GameMode = .none
@@ -27,15 +27,9 @@ class GameModeScene: BaseScene {
     /// Plays an explosion sound clip.
     let playExplosionSoundAction = SKAction.playSoundFileNamed("explosion.wav", waitForCompletion: false)
     
-    /// Rewarded interstitial ad instance.
-    private var rewardedInterstitialAd: GADRewardedInterstitialAd?
-    /// Non-rewarded interstitial ad instance.
-    private var interstitialAd: GADInterstitialAd?
-    /// Determines if the user earned a reward for interacting with the ad.
-    private var didEarnReward = false
-    
     override init(backgroundSpeed: BackgroundSpeed = .slow) {
         super.init(backgroundSpeed: backgroundSpeed)
+        ads.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -44,7 +38,6 @@ class GameModeScene: BaseScene {
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-        loadAds()
         setupUI()
     }
     
@@ -162,23 +155,28 @@ class GameModeScene: BaseScene {
     /// - Parameter location: A point where the screen is tapped.
     private func handleSlayerButton(in location: CGPoint) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-              let rootViewController = appDelegate.window?.rootViewController as? GameViewController else {
-            return
-        }
-        if !rootViewController.loadingOverlay.isHidden {
-            return
-        }
-        
-        guard let slayerButton = childNode(withName: "slayerButton") else {
+              let rootViewController = appDelegate.window?.rootViewController as? GameViewController,
+              let slayerButton = childNode(withName: "slayerButton")  else {
             return
         }
         if slayerButton.contains(location) {
             selectedMode = .slayer
             Task {
                 if await StoreManager.shared.unlockRemoveAds() {
-                    launchGame(mode: selectedMode)
+                    launchGame(mode: selectedMode, withReward: false)
                 } else {
-                    showAd()
+                    let alert = UIAlertController(title: "Shotty Bird", message: Constants.adsAlert, preferredStyle: .alert)
+                    let yesAction = UIAlertAction(title: "Yes", style: .default) { _ in
+                        alert.dismiss(animated: true)
+                        self.ads.showRewardedInterstitial()
+                    }
+                    let noAction = UIAlertAction(title: "No", style: .destructive) { _ in
+                        alert.dismiss(animated: true)
+                        self.ads.showInterstitial()
+                    }
+                    alert.addAction(yesAction)
+                    alert.addAction(noAction)
+                    rootViewController.present(alert, animated: true)
                 }
             }
         }
@@ -187,14 +185,6 @@ class GameModeScene: BaseScene {
     /// Handles the time attack button tap event.
     /// - Parameter location: A point where the screen is tapped.
     private func handleTimeAttackButton(in location: CGPoint) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-              let rootViewController = appDelegate.window?.rootViewController as? GameViewController else {
-            return
-        }
-        if !rootViewController.loadingOverlay.isHidden {
-            return
-        }
-        
         guard let timeAttackButton = childNode(withName: "timeAttackButton") else {
             return
         }
@@ -202,9 +192,9 @@ class GameModeScene: BaseScene {
             selectedMode = .timeAttack
             Task {
                 if await StoreManager.shared.unlockRemoveAds() {
-                    launchGame(mode: selectedMode)
+                    launchGame(mode: selectedMode, withReward: false)
                 } else {
-                    showAd()
+                    self.ads.showInterstitial()
                 }
             }
         }
@@ -266,12 +256,12 @@ class GameModeScene: BaseScene {
     
     /// Transitions to the game scene for given game mode.
     /// - Parameter mode: The game mode to be played.
-    private func launchGame(mode: GameMode) {
+    private func launchGame(mode: GameMode, withReward: Bool) {
         audioManager.stop()
         if !audioManager.isMuted {
             run(playExplosionSoundAction)
         }
-        let gameScene = GameScene(mode: mode, didInteractWithAd: didEarnReward)
+        let gameScene = GameScene(mode: mode, didInteractWithAd: withReward)
         let transition = SKTransition.doorsOpenHorizontal(withDuration: 1.1)
         view?.presentScene(gameScene, transition: transition)
     }
@@ -297,87 +287,11 @@ extension GameModeScene {
     }
 }
 
-// MARK: - Google Mobile Ads
+// MARK: - AdsManagerDelegate
 
-extension GameModeScene {
-    /// Loads rewarded and a non-rewarded interstitial ads and stores their references.
-    private func loadAds() {
-        Task {
-            if await !StoreManager.shared.unlockRemoveAds() {
-                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-                      let rootViewController = appDelegate.window?.rootViewController as? GameViewController else {
-                    return
-                }
-                rootViewController.loadingOverlay.isHidden = false
-                do {
-                    // Rewarded interstitial
-                    rewardedInterstitialAd = try await GADRewardedInterstitialAd.load(withAdUnitID: Constants.rewardedInterstitialAdUnitID,
-                                                                                  request: GADRequest())
-                    rewardedInterstitialAd?.fullScreenContentDelegate = self
-                    // Non-rewarded interstital
-                    interstitialAd = try await GADInterstitialAd.load(withAdUnitID: Constants.interstitialAdUnitID,
-                                                                  request: GADRequest())
-                    interstitialAd?.fullScreenContentDelegate = self
-                    // Hide overlay
-                    rootViewController.loadingOverlay.isHidden = true
-                } catch {
-                    rootViewController.loadingOverlay.isHidden = true
-                    print("Failed to load ad with error: \(error.localizedDescription)")
-                }
-            }
-        }
-    }
-    
-    /// Shows an interactive intesrtitial ad.
-    func showAd() {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-              let rootViewController = appDelegate.window?.rootViewController as? GameViewController else {
-            return
-        }
-        if selectedMode == .slayer {
-            let alert = UIAlertController(title: "Shotty Bird", message: Constants.adsAlert, preferredStyle: .alert)
-            let yesAction = UIAlertAction(title: "Yes", style: .default) { _ in
-                alert.dismiss(animated: true)
-                self.rewardedInterstitialAd?.present(fromRootViewController: rootViewController) {
-                    self.didEarnReward = true
-                }
-            }
-            let noAction = UIAlertAction(title: "No", style: .destructive) { _ in
-                alert.dismiss(animated: true)
-                self.interstitialAd?.present(fromRootViewController: rootViewController)
-                self.didEarnReward = false
-            }
-            alert.addAction(yesAction)
-            alert.addAction(noAction)
-            rootViewController.present(alert, animated: true)
-        } else if selectedMode == .timeAttack {
-            self.interstitialAd?.present(fromRootViewController: rootViewController)
-            self.didEarnReward = false
-        }
-    }
-}
-
-// MARK: - GADFullScreenContentDelegate
-
-extension GameModeScene: GADFullScreenContentDelegate {
-    /// Tells the delegate that the ad failed to present full screen content.
-    func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
-        print("Ad did fail to present full screen content.")
-        print(error.localizedDescription)
-    }
-    
-    /// Tells the delegate that the ad will present full screen content.
-    func adWillPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-              let rootViewController = appDelegate.window?.rootViewController as? GameViewController else {
-            return
-        }
-        rootViewController.loadingOverlay.isHidden = true
-    }
-    
-    /// Tells the delegate that the ad dismissed full screen content.
-    func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-        launchGame(mode: selectedMode)
+extension GameModeScene: AdsManagerDelegate {
+    func adDidDismiss(withReward: Bool) {
+        launchGame(mode: selectedMode, withReward: withReward)
     }
 }
 

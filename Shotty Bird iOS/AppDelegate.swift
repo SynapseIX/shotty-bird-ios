@@ -30,11 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Game Center authentication failed...")
             }
         }
-        // Initialize Google Mobile Ads
-        GADMobileAds.sharedInstance().start(completionHandler: nil)
-        #if DEBUG
-        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = ["67bbb807cc18d05549bb0586e9950eef"]
-        #endif
         return true
     }
 }

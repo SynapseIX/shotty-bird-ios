@@ -7,7 +7,6 @@
 //
 
 import SpriteKit
-import GoogleMobileAds
 
 /// Difficulty selection scene for practice mode.
 class DifficultyScene: BaseScene {
@@ -17,6 +16,8 @@ class DifficultyScene: BaseScene {
     
     /// Audio manager to play background music.
     let audioManager = AudioManager.shared
+    /// Ads manager.
+    let ads = AdsManager.shared
     
     /// The z-axis position for all menu UI elements.
     let zPositionMenuItems = CGFloat(Int.max)
@@ -28,11 +29,9 @@ class DifficultyScene: BaseScene {
     /// Plays an explosion sound clip.
     let playExplosionSoundAction = SKAction.playSoundFileNamed("explosion.wav", waitForCompletion: false)
     
-    /// Non-rewarded interstitial ad instance.
-    private var interstitialAd: GADInterstitialAd?
-    
     override init(backgroundSpeed: BackgroundSpeed = .slow) {
         super.init(backgroundSpeed: backgroundSpeed)
+        ads.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -41,7 +40,6 @@ class DifficultyScene: BaseScene {
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-        loadAd()
         setupUI()
     }
     
@@ -188,7 +186,7 @@ class DifficultyScene: BaseScene {
                 if await StoreManager.shared.unlockRemoveAds() {
                     launchPractice()
                 } else {
-                    showAd()
+                    ads.showInterstitial()
                 }
             }
         }
@@ -214,7 +212,7 @@ class DifficultyScene: BaseScene {
                 if await StoreManager.shared.unlockRemoveAds() {
                     launchPractice()
                 } else {
-                    showAd()
+                    ads.showInterstitial()
                 }
             }
         }
@@ -240,7 +238,7 @@ class DifficultyScene: BaseScene {
                 if await StoreManager.shared.unlockRemoveAds() {
                     launchPractice()
                 } else {
-                    showAd()
+                    ads.showInterstitial()
                 }
             }
         }
@@ -296,65 +294,10 @@ extension DifficultyScene {
     }
 }
 
-// MARK: - Google Mobile Ads
+// MARK: - AdsManager
 
-extension DifficultyScene {
-    /// Loads a rewarded interstitial ad and stores a reference.
-    private func loadAd() {
-        Task {
-            if await !StoreManager.shared.unlockRemoveAds() {
-                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-                      let rootViewController = appDelegate.window?.rootViewController as? GameViewController else {
-                    return
-                }
-                rootViewController.loadingOverlay.isHidden = false
-                do {
-                    // Non-rewarded interstital
-                    interstitialAd = try await GADInterstitialAd.load(withAdUnitID: Constants.interstitialAdUnitID,
-                                                                  request: GADRequest())
-                    interstitialAd?.fullScreenContentDelegate = self
-                    // Hide overlay
-                    rootViewController.loadingOverlay.isHidden = true
-                } catch {
-                    rootViewController.loadingOverlay.isHidden = true
-                    print("Failed to load ad with error: \(error.localizedDescription)")
-                }
-            }
-        }
-    }
-    
-    /// Shows an interactive intesrtitial ad.
-    func showAd() {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-              let rootViewController = appDelegate.window?.rootViewController as? GameViewController else {
-            return
-        }
-        rootViewController.loadingOverlay.isHidden = false
-        interstitialAd?.present(fromRootViewController: rootViewController)
-    }
-}
-
-// MARK: - GADFullScreenContentDelegate
-
-extension DifficultyScene: GADFullScreenContentDelegate {
-    /// Tells the delegate that the ad failed to present full screen content.
-    func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
-        print("Ad did fail to present full screen content.")
-        print(error.localizedDescription)
-    }
-    
-    /// Tells the delegate that the ad will present full screen content.
-    func adWillPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-              let rootViewController = appDelegate.window?.rootViewController as? GameViewController else {
-            return
-        }
-        rootViewController.loadingOverlay.isHidden = true
-    }
-    
-    /// Tells the delegate that the ad dismissed full screen content.
-    func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-        interstitialAd = nil
+extension DifficultyScene: AdsManagerDelegate {
+    func adDidDismiss(withReward: Bool) {
         launchPractice()
     }
 }

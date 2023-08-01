@@ -37,6 +37,11 @@ final class AudioManager: NSObject {
     /// The audio player.
     private var player: AVAudioPlayer?
     
+    /// Determines if music is being played.
+    var isPlaying: Bool {
+        player?.isPlaying == true
+    }
+    
     /// Internal mute state value.
     private var isMutedValue = false
     /// Returns or sets the current mute state of the audio player.

@@ -82,7 +82,6 @@ class GameScene: BaseScene {
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-        // TODO: ad rewards can also increase lives
         Task {
             if await StoreManager.shared.unlockRemoveAds() {
                 initialLives = 4
