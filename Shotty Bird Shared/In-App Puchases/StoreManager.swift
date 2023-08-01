@@ -146,6 +146,13 @@ final class StoreManager: ObservableObject {
         return false
     }
     
+    /// Listents to purchase intents and attempts to purchase the product.
+    func listenToPurchaseIntents() async {
+        for await intent in PurchaseIntent.intents {
+            await purchase(intent.product)
+        }
+    }
+    
     /// Attempts to restore purchases by syncing transactions.
     func restorePurchases() async -> Result<Bool, Error> {
         do {
