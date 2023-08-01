@@ -13,6 +13,8 @@ class MainMenuScene: BaseScene {
     
     /// Audio manager to play background music.
     let audioManager = AudioManager.shared
+    /// Ads manager.
+    let ads = AdsManager.shared
     
     /// The z-axis position for all menu UI elements.
     let zPositionMenuItems = CGFloat(Int.max)
@@ -26,6 +28,8 @@ class MainMenuScene: BaseScene {
     
     override init(backgroundSpeed: BackgroundSpeed = .slow) {
         super.init(backgroundSpeed: backgroundSpeed)
+        ads.initialize()
+        ads.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -35,6 +39,11 @@ class MainMenuScene: BaseScene {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         setupUI()
+        Task {
+            if await StoreManager.shared.unlockRemoveAds() {
+                audioManager.playMusic(type: .menu, loop: true)
+            }
+        }
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -87,6 +96,22 @@ class MainMenuScene: BaseScene {
     
     /// Sets up all UI elements on the menu scene.
     private func setupUI() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+              let rootViewController = appDelegate.window?.rootViewController as? GameViewController else {
+            return
+        }
+        Task {
+            if await !StoreManager.shared.unlockRemoveAds() && !ads.adsAreLoaded {
+                DispatchQueue.main.async {
+                    rootViewController.loadingOverlay.isHidden = false
+                }
+            } else {
+                DispatchQueue.main.async {
+                    rootViewController.loadingOverlay.isHidden = true
+                }
+            }
+        }
+        
         // Add idle enemy and animate it
         addIdleEnemy()
         
@@ -286,6 +311,23 @@ extension MainMenuScene {
             handleShareButton(in: location)
             // Handle mute button tap
             handleMuteButton(in: location)
+        }
+    }
+}
+
+// MARK: - AdsManagerDelegate
+
+extension MainMenuScene: AdsManagerDelegate {
+    func adsDidLoad() {
+        DispatchQueue.main.async {
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+                  let rootViewController = appDelegate.window?.rootViewController as? GameViewController else {
+                return
+            }
+            rootViewController.loadingOverlay.isHidden = true
+            if !self.audioManager.isPlaying {
+                self.audioManager.playMusic(type: .menu, loop: true)
+            }
         }
     }
 }

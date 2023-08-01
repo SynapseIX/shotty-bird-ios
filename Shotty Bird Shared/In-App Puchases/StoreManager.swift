@@ -33,7 +33,7 @@ protocol StoreKitManageable {
 }
 
 /// Manager class for processing in-app purchases.
-class StoreManager: ObservableObject {
+final class StoreManager: ObservableObject {
     
     /// Shared manager instance.
     static let shared = StoreManager()

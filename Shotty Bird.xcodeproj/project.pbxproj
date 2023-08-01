@@ -30,6 +30,7 @@
 		CF68C0CE2A5412D000264E81 /* Crimson-Sextile.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF68C0CA2A5412D000264E81 /* Crimson-Sextile.mp3 */; };
 		CF7661792A7842DC00C12C62 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = CF7661782A7842DC00C12C62 /* GoogleMobileAds */; };
 		CF76617B2A7875B400C12C62 /* StoreConfiguration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = CF76617A2A7875B400C12C62 /* StoreConfiguration.storekit */; };
+		CF76617E2A787B7300C12C62 /* AdsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF76617D2A787B7300C12C62 /* AdsManager.swift */; };
 		CF77C6682A4D24D900BA03ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF77C6672A4D24D900BA03ED /* AppDelegate.swift */; };
 		CF77C66A2A4D24D900BA03ED /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF77C6692A4D24D900BA03ED /* GameViewController.swift */; };
 		CF77C66D2A4D24D900BA03ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF77C66B2A4D24D900BA03ED /* Main.storyboard */; };
@@ -70,6 +71,7 @@
 		CF68C0C92A5412D000264E81 /* CrowsCawInField.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CrowsCawInField.mp3; sourceTree = "<group>"; };
 		CF68C0CA2A5412D000264E81 /* Crimson-Sextile.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Crimson-Sextile.mp3"; sourceTree = "<group>"; };
 		CF76617A2A7875B400C12C62 /* StoreConfiguration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = StoreConfiguration.storekit; sourceTree = "<group>"; };
+		CF76617D2A787B7300C12C62 /* AdsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsManager.swift; sourceTree = "<group>"; };
 		CF77C65E2A4D24D800BA03ED /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		CF77C65F2A4D24D900BA03ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CF77C6642A4D24D900BA03ED /* Shotty Bird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shotty Bird.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -145,12 +147,12 @@
 			path = Music;
 			sourceTree = "<group>";
 		};
-		CF364AB32A74BD10002682C9 /* IAP */ = {
+		CF364AB32A74BD10002682C9 /* In-App Puchases */ = {
 			isa = PBXGroup;
 			children = (
 				CF364AB42A74BD40002682C9 /* StoreManager.swift */,
 			);
-			path = IAP;
+			path = "In-App Puchases";
 			sourceTree = "<group>";
 		};
 		CF396A8D2A73A0EF0083544D /* Game Center */ = {
@@ -169,6 +171,14 @@
 			path = "Audio Manager";
 			sourceTree = "<group>";
 		};
+		CF76617C2A787B5400C12C62 /* Ads Manager */ = {
+			isa = PBXGroup;
+			children = (
+				CF76617D2A787B7300C12C62 /* AdsManager.swift */,
+			);
+			path = "Ads Manager";
+			sourceTree = "<group>";
+		};
 		CF77C6562A4D24D800BA03ED = {
 			isa = PBXGroup;
 			children = (
@@ -184,8 +194,9 @@
 			children = (
 				CFCEA7E12A70E6C600D00C03 /* Constants */,
 				CF68C0C02A5401D900264E81 /* Audio Manager */,
+				CF76617C2A787B5400C12C62 /* Ads Manager */,
 				CF396A8D2A73A0EF0083544D /* Game Center */,
-				CF364AB32A74BD10002682C9 /* IAP */,
+				CF364AB32A74BD10002682C9 /* In-App Puchases */,
 				CF77C6A72A4D292600BA03ED /* Nodes */,
 				CFB43E092A4DB7B100A3F426 /* Scenes */,
 				CF1A8F522A53C6E100BAD0A6 /* Physics */,
@@ -361,6 +372,7 @@
 			files = (
 				CFB43E0F2A4DBAA700A3F426 /* MainMenuScene.swift in Sources */,
 				CFAB33022A72218200538D13 /* DeviceModel.swift in Sources */,
+				CF76617E2A787B7300C12C62 /* AdsManager.swift in Sources */,
 				CF22757C2A7328A600A246D6 /* GameOverScene.swift in Sources */,
 				CFCEA7E32A70E6E500D00C03 /* Constants.swift in Sources */,
 				CFAB32FE2A72165F00538D13 /* AttributedLabelNode.swift in Sources */,

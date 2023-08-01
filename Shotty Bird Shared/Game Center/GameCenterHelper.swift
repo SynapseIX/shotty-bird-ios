@@ -9,7 +9,7 @@
 import GameKit
 
 /// Helper class that provide Game Center functionality.
-class GameCenterHelper: NSObject {
+final class GameCenterHelper: NSObject {
     
     /// Shared helper instance.
     static let shared = GameCenterHelper()

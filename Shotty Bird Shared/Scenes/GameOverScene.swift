@@ -198,7 +198,6 @@ class GameOverScene: BaseScene {
                 run(playExplosionSoundAction)
             }
             
-            // TODO: present interstitial if needed
             let gameScene = GameScene(mode: mode)
             let transition = SKTransition.doorsOpenHorizontal(withDuration: 1.0)
             view?.presentScene(gameScene, transition: transition)
@@ -347,7 +346,8 @@ extension GameOverScene {
 // MARK: - Social sharing
 
 extension GameOverScene {
-    // TODO: hide banner view
+    /// Take a screenshot to share.
+    /// - Returns: An image representation of the game over scene.
     private func takeScreenshot() -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(frame.size, true, UIScreen.main.scale)
         view?.drawHierarchy(in: frame, afterScreenUpdates: true)
