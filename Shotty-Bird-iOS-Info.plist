@@ -4,15 +4,10 @@
 <dict>
 	<key>CFBundleGetInfoString</key>
 	<string></string>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Kenney-Bold.ttf</string>
-		<string>Kenney-Blocks.ttf</string>
-	</array>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-5774553422556987~5585752299</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
@@ -211,6 +206,11 @@
 			<key>SKAdNetworkIdentifier</key>
 			<string>3qcr597p9d.skadnetwork</string>
 		</dict>
+	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Kenney-Bold.ttf</string>
+		<string>Kenney-Blocks.ttf</string>
 	</array>
 </dict>
 </plist>
