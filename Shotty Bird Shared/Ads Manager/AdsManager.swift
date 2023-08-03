@@ -51,9 +51,6 @@ final class AdsManager: NSObject {
         Task {
             if await !StoreManager.shared.unlockRemoveAds() && !isInitialized {
                 await GADMobileAds.sharedInstance().start()
-                #if DEBUG
-                    GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = ["a960bf9981e0d32eacbefcf6351bc84c"]
-                #endif
                 loadAds()
                 isInitialized = true
             }
