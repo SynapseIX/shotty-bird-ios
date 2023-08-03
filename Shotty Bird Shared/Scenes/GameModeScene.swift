@@ -203,14 +203,6 @@ class GameModeScene: BaseScene {
     /// Handles the practice button tap event.
     /// - Parameter location: A point where the screen is tapped.
     private func handlePracticeButton(in location: CGPoint) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-              let rootViewController = appDelegate.window?.rootViewController as? GameViewController else {
-            return
-        }
-        if !rootViewController.loadingOverlay.isHidden {
-            return
-        }
-        
         guard let practiceButton = childNode(withName: "practiceButton") else {
             return
         }
@@ -291,7 +283,9 @@ extension GameModeScene {
 
 extension GameModeScene: AdsManagerDelegate {
     func adDidDismiss(withReward: Bool) {
-        launchGame(mode: selectedMode, withReward: withReward)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.launchGame(mode: self.selectedMode, withReward: withReward)
+        }
     }
 }
 

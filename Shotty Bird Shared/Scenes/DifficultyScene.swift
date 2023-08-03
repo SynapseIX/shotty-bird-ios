@@ -169,14 +169,6 @@ class DifficultyScene: BaseScene {
     /// Handles the easy button tap event.
     /// - Parameter location: A point where the screen is tapped.
     private func handleEasyButton(in location: CGPoint) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-              let rootViewController = appDelegate.window?.rootViewController as? GameViewController else {
-            return
-        }
-        if !rootViewController.loadingOverlay.isHidden {
-            return
-        }
-        
         guard let easyButton = childNode(withName: "easyButton") else {
             return
         }
@@ -195,14 +187,6 @@ class DifficultyScene: BaseScene {
     /// Handles the normal button tap event.
     /// - Parameter location: A point where the screen is tapped.
     private func handleNormalButton(in location: CGPoint) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-              let rootViewController = appDelegate.window?.rootViewController as? GameViewController else {
-            return
-        }
-        if !rootViewController.loadingOverlay.isHidden {
-            return
-        }
-        
         guard let normalButton = childNode(withName: "normalButton") else {
             return
         }
@@ -221,14 +205,6 @@ class DifficultyScene: BaseScene {
     /// Handles the hard button tap event.
     /// - Parameter location: A point where the screen is tapped.
     private func handleHardButton(in location: CGPoint) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-              let rootViewController = appDelegate.window?.rootViewController as? GameViewController else {
-            return
-        }
-        if !rootViewController.loadingOverlay.isHidden {
-            return
-        }
-        
         guard let hardButton = childNode(withName: "hardButton") else {
             return
         }
@@ -298,6 +274,8 @@ extension DifficultyScene {
 
 extension DifficultyScene: AdsManagerDelegate {
     func adDidDismiss(withReward: Bool) {
-        launchPractice()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.launchPractice()
+        }
     }
 }

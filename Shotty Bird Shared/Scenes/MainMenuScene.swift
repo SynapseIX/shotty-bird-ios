@@ -179,9 +179,7 @@ class MainMenuScene: BaseScene {
             if !audioManager.isMuted {
                 run(playExplosionSoundAction)
             }
-            if gameCenterButton.contains(location) && GameCenterHelper.shared.isGameCenterEnabled {
-                GameCenterHelper.shared.presentGameCenterViewController()
-            }
+            GameCenterHelper.shared.presentGameCenterViewController()
         }
     }
     
@@ -275,6 +273,13 @@ class MainMenuScene: BaseScene {
 
 extension MainMenuScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+              let rootViewController = appDelegate.window?.rootViewController as? GameViewController else {
+            return
+        }
+        if !rootViewController.loadingOverlay.isHidden {
+            return
+        }
         for touch in touches {
             let location = touch.location(in: self)
             // Handle play button tap

@@ -100,7 +100,11 @@ class GameScene: BaseScene {
         
         if mode == .timeAttack {
             spawnFrequency = 0.33
-            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimerNode), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 1.0,
+                                         target: self,
+                                         selector: #selector(updateTimerNode),
+                                         userInfo: nil,
+                                         repeats: true)
         } else if mode == .practice {
             switch difficulty {
             case .easy:
@@ -395,10 +399,12 @@ extension GameScene {
             return false
         }
         if backButton.contains(location) {
+            if view?.isPaused == true {
+                view?.isPaused = false
+            }
             if !audioManager.isMuted {
                 backButton.run(SKAction.playSoundFileNamed("explosion", waitForCompletion: false))
             }
-            
             let mainMenuScene = GameModeScene()
             let transition = SKTransition.doorsCloseHorizontal(withDuration: 1.0)
             view?.presentScene(mainMenuScene, transition: transition)
@@ -503,14 +509,26 @@ extension GameScene {
         if pauseButton.contains(location) {
             if view.isPaused {
                 pauseButton.texture = SKTexture(imageNamed: "pause_button")
+                toggleQuitButton(show: false)
                 audioManager.resume()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    if self.mode == .timeAttack {
+                        self.timer = Timer.scheduledTimer(timeInterval: 1.0,
+                                                          target: self,
+                                                          selector: #selector(self.updateTimerNode),
+                                                          userInfo: nil,
+                                                          repeats: true)
+                    }
                     view.isPaused = false
                 }
             } else {
                 pauseButton.texture = SKTexture(imageNamed: "play_button_icon")
+                toggleQuitButton(show: true)
                 audioManager.pause()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    if self.mode == .timeAttack {
+                        self.timer?.invalidate()
+                    }
                     view.isPaused = true
                 }
             }
@@ -519,6 +537,27 @@ extension GameScene {
         return false
     }
     
+    /// Adds the quit button that appears if paused.
+    private func toggleQuitButton(show: Bool) {
+        if mode == .practice {
+            return
+        }
+        guard let pauseButton = childNode(withName: "pauseButton") else {
+            return
+        }
+        if show {
+            let backButton = SKSpriteNode(imageNamed: "back_button")
+            backButton.position = CGPoint(x: pauseButton.position.x + backButton.size.width + 20, y: pauseButton.position.y)
+            backButton.name = "backButton"
+            backButton.zPosition = zPositionUIElements
+            addChild(backButton)
+        } else {
+            guard let backButton = childNode(withName: "backButton") else {
+                return
+            }
+            backButton.removeFromParent()
+        }
+    }
     
     /// Adds the mute button.
     private func addMuteButton() {
@@ -560,10 +599,8 @@ extension GameScene {
         for touch in touches {
             let location = touch.location(in: self)
             // Handle back button
-            if mode == .practice {
-                if handleBackButton(in: location) {
-                    return
-                }
+            if handleBackButton(in: location) {
+                return
             }
             // Handle pause button tap
             if handlePauseButton(in: location) {
