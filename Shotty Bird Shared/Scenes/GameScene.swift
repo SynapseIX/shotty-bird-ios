@@ -290,6 +290,39 @@ class GameScene: BaseScene {
         addChild(missile)
     }
     
+    /// Toggles game's pause state.
+    private func togglePause() {
+        guard let pauseButton = childNode(withName: "pauseButton") as? SKSpriteNode else {
+            return
+        }
+        if view?.isPaused == true {
+            pauseButton.texture = SKTexture(imageNamed: "pause_button")
+            toggleQuitButton(show: false)
+            audioManager.resume()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                if self.mode == .timeAttack {
+                    self.timer = Timer.scheduledTimer(timeInterval: 1.0,
+                                                      target: self,
+                                                      selector: #selector(self.updateTimerNode),
+                                                      userInfo: nil,
+                                                      repeats: true)
+                }
+                self.view?.isPaused = false
+            }
+        } else {
+            pauseButton.texture = SKTexture(imageNamed: "play_button_icon")
+            toggleQuitButton(show: true)
+            audioManager.pause()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                if self.mode == .timeAttack {
+                    self.timer?.invalidate()
+                }
+                self.view?.isPaused = true
+            }
+        }
+    }
+    
+    /// Updates the Time Attack timer.
     @objc private func updateTimerNode() {
         timerValue -= 1
         
@@ -399,16 +432,31 @@ extension GameScene {
             return false
         }
         if backButton.contains(location) {
-            if view?.isPaused == true {
-                view?.isPaused = false
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+                  let rootViewController = appDelegate.window?.rootViewController else {
+                return false
             }
-            if !audioManager.isMuted {
-                backButton.run(SKAction.playSoundFileNamed("explosion", waitForCompletion: false))
+            if view?.isPaused == false {
+                togglePause()
             }
-            let mainMenuScene = GameModeScene()
-            let transition = SKTransition.doorsCloseHorizontal(withDuration: 1.0)
-            view?.presentScene(mainMenuScene, transition: transition)
-            audioManager.playMusic(type: .menu, loop: true)
+            let alert = UIAlertController(title: "Shotty Bird", message: Constants.quitAlert, preferredStyle: .alert)
+            let noAction = UIAlertAction(title: "No", style: .cancel) { _ in
+                alert.dismiss(animated: true)
+            }
+            let yesAction = UIAlertAction(title: "Yes", style: .destructive) { _ in
+                alert.dismiss(animated: true)
+                self.togglePause()
+                if !self.audioManager.isMuted {
+                    backButton.run(SKAction.playSoundFileNamed("explosion", waitForCompletion: false))
+                }
+                let mainMenuScene = GameModeScene()
+                let transition = SKTransition.doorsCloseHorizontal(withDuration: 1.0)
+                self.view?.presentScene(mainMenuScene, transition: transition)
+                self.audioManager.playMusic(type: .menu, loop: true)
+            }
+            alert.addAction(noAction)
+            alert.addAction(yesAction)
+            rootViewController.present(alert, animated: true)
             return true
         }
         return false
@@ -507,31 +555,7 @@ extension GameScene {
             return false
         }
         if pauseButton.contains(location) {
-            if view.isPaused {
-                pauseButton.texture = SKTexture(imageNamed: "pause_button")
-                toggleQuitButton(show: false)
-                audioManager.resume()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                    if self.mode == .timeAttack {
-                        self.timer = Timer.scheduledTimer(timeInterval: 1.0,
-                                                          target: self,
-                                                          selector: #selector(self.updateTimerNode),
-                                                          userInfo: nil,
-                                                          repeats: true)
-                    }
-                    view.isPaused = false
-                }
-            } else {
-                pauseButton.texture = SKTexture(imageNamed: "play_button_icon")
-                toggleQuitButton(show: true)
-                audioManager.pause()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                    if self.mode == .timeAttack {
-                        self.timer?.invalidate()
-                    }
-                    view.isPaused = true
-                }
-            }
+            togglePause()
             return true
         }
         return false
