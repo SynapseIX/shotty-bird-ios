@@ -47,6 +47,9 @@ struct Constants {
     /// The app icon image to use when sharing the game.
     static let appIconImage = UIImage(named: "AppIcon")!
     
+    // MARK: - Game Scene
+    static let quitAlert = "Are you sure you want to quit the game? Your current score will be lost if you do."
+    
     // MARK: - Game Over scene
     static let scored0 = "Lead your shots and try again"
     static let yourBestScoreFormat = "Your best score is %d"
