@@ -606,6 +606,10 @@ extension GameScene {
             if handlePauseButton(in: location) {
                 return
             }
+            // Dont propagate events below this point if game is paused
+            if view?.isPaused == true {
+                return
+            }
             // Handle mute button tap
             if handleMuteButton(in: location) {
                 return
