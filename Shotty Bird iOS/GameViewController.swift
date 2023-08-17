@@ -28,11 +28,7 @@ class GameViewController: UIViewController {
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            return .landscapeLeft
-        } else {
-            return [.landscapeLeft, .landscapeRight]
-        }
+        return [.landscapeLeft, .landscapeRight]
     }
 
     override var prefersStatusBarHidden: Bool {
