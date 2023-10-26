@@ -44,56 +44,46 @@ class Missile: SKSpriteNode {
         let travelAction = SKAction.group([repeatMissileTextureAnimation, scaleAction])
         
         run(travelAction) {
-            self.zPosition = 9
+            self.zPosition = 7
             self.validateCollision()
             
             self.run(travelAction) {
-                self.zPosition = 8
+                self.zPosition = 6
                 self.validateCollision()
                 
                 self.run(travelAction) {
-                    self.zPosition = 7
+                    self.zPosition = 5
                     self.validateCollision()
                     
                     self.run(travelAction) {
-                        self.zPosition = 6
+                        self.zPosition = 4
                         self.validateCollision()
                         
                         self.run(travelAction) {
-                            self.zPosition = 5
+                            self.zPosition = 3
                             self.validateCollision()
                             
                             self.run(travelAction) {
-                                self.zPosition = 4
+                                self.zPosition = 2
                                 self.validateCollision()
                                 
                                 self.run(travelAction) {
-                                    self.zPosition = 3
+                                    self.zPosition = 1
                                     self.validateCollision()
                                     
                                     self.run(travelAction) {
-                                        self.zPosition = 2
+                                        self.zPosition = 0
                                         self.validateCollision()
                                         
                                         self.run(travelAction) {
-                                            self.zPosition = 1
-                                            self.validateCollision()
+                                            self.zPosition = -0.999
                                             
                                             self.run(travelAction) {
-                                                self.zPosition = 0
-                                                self.validateCollision()
+                                                self.zPosition = -0.998
                                                 
                                                 self.run(travelAction) {
-                                                    self.zPosition = -0.999
-                                                    
-                                                    self.run(travelAction) {
-                                                        self.zPosition = -0.998
-                                                        
-                                                        self.run(travelAction) {
-                                                            self.zPosition = -0.997
-                                                            self.run(self.scaleToZeroAndRemoveAction)
-                                                        }
-                                                    }
+                                                    self.zPosition = -0.997
+                                                    self.run(self.scaleToZeroAndRemoveAction)
                                                 }
                                             }
                                         }
