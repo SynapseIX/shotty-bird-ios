@@ -550,8 +550,7 @@ extension GameScene {
     /// - Parameter location: Tap locatiopn on screen.
     /// - Returns: Value of `true` if the pause button was tapped.
     private func handlePauseButton(in location: CGPoint) -> Bool {
-        guard let view = view,
-              let pauseButton = childNode(withName: "pauseButton") as? SKSpriteNode else {
+        guard let pauseButton = childNode(withName: "pauseButton") as? SKSpriteNode else {
             return false
         }
         if pauseButton.contains(location) {
